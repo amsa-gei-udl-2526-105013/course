@@ -1,16 +1,716 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "AMSA 105013: System Administration",
-    "section": "",
-    "text": "Course Title\nSystems and Applications Administration and Management\n\n\nSemester\n1st Semester of the Bachelor’s Degree in Computer Engineering\n\n\nCourse Year\nThird Year\n\n\nProfessor\nJordi Mateo\n\n\nDepartment\nComputer Engineering and Digital Design\n\n\nUniversity\nUniversity of Lleida\n\n\nCourse Guide\n105013\n\n\nSchool"
+    "objectID": "slides/01-foundations-of-systems-administration.html#benvinguda",
+    "href": "slides/01-foundations-of-systems-administration.html#benvinguda",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Benvinguda",
+    "text": "Benvinguda\n\n\n\n\n\n\n\n\n\n\n\nAdministració i Manteniment de Sistemes i Aplicacions (AMSA)\n\n\n1r Semestre, 3r Curs del Grau en Enginyeria Informàtica. Impartida per Jordi Mateo, professor del Departament d’Enginyeria Informàtica i Disseny Digital (DEIDD).\n\n\n\n\n\n\n\n\n\n(Font: Extret de Neowin)\n\n\n\n\nBenvinguts al curs 25/26 de Administració i Manteniment de Sistemes i Aplicacions. Aquesta assignatura pretén introduir-vos en el món de l’administració de sistemes i aplicacions, així com en la seva gestió i manteniment.\nAquesta vinyeta, amb un toc d’humor, il·lustra la dedicació d’un administrador de sistemes. Malgrat el caos i els reptes, la seva prioritat és assegurar que els sistemes funcionin correctament i estiguin sempre disponibles. Independentment del que passi fora de la sala de servidors. La seva feina consisteix a mantenir la infraestructura, prevenir problemes i resoldre’ls ràpidament per garantir la continuïtat dels serveis.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
   },
   {
-    "objectID": "index.html#schedule-materials-assignments",
-    "href": "index.html#schedule-materials-assignments",
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-ladministració-de-sistemes",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-ladministració-de-sistemes",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és l’Administració de Sistemes?",
+    "text": "Què és l’Administració de Sistemes?\n\n\n\n\n\n\n\n\n\n\nInstruccions\n\n\nEscaneja el codi QR amb el teu dispositiu mòbil o accedeix a l’enllaç per respondre a l’enquesta inicial. Respon amb una paraula o frase curta a la pregunta: Què és l’Administració de Sistemes?\n\n\n\n\n\nPer començar, m’agradaria conèixer la vostra opinió sobre què és l’Administració de Sistemes. Per fer-ho, crearem un núvol de paraules amb les vostres respostes, al final de curs analitzarem les respostes i veurem si la vostra opinió ha canviat. Enllaç al wordcloud",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-ladministració-de-sistemes-1",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-ladministració-de-sistemes-1",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és l’Administració de Sistemes?",
+    "text": "Què és l’Administració de Sistemes?\n\n\n\n\nL’administració de sistemes és la disciplina tècnica que implica la configuració, la gestió, la supervisió i el manteniment continu d’infraestructures informàtiques (servidors, xarxes, emmagatzematge de dades, programari, seguretat, etc.), per garantir la seva disponibilitat, rendiment, seguretat i funcionalitat, amb l’objectiu de satisfer les necessitats operacionals i estratègiques de l’organització.\n\n\nSi preguntem a ChatGPT que ens defineixi formalment què és l’Administració de Sistemes, ens dirà que és la disciplina tècnica que implica la configuració, la gestió, la supervisió i el manteniment continu d’infraestructures informàtiques (servidors, xarxes, emmagatzematge de dades, programari, seguretat, etc.), per garantir la seva disponibilitat, rendiment, seguretat i funcionalitat, amb l’objectiu de satisfer les necessitats operacionals i estratègiques de l’organització.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-administrador",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-administrador",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un administrador?",
+    "text": "Què és un administrador?\n\n\n\n\nUn administrador és una persona que té cura, gestiona o dirigeix els béns o els interessos d’una altra persona o entitat. En aquest cas, configurar, gestionar, supervisar i mantenir sistemes informatics.\n\n\nFixeu-vos en els elements clau de la definició:\nSegons la RAE, un administrador és una persona que té cura, gestiona o dirigeix els béns o els interessos d’una altra persona o entitat. En aquest cas, configurar, gestionar, supervisar i mantenir sistemes informatics. Això implica que la primera part de la definició de ChatGPT està en línia amb la definició de l’administrador.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-sistema",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-sistema",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un sistema?",
+    "text": "Què és un sistema?\n\n\n\n\nUn sistema és un conjunt d’elements interconnectats que treballen junts per aconseguir un objectiu comú. El Sistema Informàtic està format per hardware, programari, dades, xarxes, persones, etc., que treballen junts per processar informació.\n\n\nSegons la RAE, un sistema és un conjunt d’elements interconnectats que treballen junts per aconseguir un objectiu comú. El Sistema Informàtic està format per hardware, programari, dades, xarxes, persones, etc., que treballen junts per processar informació. Això implica que la segona part de la definició de ChatGPT necessita ser més específica per reflectir la complexitat i diversitat dels sistemes informàtics i no únicament la infraestructura.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#quines-són-les-métriques-a-garantir",
+    "href": "slides/01-foundations-of-systems-administration.html#quines-són-les-métriques-a-garantir",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Quines són les métriques a garantir?",
+    "text": "Quines són les métriques a garantir?\n\nDisponibilitat: Capacitat d’un sistema per estar operatiu i accessible als usuaris en tot moment.\nRendiment: Mesura de l’eficiència amb què un sistema utilitza els recursos disponibles per executar tasques.\nSeguretat: Capacitat d’un sistema per protegir les dades i recursos contra accessos no autoritzats, atacs i pèrdues.\nFuncionalitat: Conjunt de característiques i capacitats que un sistema ofereix per complir amb els requisits operatius i les necessitats dels usuaris.\n\n\nA què ens referim quan diem garantir unes mètriques com la disponibilitat, el rendiment, la seguretat i la funcionalitat d’un sistema?\n\nDisponibilitat: La disponibilitat d’un sistema es refereix a la capacitat d’aquest de romandre operatiu i accessible als usuaris en tot moment, minimitzant el temps d’inactivitat. Això implica assegurar que el sistema estigui disponible per a l’ús en qualsevol moment, evitant interrupcions i fallades.\nRendiment: El rendiment d’un sistema es refereix a la mesura de l’eficiència amb què aquest utilitza els recursos disponibles per executar tasques de manera ràpida i efectiva. Això implica garantir que el sistema pugui processar dades i executar tasques de manera eficient, sense retards ni interrupcions.\nSeguretat: La seguretat d’un sistema es refereix a la capacitat d’aquest de protegir les dades i recursos contra accessos no autoritzats, atacs i pèrdues. Això implica implementar mesures de seguretat, com xifrat, autenticació, control d’accés i monitorització, per protegir la informació i els recursos del sistema.\nFuncionalitat: La funcionalitat d’un sistema es refereix al conjunt de característiques i capacitats que aquest ofereix per complir amb els requisits operatius i les necessitats dels usuaris. Això implica garantir que el sistema pugui realitzar les tasques i funcions requerides, oferint una experiència d’usuari satisfactòria i complint amb les expectatives dels usuaris.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#quines-són-les-necessitats-a-satisfer",
+    "href": "slides/01-foundations-of-systems-administration.html#quines-són-les-necessitats-a-satisfer",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Quines són les necessitats a satisfer?",
+    "text": "Quines són les necessitats a satisfer?\n\nNecessitats Operacionals: Requisits i objectius relacionats amb l’execució diària i el funcionament eficient dels sistemes, com ara la disponibilitat, el rendiment i la seguretat.\nNecessitats Estratègiques: Objectius i metes a llarg termini de l’organització, com ara la innovació, la competitivitat i l’adaptabilitat o la escalabilitat dels sistemes.\n\n\nFinalment, la definició de ChatGPT també fa referència a les necessitats operacionals i estratègiques de l’organització. Això implica que l’administració de sistemes no només es centra en garantir el funcionament i la seguretat dels sistemes, sinó que també té en compte els objectius i les metes de l’organització en conjunt. Això significa que els administradors de sistemes han de tenir en compte les necessitats operacionals i estratègiques de l’organització per garantir que els sistemes compleixin amb els requisits i expectatives de l’empresa.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#millorant-la-definició-feta-per-chatgpt",
+    "href": "slides/01-foundations-of-systems-administration.html#millorant-la-definició-feta-per-chatgpt",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Millorant la definició feta per ChatGPT",
+    "text": "Millorant la definició feta per ChatGPT\nL’administració de sistemes és la disciplina tècnica que implica la configuració, gestió, supervisió i manteniment continu d’infraestructures informàtiques (servidors, xarxes, emmagatzematge de dades, programari, seguretat, etc.)\naixí com la coordinació de les persones usuàries, polítiques, procediments i dades associades\nper garantir la disponibilitat, rendiment, seguretat i funcionalitat del sistema, amb l’objectiu de satisfer les necessitats operacionals i estratègiques de l’organització en conjunt.\n\nLa definició de ChatGPT no és incorrecta, però és una mica limitada. Un sistema no només està format per infraestructures (hardware, programari, xarxes, etc.), sinó que també inclou altres elements com les persones, les polítiques, els procediments, les dades que estan relacionades amb les necessitats operacionals i estratègiques. Per tant, la definició millorada inclou aquests elements per proporcionar una visió més completa de l’administració de sistemes.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#analogia-amb-matrix",
+    "href": "slides/01-foundations-of-systems-administration.html#analogia-amb-matrix",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Analogia amb Matrix",
+    "text": "Analogia amb Matrix\n\nQuants de vosaltres heu vist la pel·lícula Matrix? Què té a veure amb l’Administració de Sistemes?\n\n\n\n\n\nIntroducció a System Administration - CBT Nuggets (0:32 fins a 2:16)\n\n\n\n\nL’autor del clip fa una analogia entre l’administració de sistemes i la pel·lícula Matrix. En aquesta pel·lícula, els personatges principals són capaços de controlar i manipular el món virtual de Matrix, canviant la realitat a voluntat. Aquesta analogia reflecteix la capacitat dels administradors de sistemes per controlar i gestionar els sistemes informàtics, configurant-los, supervisant-los i mantenint-los per garantir el seu funcionament i seguretat. Compara matrix amb un super administrador de sistemes que controla tots els aspectes i us permet menjar dos pastilles per canviar la realitat (una de blava i una de vermella). Una us permet ser administrador de sistemes i l’altra us permet ser usuari de sistemes. Aquesta analogia és una manera divertida de visualitzar el paper dels administradors de sistemes i la seva capacitat per controlar i gestionar els sistemes informàtics.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#evolució",
+    "href": "slides/01-foundations-of-systems-administration.html#evolució",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Evolució",
+    "text": "Evolució\n\n\n\n\n\nsequenceDiagram\n    participant Maquinari\n    participant Virtualització\n    participant Contenidors\n    participant DevOps\n    participant IaC as Infraestructura com a Codi\n    participant FaaS as Funcions com a Servei\n\n    rect rgb(255, 255, 204)\n        Note over Maquinari: 1. Configuració Tradicional\n        Maquinari-&gt;&gt;Maquinari: L'administrador es centra en el hardware\n    end\n\n    rect rgb(204, 255, 204)\n        Note over Maquinari,Virtualització: 2. Virtualització\n        Maquinari-&gt;&gt;Virtualització: Aïllament de S.O.\n    end\n\n    rect rgb(204, 255, 255)\n        Note over Maquinari,DevOps: 3. Contenidors i DevOps\n        Virtualització-&gt;&gt;Contenidors: Aïllament d'aplicacions\n        Contenidors-&gt;&gt;DevOps: Faciliten el desplegament continu\n    end\n\n    rect rgb(255, 204, 255)\n        Note over Maquinari,IaC: 4. Infraestructura com a Codi (IaC)\n        DevOps-&gt;&gt;IaC: Automatització total de la infraestructura\n    end\n\n    rect rgb(255, 204, 204)\n        Note over Maquinari,FaaS: 5. Funcions com a Servei (FaaS)\n        IaC-&gt;&gt;FaaS: Abstracció completa de la plataforma\n    end\n\n\n\n\n\n\n\nFa una dècada, el món del software i el hardware era molt diferent del que coneixem avui en dia. Els servidors eren físics, les aplicacions s’executaven en un únic servidor i la infraestructura era estàtica i difícil de modificar. Els administradors de sistemes treballaven en un entorn dominat pel hardware i els cables, dedicant moltes hores a configurar i mantenir els servidors. Al mateix temps, els desenvolupadors de software operaven en un univers separat, on les aplicacions s’executaven en servidors físics i tenien poc control sobre la infraestructura. Aquesta separació va generar una divisió notable entre els dos grups, amb escassa comunicació i col·laboració.\nLa situació va canviar radicalment amb l’arribada de la virtualització. Aquesta tecnologia va permetre als administradors de sistemes crear màquines virtuals i clons de servidors, simplificant enormement la gestió i configuració de la infraestructura. La virtualització va marcar un punt d’inflexió, transformant la manera de gestionar els sistemes i permetent als desenvolupadors provar i desplegar aplicacions en entorns aïllats, millorant així la qualitat i fiabilitat del software i apropant els dos grups.\nL’aparició dels contenidors va suposar un altre gran avanç en l’administració de sistemes. Aquesta tecnologia va permetre als desenvolupadors empaquetar aplicacions i les seves dependències en contenidors lleugers i portàtils, que podien ser executats en qualsevol entorn. Això va impulsar el concepte de DEVOPS, facilitant la col·laboració entre els equips de desenvolupament i operacions per automatitzar i millorar els processos de desplegament, monitorització i gestió de la infraestructura.\nDEVOPS va emergir com a resposta a aquest canvi, promovent la col·laboració, comunicació i integració entre els equips de desenvolupament i operacions, amb l’objectiu de millorar la qualitat del software i accelerar el desplegament d’aplicacions. Aquesta metodologia va permetre als equips treballar conjuntament per automatitzar i perfeccionar els processos relacionats amb la infraestructura.\nLa pràctica de Infrastructure as Code (IAC) va completar aquest procés, permetent gestionar la infraestructura de manera programàtica mitjançant codi. Això va permetre als equips de desenvolupament i operacions tractar la infraestructura com a codi, aplicant les mateixes pràctiques de desenvolupament de software en la seva gestió. Com a resultat, la col·laboració, integració i automatització dels processos van millorar, augmentant la fiabilitat i escalabilitat de la infraestructura.\nFinalment, amb l’aparició dels conceptes serverless i Function as a Service (FAAS), la diferenciació entre desenvolupament i operacions va desaparèixer completament. Aquest nou model (actual) permet als desenvolupadors executar funcions de manera aïllada i eficient, sense preocupar-se de la infraestructura subjacent. Aquesta nova forma de treballar ha millorat la productivitat i flexibilitat dels equips de desenvolupament, facilitant el desenvolupament i desplegament d’aplicacions en entorns dinàmics i escalables. Els administradors de sistemes han evolucionat de tècnics centrats en la infraestructura a enginyers de sistemes i aplicacions, amb un enfocament més ampli i integrat en el desenvolupament de software.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#sortides-professionals",
+    "href": "slides/01-foundations-of-systems-administration.html#sortides-professionals",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Sortides Professionals",
+    "text": "Sortides Professionals\n\n\nL’administració de sistemes és una disciplina àmplia i diversa, que no segueix una única via d’aprenentatge. Aquesta professió inclou una gran varietat de rols i especialitzacions, però no compta amb un itinerari professional clarament establert, fet que dificulta l’ensenyament de tots els seus aspectes en una sola assignatura. Si observeu el pla d’estudis del Grau en Enginyeria Informàtica, veureu que inclou assignatures orientades a la programació, amb sortides professionals com a desenvolupadors de software en diferents àmbits. Alhora, també ofereix formació en computació (xarxes, sistemes operatius, bases de dades), amb possibilitats laborals com a enginyer de xarxes o administrador de bases de dades.\nTradicionalment, l’administració de sistemes ha estat vinculada a les operacions, amb sortides professionals com a tècnic de suport o tècnic de centre de dades, sovint allunyades dels perfils d’un enginyer informàtic. No obstant això, avui en dia, l’administració de sistemes ha evolucionat significativament, donant lloc a perfils més avançats i tècnics com DevOps, SRE (Site Reliability Engineer), i Cloud Engineer, que ofereixen oportunitats laborals molt més atractives i alineades amb les necessitats del mercat actual.\nAquesta assignatura té com a objectiu introduir-vos al món de l’administració de sistemes i aplicacions, així com a la seva gestió i manteniment. Ho farem amb una visió actualitzada, orientada cap a les sortides professionals més demandades en el mercat laboral, preparant-vos per a perfils amb més responsabilitat i especialització dins del camp de les tecnologies de la informació.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#objectius-del-curs",
+    "href": "slides/01-foundations-of-systems-administration.html#objectius-del-curs",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Objectius del curs",
+    "text": "Objectius del curs\n\nIntroduir-vos en el món de l’administració de sistemes i aplicacions, així com en la seva gestió i manteniment.\nRepasar llenguatges de programació i scripting per a l’automatització de tasques. Bash, AWK, YAML, que ens permetran utilitzar eines com Ansible, AWS CloudFormation, Docker, Kubernetes, etc.\nApendre a gestionar, configurar i monitoritzar servidors en entorns físics i virtuals.\nIntroduir-vos en el món del Cloud Computing i les seves principals plataformes (AWS, Azure, Google Cloud).\nDesplegar serveis Web, Bases de Dades, Aplicacions i Infraestructures en diferents entorns.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#metodologia",
+    "href": "slides/01-foundations-of-systems-administration.html#metodologia",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Metodologia",
+    "text": "Metodologia\n\nTeoria: En aquestes sessions, es presentaran els continguts teòrics de l’assignatura, que es complementaran amb exemples il·lustratius. Com a material de suport, s’utilitzaran les diapositives de l’assignatura.\nPràctiques: Aquestes sessions es basen en una metodologia activa i asincrònica que permet a cada estudiant o grup avançar al seu ritme. El contingut és autosuficient, i la funció del professor és fomentar el debat i ajudar a resoldre dubtes.\nTreball autònom: Aquesta part del curs implica la finalització dels laboratoris i l’elaboració d’informes a partir dels reptes proposats. També inclou la lectura i visualització de documentació tècnica; així com la realització d’activitats al cloud AWS.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#planificació-part-i",
+    "href": "slides/01-foundations-of-systems-administration.html#planificació-part-i",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Planificació Part I",
+    "text": "Planificació Part I\n\n\n\n\n\n\n\n\nSet.\nDilluns\nDimecres\n\n\n\n\n1a\n-\nU1: Fonaments de l’Administració\n\n\n2a\nU2: Procés d’Arrencada i Inicialització del Sistema\nU2: Procés d’Arrencada i Inicialització\n\n\n3a\nU2: Procés d’Arrencada i Inicialització del Sistema\nU2: Procés d’Arrencada i Inicialització\n\n\n4a\nU3: Sis. de Fitxers i Emmagatzematge\nU3: Sis. de Fitxers i Emmagatzematge\n\n\n5a\nU3: Sis. de Fitxers i Emmagatzematge\nU3: Sis. de Fitxers i Emmagatzematge\n\n\n6a\nU3: Sis. de Fitxers i Emmagatzematge\nU4: Autenticació i Autorització\n\n\n7a\nU4: Autenticació i Autorització\nU4: Autenticació i Autorització\n\n\n8a\nWorkshop\nWorkshop\n\n\n9a\nPARCIALS",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#planificació-part-ii",
+    "href": "slides/01-foundations-of-systems-administration.html#planificació-part-ii",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Planificació Part II",
+    "text": "Planificació Part II\n\n\n\nSet.\nDilluns\nDimecres\n\n\n\n\n10a\nU5: Virtualització\nU5: Virtualització\n\n\n11a\nU5: Virtualització\nU5: Virtualització\n\n\n12a\nU6: Computació en el Núvol\nU6: Computació en el Núvol\n\n\n13a\nU6: Computació en el Núvol\nU6: Computació en el Núvol\n\n\n14a\n-\nU7: Orquestració i CI/CD\n\n\n15a\nWorkshop\nWorkshop\n\n\n16a\nPARCIALS\n\n\n\n17a\n\n\n\n\n18a\n\n\n\n\n19a\nRECUPERACIONS",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-criteris",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-criteris",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Criteris",
+    "text": "Avaluació · Criteris\n\n\n\n\n\n\n\n\n\n\n\nBloc\nActivitat\nPes\nRecuperable?\nNota Mínima?\nGrup?\n\n\n\n\nExàmens\nExamen 1\n35%\nSí\nNo\nNo\n\n\nExàmens\nExamen 2\n35%\nSí\nNo\nNo\n\n\nPràctiques\nLaboratori\n20%\nNo\nSí\nSí\n\n\nActivitats\nActivitats Async\n5%\nNo\nNo\nNo\n\n\nParticipació\nSeguiment i participació\n5%\nNo\nNo\nNo\n\n\nExtra\nNotes setmanals\n5%\nNo\nNo\nNo\n\n\nExtra\nMillora materials\n5%\nNo\nNo\nNo",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-exàmens",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-exàmens",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Exàmens",
+    "text": "Avaluació · Exàmens\n\nEls exàmens parcials (E1 i E2) són proves escrites que avaluen els coneixements teòrics i pràctics adquirits durant el curs. Cadascun té un pes del 35% de la nota final. Són proves individuals i presencials, i es realitzaran en les dates establertes al calendari acadèmic.\nDurant aquestes proves, no es permet l’ús de cap dispositiu electrònic (telèfons mòbils, ordinadors portàtils o tauletes). Tanmateix, es permet l’ús d’un resum de continguts, que ha de ser un document escrit a mà i no pot excedir una fulla DIN A4 (per davant i per darrere).",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-recuperació",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-recuperació",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Recuperació",
+    "text": "Avaluació · Recuperació\n\nEls parcials són recuperables mitjançant proves escrites addicionals que es realitzaran durant la setmana de recuperació.\nSi un estudiant necessita recuperar un únic parcial (E1 o E2), podrà fer una prova específica per a aquest parcial. La qualificació obtinguda en aquesta recuperació substituirà la nota del parcial corresponent.\nSi un estudiant necessita recuperar ambdós parcials, haurà de realitzar dues proves separades, una per a cada parcial (E1 i E2). Les qualificacions obtingudes en cadascuna d’aquestes proves de recuperació substituiran les notes originals dels parcials respectius.\nÉs important notar que no hi haurà un model d’examen unificat per a la recuperació; cada prova de recuperació se centrarà exclusivament en els continguts del parcial al qual correspon.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-pràctiques",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-pràctiques",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Pràctiques",
+    "text": "Avaluació · Pràctiques\n\nLes pràctiques de l’assignatura impliquen treball fora de l’aula i s’han de lliurar de forma estricta en les dates establertes. La seva avaluació es farà mitjançant rúbriques de correcció, que estaran disponibles per als estudiants amb antelació.\nEl professorat pot entrevistar els estudiants per verificar l’autoria i la comprensió. Si es detecta que una activitat no ha estat realitzada per l’estudiant, podrà ser suspesa.\nQualsevol entrega fora del termini establert es considerarà no vàlida i es qualificarà amb un 0.\nLa nota final de les pràctiques s’obtindrà calculant la mitjana ponderada de les qualificacions de cada pràctica, tenint en compte que cadascuna pot tenir una ponderació específica\nAquestes pràctiques no són recuperables.\nTot i ser activitats en grup, cada estudiant pot obtenir una nota diferent en funció de la seva participació i aportacions individuals al grup.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-activitats-asíncrones-a-aws",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-activitats-asíncrones-a-aws",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Activitats Asíncrones a AWS",
+    "text": "Avaluació · Activitats Asíncrones a AWS\nAquestes activitats asíncrones es realitzaran a la plataforma AWS al llarg del curs. La seva finalitat és que completis totes les activitats i laboratoris proposats, ja que la qualificació es basarà íntegrament en la finalització d’aquests. Completar totes les tasques et donarà el 5% de la nota final. Si en fas només una part, la puntuació serà proporcional a les activitats que hagis realitzat.\n\nNo recuperable: Aquesta activitat no disposa de recuperació.\nData límit: La data màxima per a la presentació i finalització és el dia de l’E2.\nValor afegit: Obtenció d’un certificat oficial AWS.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-seguiment-i-participació",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-seguiment-i-participació",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació Seguiment i Participació",
+    "text": "Avaluació Seguiment i Participació\n\n\n\n\n\n\n\nRúbrica d’Avaluació\n\n\n\n\n\n\n\n\n\n\n\nPunts\nParticipació Presencial\nParticipació en Fòrums\nActivitats Sessió\n\n\n\n\n10\nContribucions excepcionals,enriqueix la discussió.\nLíder en discussions, promou debat.\nQualitat excepcional, supera expectatives.\n\n\n9\nComentaris rellevants, mostra comprensió, escolta activament.\nRespostes significatives.\nAlta qualitat, treball precís.\n\n\n8\nContribucions regulars, interactua amb companys.\nPublicacions rellevants, contribueix constructivament.\nCompleix tots requisits amb precisió.\n\n\n7\nParticipa amb una comprensió bàsica.\nCompleix mínims, contribucions breus.\nQualitat inconsistent però acceptable.\n\n\n5-6\nPoca freqüència, comentaris superficials.\nPublicacions rares, poc profundes.\nAlgunes activitats incompletes.\n\n\n1-4\nNomés participa si se li demana.\nPublicacions irrellevants.\nRarament completa activitats.\n\n\n0\nEvita participar, distret.\nPublicacions fora de tema.\nNo lliura activitats.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-1",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-1",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Bonus 1",
+    "text": "Avaluació · Bonus 1\n\n\n\nObjectiu: Fomentar la reflexió i l’autoavaluació dels continguts treballats a classe.\nMetodologia: Cada setmana, els estudiants han de fer un commit al seu repositori d’apunts amb les notes de les sessions de teoria i pràctiques.\nAvaluació: Es valorarà la qualitat de les notes, la seva coherència i la seva relació amb els continguts treballats, així com les reflexions i opinions personals incloses.\n\n\n\n\nExemple de Notes\n## Setmana X\n\n# Resum teòric\n\n# Exemples pràctics\n\n# Dubtes i preguntes\n\n# Reflexions personals\n\n\n\n\n\n\n\nNo es permet cap altre forma\n\n\nLes notes han de ser escrites en format Markdown i mantingudes en un repositori Git i Github.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-2",
+    "href": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-2",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Avaluació · Bonus 2",
+    "text": "Avaluació · Bonus 2\n\n\n\nEls materials de l’assignatura segueixen la metodologia de Open Source.\nAixò vol dir que qualsevol estudiant pot detectar errors, millorar els materials o afegir continguts nous.\nPer tant, cada estudiant pot fer fork del repositori de l’assignatura i fer pull request amb les seves correccions i millores.\nS’avaluarà la quantitat i qualitat de les correccions, deteccions i millores realitzades en els materials de l’assignatura.\n\n\n\n\n\n\n\n\n\ngraph TD\n        A(↓ Pull · git pull)\n        B(Crea una branca · git branch)\n        C(Fes canvis)\n        D(↑ Push · git push)\n        E(Obre una Pull Request)\n\n    A -- \"Actualitzar\" --&gt; B\n    B -- \"Treballar aïlladament\" --&gt; C\n    C -- \"Guarda els teus canvis\" --&gt; D\n    D -- \"Proposa els canvis\" --&gt; E\n\n    style A fill:#e6f3ff,stroke:#007bff,stroke-width:2px;\n    style B fill:#fff0e6,stroke:#ff8c00,stroke-width:2px;\n    style C fill:#f0fff0,stroke:#28a745,stroke-width:2px;\n    style D fill:#e6f9ff,stroke:#17a2b8,stroke-width:2px;\n    style E fill:#e6e6ff,stroke:#6610f2,stroke-width:2px;\n\n    linkStyle 0 stroke:#007bff,stroke-width:2px;\n    linkStyle 1 stroke:#ff8c00,stroke-width:2px;\n    linkStyle 2 stroke:#28a745,stroke-width:2px;\n    linkStyle 3 stroke:#17a2b8,stroke-width:2px;",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-i---gestió-del-curs",
+    "href": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-i---gestió-del-curs",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Normativa del curs (I) - Gestió del curs",
+    "text": "Normativa del curs (I) - Gestió del curs\n\nEs demana que els estudiants arribin puntuals a les sessions. L’entrada tardana pot interrompre la dinàmica de la classe i el treball dels companys.\nLes sessions de tutoria es realitzaran de manera presencial o virtual, segons les necessitats dels estudiants. És important que els estudiants sol·licitin cita prèvia per a les tutories utilitzant el correu electrònic jordi.mateo@udl.cat indicant el motiu de la consulta i la disponibilitat horària i afegint l’assumpte [AMSA]: Sol·licitud de Tutoria.\nEs demana que els estudiants respectin les normes de convivència i respecte mutu durant les sessions de classe. Això inclou evitar interrupcions innecessàries, escoltar activament als companys i al professor, i mantenir un ambient de treball positiu i constructiu.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-ii---grups",
+    "href": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-ii---grups",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Normativa del curs (II) - Grups",
+    "text": "Normativa del curs (II) - Grups\n\nCada estudiant és responsable de la seva pròpia feina i de com gestiona el seu temps. L’assistència a classe no és obligatòria, però és altament recomanable per garantir el seguiment adequat de l’assignatura.\nDurant les sessions de laboratori, es fomenta el treball en grup, sempre de manera ordenada i respectuosa envers els companys.\nCada alumne ha de presentar evidències pròpies del treball realitzat, encara que es col·labori en grup.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-iii---ús-de-la-intelligència-artificial-generativa",
+    "href": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-iii---ús-de-la-intelligència-artificial-generativa",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Normativa del curs (III) - Ús de la Intel·ligència Artificial Generativa",
+    "text": "Normativa del curs (III) - Ús de la Intel·ligència Artificial Generativa\n\nPots utilitzar eines d’IAG per generar idees, entendre conceptes complexos o esbossar l’estructura inicial del teu codi o projecte. No obstant això, la implementació i la versió final han de ser sempre de la teva autoria.\nEstà estrictament prohibit presentar codi o solucions generades directament per una IAG com a treball propi (és a dir, mitjançant un simple copiar i enganxar).\nSi incorpores material assistit per una IAG, has de declarar-ho explícitament. Això implica identificar clarament les seccions generades per IAG i proporcionar el prompt exacte utilitzat per crear-les.\n\n\n\n\n\n\n\n\nNormativa de Convivència de la UdL\n\n\nL’incompliment d’aquestes directrius es considerarà una violació de la integritat acadèmica i pot comportar una qualificació de zero en la tasca, a més de les conseqüències disciplinàries que estableix la Normativa de Convivència de la UdL per frau acadèmic.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#eines",
+    "href": "slides/01-foundations-of-systems-administration.html#eines",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Eines",
+    "text": "Eines\n\nOrdinador portàtil amb connexió a Internet.\n\nEs recomana portar el vostre propi ordinador per cursar l’assignatura.\nSi no disposeu d’ordinador, podreu utilitzar els ordinadors de la classe durant les sessions de laboratori.\n\nDistribucions Linux (Debian i AlmaLinux)\n\nÉs obligatori utilitzar les distribucions indicades als laboratoris. Altres distribucions no rebran suport.\n\nSoftware de virtualització (VMWare i QEMU)\n\nEs recomana utilitzar VMWare i QEMU, però podeu optar per altres opcions de virtualització. Heu de ser capaços d’adaptar el material al vostre programari de virtualització.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#materials-i-recursos",
+    "href": "slides/01-foundations-of-systems-administration.html#materials-i-recursos",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Materials i Recursos",
+    "text": "Materials i Recursos\n\nApunts de l’assignatura i materials complementaris proporcionats pel professor al espai de l’assignatura.\nLaboratoris i activitats pràctiques disponibles al repositori de l’assignatura.\nDocumentació oficial de les eines i tecnologies utilitzades.\nFòrums tècnics a la xarxa com Stack Overflow, Reddit, etc.\nLlibres de referència en administració de sistemes:\n\n“UNIX and Linux System Administration Handbook” de Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley.\n“The Practice of System and Network Administration” de Thomas A. Limoncelli, Christina J. Hogan, Strata R. Chalup.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#el-rol-de-ladministrador-de-sistemes---similituds-amb-un-bomber",
+    "href": "slides/01-foundations-of-systems-administration.html#el-rol-de-ladministrador-de-sistemes---similituds-amb-un-bomber",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "El rol de l’administrador de sistemes - Similituds amb un bomber",
+    "text": "El rol de l’administrador de sistemes - Similituds amb un bomber\n\nEls administradors de sistemes han de tenir coneixements tècnics profunds i una actitud proactiva per anticipar problemes i, si cal, resoldre’ls sota pressió, tal com ho faria un bomber en una emergència.\n\n\n\n\n\nEl rol tradicional de l’aministrador de sistemes pot ser semblant al d’un bomber. Ha de treballar per prevenir incendis, però quan hi ha un incendi ha de córrer per apagar-lo i restaurar la situació el més ràpid. No importa l’hora, el lloc o el dia, l’administrador de sistemes ha de ser capaç de respondre a les emergències i solucionar els problemes de manera eficient i efectiva. Això requereix una gran habilitat tècnica, coneixements profunds dels sistemes i una actitud proactiva per anticipar-se als problemes i resoldre’ls ràpidament. Els administradors de sistemes han de ser tant proactius com reactius, prevenint problemes i responent ràpidament davant els imprevistos per garantir la continuïtat del servei. Poden utilitzar eines com Nagios, Zabbix, Prometheus per monitoritzar els sistemes i detectar problemes abans que es converteixin en emergències reals. Però, han d’intervenir i improvisar quan calgui per resoldre els problemes i restaurar la normalitat.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#el-rol-de-ladministrador-de-sistemes---similituds-amb-un-científic",
+    "href": "slides/01-foundations-of-systems-administration.html#el-rol-de-ladministrador-de-sistemes---similituds-amb-un-científic",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "El rol de l’administrador de sistemes - Similituds amb un científic",
+    "text": "El rol de l’administrador de sistemes - Similituds amb un científic\n\n\n\n\n\n\n\nEls administradors de sistemes han de ser capaços de resoldre problemes complexos i trobar solucions creatives.\nAixò pot ser semblant al treball d’un científic, que ha de plantejar hipòtesis, realitzar experiments i analitzar dades per arribar a conclusions.\nPer exemple, una empresa pot necessitar donar codis d’accés temporals als usuaris per connectar-se a la xarxa Wifi. En lloc de gestionar-ho manualment, un administrador de sistemes va crear un sistema que generava codis d’accés temporals quan els usuaris tocaven un platan connectada a un Raspberry Pi.\n\n\n\nUn altra característica de l’administrador de sistemes és la seva capacitat per resoldre problemes complexos i trobar solucions creatives. Això pot ser semblant al treball d’un científic, que ha de plantejar hipòtesis, realitzar experiments i analitzar dades per arribar a conclusions.\nPer exemple, una empresa pot necessitar donar codis d’accés temporals als usuaris per connectar-se a la xarxa Wifi. En lloc de gestionar-ho manualment, un administrador de sistemes va crear un sistema que generava codis d’accés temporals quan els usuaris tocaven un platan connectada a un Raspberry Pi. Aquesta solució creativa i inesperada va permetre automatitzar una tasca manual i millorar l’experiència de l’usuari. Això demostra la capacitat de l’administrador de sistemes per trobar solucions innovadores i eficients als problemes que es presenten.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#salari-administrador-de-sistemes",
+    "href": "slides/01-foundations-of-systems-administration.html#salari-administrador-de-sistemes",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Salari Administrador de Sistemes",
+    "text": "Salari Administrador de Sistemes\n\n\n\n\n\nEl salari base segons el portal payscale a Espanya és de mitjana 30k amb un potencial de creixement a futtur de 10k. Aquesta dada és orientativa i pot variar segons la ubicació, l’experiència, les habilitats i la formació del professional. Però, en comparativa amb altres sortides professionals, l’administrador de sistemes igual no és una opció interessant. Analitzem ara sortides professionals més especialitzades.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#especialitzacions-en-administració-de-sistemes",
+    "href": "slides/01-foundations-of-systems-administration.html#especialitzacions-en-administració-de-sistemes",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Especialitzacions en Administració de Sistemes",
+    "text": "Especialitzacions en Administració de Sistemes\n\n\n\nAdministradors de Xarxa, Enmagatzematge, Seguretat\nOperadors de Xarxa\nArquitectes de Sistemes\nTècnics de Suport\nTècnics de Centre de Dades\nEnginyers de Sistemes\nEnginyer DEVOPS\nEnginyer SRE (Site Reliability Engineer)\n\n\n\n\n\nHi ha una gran varietat d’especialitzacions dins l’àmbit de l’administració de sistemes, cada una amb responsabilitats úniques que poden influir en el salari i els rols. A continuació, detallem algunes d’aquestes especialitzacions:\n\nAdministradors de Xarxa: S’encarreguen de la configuració, gestió i manteniment de routers, switches, firewalls i altres dispositius de xarxa en entorns físics i virtuals. La seva tasca és garantir la connectivitat i seguretat de les xarxes de l’empresa.\nAdministradors de Emmagatzematge: Gestionen sistemes de fitxers, solucions de còpies de seguretat i tecnologies d’emmagatzematge de dades com NETAPP o EMC. Són responsables d’assegurar que les dades estiguin segures i accessibles.\nAdministradors de Seguretat: Protegeixen els sistemes informàtics contra amenaces i atacs cibernètics. Implementen polítiques de seguretat, gestionen certificats digitals i realitzen auditories de seguretat per protegir la informació sensible.\nOperadors de Xarxa: Supervisionen el funcionament diari de les xarxes, gestionant el trànsit de dades i resolent problemes de connexió o rendiment. S’asseguren que les xarxes funcionin sense interrupcions.\nArquitectes de Sistemes: Dissenyen i planifiquen la infraestructura tecnològica de l’empresa. Són responsables d’assegurar que els sistemes compleixin els requisits de rendiment, seguretat i escalabilitat.\nTècnics de Suport: Ofereixen assistència tècnica als usuaris, resolent problemes i incidents a través de sistemes de tickets. La seva tasca és garantir que els usuaris puguin utilitzar les tecnologies sense problemes.\n\n-Tècnics de Centre de Dades: Gestionen i mantenen els servidors, xarxes i altres equips físics en els centres de dades. S’asseguren que el centre de dades funcioni amb alta disponibilitat i rendiment.\n\nEnginyers de Sistemes: Són responsables de dissenyar, implementar i mantenir la infraestructura informàtica de l’empresa. La seva tasca és assegurar que els sistemes compleixin els requisits operatius i tècnics.\n\nAra veurem dues especialitzacions més avançades i amb més demanda en el mercat laboral actual: Enginyer DEVOPS i Enginyer SRE (Site Reliability Engineer) amb detall. També us deixo un enllaç a un llibre que parla de les diferents especialitzacions.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-site-reliability-engineer-sre",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-site-reliability-engineer-sre",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un Site Reliability Engineer (SRE)?",
+    "text": "Què és un Site Reliability Engineer (SRE)?\nEls Site Reliability Engineers (SRE) són enginyers de sistemes especialitzats en la fiabilitat i l’escalabilitat dels sistemes informàtics. Estan centrats en les operacions, utilitzant el software com a eina per gestionar els sistemes, solucionar els afers i automatitzar tasques. Les seves missions són crear sistemes escalables i fiables.\n\nFiabilitat del Sistema: Nagios, Zabbix, Prometheus.\nEscalabilitat: Kubernetes, Docker, Terraform.\nMonitorització i Alertes: Grafana, ELK Stack, PagerDuty.\nGestió d’Incidents: Jira, ServiceNow, Slack.\nOptimització de Rendiment: New Relic, Datadog, AppDynamics.\nAutomatització de Processos: Ansible, Puppet, Chef.\n\n\nAmb l’evolució contínua de les tecnologies cloud i l’augment de la demanda de serveis digitals, les pràctiques de Site Reliability Engineering (SRE) s’han convertit en una peça clau per a moltes organitzacions. Un SRE es pot definir com un professional especialitzat en garantir que les empreses compleixin els seus Acords de Nivell de Servei (SLA) pel que fa a disponibilitat, rendiment, experiència de l’usuari i indicadors clau de negoci (KPIs). Això implica centrar-se en la millora de la fiabilitat i l’escalabilitat dels sistemes, així com en la implementació de pràctiques d’integració i lliurament continu (CI/CD), reforçar la seguretat i optimitzar els costos operatius.\nEls SREs aprofiten el programari com una eina per gestionar i automatitzar els sistemes, identificar i resoldre problemes, i automatitzar processos amb l’objectiu final de construir infraestructures escalables i fiables que responguin als objectius de negoci.\nLes funcions principals d’un SRE inclouen la monitorització constant dels sistemes, la gestió d’alertes i resposta a incidents, l’automatització de tasques rutinàries, i l’optimització de l’escala i adaptabilitat dels recursos tecnològics. A més, col·laboren estretament amb els equips de desenvolupament per assegurar la millora contínua de la fiabilitat i el rendiment dels sistemes.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#salari-dun-site-reliability-engineer",
+    "href": "slides/01-foundations-of-systems-administration.html#salari-dun-site-reliability-engineer",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Salari d’un Site Reliability Engineer",
+    "text": "Salari d’un Site Reliability Engineer\n\n\n\n\n\nEls Site Reliability Engineers (SREs) experimenten un increment salarial substancial en comparació amb els administradors de sistemes. Un SRE pot començar guanyant fins a 50.000 € durant el seu primer any, i amb l’experiència, arribar fins als 70.000 € o més en un termini de cinc anys. Aquest diferencial salarial reflecteix la creixent importància i demanda de professionals especialitzats en la fiabilitat i escalabilitat dels sistemes informàtics. A diferència dels administradors de sistemes, els SREs no només es dediquen a mantenir la infraestructura, sinó que també se centren en optimitzar la resiliència i eficiència dels serveis digitals, assegurant que compleixin els Acords de Nivell de Servei (SLA). Per tant, si t’interessa un rol amb responsabilitats més tècniques i un potencial de creixement major, el camí d’SRE pot ser una opció molt atractiva dins del mercat laboral actual. Les seves responsabilitats dins de l’empresa són molt importants i tenen un impacte directe amb els objectius de negoci.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-devops-engineer",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-devops-engineer",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un DevOps Engineer?",
+    "text": "Què és un DevOps Engineer?\nEls DevOps Engineers són professionals clau en la integració i col·laboració entre els equips de desenvolupament (Dev) i operacions (Ops), amb l’objectiu principal de millorar l’eficiència i agilitat dels processos de desenvolupament de software. El seu treball se centra en accelerar el desplegament d’aplicacions, millorar la qualitat del software i optimitzar els fluxos de treball, fent ús intensiu de l’automatització, la integració contínua (CI) i el lliurament continu (CD).\n\nAutomatització: Jenkins, GitLab CI, Bamboo.\nGestió d’infraestructura com a codi (IaC): Terraform, Ansible, CloudFormation.\nContenidors i orquestració: Docker, Kubernetes.\nMonitorització i registre: Prometheus, Grafana, ELK Stack.\nCol·laboració i comunicació: Slack, Jira, Confluence.\n\n\nMentre que els Sysadmins tradicionalment s’ocupen de la gestió i manteniment de la infraestructura, com ara servidors, xarxes i sistemes operatius, els DevOps Engineers van més enllà d’aquestes tasques. El seu rol inclou l’automatització de processos, la implementació de pipelines de CI/CD, la gestió de contenidors (com Docker) i la infraestructura com a codi (IaC), com Terraform o Ansible. En lloc d’enfocar-se només en el manteniment i la disponibilitat dels sistemes, els DevOps Engineers treballen per integrar millor el desenvolupament i les operacions, assegurant que els nous llançaments de software siguin ràpids, segurs i consistents.\nTot i que hi ha solapaments entre DevOps i SRE, les diferències clau radican en l’enfocament i les prioritats. Mentre que els DevOps Engineers se centren en l’optimització dels processos de desenvolupament i operacions a través de la col·laboració i l’automatització, els SREs estan més orientats a la fiabilitat i escalabilitat dels sistemes en producció. El SRE té un enfocament més específic en mantenir els serveis en línia, gestionant incidents, optimitzant el rendiment i assegurant-se que es compleixen els SLA. Tot i que ambdós rols treballen amb eines similars, com CI/CD i contenidors, els SREs tenen més responsabilitats en la resolució d’incidents crítics i en la millora de la resiliència del sistema.\nCom podeu veure les eines tecnològiques que utilitzen els DevOps Engineers són molt similars a les dels SREs, però la seva aplicació i objectius són diferents. Per tant, apunteu-vos aquestes eines i tecnologies, ja que són essencials pel món laboral actual.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#salari-dun-devops-engineer",
+    "href": "slides/01-foundations-of-systems-administration.html#salari-dun-devops-engineer",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Salari d’un DevOps Engineer",
+    "text": "Salari d’un DevOps Engineer\n\n\n\n\n\nEls DevOps Engineers, igual que els SREs, gaudeixen d’un salari més alt i d’un major potencial de creixement professional en comparació amb els administradors de sistemes tradicionals. Si t’apassiona l’administració de sistemes enfocada a l’automatització del desplegament de software, el disseny i la gestió de pipelines de CI/CD, l’ús de contenidors i la implementació d’infraestructura com a codi, el rol de DevOps Engineer pot oferir-te una carrera més atractiva i plena d’oportunitats. En l’actualitat, moltes empreses busquen professionals amb habilitats en DevOps.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#transfomració-del-administrador-de-sistemes-a-sre",
+    "href": "slides/01-foundations-of-systems-administration.html#transfomració-del-administrador-de-sistemes-a-sre",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Transfomració del Administrador de Sistemes a SRE",
+    "text": "Transfomració del Administrador de Sistemes a SRE\n\n\n\n\nDamon Edwards, co-fundador de Rundeck, parla de la transformació d’un administrador de sistemes a un Site Reliability Engineer (SRE) i com aquesta evolució pot ajudar a millorar la fiabilitat dels sistemes i la productivitat dels equips de desenvolupament. Aquesta xerrada va ser presentada a la DevOpsCon 2019.\n\n\nEn aquest curs, veure una pinzellada de les tasques d’un SRE i d’un DevOps Engineer quan introduïm les eines de monitorització, automatització i CI/CD. Però, si voleu aprofundir en la temàtica, us recomano aquesta xerrada de la DevOpsCon, per Damon Edwarks, que parla del tema i explica com un administrador de sistemes es pot transformar en un SRE tenint en compte una responsabilitat compartida entre els SLOs i els errors de pressupost.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#arquitectura-client-servidor",
+    "href": "slides/01-foundations-of-systems-administration.html#arquitectura-client-servidor",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Arquitectura Client-Servidor",
+    "text": "Arquitectura Client-Servidor\nUna arquitectura client-servidor involucra uns sistemes que necessiten serveis i uns servidors que processen i responen a aquestes peticions.\n\n\nClient\nUn ordinador o dispositiu capaç de rebre informació o utilitzar un servei o proveïdor.\nServidor\nUn ordinador o dispositiu remot capaç de proveir accés a un servei o a informació.\n\n\n\n\nUn dels conceptes més importants en l’administració de sistemes és l’arquitectura client-servidor. Aquesta arquitectura implica la interacció entre dos tipus de sistemes: els clients, que sol·liciten serveis o informació, i els servidors, que processen i responen a aquestes peticions. Aquesta arquitectura és àmpliament utilitzada en entorns informàtics, com ara la web, les xarxes d’ordinadors i les aplicacions empresarials.\nPer exemple, quan un usuari accedeix a una pàgina web, el seu navegador actua com a client i sol·licita la pàgina al servidor web. El servidor de DNS consulta la URL i retorna l’adreça IP del servidor web. El navegador envia una petició HTTP o HTTPS al servidor web, que respon amb els fitxers necessaris per mostrar la pàgina al navegador. Aquest procés implica la comunicació entre el client i el servidor per proporcionar la informació sol·licitada a l’usuari.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#característiques-client-servidor",
+    "href": "slides/01-foundations-of-systems-administration.html#característiques-client-servidor",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Característiques Client-Servidor",
+    "text": "Característiques Client-Servidor\n\n\nAvantatges\n\n\n\nSistema centralitzat Totes les dades en un lloc.\nPolítiques de recuperació de dades.\nSeparació de la lògica.\n\n\n\n\nInconvenients\n\n\n\nAtacs de denegació de serveis.\nMan-in-the-middle.\nPhishing.\nSpoofing.\n\n\n\n\n\nAquesta arquitectura té avantatges i inconvenients. Entre els avantatges es troba la centralització de les dades, ja que tota la informació es troba en un únic lloc, el que facilita la gestió i la recuperació de les dades. A més, permet establir polítiques de recuperació de dades i separar la lògica de negoci de la interfície d’usuari, el que facilita la gestió i el manteniment del sistema. D’aquesta manera, els desenvolupadors poden centrar-se en la lògica de negoci sense preocupar-se de la interfície d’usuari. Per exemple, en una aplicació web, la lògica de negoci es pot gestionar al servidor, mentre que la interfície d’usuari es pot gestionar al client.\nEls principals inconvenients d’aquesta arquitectura són els possibles atacs de denegació de serveis, els atacs de l’home al mig, el phishing i l’usurpació d’identitat. Aquests atacs poden comprometre la seguretat del sistema i posar en perill la informació dels usuaris. Per tant, és important implementar mesures de seguretat per protegir el sistema i les dades dels usuaris. Un atac de denegació de servei enviarà moltes peticions al servidor per saturar-lo i fer-lo caure. Un atac de l’home al mig intercepta les comunicacions entre el client i el servidor per obtenir informació sensible. El phishing és un atac en què els atacants envien correus electrònics falsos per enganyar els usuaris i obtenir informació confidencial. L’usurpació d’identitat implica fer-se passar per una altra persona per obtenir accés a informació o recursos sensibles. Per tant, és molt imporant ser conscients d’aquests riscos i implementar mesures de seguretat per protegir el sistema i les dades dels usuaris.\nA la figura s’observa com múltiples clients es comuniquen amb un servidor central per obtenir informació o serveis. I com multiples servidors poden comunicar-se amb altres servidors per obtenir informació o serveis. També 1 client pot comunicar-se amb múltiples servidors. Per exemple, un client pot accedir a un servidor web per obtenir informació i a un servidor de correu per enviar correus electrònics. El servidor web pot comunicar-se amb el servidor de correu per enviar notificacions als usuaris.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#servidors-més-comuns",
+    "href": "slides/01-foundations-of-systems-administration.html#servidors-més-comuns",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Servidors més comuns",
+    "text": "Servidors més comuns\n\n\n\nServidor d’autenticació.\nServidor de fitxers.\nServidor de discos.\nServidor de correu.\nServidor de base de dades.\n\n\n\nServidor SSH.\nServidor Web.\nServidor d’aplicacions.\nServidor de backups.\nServidor de còmput.\n\n\n\nHi ha molts tipus de servidors en funció de l’objectiu que tenen. Alguns dels servidors més comuns són els servidors d’autenticació, que s’encarreguen de gestionar l’accés dels usuaris als sistemes; els servidors de fitxers, que emmagatzemen i gestionen els fitxers i documents de l’empresa; els servidors de discos, que proporcionen emmagatzematge addicional als servidors; els servidors de correu, que gestionen el correu electrònic de l’empresa; els servidors de base de dades, que emmagatzemen i gestionen les dades de l’empresa; els servidors SSH, que permeten l’accés remot als servidors; els servidors web, que allotgen les pàgines web de l’empresa; els servidors d’aplicacions, que executen les aplicacions de l’empresa; els servidors de backups, que realitzen còpies de seguretat de les dades de l’empresa; i els servidors de còmput, que realitzen càlculs i processos computacionals entre altres.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#exemple-darquitectura-escalable",
+    "href": "slides/01-foundations-of-systems-administration.html#exemple-darquitectura-escalable",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Exemple d’arquitectura escalable",
+    "text": "Exemple d’arquitectura escalable\n\n\n\n\nA la figura proporcionada es mostra una arquitectura típicament utilitzada per al desplegament d’una web escalable i fiable. En aquesta arquitectura, el punt d’entrada és un balancejador de càrrega, que distribueix les peticions entre els diversos servidors web. Els servidors web, que poden ser rèpliques, allotgen les pàgines web i gestionen les peticions dels usuaris. Aquestes pàgines web necessiten accedir a un servidor de base de dades per emmagatzemar i gestionar les dades associades. Cada base de dades està protegida per un servidor de backups, que realitza còpies de seguretat per garantir la recuperació en cas de fallades. A més, per millorar la velocitat de càrrega de les pàgines web, es fa servir un dispositiu CDN (Content Delivery Network) que redirigeix les peticions als servidors més propers a l’usuari.\nAquesta arquitectura és àmpliament utilitzada per allotjar llocs webs, ja que ofereix una combinació d’escalabilitat i fiabilitat, assegurant un rendiment òptim i una alta disponibilitat per als usuaris finals.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#problemes-més-comuns-servidors-i",
+    "href": "slides/01-foundations-of-systems-administration.html#problemes-més-comuns-servidors-i",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Problemes més comuns servidors (I)",
+    "text": "Problemes més comuns servidors (I)\n\nQui i com accedeix a la informació?\n\nDeterminar qui (usuari,procés,servei) pot accedir a quins fitxers i directoris i com ho pot fer (lectura, escriptura, execució).\nPermisos, ACLs, polítiques de seguretat.\n\nCom protegeixo la informació?\n\nDeterminar com protegir la informació sensible i confidencial.\nEncriptació, contrasenyes, autenticació, autorització, auditoria, backups.\n\nCom asseguro el sistema?\n\nProtegir el sistema contra atacs i amenaces.\nFirewall, IDS/IPS, antivirus, actualitzacions, patches, hardening.\n\n\n\nUn dels problemes més comuns en els servidors és determinar qui i com accedeix a la informació. Això implica definir qui (usuari, procés, servei) pot accedir a quins fitxers i directoris i com ho pot fer (lectura, escriptura, execució). Per fer-ho, es poden utilitzar permisos, llistes de control d’accés (ACLs) i polítiques de seguretat per garantir que només els usuaris autoritzats puguin accedir a la informació.\nUn altre problema comú és com protegir la informació sensible i confidencial. Això implica determinar com protegir la informació per evitar l’accés no autoritzat. Per fer-ho, es poden utilitzar tècniques com l’encriptació, les contrasenyes, l’autenticació, l’autorització, l’auditoria i els backups per garantir la seguretat i la privacitat de la informació.\nUn altre problema és com assegurar el sistema contra atacs i amenaces. Això implica protegir el sistema contra atacs externs i interns que puguin comprometre la seguretat i la integritat del sistema. Per fer-ho, es poden utilitzar eines com el firewall, els sistemes de detecció i prevenció d’intrusions (IDS/IPS), l’antivirus, les actualitzacions, els patches i el hardening per garantir la seguretat del sistema.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#problemes-més-comuns-servidors-ii",
+    "href": "slides/01-foundations-of-systems-administration.html#problemes-més-comuns-servidors-ii",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Problemes més comuns servidors (II)",
+    "text": "Problemes més comuns servidors (II)\n\nCom puc saber si el client és qui diu ser?\n\nAutenticar els usuaris i els dispositius.\nContrasenyes, certificats digitals, autenticació multifactorial.\n\nQuins avantatges/inconvenients té un disseny respecte a un altre?\n\nDeterminar quin disseny és més adequat per a les necessitats de l’empresa.\nEscalabilitat, rendiment, seguretat, disponibilitat, fiabilitat.\n\nCom asseguro el bon funcionament?\n\nGarantir que el sistema funcioni correctament i sense problemes.\nMonitorització, alertes, backups, redundància, tolerància a fallades.\n\n\n\nUn altre problema és com autenticar els usuaris i els dispositius per garantir que siguin qui diuen ser. Això implica autenticar els usuaris i els dispositius per garantir que només els usuaris autoritzats puguin accedir a la informació. Per fer-ho, es poden utilitzar tècniques com les contrasenyes, els certificats digitals i l’autenticació multifactorial per garantir la seguretat i la privacitat de la informació.\nUn altre problema comú és determinar quins avantatges i inconvenients té un disseny respecte a un altre. Això implica determinar quin disseny és més adequat per a les necessitats de l’empresa en termes d’escalabilitat, rendiment, seguretat, disponibilitat i fiabilitat. Per fer-ho, es poden avaluar els avantatges i inconvenients de cada disseny per garantir que s’adeqüi a les necessitats de l’empresa.\nUn altre problema és com assegurar el bon funcionament del sistema. Això implica garantir que el sistema funcioni correctament i sense problemes. Per fer-ho, es poden utilitzar tècniques com la monitorització, les alertes, els backups, la redundància i la tolerància a fallades per garantir que el sistema funcioni correctament i sense problemes.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#problemes-més-comuns-servidors-iii",
+    "href": "slides/01-foundations-of-systems-administration.html#problemes-més-comuns-servidors-iii",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Problemes més comuns servidors (III)",
+    "text": "Problemes més comuns servidors (III)\n\nCom dissenyo polítiques i plans d’emergència si tot falla?\n\nPreparar-se per a situacions d’emergència i desastres.\nPlans de contingència, plans de recuperació, plans de resposta a incidents.\n\nCom analitzo post-mortem les causes d’un atac?\n\nIdentificar les causes d’un atac i prendre mesures correctives.\nAnàlisi forense, auditoria, millora contínua.\n\n\n\nUn altre problema és com dissenyar polítiques i plans d’emergència si tot falla. Això implica preparar-se per a situacions d’emergència i desastres per garantir la continuïtat del negoci. Per fer-ho, es poden utilitzar plans de contingència, plans de recuperació i plans de resposta a incidents per garantir que l’empresa pugui respondre de manera eficaç a situacions d’emergència i desastres.\nFinalment, un altre problema és com analitzar post-mortem les causes d’un atac per identificar les causes i prendre mesures correctives. Això implica realitzar una anàlisi forense, una auditoria i una millora contínua per identificar les causes d’un atac i prendre mesures correctives per evitar que es repeteixin en el futur.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-centre-de-dades",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-centre-de-dades",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un centre de dades?",
+    "text": "Què és un centre de dades?\nÉs una instal·lació que allotja un conjunt de servidors i equipament de xarxa (recursos heterogenis) per proporcionar recursos informàtics a diverses aplicacions i serveis (càrregues de treball diverses).\n\n\n\n\nEsquema d’un centre dades\n\n\n\n\nUn centre de dades o data center és un espai físic on s’allotgen els servidors, els dispositius de xarxa i altres equips informàtics necessaris per emmagatzemar, processar i distribuir la informació. Aquests centres de dades poden ser propis de l’empresa o externs, i poden ser gestionats per l’empresa o per un proveïdor de serveis. Els centres de dades són essencials per a les empreses que necessiten emmagatzemar i processar grans quantitats de dades, ja que proporcionen l’espai, la infraestructura i els recursos necessaris per garantir el funcionament dels sistemes informàtics.\nUn exemple notable de reutilització d’estructures per a centres de dades és l’ús d’edificis històrics com esglésies i mines abandonades. Aquests espais, amb les seves condicions úniques i sovint amb una infraestructura sòlida, són adaptats per allotjar servidors i equips. Per exemple, l’antiga església de Saint-Ouen a França ha estat convertida en un centre de dades, aprofitant la seva estructura i espai per complir amb els requisits tecnològics moderns. D’altra banda, la mina de carboni de Pionen a Suècia ha estat transformada en un centre de dades subterrani, oferint una protecció física addicional contra desastres naturals i atacs.\nGoogle disposa de servidors al fons del mar, aprofitant l’energia de les ones per refredar els servidors i reduir el consum energètic. Aquesta innovadora solució aprofita els recursos naturals per millorar l’eficiència energètica dels centres de dades i reduir l’impacte ambiental. Aquestes iniciatives mostren la diversitat de solucions i enfoques per a la gestió de centres de dades, adaptant-se a les necessitats i condicions específiques de cada empresa.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-rack",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-rack",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un rack?",
+    "text": "Què és un rack?\nUn rack és una estructura metàl·lica que allotja servidors, switches, routers i altres equips informàtics en un centre de dades.\n\n\n\n\nRacks del CPD de la UdL\n\n\n\n\nUn rack és una estructura metàl·lica que allotja servidors, switches, routers i altres equips informàtics en un centre de dades. Aquests racks permeten organitzar i protegir els equips informàtics, així com facilitar la gestió dels cables i la refrigeració dels equips. Cada rack pot contenir diversos servidors, switches i altres equips, i es pot apilar verticalment per aprofitar l’espai disponible al centre de dades. A més, els racks disposen de panells laterals i portes per protegir els equips i garantir la seguretat dels servidors i altres equips informàtics.\nPer exemple, a la imatge us mostro els racks d’un passadís del centre de dades de la Universitat de Lleida, on es poden aquests armaris, penseu que cada rack pot contenir diversos servidors, switches i altres equips informàtics, i únciament es veu un dels múltiples passadissos del centre de dades. En aquest centre de dades és on tenim el Campus Virtual, les eines i dades dels estudiants i professors, així com els servidors de recerca dels grups de recerca de la UdL, entre d’altres.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#exemple-de-racks",
+    "href": "slides/01-foundations-of-systems-administration.html#exemple-de-racks",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Exemple de racks",
+    "text": "Exemple de racks\n\n\n\n\n\n\nRack 1 - GCD - Davant\n\n\n\n\n\n\n\n\n\n\nRack 1 - GCD - Darrera\n\n\n\n\n\nAra us mostro un rack, en concret els servidors són del grup de recerca en computació distribuïda. A la part de dalt es pot veure un switch, i la resta só servidors. A la part de davant es poden veure els servidors i a la part de darrera els cables de xarxa i alimentació. En aquest cas, hi ha diferents colors de cables per identificar la xarxa a la qual pertanyen i la seva funció.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#exemple-de-servidor",
+    "href": "slides/01-foundations-of-systems-administration.html#exemple-de-servidor",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Exemple de servidor",
+    "text": "Exemple de servidor\n\n\n\n\n\n\nExterior d’un servidor\n\n\n\n\n\n\n\n\n\n\nInterior d’un servidor\n\n\n\n\n\nEn aquestes imatges podem fer zoom i veure els components exteriors i interiors d’un servidor. A la imatge 8 es pot veure com cada disc té un indicador de color per identificar el disc en cas de fallada. A la imatge 9 es pot veure la placa base, els discos durs, la font d’alimentació, la memòria RAM i el processador.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-un-switch",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-un-switch",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és un switch?",
+    "text": "Què és un switch?\nUn switch és un dispositiu de xarxa que connecta diversos equips informàtics per permetre la comunicació entre ells.\n\n\n\n\nSwitch\n\n\n\n\nUn switch és un dispositiu de xarxa que connecta diversos equips per facilitar la comunicació entre ells. Cada switch utilitza una taula de comutació per dirigir les dades cap al destinatari correcte. Aquesta taula permet al switch conèixer quins equips estan connectats a quins ports i escollir la millor ruta per enviar les dades. Els ports del switch es poden configurar per assignar-los a VLANs (Xarxes Locals Virtuals), la qual cosa permet segmentar la xarxa en diverses sub-xarxes, millorant així la seguretat i el rendiment global de la xarxa.\nNo confondre un switch amb un router. Un switch connecta diversos equips dins de la mateixa xarxa local, mentre que un router connecta diverses xarxes locals o xarxes WAN (Xarxes d’Àrea Ampliada). Els routers utilitzen taula de rutes per determinar la millor ruta per enviar les dades entre xarxes, mentre que els switches utilitzen taula de comutació per enviar les dades entre equips dins de la mateixa xarxa local.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#característiques-dun-sistema",
+    "href": "slides/01-foundations-of-systems-administration.html#característiques-dun-sistema",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Característiques d’un sistema",
+    "text": "Característiques d’un sistema\n\nSimplicitat\nEscalabilitat\nSeguretat\nFiabilitat\nDisponibilitat\nRendiment\nFacilitat d’ús\n\n\nEn el disseny de sistemes informàtics, és important tenir en compte diverses característiques per garantir que el sistema sigui eficient, segur i fiable. Algunes de les característiques més importants d’un sistema són la simplicitat, l’escalabilitat, la seguretat, la fiabilitat, la disponibilitat, el rendiment i la facilitat d’ús. Ara bé, sovint intentem dotar sistemes amb característiques que no es poden afegir després de la seva construcció. Per exemple, intentar aplicar “seguretat” després que les interfícies del sistema hagin estat definides produeix restriccions i limitacions; intentar fer un sistema amb limitacions intrínseques funcionar en circumstàncies per les quals no va ser dissenyat produeix “hacks” i “workarounds” i el resultat final sovint essembla més una casa de cartes fràgil que una estructura sòlida i fiable.\nPer tant, quan discutim sobre el disseny de sistemes informàtics, és important tenir en compte aquestes característiques i assegurar-nos que el sistema compleixi els objectius de l’empresa i sigui capaç de respondre a les necessitats dels usuaris",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-lescalabilitat",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-lescalabilitat",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és l’escalabilitat?",
+    "text": "Què és l’escalabilitat?\n\n\nL’escalabilitat és la capacitat d’un sistema per gestionar un augment de la càrrega de treball sense afectar el rendiment.\n\nVertical: augmentar la capacitat d’un servidor afegint més recursos (CPU, memòria, disc).\nHoritzontal: augmentar la capacitat d’un sistema afegint més servidors.\n\n\n\n\n\nEscalabilitat\n\n\n\n\n\n\n\n\n\n\n\n\nExemple\n\n\nEl serveis al núvol permeten pagar només pel que s’utilitza, permetent augmentar o disminuir la capacitat segons les necessitats. Et permet estirar els recursos tecnològics com un globus d’aire calent, augmentant la capacitat quan és necessari i reduint-la quan ja no és necessari.\n\n\n\n\n\nEscalabilitat es refereix a la capacitat d’un sistema per gestionar un augment en la càrrega de treball sense que el seu rendiment es vegi afectat. És un concepte clau en el disseny de sistemes informàtics, especialment en entorns amb variacions en la demanda. Aquesta capacitat s’aconsegueix mitjançant dues estratègies principals:\n\nEscalabilitat Vertical: Consisteix en millorar la capacitat d’un servidor afegint més recursos com CPU, memòria o disc. Això permet que un servidor maneje una càrrega de treball més gran sense necessitat d’addicional hardware.\nEscalabilitat Horitzontal: Consisteix en augmentar la capacitat del sistema afegint més servidors. Això distribueix la càrrega de treball entre diversos servidors, millorant la capacitat global del sistema.\n\nEn l’entorn de cloud computing, aquest concepte es relaciona sovint amb elasticitat, que és la capacitat d’un sistema per adaptar-se de manera dinàmica a les fluctuacions de la càrrega de treball. Per exemple, una botiga en línia podria experimentar un augment significatiu de trànsit durant el Black Friday. Un sistema escalable i elàstic podria gestionar aquest augment de demanda sense perdre rendiment, i després reduir la capacitat quan la demanda torna a nivells normals.\nL’objectiu és garantir que el sistema pugui mantenir un rendiment òptim i evitar problemes com temps d’espera llargs, errors o caigudes, que podrien afectar negativament l’experiència de l’usuari i els resultats comercials.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-la-fiabilitat",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-la-fiabilitat",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és la fiabilitat?",
+    "text": "Què és la fiabilitat?\nLa fiabilitat d’un sistema es refereix a la seva capacitat per operar sense interrupcions durant un període determinat. La fiabilitat es mesura habitualment mitjançant el MTBF (Mean Time Between Failures), que indica el temps mitjà que un sistema pot funcionar abans de fallar. Per exemple, si un sistema té un MTBF de 1000 hores, això vol dir que, de mitjana, es pot esperar que el sistema falli cada 1000 hores d’ús.\n\n\\[ MTBF = \\frac{Temps\\ total\\ de\\ funcionament}{Nombre\\ de\\ fallades} \\]\n\n\nPer millorar la fiabilitat i minimitzar les interrupcions, es poden implementar tècniques com la redundància. Un exemple comú és l’ús de servidors en configuració de calent i fred:\n\nServidor en calent: És el servidor principal que està en funcionament i gestionant les operacions actuals.\nServidor en fred: És un servidor de reserva que es manté en espera i es posa en marxa només quan el servidor en calent falla.\n\n\n\nLa fiabilitat és la capacitat d’un sistema per mantenir-se operatiu durant un període de temps determinat sense fallar. Es mesura en MTBF (Mean Time Between Failures). Per exemple, un sistema amb un MTBF de 1000 hores es pot esperar que falli cada 1000 hores d’ús.\nUna forma d’evitar fallades és la redundància, imagineu que tenim un servidor en calent (actual) i un servidor en fred (reserva) que es posa en marxa en cas de fallada del servidor actual. En aquest cas, el sistema és més fiable perquè si falla el servidor actual, el servidor de reserva pot prendre el relleu sense afectar el servei. La contrapartida és que aquesta redundància implica un cost addicional.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-la-disponibilitat",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-la-disponibilitat",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és la disponibilitat?",
+    "text": "Què és la disponibilitat?\nLa disponibilitat d’un sistema es refereix a la seva capacitat per estar operatiu i accessible per als usuaris durant un període de temps determinat.\n\nLa disponibilitat es mesura habitualment mitjançant el MTTR (Mean Time To Repair), que indica el temps mitjà que es triga a reparar un sistema després d’una fallada. Per exemple, si un sistema té un MTTR de 2 hores, això vol dir que, de mitjana, es triga 2 hores a reparar el sistema després d’una fallada.\n\n\n\\[ Disponibilitat = \\frac{Temps\\ de\\ funcionament}{Temps\\ de\\ funcionament + Temps\\ de\\ reparar} \\]\n\n\n\n\n\n\n\n\nExemple\n\n\nAmazon Web Services (AWS) ofereix un SLA (Service Level Agreement) del 99,99%, el que significa que el servei estarà disponible el 99,99% del temps. Si el servei no compleix aquest SLA, AWS ha de compensar els clients amb crèdits de servei.\n\n\n\n\n\nLa disponibilitat d’un sistema es refereix a la seva capacitat per estar operatiu i accessible per als usuaris durant un període de temps determinat. Es mesura en MTTR (Mean Time To Repair), que indica el temps mitjà que es triga a reparar un sistema després d’una fallada. Per exemple, si un sistema té un MTTR de 2 hores, això vol dir que, de mitjana, es triga 2 hores a reparar el sistema després d’una fallada. No confondre amb fiabilitat, que es refereix a la capacitat d’un sistema per operar sense interrupcions durant un període determinat.\nPer exemple, un sistema pot tenir una alta fiabilitat, però una baixa disponibilitat si el temps de reparació després d’una fallada és llarg. D’altra banda, un sistema pot tenir una baixa fiabilitat, però una alta disponibilitat si es pot reparar ràpidament després d’una fallada. La disponibilitat es mesura en percentatge i es pot garantir mitjançant acords de nivell de servei (SLA) que estipulen el temps de disponibilitat del sistema i les compensacions en cas de fallada.\nUn exemple comú d’alta disponibilitat és Amazon Web Services (AWS), que ofereix un SLA del 99,99%, el que significa que el servei estarà disponible el 99,99% del temps.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#kiss-keep-it-simple-stupid",
+    "href": "slides/01-foundations-of-systems-administration.html#kiss-keep-it-simple-stupid",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "KISS: Keep It Simple, Stupid",
+    "text": "KISS: Keep It Simple, Stupid\nUn sistema simple és més fàcil de mantenir, gestionar i entendre. Per dissenyar un sistema simple, es poden seguir les següents pautes:\n\nDivideix i venceràs: Divideix el sistema en components més petits i senzills\nMinimitza la complexitat: Evita la complexitat innecessària i mantén el sistema senzill\nUtilitza estàndards: Utilitza estàndards i pràctiques comunes per simplificar el disseny\nDocumenta el sistema: Documenta el sistema per facilitar la comprensió i el manteniment\nAutomatitza les tasques repetitives: Utilitza la automatització per simplificar les tasques repetitives i reduir els errors humans\n\n\n\n\n\n\n\n\nExemple\n\n\nUn sistema LEGO és un exemple de simplicitat, ja que es pot construir gairebé qualsevol cosa convinant peces senzilles. Aquesta simplicitat permet als usuaris crear i modificar les seves pròpies creacions sense necessitat de coneixements tècnics avançats.\n\n\n\n\n\nKISS és una directriu de disseny que destaca la importància de la simplicitat. Aplicant aquest principi, els sistemes resulten ser més robustos i fàcils de gestionar, cosa que millora la seva eficàcia i la satisfacció de l’usuari.\nAlgunes pautes per aplicar el principi KISS en el disseny de sistemes són:\n\nDivideix i venceràs: Divideix el sistema en components més petits i senzills, per exemple, en lloc de tenir un gran monòlit, divideix el sistema en microserveis.\nMinimitza la complexitat: Evita la complexitat innecessària i mantén el sistema senzill, per exemple, evita l’ús de tecnologies i funcionalitats que no són necessàries.\nUtilitza estàndards: Utilitza estàndards i pràctiques comunes per simplificar el disseny, per exemple, segueix les pràctiques de codificació i disseny recomanades per la comunitat.\nDocumenta el sistema: Documenta el sistema per facilitar la comprensió i el manteniment, per exemple, crea documentació clara i concisa per als desenvolupadors i els usuaris.\nAutomatitza les tasques repetitives: Utilitza la automatització per simplificar les tasques repetitives i reduir els errors humans, per exemple, automatitza les tasques de desplegament i proves per millorar l’eficiència i la fiabilitat del sistema.\n\nUn exemple de simplicitat és un sistema LEGO, que permet als usuaris construir gairebé qualsevol cosa combinant peces senzilles. Aquesta simplicitat permet als usuaris crear i modificar les seves pròpies creacions sense necessitat de coneixements tècnics avançats.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#eines-i-tecnologies-més-comuns",
+    "href": "slides/01-foundations-of-systems-administration.html#eines-i-tecnologies-més-comuns",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Eines i tecnologies més comuns?",
+    "text": "Eines i tecnologies més comuns?\n\nVirtualització: Màquines Virtuals, Contenidors\nCloud Computing: Infraestructura com a Servei (IaaS), Plataforma com a Servei (PaaS), Software com a Servei (SaaS)\nAutomatització: Ansible, Puppet, Chef\nInfraestructura com a Codi: Terraform, CloudFormation\nMonitorització: Nagios, Zabbix, Prometheus\nCI/CD: Jenkins, GitLab CI\nSeguretat: PfSense, Suricata, Snort\nBases de Dades: MySQL, PostgreSQL, MongoDB\nServeis Web: Apache, Nginx, Tomcat\nOrquestació de Contenidors: Kubernetes, Docker Swarm\n\n\nEn el món de l’administració de sistemes, hi ha una gran varietat d’eines i tecnologies que es poden utilitzar per gestionar i mantenir els sistemes informàtics. Algunes de les eines i tecnologies més comuns són:\n\nVirtualització: La virtualització permet crear màquines virtuals i contenidors per aïllar i gestionar els recursos del sistema. Això permet millorar l’eficiència i la flexibilitat dels sistemes, ja que es poden crear múltiples entorns virtuals en un sol servidor físic.\nCloud Computing: El cloud computing ofereix serveis informàtics a través d’Internet, permetent als usuaris accedir a recursos informàtics a la demanda. Això inclou Infraestructura com a Servei (IaaS), Plataforma com a Servei (PaaS) i Software com a Servei (SaaS).\nAutomatització: L’automatització permet automatitzar tasques repetitives i reduir els errors humans. Algunes eines d’automatització com Ansible, Puppet i Chef permeten gestionar la configuració dels servidors de manera eficient.\nInfraestructura com a Codi: L’infraestructura com a codi permet gestionar la infraestructura de manera programàtica, utilitzant codi per definir i gestionar els recursos del sistema. Eines com Terraform i CloudFormation permeten gestionar la infraestructura com a codi.\nMonitorització: La monitorització permet supervisar l’estat dels sistemes i identificar problemes abans que afectin el rendiment. Algunes eines de monitorització com Nagios, Zabbix i Prometheus permeten supervisar els sistemes en temps real.\nCI/CD: La integració contínua (CI) i el desplegament contínu (CD) permeten automatitzar el procés de desenvolupament i desplegament de codi. Eines com Jenkins i GitLab CI permeten implementar pràctiques de CI/CD.\nSeguretat: La seguretat dels sistemes és una preocupació important en l’administració de sistemes. Algunes eines de seguretat com PfSense, Suricata i Snort permeten protegir els sistemes contra atacs i amenaces.\nBases de Dades: Les bases de dades són essencials per emmagatzemar i gestionar la informació dels sistemes. Algunes bases de dades com MySQL, PostgreSQL i MongoDB són àmpliament utilitzades en l’administració de sistemes.\nServeis Web: Els serveis web són essencials per proporcionar serveis i aplicacions a través d’Internet. Algunes eines com Apache, Nginx i Tomcat permeten gestionar i desplegar serveis web.\nOrquestació de Contenidors: L’orquestació de contenidors permet gestionar i coordinar els contenidors en un entorn de contenidors. Eines com Kubernetes i Docker Swarm permeten gestionar i escalar els contenidors de manera eficient.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#virtualització-màquines-virtuals",
+    "href": "slides/01-foundations-of-systems-administration.html#virtualització-màquines-virtuals",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Virtualització (Màquines Virtuals)",
+    "text": "Virtualització (Màquines Virtuals)\n\n\n\n\nEsquema de tipus de virtualització de màquines virtuals\n\n\n\n\nLa virtualització és una tecnologia clau que permet aprofitar millor els recursos d’un servidor físic, creant múltiples màquines virtuals (VMs) que funcionen com a entitats independents, cadascuna amb el seu propi sistema operatiu i aplicacions. Aquest enfocament permet millorar l’eficiència, ja que múltiples màquines virtuals poden compartir un únic servidor físic, maximitzant l’ús dels recursos disponibles i oferint més flexibilitat a l’hora de gestionar sistemes. Per exemple, si voleu executar tant Windows com Linux al vostre ordinador per fer proves, podeu crear màquines virtuals per a cada sistema operatiu utilitzant programes com VirtualBox o VMware. Això us permet treballar amb diferents entorns sense necessitat de tenir diversos ordinadors físics. A nivell de servidors, aquesta mateixa idea es porta a gran escala: un sol servidor físic pot tenir múltiples màquines virtuals aïllades, cada una amb la seva funció específica. Això permet consolidar serveis i maximitzar l’ús de recursos. Per exemple, en una empresa, un sol servidor físic podria allotjar VMs per a bases de dades, aplicacions web, i sistemes de correu, cadascun funcionant de manera independent.\n\nVirtualització Nativa: També coneguda com a “bare-metal”, en aquest tipus, l’hipervisor s’executa directament sobre el maquinari físic sense cap sistema operatiu intermedi. Exemples d’aquesta tecnologia inclouen VMware ESXi o Microsoft Hyper-V. Això ofereix un rendiment molt elevat, ja que no hi ha cap capa addicional entre el maquinari i l’hipervisor, ideal per a entorns de producció.\nVirtualització Allotjada: Aquí, l’hipervisor s’executa sobre un sistema operatiu ja existent. Per exemple, en KVM (Kernel-based Virtual Machine), s’utilitza Linux com a sistema operatiu base, i sobre aquest es creen les màquines virtuals. Aquest enfocament és més fàcil d’implementar però pot sacrificar una mica de rendiment en comparació amb la virtualització nativa.\nParavirtualització: En aquest model, el sistema operatiu convidat sap que està sent virtualitzat i coopera amb l’hipervisor per millorar el rendiment. Un exemple destacat és Xen, que és molt utilitzat en entorns cloud per la seva eficiència. Aquest tipus de virtualització pot oferir un rendiment proper al de la virtualització nativa, però amb més flexibilitat.\nVirtualització Assistida per Hardware: Aquest model aprofita les capacitats del processador per accelerar el procés de virtualització. Processadors moderns com els d’Intel (VT-x) o AMD (AMD-V) ofereixen suport per a aquest tipus de virtualització, que és utilitzat per tecnologies com VMware o Hyper-V.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#virtualització-contenidors",
+    "href": "slides/01-foundations-of-systems-administration.html#virtualització-contenidors",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Virtualització (Contenidors)",
+    "text": "Virtualització (Contenidors)\n\n\n\n\nEsquema de tipus de virtualització de contenidors (Docker)\n\n\n\n\nLa virtualització de contenidors és una tecnologia que permet als desenvolupadors empaquetar aplicacions i les seves dependències en un contenidor lleuger i portàtil que pot ser executat en qualsevol sistema que tingui un motor de contenidors. Aquest enfocament permet als desenvolupadors crear, distribuir i executar aplicacions de manera eficient i fiable, ja que els contenidors són autosuficients i aïllats de l’entorn d’execució. A més, els contenidors són lleugers i portàtils, el que facilita la seva distribució i execució en entorns diversos.\nPer exemple, Docker o containerd són motors de contenidors que permeten als desenvolupadors crear i executar contenidors lleugers i portàtils. Aquests contenidors poden contenir aplicacions, serveis o microserveis, i es poden executar en qualsevol sistema que tingui un motor de contenidors instal·lat. Això permet als desenvolupadors crear, distribuir i executar aplicacions de manera eficient i fiable, ja que els contenidors són autosuficients i aïllats de l’entorn d’execució.\nLa principal diferència entre la virtualització de màquines virtuals i la virtualització de contenidors és el nivell d’abstracció. Mentre que les màquines virtuals virtualitzen tota una màquina física, incloent el sistema operatiu, els contenidors virtualitzen només l’aplicació i les seves dependències, compartint el mateix nucli del sistema operatiu hoste. Això fa que els contenidors siguin més lleugers i portàtils que les màquines virtuals, i permet als desenvolupadors crear i executar aplicacions de manera més eficient i fiable.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#kubernetes",
+    "href": "slides/01-foundations-of-systems-administration.html#kubernetes",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Kubernetes",
+    "text": "Kubernetes\n\n\n\n\nKubernetes\n\n\n\n\nKubernetes és una plataforma de codi obert per a la gestió d’aplicacions en contenidors. Permet als desenvolupadors automatitzar el desplegament, l’escalat i la gestió d’aplicacions en contenidors, oferint una plataforma flexible i escalable per a la implementació d’aplicacions en entorns de producció. Es basa en una arquitectura de màster i nodes, on el màster és responsable de la gestió i control del clúster, mentre que els nodes són els servidors on s’executen les aplicacions en contenidors. Requereix de diferents xarxes (com xarxa de control, xarxa de pod, xarxa de servei) per a la comunicació entre els components del clúster, a més necessita serveis de descobriment de serveis (com etcd) per a la gestió de la configuració i l’estat del clúster, controladors de xarxa (com Flannel) per a la comunicació entre els nodes, i controladors de volums (com Rook) per a la gestió de l’emmagatzematge persistent, un planificador (com kube-scheduler) per a la programació de les tasques, i un controlador de replicació (com kube-controller-manager) per a la gestió de la replicació de les aplicacions i sobretot el kubelet, que és l’agent que s’executa en cada node i és responsable de la gestió dels contenidors en el node. Com veieu, Kubernetes és una plataforma complexa que requereix una configuració i gestió adequades per a garantir el seu funcionament correcte.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#ansible",
+    "href": "slides/01-foundations-of-systems-administration.html#ansible",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Ansible",
+    "text": "Ansible\nAnsible és una eina d’automatització de la configuració i gestió de sistemes. Utilitza un llenguatge senzill basat en YAML per definir les tasques i la configuració dels sistemes, i utilitza SSH per connectar-se als servidors i executar les tasques.\n\n\n- hosts: webservers\n  tasks:\n    - name: Install Apache\n      apt:\n        name: apache2\n        state: present\n    - name: Start Apache\n      service:\n        name: apache2\n        state: started\n\nhosts:\n  webservers:\n    - web1.example.com\n    - web2.example.com\n    - web3.example.com\n\n\nAnsible és una eina d’automatització que ens permet gestionar la configuració dels servidors de manera eficient i fiable. Per exemple, si necessitem instal·lar un servidor web a 10.000 servidors, en lloc de fer-ho manualment en cada servidor, podem utilitzar Ansible per automatitzar aquesta tasca. Amb aquest script indiquem les tasques ha realitzar instal·lar apache i aixecar el servei. I en el fitxer de hosts indiquem els servidors on volem realitzar aquestes tasques.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#què-és-el-cloud-computing",
+    "href": "slides/01-foundations-of-systems-administration.html#què-és-el-cloud-computing",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Què és el Cloud Computing?",
+    "text": "Què és el Cloud Computing?\nLliurament de recursos sota demanda, incloent servidors, emmagatzematge, bases de dades, programari, analítica, i més, a través d’internet amb un model de pagament per ús.\n\n\n\n\n\nclassDiagram\n    direction LR\n    class OnPremise {\n        On-Premise (Cuinar a Casa)\n        Gestió total\n        ✅ Forn, Gas/Electricitat\n        ✅ Taula, Plats, Begudes\n        ✅ Massa, Salsa, Ingredients\n    }\n    class IaaS {\n        IaaS(Compra-la i Enforna-la)\n        El proveïdor et dona la infraestructura\n\n        ❌ Forn, Gas/Electricitat\n        ✅ Taula, Plats, Begudes\n        ✅ Massa, Salsa, Ingredients\n    }\n    class PaaS {\n        PaaS(Pizza a Domicili)\n        Et porten la plataforma llesta per usar\n        ❌ Forn, Gas/Electricitat\n        ✅ Taula, Plats, Begudes\n        ❌ Massa, Salsa, Ingredients\n    }\n    class SaaS {\n        SaaS(Menjar en un Restaurant)\n        Un servei complet, tu només consumeixes\n        ❌ Forn, Gas/Electricitat\n        ❌ Taula, Plats, Begudes\n        ❌ Massa, Salsa, Ingredients\n    }\n\n    OnPremise --|&gt; IaaS: \n    IaaS --|&gt; PaaS: \n    PaaS --|&gt; SaaS: \n    \n    style OnPremise fill:#d4edda,stroke:#28a745,stroke-width:2px;\n    style IaaS fill:#fff3cd,stroke:#ffc107,stroke-width:2px;\n    style PaaS fill:#cfe2ff,stroke:#0d6efd,stroke-width:2px;\n    style SaaS fill:#f8d7da,stroke:#dc3545,stroke-width:2px;\n\n\n\n\n\n\n\nEl cloud computing es refereix al lliurament sota demanda de serveis informàtics, incloent servidors, emmagatzematge, bases de dades, programari, analítica, i molt més, a través d’internet amb un model de pagament per ús.\nAquests recursos s’executen en servidors ubicats en grans centres de dades arreu del món. Els usuaris poden accedir-hi de manera remota des de qualsevol lloc amb connexió a internet. En lloc de posseir i mantenir la seva pròpia infraestructura, els usuaris i empreses poden llogar serveis des d’aplicacions fins a emmagatzematge d’un proveïdor de serveis al núvol. Els recursos es poden combinar com peces de LEGO per crear solucions a mida de les necessitats.\nAquest model ha permès l’evolució de l’administració de sistemes a un nivell superior, permetent als usuaris centrar-se en el desenvolupament d’aplicacions i serveis sense haver de preocupar-se de la infraestructura subjacents.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#amazon-web-services",
+    "href": "slides/01-foundations-of-systems-administration.html#amazon-web-services",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Amazon Web Services",
+    "text": "Amazon Web Services\n\n\n\n\nAmazon Web Services (AWS) és un proveïdor de serveis de computació en núvol que ofereix una àmplia gamma de serveis, incloent servidors virtuals, emmagatzematge, bases de dades, analítica, seguretat, i molt més. AWS permet als usuaris i empreses llogar recursos informàtics a través d’internet, oferint una plataforma flexible i escalable per a la implementació d’aplicacions en núvol. Altres proveïdors de serveis en núvol inclouen Microsoft Azure, Google Cloud Platform, IBM Cloud, i Oracle Cloud, però en aquest curs utilitzarem AWS per raons de popularitat i disponibilitat de recursos.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#cloudformation",
+    "href": "slides/01-foundations-of-systems-administration.html#cloudformation",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "CloudFormation",
+    "text": "CloudFormation\nCloudFormation és un servei d’AWS que permet als desenvolupadors definir i desplegar la infraestructura de manera programàtica mitjançant codi.\nResources:\n  MyInstance:\n    Type: AWS::EC2::Instance\n    Properties:\n      ImageId: ami-0c55b159cbfafe1f0\n      InstanceType: t2.micro\n      KeyName: my-key-pair\n      SecurityGroups:\n        - my-security-group\n\nAWS CloudFormation és un servei que permet als desenvolupadors definir i desplegar la infraestructura de manera programàtica mitjançant codi. Aquest codi es defineix en plantilles de CloudFormation, que descriuen els recursos necessaris per a la infraestructura, com ara instàncies EC2, grups de seguretat, taules de rutes, …, En aquest exemple, es defineix una instància EC2 amb una imatge AMI, un tipus d’instància, una clau SSH, i un grup de seguretat. Un cop es defineix la plantilla, es pot desplegar la infraestructura amb un sol clic o una sola comanda, automatitzant així el procés de desplegament i garantint la consistència de la infraestructura.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#thats-all",
+    "href": "slides/01-foundations-of-systems-administration.html#thats-all",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "That’s all",
+    "text": "That’s all\n\n\n\n\n\n\n\n\n\nTake Home Message\n\n\nUn administrador de sistemes combina habilitats de bomber i investigador: ha de solucionar problemes de manera ràpida i efectiva, però també anticipar-se i prevenir-ne de futurs abans que esdevinguin crítics. Aquesta tasca és complexa i diversa, abastant des de la gestió de cables i servidors físics fins a l’administració de pods i sistemes automàtics sense servidor (serverless).",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "course-information/schedule.html",
+    "href": "course-information/schedule.html",
     "title": "AMSA 105013: System Administration",
-    "section": "Schedule & Materials & Assignments",
-    "text": "Schedule & Materials & Assignments\nBelow is a complete schedule of the topics, course content, and assignments for the semester. Please note that this schedule is a living document and may be updated. All changes will be posted here to ensure you have the most current information.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nType\nDate\nTopic\nSlides\nNotes\nLab\nOthers\nHW\nDeliveries\n\n\n\n\n1\nTheory\n10/09/25\nUnitat 1: Fonaments de l’Administració de Sistemes\n\n\n\n\n\n\n\n\n2\nPractice\n15/09/25\nAWS i Configuració de l’entorn\n\n\n\n\n\nP0: Màquina virtual AWS + JupyterHub (guiada)\n\n\n\nTheory\n17/09/25\nUnitat 2: Procés d’Arrencada i Inicialització del Sistema\n\n\n\n\n\n\n\n\n\nPractice\n\nAWS i Configuració de l’entorn\n\n\n\n\n\nP0: Màquina virtual AWS + JupyterHub (guiada)\n\n\n2\nTheory\n\nArrancada: UEFI/BIOS / Bootloader / Initramfs\n\n\n\n\n\n\n\n\n\nPractice\n\nQemu EFI i Bootloaerd\n\n\n\n\n\nP1: EFI que arrenqui amb QEMU/VirtualBox, d’un kernel de linux concret (QEMU o VirtualBox/VMWare)\n\n\n3\nTheory\n\nServeis: initd/systemd\n\n\n\n\n\n\n\n\n\nPractice\n\nsystemd/journatcl/units timers\n\n\n\n\n\nP1: Script de backup i configuració per a executar cada halt o poweroff\n\n\n4\nTheory\n\nSistema de Fitxers: Abstraccions i Operacions\n\n\n\n\n\n\n\n\n\nPractice\n\nusuaris/grups i acls\n\n\n\n\n\nP1: Modificar initramfs per mostrar un menu (arrancada neta o restauració), en cas de restauracio mostrar tots els backups disponibles.\n\n\n5\nTheory\n\nSistema de Fitxers: VFS\n\n\n\n\n\n\n\n\n\nPractice\n\nparticions discos\n\n\n\n\n\nP2: Diagnosticar i resoldre problemes de permisos en un servidor web en una màquina virtual preconfigurada.\n\n\n6\nTheory\n\nSistema de Fitxers: Overview of Linux I/O Management\n\n\n\n\n\n\n\n\n\nPractice\n\nAWS Networking\n\n\n\n\n\n\n\n\n7\nTheory\n\nRAIDS\n\n\n\n\n\n\n\n\n\nPractice\n\nRAIDS\n\n\n\n\n\n\n\n\n8\nTheory\n\nProjecte AWS: Servei Web escalable guiat\n\n\n\n\n\n\n\n\n\nPractice\n\nProjecte AWS: Wordpress escalable guiat\n\n\n\n\n\n\n\n\n9\nPartial Exam\n\n\n\n\n\n\n\n\n\n\n10\nTheory\n\nVirtualització: Hypervisors, Contenidors\n\n\n\n\n\n\n\n\n\nPractice\n\ndocker\n\n\n\n\n\nP4: Repositori GitHub amb Dockerfile, README.md, i aplicació funcional localment.\n\n\n11\nTheory\n\nCloud Computing\n\n\n\n\n\n\n\n\n\nPractice\n\nOrquestració amb docker-compose\n\n\n\n\n\nP4: docker-compose.yml funcional, connexió entre l’app i la base de dades.\n\n\n12\nTheory\n\nCI/CD i gestió d’entorns\n\n\n\n\n\n\n\n\n\nPractice\n\nAWS S3\n\n\n\n\n\nP4: Codi modificat per utilitzar boto3 per pujar i descarregar imatges de S3.\n\n\n13\nTheory\n\nArquitectures serverless\n\n\n\n\n\n\n\n\n\nPractice\n\nAWS Lambda i ECR\n\n\n\n\n\nP4: Imatge pujada a ECR. Lambda que processa imatges rebudes i les desa a S3.\n\n\n14\nTheory\n\nKubernetes\n\n\n\n\n\n\n\n\n\nPractice\n\nAWS API Gateway i BD\n\n\n\n\n\nP4: API Gateway per fer POST d’imatges. Lambda activada per API. BBDD migrada i connectada per poder fer GET d’algunes dades de la BD.\n\n\n15\nTheory\n\nSeguretat al núvol\n\n\n\n\n\n\n\n\n\nPractice\n\nLogs i Accés Controlat a AWS\n\n\n\n\n\nP4: Logs a CloudWatch, configurar alarma, accés restringit a la BBDD només des de Lambda i API Gateway.\n\n\n16\nFinal Exam\n\n\n\n\n\n\n\n\n\n\n17\nFinal Exam\n\n\n\n\n\n\n\n\n\n\n18\n\n\n\n\n\n\n\n\n\n\n\n19\nRecovery"
+    "section": "",
+    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖"
+  },
+  {
+    "objectID": "course-information/schedule.html#planificació",
+    "href": "course-information/schedule.html#planificació",
+    "title": "AMSA 105013: System Administration",
+    "section": "",
+    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "AMSA 105013: Administració de Sistemes",
+    "section": "",
+    "text": "Course Title\nSystems and Applications Administration and Management\n\n\nSemester\n1st Semester of the Bachelor’s Degree in Computer Engineering\n\n\nCourse Year\nThird Year\n\n\nProfessor\nJordi Mateo\n\n\nSchedule\n📅\n\n\nCourse Guide\n📚\n\n\nSchool\n\n\n\nUniversity\n\n\n\nDepartment"
   }
 ]

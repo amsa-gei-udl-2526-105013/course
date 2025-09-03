@@ -1,0 +1,13 @@
+.mermaid text {
+  font-size: 18px !important;
+}
+
+.center-container {
+  text-align: center;
+}
+
+.center-container > * {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
