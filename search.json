@@ -15,7 +15,7 @@
     "href": "slides/01-foundations-of-systems-administration.html#què-és-ladministració-de-sistemes",
     "title": "Fonaments de l’Administració de Sistemes",
     "section": "Què és l’Administració de Sistemes?",
-    "text": "Què és l’Administració de Sistemes?\n\n\n\n\n\n\n\n\n\n\nInstruccions\n\n\nEscaneja el codi QR amb el teu dispositiu mòbil o accedeix a l’enllaç per respondre a l’enquesta inicial. Respon amb una paraula o frase curta a la pregunta: Què és l’Administració de Sistemes?\n\n\n\n\n\nPer començar, m’agradaria conèixer la vostra opinió sobre què és l’Administració de Sistemes. Per fer-ho, crearem un núvol de paraules amb les vostres respostes, al final de curs analitzarem les respostes i veurem si la vostra opinió ha canviat. Enllaç al wordcloud",
+    "text": "Què és l’Administració de Sistemes?\n\n\n\n\nPer començar, m’agradaria conèixer la vostra opinió sobre què és l’Administració de Sistemes. Per fer-ho, crearem un núvol de paraules amb les vostres respostes, al final de curs analitzarem les respostes i veurem si la vostra opinió ha canviat. Enllaç al wordcloud",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
@@ -165,121 +165,132 @@
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-criteris",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-criteris",
+    "objectID": "slides/01-foundations-of-systems-administration.html#criteris-davaluació",
+    "href": "slides/01-foundations-of-systems-administration.html#criteris-davaluació",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Criteris",
-    "text": "Avaluació · Criteris\n\n\n\n\n\n\n\n\n\n\n\nBloc\nActivitat\nPes\nRecuperable?\nNota Mínima?\nGrup?\n\n\n\n\nExàmens\nExamen 1\n35%\nSí\nNo\nNo\n\n\nExàmens\nExamen 2\n35%\nSí\nNo\nNo\n\n\nPràctiques\nLaboratori\n20%\nNo\nSí\nSí\n\n\nActivitats\nActivitats Async\n5%\nNo\nNo\nNo\n\n\nParticipació\nSeguiment i participació\n5%\nNo\nNo\nNo\n\n\nExtra\nNotes setmanals\n5%\nNo\nNo\nNo\n\n\nExtra\nMillora materials\n5%\nNo\nNo\nNo",
+    "section": "Criteris d’Avaluació",
+    "text": "Criteris d’Avaluació\n\n\n\n\n\n\n\n\n\n\nActivitat\nPes\nRecuperable?\nNota Mínima?\nGrup?\n\n\n\n\nExamen 1\n35%\nSí\nNo\nNo\n\n\nExamen 2\n35%\nSí\nNo\nNo\n\n\nLaboratori\n20%\nNo\nSí\nSí\n\n\nActivitats Async\n5%\nNo\nNo\nNo\n\n\nSeguiment i participació\n5%\nNo\nNo\nNo",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-exàmens",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-exàmens",
+    "objectID": "slides/01-foundations-of-systems-administration.html#exàmens",
+    "href": "slides/01-foundations-of-systems-administration.html#exàmens",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Exàmens",
-    "text": "Avaluació · Exàmens\n\nEls exàmens parcials (E1 i E2) són proves escrites que avaluen els coneixements teòrics i pràctics adquirits durant el curs. Cadascun té un pes del 35% de la nota final. Són proves individuals i presencials, i es realitzaran en les dates establertes al calendari acadèmic.\nDurant aquestes proves, no es permet l’ús de cap dispositiu electrònic (telèfons mòbils, ordinadors portàtils o tauletes). Tanmateix, es permet l’ús d’un resum de continguts, que ha de ser un document escrit a mà i no pot excedir una fulla DIN A4 (per davant i per darrere).",
+    "section": "Exàmens",
+    "text": "Exàmens\nEls exàmens parcials (E1 i E2) són proves escrites que avaluen els coneixements teòrics i pràctics adquirits durant el curs.\n\nSón proves individuals i presencials.\nEs realitzaran en les dates establertes al calendari acadèmic.\nNo es permet l’ús de cap dispositiu electrònic (telèfons mòbils, ordinadors portàtils o tauletes).\nSi es permet l’ús d’un resum de continguts, que ha de ser un document escrit a mà i no pot excedir una fulla DIN A4 (per davant i per darrere).",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-recuperació",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-recuperació",
+    "objectID": "slides/01-foundations-of-systems-administration.html#recuperació",
+    "href": "slides/01-foundations-of-systems-administration.html#recuperació",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Recuperació",
-    "text": "Avaluació · Recuperació\n\nEls parcials són recuperables mitjançant proves escrites addicionals que es realitzaran durant la setmana de recuperació.\nSi un estudiant necessita recuperar un únic parcial (E1 o E2), podrà fer una prova específica per a aquest parcial. La qualificació obtinguda en aquesta recuperació substituirà la nota del parcial corresponent.\nSi un estudiant necessita recuperar ambdós parcials, haurà de realitzar dues proves separades, una per a cada parcial (E1 i E2). Les qualificacions obtingudes en cadascuna d’aquestes proves de recuperació substituiran les notes originals dels parcials respectius.\nÉs important notar que no hi haurà un model d’examen unificat per a la recuperació; cada prova de recuperació se centrarà exclusivament en els continguts del parcial al qual correspon.",
+    "section": "Recuperació",
+    "text": "Recuperació\n\nEls parcials són recuperables mitjançant proves escrites addicionals que es realitzaran durant la setmana de recuperació.\nSi un estudiant necessita recuperar un únic parcial (E1 o E2), podrà fer una prova específica per a aquest parcial. La qualificació obtinguda en aquesta recuperació substituirà la nota del parcial corresponent.\nSi un estudiant necessita recuperar ambdós parcials, haurà de realitzar dues proves separades, una per a cada parcial (E1 i E2). Les qualificacions obtingudes en cadascuna d’aquestes proves de recuperació substituiran les notes originals dels parcials respectius.\nÉs important notar que no hi haurà un model d’examen unificat per a la recuperació; cada prova de recuperació se centrarà exclusivament en els continguts del parcial al qual correspon.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-pràctiques",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-pràctiques",
+    "objectID": "slides/01-foundations-of-systems-administration.html#pràctiques",
+    "href": "slides/01-foundations-of-systems-administration.html#pràctiques",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Pràctiques",
-    "text": "Avaluació · Pràctiques\n\nLes pràctiques de l’assignatura impliquen treball fora de l’aula i s’han de lliurar de forma estricta en les dates establertes. La seva avaluació es farà mitjançant rúbriques de correcció, que estaran disponibles per als estudiants amb antelació.\nEl professorat pot entrevistar els estudiants per verificar l’autoria i la comprensió. Si es detecta que una activitat no ha estat realitzada per l’estudiant, podrà ser suspesa.\nQualsevol entrega fora del termini establert es considerarà no vàlida i es qualificarà amb un 0.\nLa nota final de les pràctiques s’obtindrà calculant la mitjana ponderada de les qualificacions de cada pràctica, tenint en compte que cadascuna pot tenir una ponderació específica\nAquestes pràctiques no són recuperables.\nTot i ser activitats en grup, cada estudiant pot obtenir una nota diferent en funció de la seva participació i aportacions individuals al grup.",
+    "section": "Pràctiques",
+    "text": "Pràctiques\n\nLes pràctiques de l’assignatura impliquen treball fora de l’aula i s’han de lliurar de forma estricta en les dates establertes.\nLa seva avaluació es farà mitjançant rúbriques de correcció, que estaran disponibles per als estudiants amb antelació.\nEl professorat pot entrevistar els estudiants per verificar l’autoria. Si es detecta que una activitat no ha estat realitzada per l’estudiant la seva qualificació serà 0.\nQualsevol entrega fora del termini establert es considerarà no vàlida i es qualificarà amb un 0.\nCadascuna pot tenir una ponderació específica indicada a la descripció de l’activitat.\nAquestes pràctiques no són recuperables.\nTot i ser activitats en grup, cada estudiant pot obtenir una nota diferent en funció de la seva participació i aportacions individuals al grup.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-activitats-asíncrones-a-aws",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-activitats-asíncrones-a-aws",
+    "objectID": "slides/01-foundations-of-systems-administration.html#activitats-asíncrones-a-aws",
+    "href": "slides/01-foundations-of-systems-administration.html#activitats-asíncrones-a-aws",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Activitats Asíncrones a AWS",
-    "text": "Avaluació · Activitats Asíncrones a AWS\nAquestes activitats asíncrones es realitzaran a la plataforma AWS al llarg del curs. La seva finalitat és que completis totes les activitats i laboratoris proposats, ja que la qualificació es basarà íntegrament en la finalització d’aquests. Completar totes les tasques et donarà el 5% de la nota final. Si en fas només una part, la puntuació serà proporcional a les activitats que hagis realitzat.\n\nNo recuperable: Aquesta activitat no disposa de recuperació.\nData límit: La data màxima per a la presentació i finalització és el dia de l’E2.\nValor afegit: Obtenció d’un certificat oficial AWS.",
+    "section": "Activitats Asíncrones a AWS",
+    "text": "Activitats Asíncrones a AWS\nAquestes activitats asíncrones es realitzaran a la plataforma AWS al llarg del curs. La seva finalitat és que completis totes les activitats i laboratoris proposats, ja que la qualificació es basarà íntegrament en la finalització d’aquests. Completar totes les tasques et donarà el 5% de la nota final. Si en fas només una part, la puntuació serà proporcional a les activitats que hagis realitzat.\n\nNo recuperable: Aquesta activitat no disposa de recuperació.\nData límit: La data màxima per a la presentació i finalització és el dia de l’E2.\nValor afegit: Obtenció d’un certificat oficial AWS.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-seguiment-i-participació",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-seguiment-i-participació",
+    "objectID": "slides/01-foundations-of-systems-administration.html#seguiment-i-participació",
+    "href": "slides/01-foundations-of-systems-administration.html#seguiment-i-participació",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació Seguiment i Participació",
-    "text": "Avaluació Seguiment i Participació\n\n\n\n\n\n\n\nRúbrica d’Avaluació\n\n\n\n\n\n\n\n\n\n\n\nPunts\nParticipació Presencial\nParticipació en Fòrums\nActivitats Sessió\n\n\n\n\n10\nContribucions excepcionals,enriqueix la discussió.\nLíder en discussions, promou debat.\nQualitat excepcional, supera expectatives.\n\n\n9\nComentaris rellevants, mostra comprensió, escolta activament.\nRespostes significatives.\nAlta qualitat, treball precís.\n\n\n8\nContribucions regulars, interactua amb companys.\nPublicacions rellevants, contribueix constructivament.\nCompleix tots requisits amb precisió.\n\n\n7\nParticipa amb una comprensió bàsica.\nCompleix mínims, contribucions breus.\nQualitat inconsistent però acceptable.\n\n\n5-6\nPoca freqüència, comentaris superficials.\nPublicacions rares, poc profundes.\nAlgunes activitats incompletes.\n\n\n1-4\nNomés participa si se li demana.\nPublicacions irrellevants.\nRarament completa activitats.\n\n\n0\nEvita participar, distret.\nPublicacions fora de tema.\nNo lliura activitats.",
+    "section": "Seguiment i Participació",
+    "text": "Seguiment i Participació\n\n\n\n\n\n\n\nRúbrica d’Avaluació\n\n\n\n\n\n\n\n\n\n\n\nPunts\nParticipació Presencial\nParticipació en Fòrums\nActivitats Sessió\n\n\n\n\n10\nContribucions excepcionals,enriqueix la discussió.\nLíder en discussions, promou debat.\nQualitat excepcional, supera expectatives.\n\n\n9\nComentaris rellevants, mostra comprensió, escolta activament.\nRespostes significatives.\nAlta qualitat, treball precís.\n\n\n8\nContribucions regulars, interactua amb companys.\nPublicacions rellevants, contribueix constructivament.\nCompleix tots requisits amb precisió.\n\n\n7\nParticipa amb una comprensió bàsica.\nCompleix mínims, contribucions breus.\nQualitat inconsistent però acceptable.\n\n\n5-6\nPoca freqüència, comentaris superficials.\nPublicacions rares, poc profundes.\nAlgunes activitats incompletes.\n\n\n1-4\nNomés participa si se li demana.\nPublicacions irrellevants.\nRarament completa activitats.\n\n\n0\nEvita participar, distret.\nPublicacions fora de tema.\nNo lliura activitats.\n\n\n\n\n\n\n\n\nL’assistència passiva no es puntua.\n\n\nAquest component d’avaluació està dissenyat per fomentar la participació activa i el compromís amb l’assignatura. La participació no es limita només a l’assistència a classe, sinó que també inclou la contribució en discussions, fòrums en línia i activitats relacionades amb les sessions. Tota participació ha de ser rellevant i constructiva per ser valorada positivament. En aquesta rúbrica, es detallen els criteris específics que s’utilitzaran per avaluar la participació dels estudiants en diferents àmbits.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-1",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-1",
+    "objectID": "slides/01-foundations-of-systems-administration.html#bonus-1",
+    "href": "slides/01-foundations-of-systems-administration.html#bonus-1",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Bonus 1",
-    "text": "Avaluació · Bonus 1\n\n\n\nObjectiu: Fomentar la reflexió i l’autoavaluació dels continguts treballats a classe.\nMetodologia: Cada setmana, els estudiants han de fer un commit al seu repositori d’apunts amb les notes de les sessions de teoria i pràctiques.\nAvaluació: Es valorarà la qualitat de les notes, la seva coherència i la seva relació amb els continguts treballats, així com les reflexions i opinions personals incloses.\n\n\n\n\nExemple de Notes\n## Setmana X\n\n# Resum teòric\n\n# Exemples pràctics\n\n# Dubtes i preguntes\n\n# Reflexions personals\n\n\n\n\n\n\n\nNo es permet cap altre forma\n\n\nLes notes han de ser escrites en format Markdown i mantingudes en un repositori Git i Github.",
+    "section": "Bonus 1",
+    "text": "Bonus 1\n\n\n\nObjectiu: Fomentar la reflexió i l’autoavaluació dels continguts treballats a classe.\nMetodologia: Cada setmana, els estudiants han de fer un commit al seu repositori d’apunts amb les notes de les sessions de teoria i pràctiques.\nAvaluació: Es valorarà la qualitat de les notes, la seva coherència i la seva relació amb els continguts treballats, així com les reflexions i opinions personals incloses.\nPer participar cal crear un repositori a Github (públic) i fer-me arribar l’enllaç.\n\n\n\n\nExemple de Notes\n## Setmana X\n\n# Resum teòric\n\n# Exemples pràctics\n\n# Dubtes i preguntes\n\n# Reflexions personals\n\n\n\n\n\n\n\nNo es permet cap altre forma\n\n\nLes notes han de ser escrites en format Markdown i mantingudes en un repositori Git i Github.\n\n\n\n\n\n\nAquest bonus està dissenyat per incentivar els estudiants a mantenir un registre organitzat i reflexiu dels continguts treballats a classe. En fer un commit setmanal amb les seves notes, els estudiants no només reforcen el seu aprenentatge, sinó que també desenvolupen habilitats de documentació i autoavaluació. La qualitat de les notes serà clau en l’avaluació, ja que es valorarà no només la precisió dels continguts, sinó també la capacitat de reflexionar sobre el que s’ha après i com s’ha aplicat aquest coneixement. Es tracta d’una oportinitat per als estudiants per crear el seu diari d’aprenentatge al llarg del curs. Per participar, els estudiants han de crear un repositori públic a Github i compartir l’enllaç amb el professorat.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-2",
-    "href": "slides/01-foundations-of-systems-administration.html#avaluació-bonus-2",
+    "objectID": "slides/01-foundations-of-systems-administration.html#bonus-2",
+    "href": "slides/01-foundations-of-systems-administration.html#bonus-2",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Avaluació · Bonus 2",
-    "text": "Avaluació · Bonus 2\n\n\n\nEls materials de l’assignatura segueixen la metodologia de Open Source.\nAixò vol dir que qualsevol estudiant pot detectar errors, millorar els materials o afegir continguts nous.\nPer tant, cada estudiant pot fer fork del repositori de l’assignatura i fer pull request amb les seves correccions i millores.\nS’avaluarà la quantitat i qualitat de les correccions, deteccions i millores realitzades en els materials de l’assignatura.\n\n\n\n\n\n\n\n\n\ngraph TD\n        A(↓ Pull · git pull)\n        B(Crea una branca · git branch)\n        C(Fes canvis)\n        D(↑ Push · git push)\n        E(Obre una Pull Request)\n\n    A -- \"Actualitzar\" --&gt; B\n    B -- \"Treballar aïlladament\" --&gt; C\n    C -- \"Guarda els teus canvis\" --&gt; D\n    D -- \"Proposa els canvis\" --&gt; E\n\n    style A fill:#e6f3ff,stroke:#007bff,stroke-width:2px;\n    style B fill:#fff0e6,stroke:#ff8c00,stroke-width:2px;\n    style C fill:#f0fff0,stroke:#28a745,stroke-width:2px;\n    style D fill:#e6f9ff,stroke:#17a2b8,stroke-width:2px;\n    style E fill:#e6e6ff,stroke:#6610f2,stroke-width:2px;\n\n    linkStyle 0 stroke:#007bff,stroke-width:2px;\n    linkStyle 1 stroke:#ff8c00,stroke-width:2px;\n    linkStyle 2 stroke:#28a745,stroke-width:2px;\n    linkStyle 3 stroke:#17a2b8,stroke-width:2px;",
+    "section": "Bonus 2",
+    "text": "Bonus 2\n\n\n\nEls materials són Open Source.\nQualsevol estudiant pot detectar errors, millorar els materials o afegir continguts nous.\nS’avaluarà la quantitat i qualitat.\n\n\n\n\n\nUn altre bonus que oferim és la possibilitat de contribuir als materials de l’assignatura seguint la metodologia de Open Source. Això significa que qualsevol estudiant pot detectar errors, suggerir millores o afegir continguts nous als materials proporcionats. Per participar, els estudiants poden fer un fork del repositori de l’assignatura, treballar en una branca separada i després obrir una pull request amb les seves propostes de canvi. La quantitat i qualitat de les contribucions seran avaluades, oferint així una oportunitat per als estudiants de participar activament en la millora dels recursos educatius.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-i---gestió-del-curs",
-    "href": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-i---gestió-del-curs",
+    "objectID": "slides/01-foundations-of-systems-administration.html#gestió-del-curs",
+    "href": "slides/01-foundations-of-systems-administration.html#gestió-del-curs",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Normativa del curs (I) - Gestió del curs",
-    "text": "Normativa del curs (I) - Gestió del curs\n\nEs demana que els estudiants arribin puntuals a les sessions. L’entrada tardana pot interrompre la dinàmica de la classe i el treball dels companys.\nLes sessions de tutoria es realitzaran de manera presencial o virtual, segons les necessitats dels estudiants. És important que els estudiants sol·licitin cita prèvia per a les tutories utilitzant el correu electrònic jordi.mateo@udl.cat indicant el motiu de la consulta i la disponibilitat horària i afegint l’assumpte [AMSA]: Sol·licitud de Tutoria.\nEs demana que els estudiants respectin les normes de convivència i respecte mutu durant les sessions de classe. Això inclou evitar interrupcions innecessàries, escoltar activament als companys i al professor, i mantenir un ambient de treball positiu i constructiu.",
+    "section": "Gestió del curs",
+    "text": "Gestió del curs\n\nEs demana que els estudiants arribin puntuals a les sessions. L’entrada tardana pot interrompre la dinàmica de la classe i el treball dels companys.\nEs demana que els estudiants respectin les normes de convivència i respecte mutu durant les sessions de classe. Això inclou evitar interrupcions innecessàries, escoltar activament als companys i al professor, i mantenir un ambient de treball positiu i constructiu.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-ii---grups",
-    "href": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-ii---grups",
+    "objectID": "slides/01-foundations-of-systems-administration.html#comunicació-amb-el-professorat",
+    "href": "slides/01-foundations-of-systems-administration.html#comunicació-amb-el-professorat",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Normativa del curs (II) - Grups",
-    "text": "Normativa del curs (II) - Grups\n\nCada estudiant és responsable de la seva pròpia feina i de com gestiona el seu temps. L’assistència a classe no és obligatòria, però és altament recomanable per garantir el seguiment adequat de l’assignatura.\nDurant les sessions de laboratori, es fomenta el treball en grup, sempre de manera ordenada i respectuosa envers els companys.\nCada alumne ha de presentar evidències pròpies del treball realitzat, encara que es col·labori en grup.",
+    "section": "Comunicació amb el professorat",
+    "text": "Comunicació amb el professorat\n\nIntenteu comunicar-vos a través del correu electrònic i no per l’eina del campus virtual per assegurar una resposta més ràpida.\nLes sessions de tutoria es realitzaran de manera presencial o virtual, segons les necessitats dels estudiants. És important que els estudiants sol·licitin cita prèvia per a les tutories utilitzant el correu electrònic jordi.mateo@udl.cat indicant el motiu de la consulta i la disponibilitat horària i afegint l’assumpte [AMSA]: Sol·licitud de Tutoria.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-iii---ús-de-la-intelligència-artificial-generativa",
-    "href": "slides/01-foundations-of-systems-administration.html#normativa-del-curs-iii---ús-de-la-intelligència-artificial-generativa",
+    "objectID": "slides/01-foundations-of-systems-administration.html#treball-individual",
+    "href": "slides/01-foundations-of-systems-administration.html#treball-individual",
     "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Normativa del curs (III) - Ús de la Intel·ligència Artificial Generativa",
-    "text": "Normativa del curs (III) - Ús de la Intel·ligència Artificial Generativa\n\nPots utilitzar eines d’IAG per generar idees, entendre conceptes complexos o esbossar l’estructura inicial del teu codi o projecte. No obstant això, la implementació i la versió final han de ser sempre de la teva autoria.\nEstà estrictament prohibit presentar codi o solucions generades directament per una IAG com a treball propi (és a dir, mitjançant un simple copiar i enganxar).\nSi incorpores material assistit per una IAG, has de declarar-ho explícitament. Això implica identificar clarament les seccions generades per IAG i proporcionar el prompt exacte utilitzat per crear-les.\n\n\n\n\n\n\n\n\nNormativa de Convivència de la UdL\n\n\nL’incompliment d’aquestes directrius es considerarà una violació de la integritat acadèmica i pot comportar una qualificació de zero en la tasca, a més de les conseqüències disciplinàries que estableix la Normativa de Convivència de la UdL per frau acadèmic.",
+    "section": "Treball individual",
+    "text": "Treball individual\n\nCada estudiant és responsable de la seva pròpia feina i de com gestiona el seu temps.\nL’assistència a classe no és obligatòria.\nCada alumne ha de presentar evidències pròpies del treball realitzat, encara que es col·labori en grup.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#ús-de-la-iag",
+    "href": "slides/01-foundations-of-systems-administration.html#ús-de-la-iag",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Ús de la IAG",
+    "text": "Ús de la IAG\n\nPots utilitzar eines d’IAG per generar idees, entendre conceptes complexos o esbossar l’estructura inicial del teu codi o projecte. No obstant això, la implementació i la versió final han de ser sempre de la teva autoria.\nEstà estrictament prohibit presentar codi o solucions generades directament per una IAG com a treball propi (és a dir, mitjançant un simple copiar i enganxar).\nSi incorpores material assistit per una IAG, has de declarar-ho explícitament. Això implica identificar clarament les seccions generades per IAG i proporcionar el prompt exacte utilitzat per crear-les.\n\n\nL’incompliment d’aquestes directrius es considerarà una violació de la integritat acadèmica.\n\n\nQualificació de zero en la tasca.\nConseqüències disciplinàries que estableix la Normativa de Convivència de la UdL per frau acadèmic.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
@@ -290,7 +301,7 @@
     "href": "slides/01-foundations-of-systems-administration.html#eines",
     "title": "Fonaments de l’Administració de Sistemes",
     "section": "Eines",
-    "text": "Eines\n\nOrdinador portàtil amb connexió a Internet.\n\nEs recomana portar el vostre propi ordinador per cursar l’assignatura.\nSi no disposeu d’ordinador, podreu utilitzar els ordinadors de la classe durant les sessions de laboratori.\n\nDistribucions Linux (Debian i AlmaLinux)\n\nÉs obligatori utilitzar les distribucions indicades als laboratoris. Altres distribucions no rebran suport.\n\nSoftware de virtualització (VMWare i QEMU)\n\nEs recomana utilitzar VMWare i QEMU, però podeu optar per altres opcions de virtualització. Heu de ser capaços d’adaptar el material al vostre programari de virtualització.",
+    "text": "Eines\n\nOrdinador portàtil amb connexió a Internet.\n\nEs recomana portar el vostre propi ordinador per cursar l’assignatura.\nSi no disposeu d’ordinador, podreu utilitzar els ordinadors de la classe durant les sessions de laboratori.\n\nDistribucions Linux (Debian i AlmaLinux)\n\nÉs obligatori utilitzar les distribucions indicades als laboratoris. Altres distribucions no rebran suport.\n\nSoftware de virtualització (VMWare i QEMU)\n\nEs recomana utilitzar VMWare i QEMU, però podeu optar per altres opcions de virtualització. Heu de ser capaços d’adaptar el material al vostre programari de virtualització.\n\nCompte a AWS",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
@@ -301,7 +312,7 @@
     "href": "slides/01-foundations-of-systems-administration.html#materials-i-recursos",
     "title": "Fonaments de l’Administració de Sistemes",
     "section": "Materials i Recursos",
-    "text": "Materials i Recursos\n\nApunts de l’assignatura i materials complementaris proporcionats pel professor al espai de l’assignatura.\nLaboratoris i activitats pràctiques disponibles al repositori de l’assignatura.\nDocumentació oficial de les eines i tecnologies utilitzades.\nFòrums tècnics a la xarxa com Stack Overflow, Reddit, etc.\nLlibres de referència en administració de sistemes:\n\n“UNIX and Linux System Administration Handbook” de Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley.\n“The Practice of System and Network Administration” de Thomas A. Limoncelli, Christina J. Hogan, Strata R. Chalup.",
+    "text": "Materials i Recursos\n\nApunts de l’assignatura i materials proporcionats pel professor.\nDocumentació oficial de les eines i tecnologies utilitzades.\nFòrums tècnics a la xarxa com Stack Overflow, Reddit, etc\nLlibres de referència en administració de sistemes:\n\n“UNIX and Linux System Administration Handbook” de Evi Nemeth, Garth Snyder, Trent R. Hein, Ben Whaley.\n“The Practice of System and Network Administration” de Thomas A. Limoncelli, Christina J. Hogan, Strata R. Chalup.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
@@ -422,7 +433,7 @@
     "href": "slides/01-foundations-of-systems-administration.html#característiques-client-servidor",
     "title": "Fonaments de l’Administració de Sistemes",
     "section": "Característiques Client-Servidor",
-    "text": "Característiques Client-Servidor\n\n\nAvantatges\n\n\n\nSistema centralitzat Totes les dades en un lloc.\nPolítiques de recuperació de dades.\nSeparació de la lògica.\n\n\n\n\nInconvenients\n\n\n\nAtacs de denegació de serveis.\nMan-in-the-middle.\nPhishing.\nSpoofing.\n\n\n\n\n\nAquesta arquitectura té avantatges i inconvenients. Entre els avantatges es troba la centralització de les dades, ja que tota la informació es troba en un únic lloc, el que facilita la gestió i la recuperació de les dades. A més, permet establir polítiques de recuperació de dades i separar la lògica de negoci de la interfície d’usuari, el que facilita la gestió i el manteniment del sistema. D’aquesta manera, els desenvolupadors poden centrar-se en la lògica de negoci sense preocupar-se de la interfície d’usuari. Per exemple, en una aplicació web, la lògica de negoci es pot gestionar al servidor, mentre que la interfície d’usuari es pot gestionar al client.\nEls principals inconvenients d’aquesta arquitectura són els possibles atacs de denegació de serveis, els atacs de l’home al mig, el phishing i l’usurpació d’identitat. Aquests atacs poden comprometre la seguretat del sistema i posar en perill la informació dels usuaris. Per tant, és important implementar mesures de seguretat per protegir el sistema i les dades dels usuaris. Un atac de denegació de servei enviarà moltes peticions al servidor per saturar-lo i fer-lo caure. Un atac de l’home al mig intercepta les comunicacions entre el client i el servidor per obtenir informació sensible. El phishing és un atac en què els atacants envien correus electrònics falsos per enganyar els usuaris i obtenir informació confidencial. L’usurpació d’identitat implica fer-se passar per una altra persona per obtenir accés a informació o recursos sensibles. Per tant, és molt imporant ser conscients d’aquests riscos i implementar mesures de seguretat per protegir el sistema i les dades dels usuaris.\nA la figura s’observa com múltiples clients es comuniquen amb un servidor central per obtenir informació o serveis. I com multiples servidors poden comunicar-se amb altres servidors per obtenir informació o serveis. També 1 client pot comunicar-se amb múltiples servidors. Per exemple, un client pot accedir a un servidor web per obtenir informació i a un servidor de correu per enviar correus electrònics. El servidor web pot comunicar-se amb el servidor de correu per enviar notificacions als usuaris.",
+    "text": "Característiques Client-Servidor\n\n\nAvantatges\n\nSistema centralitzat Totes les dades en un lloc.\nPolítiques de recuperació de dades.\nSeparació de la lògica.\n\n\n\n\nInconvenients\n\nAtacs de denegació de serveis.\nMan-in-the-middle.\nPhishing.\nSpoofing.\n\n\n\nAquesta arquitectura té avantatges i inconvenients. Entre els avantatges es troba la centralització de les dades, ja que tota la informació es troba en un únic lloc, el que facilita la gestió i la recuperació de les dades. A més, permet establir polítiques de recuperació de dades i separar la lògica de negoci de la interfície d’usuari, el que facilita la gestió i el manteniment del sistema. D’aquesta manera, els desenvolupadors poden centrar-se en la lògica de negoci sense preocupar-se de la interfície d’usuari. Per exemple, en una aplicació web, la lògica de negoci es pot gestionar al servidor, mentre que la interfície d’usuari es pot gestionar al client.\nEls principals inconvenients d’aquesta arquitectura són els possibles atacs de denegació de serveis, els atacs de l’home al mig, el phishing i l’usurpació d’identitat. Aquests atacs poden comprometre la seguretat del sistema i posar en perill la informació dels usuaris. Per tant, és important implementar mesures de seguretat per protegir el sistema i les dades dels usuaris. Un atac de denegació de servei enviarà moltes peticions al servidor per saturar-lo i fer-lo caure. Un atac de l’home al mig intercepta les comunicacions entre el client i el servidor per obtenir informació sensible. El phishing és un atac en què els atacants envien correus electrònics falsos per enganyar els usuaris i obtenir informació confidencial. L’usurpació d’identitat implica fer-se passar per una altra persona per obtenir accés a informació o recursos sensibles. Per tant, és molt imporant ser conscients d’aquests riscos i implementar mesures de seguretat per protegir el sistema i les dades dels usuaris.\nA la figura s’observa com múltiples clients es comuniquen amb un servidor central per obtenir informació o serveis. I com multiples servidors poden comunicar-se amb altres servidors per obtenir informació o serveis. També 1 client pot comunicar-se amb múltiples servidors. Per exemple, un client pot accedir a un servidor web per obtenir informació i a un servidor de correu per enviar correus electrònics. El servidor web pot comunicar-se amb el servidor de correu per enviar notificacions als usuaris.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
@@ -616,28 +627,6 @@
     ]
   },
   {
-    "objectID": "slides/01-foundations-of-systems-administration.html#virtualització-contenidors",
-    "href": "slides/01-foundations-of-systems-administration.html#virtualització-contenidors",
-    "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Virtualització (Contenidors)",
-    "text": "Virtualització (Contenidors)\n\n\n\n\nEsquema de tipus de virtualització de contenidors (Docker)\n\n\n\n\nLa virtualització de contenidors és una tecnologia que permet als desenvolupadors empaquetar aplicacions i les seves dependències en un contenidor lleuger i portàtil que pot ser executat en qualsevol sistema que tingui un motor de contenidors. Aquest enfocament permet als desenvolupadors crear, distribuir i executar aplicacions de manera eficient i fiable, ja que els contenidors són autosuficients i aïllats de l’entorn d’execució. A més, els contenidors són lleugers i portàtils, el que facilita la seva distribució i execució en entorns diversos.\nPer exemple, Docker o containerd són motors de contenidors que permeten als desenvolupadors crear i executar contenidors lleugers i portàtils. Aquests contenidors poden contenir aplicacions, serveis o microserveis, i es poden executar en qualsevol sistema que tingui un motor de contenidors instal·lat. Això permet als desenvolupadors crear, distribuir i executar aplicacions de manera eficient i fiable, ja que els contenidors són autosuficients i aïllats de l’entorn d’execució.\nLa principal diferència entre la virtualització de màquines virtuals i la virtualització de contenidors és el nivell d’abstracció. Mentre que les màquines virtuals virtualitzen tota una màquina física, incloent el sistema operatiu, els contenidors virtualitzen només l’aplicació i les seves dependències, compartint el mateix nucli del sistema operatiu hoste. Això fa que els contenidors siguin més lleugers i portàtils que les màquines virtuals, i permet als desenvolupadors crear i executar aplicacions de manera més eficient i fiable.",
-    "crumbs": [
-      "Diapositives",
-      "Unitat 01 · Fonaments de l'Administració de Sistemes"
-    ]
-  },
-  {
-    "objectID": "slides/01-foundations-of-systems-administration.html#kubernetes",
-    "href": "slides/01-foundations-of-systems-administration.html#kubernetes",
-    "title": "Fonaments de l’Administració de Sistemes",
-    "section": "Kubernetes",
-    "text": "Kubernetes\n\n\n\n\nKubernetes\n\n\n\n\nKubernetes és una plataforma de codi obert per a la gestió d’aplicacions en contenidors. Permet als desenvolupadors automatitzar el desplegament, l’escalat i la gestió d’aplicacions en contenidors, oferint una plataforma flexible i escalable per a la implementació d’aplicacions en entorns de producció. Es basa en una arquitectura de màster i nodes, on el màster és responsable de la gestió i control del clúster, mentre que els nodes són els servidors on s’executen les aplicacions en contenidors. Requereix de diferents xarxes (com xarxa de control, xarxa de pod, xarxa de servei) per a la comunicació entre els components del clúster, a més necessita serveis de descobriment de serveis (com etcd) per a la gestió de la configuració i l’estat del clúster, controladors de xarxa (com Flannel) per a la comunicació entre els nodes, i controladors de volums (com Rook) per a la gestió de l’emmagatzematge persistent, un planificador (com kube-scheduler) per a la programació de les tasques, i un controlador de replicació (com kube-controller-manager) per a la gestió de la replicació de les aplicacions i sobretot el kubelet, que és l’agent que s’executa en cada node i és responsable de la gestió dels contenidors en el node. Com veieu, Kubernetes és una plataforma complexa que requereix una configuració i gestió adequades per a garantir el seu funcionament correcte.",
-    "crumbs": [
-      "Diapositives",
-      "Unitat 01 · Fonaments de l'Administració de Sistemes"
-    ]
-  },
-  {
     "objectID": "slides/01-foundations-of-systems-administration.html#ansible",
     "href": "slides/01-foundations-of-systems-administration.html#ansible",
     "title": "Fonaments de l’Administració de Sistemes",
@@ -653,7 +642,7 @@
     "href": "slides/01-foundations-of-systems-administration.html#què-és-el-cloud-computing",
     "title": "Fonaments de l’Administració de Sistemes",
     "section": "Què és el Cloud Computing?",
-    "text": "Què és el Cloud Computing?\nLliurament de recursos sota demanda, incloent servidors, emmagatzematge, bases de dades, programari, analítica, i més, a través d’internet amb un model de pagament per ús.\n\n\n\n\n\nclassDiagram\n    direction LR\n    class OnPremise {\n        On-Premise (Cuinar a Casa)\n        Gestió total\n        ✅ Forn, Gas/Electricitat\n        ✅ Taula, Plats, Begudes\n        ✅ Massa, Salsa, Ingredients\n    }\n    class IaaS {\n        IaaS(Compra-la i Enforna-la)\n        El proveïdor et dona la infraestructura\n\n        ❌ Forn, Gas/Electricitat\n        ✅ Taula, Plats, Begudes\n        ✅ Massa, Salsa, Ingredients\n    }\n    class PaaS {\n        PaaS(Pizza a Domicili)\n        Et porten la plataforma llesta per usar\n        ❌ Forn, Gas/Electricitat\n        ✅ Taula, Plats, Begudes\n        ❌ Massa, Salsa, Ingredients\n    }\n    class SaaS {\n        SaaS(Menjar en un Restaurant)\n        Un servei complet, tu només consumeixes\n        ❌ Forn, Gas/Electricitat\n        ❌ Taula, Plats, Begudes\n        ❌ Massa, Salsa, Ingredients\n    }\n\n    OnPremise --|&gt; IaaS: \n    IaaS --|&gt; PaaS: \n    PaaS --|&gt; SaaS: \n    \n    style OnPremise fill:#d4edda,stroke:#28a745,stroke-width:2px;\n    style IaaS fill:#fff3cd,stroke:#ffc107,stroke-width:2px;\n    style PaaS fill:#cfe2ff,stroke:#0d6efd,stroke-width:2px;\n    style SaaS fill:#f8d7da,stroke:#dc3545,stroke-width:2px;\n\n\n\n\n\n\n\nEl cloud computing es refereix al lliurament sota demanda de serveis informàtics, incloent servidors, emmagatzematge, bases de dades, programari, analítica, i molt més, a través d’internet amb un model de pagament per ús.\nAquests recursos s’executen en servidors ubicats en grans centres de dades arreu del món. Els usuaris poden accedir-hi de manera remota des de qualsevol lloc amb connexió a internet. En lloc de posseir i mantenir la seva pròpia infraestructura, els usuaris i empreses poden llogar serveis des d’aplicacions fins a emmagatzematge d’un proveïdor de serveis al núvol. Els recursos es poden combinar com peces de LEGO per crear solucions a mida de les necessitats.\nAquest model ha permès l’evolució de l’administració de sistemes a un nivell superior, permetent als usuaris centrar-se en el desenvolupament d’aplicacions i serveis sense haver de preocupar-se de la infraestructura subjacents.",
+    "text": "Què és el Cloud Computing?\nLliurament de recursos sota demanda, incloent servidors, emmagatzematge, bases de dades, programari, analítica, i més, a través d’internet amb un model de pagament per ús.\n\n\n\n\nPizza as a service\n\n\n\n\nEl cloud computing es refereix al lliurament sota demanda de serveis informàtics, incloent servidors, emmagatzematge, bases de dades, programari, analítica, i molt més, a través d’internet amb un model de pagament per ús.\nAquests recursos s’executen en servidors ubicats en grans centres de dades arreu del món. Els usuaris poden accedir-hi de manera remota des de qualsevol lloc amb connexió a internet. En lloc de posseir i mantenir la seva pròpia infraestructura, els usuaris i empreses poden llogar serveis des d’aplicacions fins a emmagatzematge d’un proveïdor de serveis al núvol. Els recursos es poden combinar com peces de LEGO per crear solucions a mida de les necessitats.\nAquest model ha permès l’evolució de l’administració de sistemes a un nivell superior, permetent als usuaris centrar-se en el desenvolupament d’aplicacions i serveis sense haver de preocupar-se de la infraestructura subjacents.",
     "crumbs": [
       "Diapositives",
       "Unitat 01 · Fonaments de l'Administració de Sistemes"
@@ -682,6 +671,28 @@
     ]
   },
   {
+    "objectID": "slides/01-foundations-of-systems-administration.html#virtualització-contenidors",
+    "href": "slides/01-foundations-of-systems-administration.html#virtualització-contenidors",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Virtualització (Contenidors)",
+    "text": "Virtualització (Contenidors)\n\n\n\n\nEsquema de tipus de virtualització de contenidors (Docker)\n\n\n\n\nLa virtualització de contenidors és una tecnologia que permet als desenvolupadors empaquetar aplicacions i les seves dependències en un contenidor lleuger i portàtil que pot ser executat en qualsevol sistema que tingui un motor de contenidors. Aquest enfocament permet als desenvolupadors crear, distribuir i executar aplicacions de manera eficient i fiable, ja que els contenidors són autosuficients i aïllats de l’entorn d’execució. A més, els contenidors són lleugers i portàtils, el que facilita la seva distribució i execució en entorns diversos.\nPer exemple, Docker o containerd són motors de contenidors que permeten als desenvolupadors crear i executar contenidors lleugers i portàtils. Aquests contenidors poden contenir aplicacions, serveis o microserveis, i es poden executar en qualsevol sistema que tingui un motor de contenidors instal·lat. Això permet als desenvolupadors crear, distribuir i executar aplicacions de manera eficient i fiable, ja que els contenidors són autosuficients i aïllats de l’entorn d’execució.\nLa principal diferència entre la virtualització de màquines virtuals i la virtualització de contenidors és el nivell d’abstracció. Mentre que les màquines virtuals virtualitzen tota una màquina física, incloent el sistema operatiu, els contenidors virtualitzen només l’aplicació i les seves dependències, compartint el mateix nucli del sistema operatiu hoste. Això fa que els contenidors siguin més lleugers i portàtils que les màquines virtuals, i permet als desenvolupadors crear i executar aplicacions de manera més eficient i fiable.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
+    "objectID": "slides/01-foundations-of-systems-administration.html#kubernetes",
+    "href": "slides/01-foundations-of-systems-administration.html#kubernetes",
+    "title": "Fonaments de l’Administració de Sistemes",
+    "section": "Kubernetes",
+    "text": "Kubernetes\n\n\n\n\nKubernetes\n\n\n\n\nKubernetes és una plataforma de codi obert per a la gestió d’aplicacions en contenidors. Permet als desenvolupadors automatitzar el desplegament, l’escalat i la gestió d’aplicacions en contenidors, oferint una plataforma flexible i escalable per a la implementació d’aplicacions en entorns de producció. Es basa en una arquitectura de màster i nodes, on el màster és responsable de la gestió i control del clúster, mentre que els nodes són els servidors on s’executen les aplicacions en contenidors. Requereix de diferents xarxes (com xarxa de control, xarxa de pod, xarxa de servei) per a la comunicació entre els components del clúster, a més necessita serveis de descobriment de serveis (com etcd) per a la gestió de la configuració i l’estat del clúster, controladors de xarxa (com Flannel) per a la comunicació entre els nodes, i controladors de volums (com Rook) per a la gestió de l’emmagatzematge persistent, un planificador (com kube-scheduler) per a la programació de les tasques, i un controlador de replicació (com kube-controller-manager) per a la gestió de la replicació de les aplicacions i sobretot el kubelet, que és l’agent que s’executa en cada node i és responsable de la gestió dels contenidors en el node. Com veieu, Kubernetes és una plataforma complexa que requereix una configuració i gestió adequades per a garantir el seu funcionament correcte.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes"
+    ]
+  },
+  {
     "objectID": "slides/01-foundations-of-systems-administration.html#thats-all",
     "href": "slides/01-foundations-of-systems-administration.html#thats-all",
     "title": "Fonaments de l’Administració de Sistemes",
@@ -697,14 +708,143 @@
     "href": "course-information/schedule.html",
     "title": "AMSA 105013: System Administration",
     "section": "",
-    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖"
+    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖\n\n\n\n📝 📝"
   },
   {
     "objectID": "course-information/schedule.html#planificació",
     "href": "course-information/schedule.html#planificació",
     "title": "AMSA 105013: System Administration",
     "section": "",
-    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖"
+    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖\n\n\n\n📝 📝"
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/02-ex-week1.html",
+    "href": "exercises/01-foundations-of-systems-administration/02-ex-week1.html",
+    "title": "Emulació en mode d’usuari amb QEMU",
+    "section": "",
+    "text": "Aquest exercici t’introduirà a l’emulació en mode d’usuari de QEMU, una eina que et permet executar un programa compilat per a una arquitectura de CPU diferent de la teva màquina. Concretament, executaràs un programa de 32 bits compilat per a ARM en un sistema x86 (processadors Intel o AMD) o ARM de 64 bits (processadors Apple M). Per simplificar l’exercici, utiltizarem un Hello, World! com a programa d’exemple.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 2 · Emulació en mode d'usuari amb QEMU"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/02-ex-week1.html#requeriments-previs",
+    "href": "exercises/01-foundations-of-systems-administration/02-ex-week1.html#requeriments-previs",
+    "title": "Emulació en mode d’usuari amb QEMU",
+    "section": "Requeriments previs",
+    "text": "Requeriments previs\n\nDisposar d’una màquina virtual amb Debian configurada segons les instruccions de l’exercici de configuració d’entorn de virtualització.\nDisposar de les eines bàsiques de desenvolupament instal·lades a la màquina virtual (compilador gcc, make, etc.). Pots instal·lar-les com a root amb la comanda següent: apt install build-essential.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 2 · Emulació en mode d'usuari amb QEMU"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/02-ex-week1.html#objectius",
+    "href": "exercises/01-foundations-of-systems-administration/02-ex-week1.html#objectius",
+    "title": "Emulació en mode d’usuari amb QEMU",
+    "section": "Objectius",
+    "text": "Objectius\n\nIntroduir-se en l’ús de QEMU en mode d’usuari per a l’emulació d’aplicacions.\nComprendre la diferència entre compilació nativa i compilació creuada.\nCompilar i executar un programa senzill per a una arquitectura diferent de la teva màquina.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 2 · Emulació en mode d'usuari amb QEMU"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/02-ex-week1.html#tasques",
+    "href": "exercises/01-foundations-of-systems-administration/02-ex-week1.html#tasques",
+    "title": "Emulació en mode d’usuari amb QEMU",
+    "section": "Tasques",
+    "text": "Tasques\n\nEscriure i compilar un programa Hello World per a ARM\n\nCrea un fitxer anomenat hello.c amb el següent contingut:\n\n#include &lt;stdio.h&gt;\n\nint main() {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\nPer compilar-lo per a l’arquitectura ARM, necessites un compilador creuat. En aquest laboratori, utilitzarem el GNU ARM toolchain per a Linux. Instal·la’l amb la següent comanda:\n# Com a root\napt install gcc-arm-linux-gnueabi\nAra, compila el programa per a ARM amb aquesta comanda:\n# Com a usuari normal\narm-linux-gnueabi-gcc -o helloarm -static hello.c\nAixò generarà un executable anomenat helloarm. La bandera -static crea un binari estàticament enllaçat, la qual cosa significa que totes les biblioteques necessàries s’inclouen dins del propi fitxer.\nSi intentes executar helloarm directament, rebràs un error:\n./helloarm\n-bash: ./helloarm: no es pot executar el fitxer binari: Error de format d'execució\nAquest error es produeix perquè el teu sistema operatiu no reconeix l’arquitectura del fitxer. Pots verificar-ho amb la comanda file:\nfile helloarm\nhelloarm: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, not stripped\n\n\nCompilació per a l’arquitectura de la teva MV\nPer entendre la diferència, ara compila el mateix codi per a l’arquitectura de la teva màquina amb gcc:\ngcc -o hellohost hello.c\nSi l’executes, funcionarà sense problemes:\n./hellohost\nHello, World!\nPer comprovar-ne l’arquitectura, utilitza de nou la comanda file:\nfile hellohost\n# Exemple per a x86\nhellohost: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked...\n# Exemple per a Apple M Series (ARM 64-bit)\nhellohost: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked...\n\n\nExecució del programa amb QEMU\nFinalment, per executar el binari ARM a la teva màquina, necessites el component de QEMU per a emulació en mode d’usuari. Instal·la’l amb aquesta comanda:\n# Com a root\napt install qemu-user\nUn cop instal·lat, pots executar el programa helloarm amb l’emulador qemu-arm:\nqemu-arm helloarm\nHello, World!\n\n\nPreguntes finals\n\nInvestiga quines altres arquitectures són compatibles amb QEMU en mode d’usuari. Prova de compilar i executar un programa per a una d’aquestes arquitectures.\nPer què la compilació estàtica és important en aquest context? Per què no cal incloure la bandera -static en la compilació normal? Quines avantatges i inconvenients té cada enfocament?",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 2 · Emulació en mode d'usuari amb QEMU"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/01-ex-week1.html",
+    "href": "exercises/01-foundations-of-systems-administration/01-ex-week1.html",
+    "title": "Configuració d’entorn de virtualització",
+    "section": "",
+    "text": "Aquest exercici té com a objectiu recordar i consolidar les habilitats en la configuració d’entorns de virtualització utilitzant màquines virtuals (MV). Durant el curs, la creació i destrucció de MV serà una tasca recurrent, per la qual cosa és fonamental tenir una base sòlida. Preparant una plantilla preinstal·lada, podreu estalviar temps significatiu evitant la reinstal·lació completa del sistema operatiu cada cop que necessiteu un nou entorn de treball.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 1 · Configuració d'entorn de virtualització"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#requeriments-previs",
+    "href": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#requeriments-previs",
+    "title": "Configuració d’entorn de virtualització",
+    "section": "Requeriments previs",
+    "text": "Requeriments previs\n\nDisposar d’un hipervisor de virtualització instal·lat a la vostra màquina hoste. Es recomana utilitzar VMware Workstation Pro o VMware Fusion. Podeu reutilitzar la instal·lació que ja vau fer a l’assignatura de Sistemes Operatius.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 1 · Configuració d'entorn de virtualització"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#objectius",
+    "href": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#objectius",
+    "title": "Configuració d’entorn de virtualització",
+    "section": "Objectius",
+    "text": "Objectius\n\nCrear i configurar màquines virtuals amb distribucions Linux.\nUtilitzar snapshots per gestionar l’estat de les MV.\nConfigurar i establir una connexió remota segura a les MV utilitzant SSH.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 1 · Configuració d'entorn de virtualització"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#tasques",
+    "href": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#tasques",
+    "title": "Configuració d’entorn de virtualització",
+    "section": "Tasques",
+    "text": "Tasques\n\nCreació de màquines virtuals\nCreareu dues màquines virtuals amb les distribucions Linux que farem servir durant el curs. Assegureu-vos de descarregar les imatges ISO correctament:\n\nAlmaLinux: Una distribució de GNU/Linux basada en Red Hat Enterprise Linux (RHEL).Descarregueu la versió 9.6.\nDebian: Una distribució popular coneguda per la seva estabilitat. Descarregueu la versió 12.5.0.\n\nEn la configuració no necessitareu finestres gràfiques, i de moment podeu utilitzar una configuració de disc i particions estàndard. Més endavant, durant el curs, anirem ajustant la configuració segons les necessitats específiques de cada pràctica.\n\n\nCreació de snapshots\nUn cop instal·lades les dues màquines virtuals, creeu una snapshot de cadascuna. Una snapshot és una instantània de l’estat actual de la màquina virtual, incloent-hi la seva memòria, configuració i l’estat dels seus discos virtuals. Aquesta eina us permetrà tornar ràpidament a un estat inicial net en qualsevol moment, evitant haver de reinstal·lar el sistema si alguna configuració falla.\n\n\nConfiguració d’accés remot amb SSH\nPer facilitar la connexió i gestió de les màquines virtuals, configurarem l’accés remot mitjançant SSH (Secure Shell). Això us permetrà connectar-vos a les MV des de la vostra màquina hoste utilitzant una terminal o PowerShell amb suport SSH (Linux o MacOS).\nssh user@vm_ip_address\n\n\nÚs de la snapshot\nUn cop hàgiu completat la configuració inicial i les proves amb les màquines virtuals, practiqueu l’ús de les snapshots:\n\nInstal·leu algun programari a la MV amb debian com les eines de desenvolupament (gcc, make, etc).\n\n# Recordeu instal·lar com a root\napt install build-essential\n\nComproveu que el programari està instal·lat correctament.\n\ngcc --version\n\nDesprés, torneu a la snapshot creada anteriorment per veure que el programari ja no està instal·lat.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 1 · Configuració d'entorn de virtualització"
+    ]
+  },
+  {
+    "objectID": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#activitat-proposada",
+    "href": "exercises/01-foundations-of-systems-administration/01-ex-week1.html#activitat-proposada",
+    "title": "Configuració d’entorn de virtualització",
+    "section": "Activitat proposada",
+    "text": "Activitat proposada\n\nEscriu un script senzill que et permeti obrir la MV i connectar-te via SSH amb un sol comandament. Aquest script hauria de:\n\nIniciar la màquina virtual si no està en funcionament.\nEsperar fins que la MV estigui completament engegada.\nConnectar-se a la MV mitjançant SSH.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 01 · Fonaments de l'Administració de Sistemes",
+      "Activitat 1 · Configuració d'entorn de virtualització"
+    ]
+  },
+  {
+    "objectID": "CONTRIBUTING.html",
+    "href": "CONTRIBUTING.html",
+    "title": "Contribueix",
+    "section": "",
+    "text": "Aquest material és de codi obert i podeu col·laborar-hi, complementar-lo o corregir-lo mitjançant pull requests al repositori.\n\n\n\nFork el repositori: Fes clic al botó Fork a la part superior dreta de la pàgina. Això crearà una còpia del repositori al teu compte de GitHub. Veure imatge:\n\n\n\n\nClona el repositori a la teva màquina: Utilitza Git per clonar el repositori que has clonat a la teva màquina.\nCrea una branca (branch) nova: Abans de fer canvis, crea una branca nova on faràs les teves modificacions. Això ajuda a mantenir les coses ordenades. Utilitza la comanda següent:\n\ngit checkout -b nom_de_la_branca\n\nFes els canvis: Realitza les modificacions necessàries en els fitxers del projecte.\nAfegeix i commiteja els canvis: Utilitza els següents comandos per afegir els canvis i fer un commit.\nPuja els canvis al teu repositori a GitHub amb la comanda següent:\n\ngit push origin nom_de_la_branca\n\nCrea una PR: Vés al teu repositori a GitHub i selecciona la branca on has fet els canvis. Apareixerà un missatge destacat dient que has fet una nova branca. Fes clic a “Compare & pull request” per començar la PR.\n\nTambé, pots anar a la nova branca fent click al menu desplegable i seleccionant la branca que has creat 1 i fent click al botó New pull request 2. Veure imatge:\n\n\nProporciona una descripció detallada dels canvis que has fet. A més, pots afegir captures de pantalla o informació addicional per ajudar els revisors a entendre els teus canvis. Fes clic a New pull request i beuras una pantalla com la següent:\n\n\n1 Indica el meu repositori (on vols enviar les modificacions) i 2 indica el teu fork (on has fet les modificacions). Assegura’t de seleccionar la branca amb les modificacions 3. Finalment, fes clic a Create pull request 4.\n\nEnvia la PR: Un cop hagis omplert tota la informació, fes clic al botó “Create pull request” per enviar la PR al projecte original.\n\n\n\n\nPer editar el material:\n\nAl teu ordinador, necessitareu instal·lar Quarto.\nDirectament al navegador, podeu editar els fitxers .qmd fent clic al botó de llapis que apareix a la part superior dreta de cada fitxer. Això crearà una nova branca amb els teus canvis i et permetrà fer una PR directament des del navegador.\n\n\n\nAbans de començar, assegura’t que tens Quarto instal·lat al teu ordinador. Obra un terminal o un IDE com VSCode i navega fins a la carpeta on tens el projecte.\nPer veure una previsualització local del lloc web:\nquarto preview\nAixò obrirà una previsualització local al teu navegador. La previsualització s’actualitza automàticament quan deses els canvis.\n\n\n\nEs pot integrar amb Visual Studio Code (VSCode) per a una millor experiència d’edició. Si no tens VSCode, pots descarregar-lo des de https://code.visualstudio.com/.\n\nQuarto: Edició en mode visual: Permet editar els fitxers .qmd en un mode visual que facilita l’ús de les funcions de Quarto.\nQuarto: Previsualització: Obre una previsualització del fitxer .qmd actual.\nQuarto: Edició en mode font: Torna a l’edició en mode text pla."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#instruccions-per-contribuïr",
+    "href": "CONTRIBUTING.html#instruccions-per-contribuïr",
+    "title": "Contribueix",
+    "section": "",
+    "text": "Fork el repositori: Fes clic al botó Fork a la part superior dreta de la pàgina. Això crearà una còpia del repositori al teu compte de GitHub. Veure imatge:\n\n\n\n\nClona el repositori a la teva màquina: Utilitza Git per clonar el repositori que has clonat a la teva màquina.\nCrea una branca (branch) nova: Abans de fer canvis, crea una branca nova on faràs les teves modificacions. Això ajuda a mantenir les coses ordenades. Utilitza la comanda següent:\n\ngit checkout -b nom_de_la_branca\n\nFes els canvis: Realitza les modificacions necessàries en els fitxers del projecte.\nAfegeix i commiteja els canvis: Utilitza els següents comandos per afegir els canvis i fer un commit.\nPuja els canvis al teu repositori a GitHub amb la comanda següent:\n\ngit push origin nom_de_la_branca\n\nCrea una PR: Vés al teu repositori a GitHub i selecciona la branca on has fet els canvis. Apareixerà un missatge destacat dient que has fet una nova branca. Fes clic a “Compare & pull request” per començar la PR.\n\nTambé, pots anar a la nova branca fent click al menu desplegable i seleccionant la branca que has creat 1 i fent click al botó New pull request 2. Veure imatge:\n\n\nProporciona una descripció detallada dels canvis que has fet. A més, pots afegir captures de pantalla o informació addicional per ajudar els revisors a entendre els teus canvis. Fes clic a New pull request i beuras una pantalla com la següent:\n\n\n1 Indica el meu repositori (on vols enviar les modificacions) i 2 indica el teu fork (on has fet les modificacions). Assegura’t de seleccionar la branca amb les modificacions 3. Finalment, fes clic a Create pull request 4.\n\nEnvia la PR: Un cop hagis omplert tota la informació, fes clic al botó “Create pull request” per enviar la PR al projecte original."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#edició-del-material",
+    "href": "CONTRIBUTING.html#edició-del-material",
+    "title": "Contribueix",
+    "section": "",
+    "text": "Per editar el material:\n\nAl teu ordinador, necessitareu instal·lar Quarto.\nDirectament al navegador, podeu editar els fitxers .qmd fent clic al botó de llapis que apareix a la part superior dreta de cada fitxer. Això crearà una nova branca amb els teus canvis i et permetrà fer una PR directament des del navegador.\n\n\n\nAbans de començar, assegura’t que tens Quarto instal·lat al teu ordinador. Obra un terminal o un IDE com VSCode i navega fins a la carpeta on tens el projecte.\nPer veure una previsualització local del lloc web:\nquarto preview\nAixò obrirà una previsualització local al teu navegador. La previsualització s’actualitza automàticament quan deses els canvis.\n\n\n\nEs pot integrar amb Visual Studio Code (VSCode) per a una millor experiència d’edició. Si no tens VSCode, pots descarregar-lo des de https://code.visualstudio.com/.\n\nQuarto: Edició en mode visual: Permet editar els fitxers .qmd en un mode visual que facilita l’ús de les funcions de Quarto.\nQuarto: Previsualització: Obre una previsualització del fitxer .qmd actual.\nQuarto: Edició en mode font: Torna a l’edició en mode text pla."
   },
   {
     "objectID": "index.html",

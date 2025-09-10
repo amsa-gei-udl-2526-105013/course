@@ -2,14 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/01-foundations-of-systems-administration.html</loc>
-    <lastmod>2025-09-03T17:56:30.439Z</lastmod>
+    <lastmod>2025-09-10T07:48:46.132Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/course-information/schedule.html</loc>
-    <lastmod>2025-09-03T17:56:30.392Z</lastmod>
+    <lastmod>2025-09-10T07:48:46.075Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/01-foundations-of-systems-administration/02-ex-week1.html</loc>
+    <lastmod>2025-09-10T07:48:46.076Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/01-foundations-of-systems-administration/01-ex-week1.html</loc>
+    <lastmod>2025-09-10T07:48:46.076Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/CONTRIBUTING.html</loc>
+    <lastmod>2025-09-10T07:48:46.075Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/index.html</loc>
-    <lastmod>2025-09-03T17:56:30.439Z</lastmod>
+    <lastmod>2025-09-10T07:48:46.132Z</lastmod>
   </url>
 </urlset>
