@@ -263,6 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#automatizació-de-la-installació" id="toc-automatizació-de-la-installació" class="nav-link" data-scroll-target="#automatizació-de-la-installació">Automatizació de la instal·lació</a></li>
   <li><a href="#entrega-del-laboratori" id="toc-entrega-del-laboratori" class="nav-link" data-scroll-target="#entrega-del-laboratori">Entrega del laboratori</a></li>
+  <li><a href="#neteja-els-recursos-creats" id="toc-neteja-els-recursos-creats" class="nav-link" data-scroll-target="#neteja-els-recursos-creats">Neteja els recursos creats</a></li>
   </ul>
 </nav>
     </div>
@@ -309,8 +310,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Gestió de credencials: <strong>self-managed</strong>.</li>
 <li>Seleccioneu <em>auto-generate a password</em>.</li>
 </ul>
-<p>La resta de paràmetres els deixarem per defecte. Una vegada acabat, fem clic a <strong>Create database</strong>.</p>
-<p>::: {.callout-important title=“Contrassenya”} Feu clic a <strong>View Connection Details</strong> per veure la password generada. Si no ho feu, haureu d’anar a modificar, regenerar la password i aplicar els canvis. :::</p></li>
+<p>La resta de paràmetres els deixarem per defecte. Una vegada acabat, fem clic a <strong>Create database</strong>.</p></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled" title="Contrassenya">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Contrassenya
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Feu clic a <strong>View Connection Details</strong> per veure la password generada. Si no ho feu, haureu d’anar a modificar, regenerar la password i aplicar els canvis.</p>
+</div>
+</div>
+<ol start="3" type="1">
 <li><p>Espereu uns minuts fins que la columna <strong>Status</strong> estigui en verd i posi <strong>Available</strong>.</p></li>
 <li><p>Un cop la base de dades estigui disponible, fem clic a la base de dades i anem a la pestanya <strong>Connectivity &amp; security</strong> per veure els detalls de connexió.</p>
 <ul>
@@ -503,8 +518,9 @@ Source: Anywhere (0.0.0.0/0)</code></pre></li>
 <p>Un cop tingueu accés SSH a la màquina <code>webserver</code> des de la màquina <code>ansible</code>, podeu crear un fitxer d’inventari d’Ansible per definir la màquina <code>webserver</code>. Creeu un fitxer anomenat <code>hosts</code> amb el contingut següent (substituïu <code>&lt;IP_INSTANCIA_EC2&gt;</code> per l’adreça IP pública de la vostra instància EC2) i <code>~/.ssh/my-key-pair</code> per la ruta a la vostra clau privada SSH:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[webserver]</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;IP_INSTANCIA_EC2&gt; ansible_user</span><span class="ot">=</span><span class="st">ec2-user ansible_ssh_private_key_file=~/.ssh/my-key-pair</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A continuació, creeu un playbook d’Ansible per instal·lar WordPress a la màquina <code>webserver</code>. Un playbook és un fitxer YAML que defineix les tasques que Ansible ha d’executar a les màquines remotes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="at">    ---</span></span>
+<p>On <ip_instancia_ec2> és l’adreça IP pública de la vostra instància EC2 on voleu instal·lar WordPress i la ruta <code>~/.ssh/my-key-pair</code> és la ruta a la vostra clau privada SSH que us permet accedir a la instància EC2.</ip_instancia_ec2></p>
+<p>A continuació, creeu un playbook d’Ansible per instal·lar WordPress a la màquina <code>webserver</code>. Un playbook és un fitxer YAML que defineix les tasques que Ansible ha d’executar a les màquines remotes. Podeu descargar el fitxer <a href="./sources/wordpress.yml"><code>wordpress.yml</code></a> o bé crear-lo amb el contingut següent (substituïu <code>&lt;RDS_ENDPOINT&gt;</code> per l’endpoint de la vostra base de dades RDS):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="at">  ---</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">hosts</span><span class="kw">:</span><span class="at"> webserver</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">become</span><span class="kw">:</span><span class="at"> </span><span class="ch">yes</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tasks</span><span class="kw">:</span></span>
@@ -592,7 +608,7 @@ Source: Anywhere (0.0.0.0/0)</code></pre></li>
 <p>Heu de pujar al <a href="https://cv.udl.cat/">Campus Virtual</a>, un document amb les següents captures de pantalla:</p>
 <ul>
 <li>Pantalla de la consola d’Amazon RDS amb la base de dades creada.</li>
-<li>Pantalla de la consola d’EC2 amb la instància EC2 creada.</li>
+<li>Pantalla de la consola d’EC2 amb la instància EC2 creada (eg. podeu fer servir <code>history</code> per veure les ordres que heu executat).</li>
 <li>Pantalla del navegador web amb la pàgina d’inici de sessió de WordPress.</li>
 <li>Pantalla del tauler d’administració de WordPress.</li>
 <li>Pantalla del playbook d’Ansible executat correctament.</li>
@@ -602,6 +618,10 @@ Source: Anywhere (0.0.0.0/0)</code></pre></li>
 <li>Script d’Ansible modificat amb variables (si heu fet l’exercici).</li>
 <li>Script en bash per instal·lar WordPress (si heu fet l’exercici).</li>
 </ul>
+</section>
+<section id="neteja-els-recursos-creats" class="level2">
+<h2 class="anchored" data-anchor-id="neteja-els-recursos-creats">Neteja els recursos creats</h2>
+<p>Un cop finalitzat podeu eliminar totes les instàncies EC2 i la base de dades RDS per evitar càrrecs innecessaris al vostre compte d’AWS.</p>
 
 
 </section>
