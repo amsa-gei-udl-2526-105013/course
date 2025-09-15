@@ -211,7 +211,7 @@ Un cop tingueu accés SSH a la màquina `webserver` des de la màquina `ansible`
 A continuació, creeu un playbook d’Ansible per instal·lar WordPress a la màquina `webserver`. Un playbook és un fitxer YAML que defineix les tasques que Ansible ha d’executar a les màquines remotes.
 
 ```yaml
-    ---
+---
 - hosts: webserver
   become: yes
   tasks:
