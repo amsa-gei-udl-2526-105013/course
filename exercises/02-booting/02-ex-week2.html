@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Configuració d’entorn de virtualització – AMSA - Fall 2025</title>
+<title>Arrancada UEFI bàsica amb QEMU – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Activitat 1 · Configuració d’entorn de virtualització</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/02-ex-week2.html">Activitat 2 · Booting amb UEFI</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -189,16 +189,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
   </div>
 </li>
@@ -212,13 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 2 · Booting amb UEFI</span></a>
   </div>
 </li>
@@ -291,25 +291,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link active" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#objectius" id="toc-objectius" class="nav-link" data-scroll-target="#objectius">Objectius</a></li>
-  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
+  <li><a href="#tetris-amb-uefi" id="toc-tetris-amb-uefi" class="nav-link active" data-scroll-target="#tetris-amb-uefi">Tetris amb UEFI 🕹️</a>
   <ul class="collapse">
-  <li><a href="#creació-de-màquines-virtuals" id="toc-creació-de-màquines-virtuals" class="nav-link" data-scroll-target="#creació-de-màquines-virtuals">Creació de màquines virtuals</a></li>
-  <li><a href="#creació-de-snapshots" id="toc-creació-de-snapshots" class="nav-link" data-scroll-target="#creació-de-snapshots">Creació de snapshots</a></li>
-  <li><a href="#configuració-daccés-remot-amb-ssh" id="toc-configuració-daccés-remot-amb-ssh" class="nav-link" data-scroll-target="#configuració-daccés-remot-amb-ssh">Configuració d’accés remot amb SSH</a></li>
-  <li><a href="#ús-de-la-snapshot" id="toc-ús-de-la-snapshot" class="nav-link" data-scroll-target="#ús-de-la-snapshot">Ús de la snapshot</a></li>
+  <li><a href="#preparar-lentorn" id="toc-preparar-lentorn" class="nav-link" data-scroll-target="#preparar-lentorn">Preparar l’entorn</a></li>
+  <li><a href="#metode-1-arrancant-utilitzant-la-uefi-shell" id="toc-metode-1-arrancant-utilitzant-la-uefi-shell" class="nav-link" data-scroll-target="#metode-1-arrancant-utilitzant-la-uefi-shell">Metode 1: Arrancant utilitzant la UEFI Shell 🚀</a></li>
+  <li><a href="#metode-2-creant-una-imatge-de-disc-amb-partició-esp" id="toc-metode-2-creant-una-imatge-de-disc-amb-partició-esp" class="nav-link" data-scroll-target="#metode-2-creant-una-imatge-de-disc-amb-partició-esp">Metode 2: Creant una imatge de disc amb partició ESP 🏗️</a></li>
   </ul></li>
-  <li><a href="#activitat-proposada" id="toc-activitat-proposada" class="nav-link" data-scroll-target="#activitat-proposada">Activitat proposada</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Activitat 1 · Configuració d’entorn de virtualització</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/02-ex-week2.html">Activitat 2 · Booting amb UEFI</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Configuració d’entorn de virtualització</h1>
+<h1 class="title">Arrancada UEFI bàsica amb QEMU</h1>
 </div>
 
 
@@ -326,70 +322,156 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aquest exercici té com a objectiu recordar i consolidar les habilitats en la configuració d’entorns de virtualització utilitzant màquines virtuals (MV). Durant el curs, la creació i destrucció de MV serà una tasca recurrent, per la qual cosa és fonamental tenir una base sòlida. Preparant una plantilla preinstal·lada, podreu estalviar temps significatiu evitant la reinstal·lació completa del sistema operatiu cada cop que necessiteu un nou entorn de treball.</p>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
-<ul>
-<li>Disposar d’un hipervisor de virtualització instal·lat a la vostra màquina hoste. Es recomana utilitzar <a href="https://www.vmware.com/products/workstation-pro.html">VMware Workstation Pro</a> o <a href="https://www.vmware.com/products/fusion.html">VMware Fusion</a>. Podeu reutilitzar la instal·lació que ja vau fer a l’assignatura de Sistemes Operatius.</li>
-</ul>
+<section id="tetris-amb-uefi" class="level2">
+<h2 class="anchored" data-anchor-id="tetris-amb-uefi">Tetris amb UEFI 🕹️</h2>
+<p>En aquest exercici aprendrem a crear un entorn d’arrencada UEFI senzill utilitzant QEMU. A diferència de la BIOS tradicional, la UEFI utilitza fitxers executables en format PE (Portable Executable) per carregar els sistemes operatius. Aquests fitxers es col·loquen en una partició especial del disc anomenada ESP (EFI System Partition).</p>
+<p>L’objectiu final és carregar i executar un petit joc de Tetris dins de l’entorn UEFI.</p>
+<section id="preparar-lentorn" class="level3">
+<h3 class="anchored" data-anchor-id="preparar-lentorn">Preparar l’entorn</h3>
+<p>Per a aquest laboratori, necessitem una màquina virtual amb Debian i una interfície gràfica, ja que la UEFI per defecte utilitza un entorn gràfic.</p>
+<p>Si no teniu una interfície gràfica, podeu instal·lar-la amb la següent comanda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-c</span> <span class="st">"apt install task-gnome-desktop -y"</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A més, necessitem instal·lar les eines necessàries per compilar i executar el nostre codi UEFI.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-c</span> <span class="st">"apt install qemu-system-x86 gcc-x86-64-linux-gnu nasm make gnu-efi gdisk mtools -y"</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Finalment, clonem el repositori amb el codi font del joc de Tetris per UEFI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/a1ive/uefi-tetris.git</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> uefi-tetris</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quan executeu les comandes QEMU, no ho feu amb la conexió SSH ja que us donarà problemes amb la interfície gràfica. Utilitzeu la terminal de la màquina virtual directament.</p>
+</div>
+</div>
 </section>
-<section id="objectius" class="level2">
-<h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
+<section id="metode-1-arrancant-utilitzant-la-uefi-shell" class="level3">
+<h3 class="anchored" data-anchor-id="metode-1-arrancant-utilitzant-la-uefi-shell">Metode 1: Arrancant utilitzant la UEFI Shell 🚀</h3>
+<p>Aquest mètode ens permetrà executar ràpidament un executable UEFI sense la necessitat de crear una imatge de disc. Utilitzarem la UEFI Shell, una línia de comandes que ens permet interactuar amb l’entorn UEFI.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-system-x86_64</span> <span class="at">-bios</span> /usr/share/qemu/OVMF.fd <span class="at">-drive</span> format=raw,file=fat:rw:./ <span class="at">-net</span> none</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On aquest comandament:</p>
 <ul>
-<li>Crear i configurar màquines virtuals amb distribucions Linux.</li>
-<li>Utilitzar snapshots per gestionar l’estat de les MV.</li>
-<li>Configurar i establir una connexió remota segura a les MV utilitzant SSH.</li>
+<li><code>bios /usr/share/qemu/OVMF.fd</code>: Carrega el firmware OVMF (Open Virtual Machine Firmware), que és la implementació UEFI per a QEMU.</li>
+<li><code>-drive format=raw,file=fat:rw:./</code>: Munta el directori actual (./) com si fos una partició FAT. La UEFI Shell reconeix aquest format de manera nativa, donant-nos accés al nostre fitxer <code>tetris.efi</code>.</li>
+<li><code>-net none</code>: Deshabilita la xarxa, ja que no la necessitem per a aquest exercici.</li>
 </ul>
-</section>
-<section id="tasques" class="level2">
-<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
-<section id="creació-de-màquines-virtuals" class="level3">
-<h3 class="anchored" data-anchor-id="creació-de-màquines-virtuals">Creació de màquines virtuals</h3>
-<p>Creareu dues màquines virtuals amb les distribucions Linux que farem servir durant el curs. Assegureu-vos de descarregar les imatges ISO correctament:</p>
+<p>En executar la comanda, QEMU s’iniciarà i, com que no hi ha cap sistema operatiu per arrencar, caurà directament a la UEFI Shell.</p>
+<section id="navegant-i-executant-el-bootloader-uefi" class="level4">
+<h4 class="anchored" data-anchor-id="navegant-i-executant-el-bootloader-uefi">Navegant i executant el bootloader UEFI</h4>
+<p>Un cop a la UEFI Shell, accedim a la partició que QEMU ha muntat per nosaltres.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fs0:</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La comanda <code>fs0:</code> ens canvia a la partició FAT que correspon al nostre directori.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
-<li><p><strong>AlmaLinux</strong>: Una distribució de GNU/Linux basada en Red Hat Enterprise Linux (RHEL).Descarregueu la <a href="https://mirrors.almalinux.org/isos.html">versió 9.6</a>.</p></li>
-<li><p><strong>Debian</strong>: Una distribució popular coneguda per la seva estabilitat. Descarregueu la <a href="https://debian.uvigo.es/debian-cd/12.5.0/">versió 12.5.0</a>.</p></li>
+<li>El teclat està en anglès per defecte. Per escriure el caràcter <code>:</code> heu de prémer <code>Shift + Ñ</code>.</li>
+<li>Si <code>fs0:</code> no funciona, podeu llistar les particions disponibles amb la comanda <code>map</code> i provar amb les altres.</li>
 </ol>
-<p>En la configuració no necessitareu finestres gràfiques, i de moment podeu utilitzar una configuració de disc i particions estàndard. Més endavant, durant el curs, anirem ajustant la configuració segons les necessitats específiques de cada pràctica.</p>
-</section>
-<section id="creació-de-snapshots" class="level3">
-<h3 class="anchored" data-anchor-id="creació-de-snapshots">Creació de snapshots</h3>
-<p>Un cop instal·lades les dues màquines virtuals, creeu una snapshot de cadascuna. Una snapshot és una <strong>instantània</strong> de l’estat actual de la màquina virtual, incloent-hi la seva memòria, configuració i l’estat dels seus discos virtuals. Aquesta eina us permetrà tornar ràpidament a un estat inicial net en qualsevol moment, evitant haver de reinstal·lar el sistema si alguna configuració falla.</p>
-</section>
-<section id="configuració-daccés-remot-amb-ssh" class="level3">
-<h3 class="anchored" data-anchor-id="configuració-daccés-remot-amb-ssh">Configuració d’accés remot amb SSH</h3>
-<p>Per facilitar la connexió i gestió de les màquines virtuals, configurarem l’accés remot mitjançant SSH (Secure Shell). Això us permetrà connectar-vos a les MV des de la vostra màquina hoste utilitzant una terminal o PowerShell amb suport SSH (Linux o MacOS).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> user@vm_ip_address</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ús-de-la-snapshot" class="level3">
-<h3 class="anchored" data-anchor-id="ús-de-la-snapshot">Ús de la snapshot</h3>
-<p>Un cop hàgiu completat la configuració inicial i les proves amb les màquines virtuals, practiqueu l’ús de les snapshots:</p>
-<ol type="1">
-<li>Instal·leu algun programari a la MV amb debian com les eines de desenvolupament (gcc, make, etc).</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recordeu instal·lar com a root</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install build-essential</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="2" type="1">
-<li>Comproveu que el programari està instal·lat correctament.</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">--version</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="3" type="1">
-<li>Després, torneu a la snapshot creada anteriorment per veure que el programari ja no està instal·lat.</li>
-</ol>
+</div>
+</div>
+<p>Ara, podem veure els fitxers disponibles amb la comanda <code>ls</code> i veurem que el fitxer <code>tetris.efi</code> està present.</p>
+<p>Finalment, executem el bootloader UEFI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tetris.efi</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="activitat-proposada" class="level2">
-<h2 class="anchored" data-anchor-id="activitat-proposada">Activitat proposada</h2>
+<section id="metode-2-creant-una-imatge-de-disc-amb-partició-esp" class="level3">
+<h3 class="anchored" data-anchor-id="metode-2-creant-una-imatge-de-disc-amb-partició-esp">Metode 2: Creant una imatge de disc amb partició ESP 🏗️</h3>
+<p>Aquest mètode simula un escenari més real, on el fitxer executable es troba en una partició dedicada al disc. La partició ESP (EFI System Partition) és una partició especial, formatada en FAT32, on es guarden els fitxers d’arrencada del sistema operatiu.</p>
+<section id="crear-la-imatge-del-disc" class="level4">
+<h4 class="anchored" data-anchor-id="crear-la-imatge-del-disc">Crear la imatge del disc</h4>
+<p>Primer, creem un fitxer que farà de disc dur virtual. Amb 64 MB n’hi ha prou.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-img</span> create <span class="at">-f</span> raw tetris.img 64M</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="crear-la-taula-de-particions-gpt" class="level4">
+<h4 class="anchored" data-anchor-id="crear-la-taula-de-particions-gpt">Crear la taula de particions GPT</h4>
+<p>Utilitzarem <code>gdisk</code> per crear la partició ESP. La GPT (GUID Partition Table) és el format modern de taules de particions, necessari per a la UEFI.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/uefi-tetris <span class="co"># Canvia al directori on has clonat el repositori</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">gdisk</span> tetris.img</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A la consola de <code>gdisk</code>, utilitzarem les següents comandes:</p>
 <ul>
-<li>Escriu un script senzill que et permeti obrir la MV i connectar-te via SSH amb un sol comandament. Aquest script hauria de:
-<ul>
-<li>Iniciar la màquina virtual si no està en funcionament.</li>
-<li>Esperar fins que la MV estigui completament engegada.</li>
-<li>Connectar-se a la MV mitjançant SSH.</li>
-</ul></li>
+<li>Prémer <code>o</code> per crear una nova taula GPT.</li>
+<li>Prémer <code>n</code> per crear una nova partició.</li>
+<li>Prèmer <code>1</code> per assignar el número de partició.</li>
+<li>Prèmer <code>Enter</code> per acceptar l’inici per defecte.</li>
+<li>Prèmer <code>Enter</code> per acceptar la mida per defecte (fins al final del disc).</li>
+<li>Prèmer <code>ef00</code> per assignar el tipus EFI System Partition.</li>
+<li>Prèmer <code>w</code> per escriure els canvis i sortir.</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Confirmeu tots els canvis escrivint <code>Y</code> quan se us demani. Un cop acabat, sortiu de <code>gdisk</code> amb <code>q</code>. Per assegurar-vos que la partició s’ha creat correctament, podeu utilitzar <code>gdisk -l tetris.img</code> per llistar les particions del fitxer d’imatge. Observeu que la partició té el tipus <code>EF00</code>, indicant que és una partició ESP.</p>
+</div>
+</div>
+</section>
+<section id="formatejar-la-partició-com-a-fat32" class="level4">
+<h4 class="anchored" data-anchor-id="formatejar-la-partició-com-a-fat32">Formatejar la partició com a FAT32</h4>
+<p>Ara que tenim la partició, l’hem de formatar, és a dir, donar-li un sistema de fitxers. La UEFI requereix que la partició ESP estigui formatada en FAT32.</p>
+<ul>
+<li>Identificar el dispositiu de bucle:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">losetup</span> <span class="at">--partscan</span> <span class="at">--find</span> <span class="at">--show</span> tetris.img</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquesta comanda mostrarà el nom del dispositiu de bucle creat (p.&nbsp;ex., <code>/dev/loop0</code>) i la seva partició (<code>/dev/loop0p1</code>). Anoteu-ho.</p>
+<ul>
+<li>Formatejar la partició:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.fat</span> <span class="at">-F</span> 32 /dev/loop0p1</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="copiar-el-fitxer-uefi-a-la-partició-esp" class="level4">
+<h4 class="anchored" data-anchor-id="copiar-el-fitxer-uefi-a-la-partició-esp">Copiar el fitxer UEFI a la partició ESP</h4>
+<p>Ara, muntem la partició i copiem el fitxer <code>tetris.efi</code> a la ubicació correcta dins de l’estructura de directoris esperada per la UEFI.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/loop0p1 /mnt</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /mnt/EFI/BOOT</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> tetris.efi /mnt/EFI/BOOT/BOOTX64.EFI</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /mnt</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">losetup</span> <span class="at">-d</span> /dev/loop0</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="Observació">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Observació
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La UEFI espera trobar el fitxer d’arrencada en aquesta ubicació específica: <code>\EFI\BOOT\BOOTX64.EFI</code> per a sistemes x86_64. Si utilitzeu una arquitectura diferent, assegureu-vos de canviar el nom del fitxer segons sigui necessari (per exemple, <code>BOOTAA64.EFI</code> per a ARM64). Com estem emulant un sistema x86_64, utilitzem <code>BOOTX64.EFI</code>.</p>
+</div>
+</div>
+</section>
+<section id="arrancar-la-imatge-del-disc-amb-qemu" class="level4">
+<h4 class="anchored" data-anchor-id="arrancar-la-imatge-del-disc-amb-qemu">Arrancar la imatge del disc amb QEMU</h4>
+<p>Finalment, podem arrencar la nostra imatge de disc amb QEMU utilitzant el firmware UEFI.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-system-x86_64</span> <span class="at">-bios</span> /usr/share/qemu/OVMF.fd <span class="at">-drive</span> format=raw,file=tetris.img <span class="at">-net</span> none</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si tot ha anat bé, hauríeu de veure el joc de Tetris en funcionament a la pantalla directament sense necessitat d’entrar a la UEFI Shell.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

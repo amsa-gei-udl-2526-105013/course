@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Configuració d’entorn de virtualització – AMSA - Fall 2025</title>
+<title>Arrancada UEFI – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Activitat 1 · Configuració d’entorn de virtualització</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/03-ex-week2.html">Activitat 3 · Dual Boot amb UEFI</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -189,16 +189,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
   </div>
 </li>
@@ -212,13 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -233,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 3 · Dual Boot amb UEFI</span></a>
   </div>
 </li>
@@ -291,25 +291,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link active" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#objectius" id="toc-objectius" class="nav-link" data-scroll-target="#objectius">Objectius</a></li>
-  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
+  <li><a href="#objectiu" id="toc-objectiu" class="nav-link active" data-scroll-target="#objectiu">Objectiu</a></li>
+  <li><a href="#preparació-de-les-màquines-virtuals" id="toc-preparació-de-les-màquines-virtuals" class="nav-link" data-scroll-target="#preparació-de-les-màquines-virtuals">Preparació de les Màquines Virtuals</a></li>
+  <li><a href="#migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux" id="toc-migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux" class="nav-link" data-scroll-target="#migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux">Migrar el disc de Debian a la màquina virtual d’AlmaLinux</a>
   <ul class="collapse">
-  <li><a href="#creació-de-màquines-virtuals" id="toc-creació-de-màquines-virtuals" class="nav-link" data-scroll-target="#creació-de-màquines-virtuals">Creació de màquines virtuals</a></li>
-  <li><a href="#creació-de-snapshots" id="toc-creació-de-snapshots" class="nav-link" data-scroll-target="#creació-de-snapshots">Creació de snapshots</a></li>
-  <li><a href="#configuració-daccés-remot-amb-ssh" id="toc-configuració-daccés-remot-amb-ssh" class="nav-link" data-scroll-target="#configuració-daccés-remot-amb-ssh">Configuració d’accés remot amb SSH</a></li>
-  <li><a href="#ús-de-la-snapshot" id="toc-ús-de-la-snapshot" class="nav-link" data-scroll-target="#ús-de-la-snapshot">Ús de la snapshot</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
   </ul></li>
-  <li><a href="#activitat-proposada" id="toc-activitat-proposada" class="nav-link" data-scroll-target="#activitat-proposada">Activitat proposada</a></li>
+  <li><a href="#tasca" id="toc-tasca" class="nav-link" data-scroll-target="#tasca">Tasca</a></li>
+  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega">Entrega</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Activitat 1 · Configuració d’entorn de virtualització</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/03-ex-week2.html">Activitat 3 · Dual Boot amb UEFI</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Configuració d’entorn de virtualització</h1>
+<h1 class="title">Arrancada UEFI</h1>
 </div>
 
 
@@ -326,67 +324,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aquest exercici té com a objectiu recordar i consolidar les habilitats en la configuració d’entorns de virtualització utilitzant màquines virtuals (MV). Durant el curs, la creació i destrucció de MV serà una tasca recurrent, per la qual cosa és fonamental tenir una base sòlida. Preparant una plantilla preinstal·lada, podreu estalviar temps significatiu evitant la reinstal·lació completa del sistema operatiu cada cop que necessiteu un nou entorn de treball.</p>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
+<section id="objectiu" class="level2">
+<h2 class="anchored" data-anchor-id="objectiu">Objectiu</h2>
 <ul>
-<li>Disposar d’un hipervisor de virtualització instal·lat a la vostra màquina hoste. Es recomana utilitzar <a href="https://www.vmware.com/products/workstation-pro.html">VMware Workstation Pro</a> o <a href="https://www.vmware.com/products/fusion.html">VMware Fusion</a>. Podeu reutilitzar la instal·lació que ja vau fer a l’assignatura de Sistemes Operatius.</li>
+<li>Entendre com funciona la UEFI i la partició ESP.</li>
+<li>Configurar una màquina virtual amb dual boot.</li>
+<li>Practicar la gestió de l’ordre d’arrencada i la creació d’entrades UEFI.</li>
 </ul>
+<p>Al final, hauries de poder seleccionar entre AlmaLinux i Debian a l’inici de la màquina virtual.</p>
 </section>
-<section id="objectius" class="level2">
-<h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
-<ul>
-<li>Crear i configurar màquines virtuals amb distribucions Linux.</li>
-<li>Utilitzar snapshots per gestionar l’estat de les MV.</li>
-<li>Configurar i establir una connexió remota segura a les MV utilitzant SSH.</li>
-</ul>
+<section id="preparació-de-les-màquines-virtuals" class="level2">
+<h2 class="anchored" data-anchor-id="preparació-de-les-màquines-virtuals">Preparació de les Màquines Virtuals</h2>
+<p>En primer lloc, heu de crear dues màquines virtuals amb UEFI com a firmware.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>OS</th>
+<th>Disc</th>
+<th>Firmware</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VM1-AlmaLinux</td>
+<td>AlmaLinux 9</td>
+<td>20 GB</td>
+<td>UEFI</td>
+</tr>
+<tr class="even">
+<td>VM2-Debian</td>
+<td>Debian 12</td>
+<td>20 GB</td>
+<td>UEFI</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assegureu-vos que ambdues màquines virtuals tinguin UEFI com a firmware. En el moment de fer les particions, heu de veure que es crea una partició ESP (EFI System Partition) automàticament. Si no és així, pot ser que la màquina virtual no estigui configurada correctament per utilitzar UEFI. No continuïs fins que no tinguis aquesta partició.</p>
+</div>
+</div>
 </section>
-<section id="tasques" class="level2">
-<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
-<section id="creació-de-màquines-virtuals" class="level3">
-<h3 class="anchored" data-anchor-id="creació-de-màquines-virtuals">Creació de màquines virtuals</h3>
-<p>Creareu dues màquines virtuals amb les distribucions Linux que farem servir durant el curs. Assegureu-vos de descarregar les imatges ISO correctament:</p>
+<section id="migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux" class="level2">
+<h2 class="anchored" data-anchor-id="migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux">Migrar el disc de Debian a la màquina virtual d’AlmaLinux</h2>
 <ol type="1">
-<li><p><strong>AlmaLinux</strong>: Una distribució de GNU/Linux basada en Red Hat Enterprise Linux (RHEL).Descarregueu la <a href="https://mirrors.almalinux.org/isos.html">versió 9.6</a>.</p></li>
-<li><p><strong>Debian</strong>: Una distribució popular coneguda per la seva estabilitat. Descarregueu la <a href="https://debian.uvigo.es/debian-cd/12.5.0/">versió 12.5.0</a>.</p></li>
+<li>Apaga la màquina virtual de Debian si està en funcionament.</li>
+<li>Localitza el fitxer de disc virtual de la màquina virtual de Debian. Aquest fitxer al programa VMware sol tenir l’extensió <code>.vmdk</code>.</li>
+<li>A la configuració de la màquina virtual d’AlmaLinux, aneu a l’opció de disc dur i afegiu un nou disc dur, seleccionant el disc dur de la màquina virtual de Debian que heu localitzat en el pas anterior.</li>
+<li>Confirmar els parametres i aplica els canvis.</li>
 </ol>
-<p>En la configuració no necessitareu finestres gràfiques, i de moment podeu utilitzar una configuració de disc i particions estàndard. Més endavant, durant el curs, anirem ajustant la configuració segons les necessitats específiques de cada pràctica.</p>
-</section>
-<section id="creació-de-snapshots" class="level3">
-<h3 class="anchored" data-anchor-id="creació-de-snapshots">Creació de snapshots</h3>
-<p>Un cop instal·lades les dues màquines virtuals, creeu una snapshot de cadascuna. Una snapshot és una <strong>instantània</strong> de l’estat actual de la màquina virtual, incloent-hi la seva memòria, configuració i l’estat dels seus discos virtuals. Aquesta eina us permetrà tornar ràpidament a un estat inicial net en qualsevol moment, evitant haver de reinstal·lar el sistema si alguna configuració falla.</p>
-</section>
-<section id="configuració-daccés-remot-amb-ssh" class="level3">
-<h3 class="anchored" data-anchor-id="configuració-daccés-remot-amb-ssh">Configuració d’accés remot amb SSH</h3>
-<p>Per facilitar la connexió i gestió de les màquines virtuals, configurarem l’accés remot mitjançant SSH (Secure Shell). Això us permetrà connectar-vos a les MV des de la vostra màquina hoste utilitzant una terminal o PowerShell amb suport SSH (Linux o MacOS).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> user@vm_ip_address</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ús-de-la-snapshot" class="level3">
-<h3 class="anchored" data-anchor-id="ús-de-la-snapshot">Ús de la snapshot</h3>
-<p>Un cop hàgiu completat la configuració inicial i les proves amb les màquines virtuals, practiqueu l’ús de les snapshots:</p>
-<ol type="1">
-<li>Instal·leu algun programari a la MV amb debian com les eines de desenvolupament (gcc, make, etc).</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recordeu instal·lar com a root</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install build-essential</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="2" type="1">
-<li>Comproveu que el programari està instal·lat correctament.</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">--version</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="3" type="1">
-<li>Després, torneu a la snapshot creada anteriorment per veure que el programari ja no està instal·lat.</li>
-</ol>
+<section id="test" class="level3">
+<h3 class="anchored" data-anchor-id="test">Test</h3>
+<p>Assegureu-vos que la màquina virtual ara té dos discs durs: un amb AlmaLinux i un altre amb Debian utilitzant la comanda <code>lsblk</code>, hauria de mostrar-vos alguna cosa com això:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[root@localhost</span> ~]# lsblk</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span>               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sr0</span>                 11:0    1  1.7G  0 rom</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n1</span>            259:0    0   20G  0 disk</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p1</span>        259:1    0  600M  0 part /boot/efi</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p2</span>        259:2    0    1G  0 part /boot</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n1p3</span>        259:3    0 18.4G  0 part</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├─almalinux-root</span> 253:0    0 16.4G  0 lvm  /</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└─almalinux-swap</span> 253:1    0    2G  0 lvm  <span class="pp">[</span><span class="ss">SWAP</span><span class="pp">]</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n2</span>            259:4    0   20G  0 disk</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n2p1</span>        259:5    0  512M  0 part</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n2p2</span>        259:6    0 18.5G  0 part</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n2p3</span>        259:7    0  976M  0 part</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On <code>nvme0n1</code> és el disc d’AlmaLinux i <code>nvme0n2</code> és el disc de Debian. Es posible que el nom del disc no sigui <code>nvme</code>, pot ser <code>sda</code>, <code>vda</code>, etc. Depèn del tipus de disc que tinguis.</p>
 </section>
 </section>
-<section id="activitat-proposada" class="level2">
-<h2 class="anchored" data-anchor-id="activitat-proposada">Activitat proposada</h2>
+<section id="tasca" class="level2">
+<h2 class="anchored" data-anchor-id="tasca">Tasca</h2>
+<p>Reinicia la màquina virtual d’AlmaLinux i entra a la UEFI (normalment prement <code>F2</code> o <code>Esc</code> durant l’arrencada). La teva tasca es configurar la UEFI per afegir una entrada d’arrencada per a Debian. Has de poder arrancar tant AlmaLinux com Debian des del menú d’arrencada de la UEFI.</p>
+</section>
+<section id="entrega" class="level2">
+<h2 class="anchored" data-anchor-id="entrega">Entrega</h2>
+<p>Has de presentar un document amb els següents punts:</p>
 <ul>
-<li>Escriu un script senzill que et permeti obrir la MV i connectar-te via SSH amb un sol comandament. Aquest script hauria de:
-<ul>
-<li>Iniciar la màquina virtual si no està en funcionament.</li>
-<li>Esperar fins que la MV estigui completament engegada.</li>
-<li>Connectar-se a la MV mitjançant SSH.</li>
-</ul></li>
+<li>Els passos que has seguit per configurar la UEFI i afegir l’entrada d’arrencada per a Debian.</li>
+<li>Fes una captura de pantalla del menú d’arrencada de la UEFI mostrant les dues entrades (AlmaLinux i Debian) i puja-la a l’aula virtual juntament amb una breu descripció dels passos que has seguit per aconseguir-ho.</li>
 </ul>
 
 
