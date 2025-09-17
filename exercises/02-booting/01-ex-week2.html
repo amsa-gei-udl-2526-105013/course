@@ -411,6 +411,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensamblar el codi</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nasm</span> <span class="at">-f</span> bin <span class="at">-o</span> boot.bin boot.asm</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <p>On <code>-f bin</code> indica que volem un fitxer binari pla, i <code>-o boot.bin</code> especifica el nom del fitxer de sortida.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Problemes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Problemes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si la comanda d’instalació de <code>qemu</code> no acaba correctament, heu de fer un <code>su -c "apt update"</code> i problablement també un <code>su -c "apt upgrade -y"</code> abans de tornar a intentar instal·lar <code>qemu</code>.</p>
+</div>
+</div>
 <p>Ara, escrivim el bootloader al disc virtual:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=boot.bin of=disk.img bs=512 count=1 conv=notrunc</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <p>On <code>conv=notrunc</code> assegura que no truncarem el fitxer de sortida, mantenint la resta del disc intacta.</p>
@@ -452,7 +465,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Per sortir de QEMU, utilitza la combinació de tecles <code>Ctrl + A</code>, seguida de <code>X</code>.</p>
+<ol type="1">
+<li>Per sortir de QEMU, utilitza la combinació de tecles <code>Ctrl + A</code>, seguida de <code>X</code>.</li>
+<li>Alternativament, pots <code>Ctrl + C</code> a la terminal per anar a la línia de comandes de QEMU i després escriure <code>quit</code> per sortir.</li>
+</ol>
 </div>
 </div>
 </section>
@@ -474,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>print_loop</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">.done:</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">$</span>           <span class="co">; aturar-se aquí</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">$</span>       </span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>msg <span class="dt">db</span> <span class="st">"Hola des del bootloader de segona etapa!"</span><span class="op">,</span> <span class="dv">0</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Ara ensamblarem aquest codi i el prepararem per ser carregat pel nostre bootloader de primera etapa.</p>

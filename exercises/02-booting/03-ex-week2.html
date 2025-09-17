@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Apaga la màquina virtual de Debian si està en funcionament.</li>
 <li>Localitza el fitxer de disc virtual de la màquina virtual de Debian. Aquest fitxer al programa VMware sol tenir l’extensió <code>.vmdk</code>.</li>
-<li>A la configuració de la màquina virtual d’AlmaLinux, aneu a l’opció de disc dur i afegiu un nou disc dur, seleccionant el disc dur de la màquina virtual de Debian que heu localitzat en el pas anterior.</li>
+<li>A la configuració de la màquina virtual d’AlmaLinux, aneu a l’opció de disc dur i afegiu un disc dur existent, seleccionant el disc dur de la màquina virtual de Debian que heu localitzat en el pas anterior.</li>
 <li>Confirmar els parametres i aplica els canvis.</li>
 </ol>
 <section id="test" class="level3">
@@ -404,6 +404,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tasca" class="level2">
 <h2 class="anchored" data-anchor-id="tasca">Tasca</h2>
 <p>Reinicia la màquina virtual d’AlmaLinux i entra a la UEFI (normalment prement <code>F2</code> o <code>Esc</code> durant l’arrencada). La teva tasca es configurar la UEFI per afegir una entrada d’arrencada per a Debian. Has de poder arrancar tant AlmaLinux com Debian des del menú d’arrencada de la UEFI.</p>
+<ol type="1">
+<li>El primer pas és identificar com podem arrancar Debian.</li>
+<li>Analitzeu la comanda <code>bcfg</code> amb <code>help bcfg</code> per veure com funciona.</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La comanda <code>bcfg</code> es troba disponible a partir de la versió 2.3 de UEFI Shell. Si la vostra màquina virtual utilitza una versió anterior, és possible que no tingueu aquesta comanda disponible. En aquest cas, haureu d’actualitzar el firmware UEFI de la vostra màquina virtual o utilitzar una altra eina per gestionar les entrades d’arrencada com <code>efibootmgr</code> des de Linux.</p>
+</div>
+</div>
 </section>
 <section id="entrega" class="level2">
 <h2 class="anchored" data-anchor-id="entrega">Entrega</h2>

@@ -331,8 +331,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Per a aquest laboratori, necessitem una màquina virtual amb Debian i una interfície gràfica, ja que la UEFI per defecte utilitza un entorn gràfic.</p>
 <p>Si no teniu una interfície gràfica, podeu instal·lar-la amb la següent comanda:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-c</span> <span class="st">"apt install task-gnome-desktop -y"</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un cop instal·lada la interfície gràfica, reinicieu la màquina virtual i inicieu sessió a l’entorn d’escriptori.</p>
+</div>
+</div>
 <p>A més, necessitem instal·lar les eines necessàries per compilar i executar el nostre codi UEFI.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-c</span> <span class="st">"apt install qemu-system-x86 gcc-x86-64-linux-gnu nasm make gnu-efi gdisk mtools -y"</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>su -c “apt install qemu-system-x86 make gdisk mtools -y”</p>
 <p>Finalment, clonem el repositori amb el codi font del joc de Tetris per UEFI:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/a1ive/uefi-tetris.git</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> uefi-tetris</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
@@ -382,7 +396,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </div>
 </div>
-<p>Ara, podem veure els fitxers disponibles amb la comanda <code>ls</code> i veurem que el fitxer <code>tetris.efi</code> està present.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Utilitzeu les comandes <code>ls</code> i <code>cd</code> per navegar pel sistema de fitxers fins que trobeu la carpeta <code>uefi-tetris</code> i dins d’ella el fitxer <code>tetris.efi</code>.</p>
+</div>
+</div>
 <p>Finalment, executem el bootloader UEFI:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tetris.efi</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -421,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Confirmeu tots els canvis escrivint <code>Y</code> quan se us demani. Un cop acabat, sortiu de <code>gdisk</code> amb <code>q</code>. Per assegurar-vos que la partició s’ha creat correctament, podeu utilitzar <code>gdisk -l tetris.img</code> per llistar les particions del fitxer d’imatge. Observeu que la partició té el tipus <code>EF00</code>, indicant que és una partició ESP.</p>
+<p>Confirmeu tots els canvis escrivint <code>Y</code> quan se us demani. Per assegurar-vos que la partició s’ha creat correctament, podeu utilitzar <code>gdisk -l tetris.img</code> per llistar les particions del fitxer d’imatge. Observeu que la partició té el tipus <code>EF00</code>, indicant que és una partició ESP.</p>
 </div>
 </div>
 </section>
@@ -433,22 +459,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">losetup</span> <span class="at">--partscan</span> <span class="at">--find</span> <span class="at">--show</span> tetris.img</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Aquesta comanda mostrarà el nom del dispositiu de bucle creat (p.&nbsp;ex., <code>/dev/loop0</code>) i la seva partició (<code>/dev/loop0p1</code>). Anoteu-ho.</p>
+<p>Aquesta comanda mostrarà el nom del dispositiu de bucle creat (p.&nbsp;ex., <code>/dev/loop1</code>) i la seva partició (<code>/dev/loop1p1</code>). Anoteu-ho.</p>
 <ul>
 <li>Formatejar la partició:</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.fat</span> <span class="at">-F</span> 32 /dev/loop0p1</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.fat</span> <span class="at">-F</span> 32 /dev/loop1p1</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="copiar-el-fitxer-uefi-a-la-partició-esp" class="level4">
 <h4 class="anchored" data-anchor-id="copiar-el-fitxer-uefi-a-la-partició-esp">Copiar el fitxer UEFI a la partició ESP</h4>
 <p>Ara, muntem la partició i copiem el fitxer <code>tetris.efi</code> a la ubicació correcta dins de l’estructura de directoris esperada per la UEFI.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/loop0p1 /mnt</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/loop1p1 /mnt</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /mnt/EFI/BOOT</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> tetris.efi /mnt/EFI/BOOT/BOOTX64.EFI</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /mnt</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">losetup</span> <span class="at">-d</span> /dev/loop0</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">losetup</span> <span class="at">-d</span> /dev/loop1</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled" title="Observació">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
