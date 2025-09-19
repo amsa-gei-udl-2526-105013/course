@@ -373,6 +373,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Assegureu-vos que ambdues màquines virtuals tinguin UEFI com a firmware. En el moment de fer les particions, heu de veure que es crea una partició ESP (EFI System Partition) automàticament. Si no és així, pot ser que la màquina virtual no estigui configurada correctament per utilitzar UEFI. No continuïs fins que no tinguis aquesta partició.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Advertència">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>Advertència
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si <strong>VMWare</strong> no us deixa seleccionar <strong>UEFI</strong> com a firmware, un cop creada la màquina virtual amb <strong>BIOS</strong>, heu de modificar el fitxer <code>.vmx</code> de la màquina virtual i afegir al final les línies següents:</p>
+<pre><code>firmware = "efi"
+efi.secureBoot.enabled = "FALSE"</code></pre>
+<p>Guarda els canvis i inicia la màquina virtual de nou, i instal·la el sistema operatiu.</p>
+</div>
+</div>
 </section>
 <section id="migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux" class="level2">
 <h2 class="anchored" data-anchor-id="migrar-el-disc-de-debian-a-la-màquina-virtual-dalmalinux">Migrar el disc de Debian a la màquina virtual d’AlmaLinux</h2>
@@ -385,19 +401,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="test" class="level3">
 <h3 class="anchored" data-anchor-id="test">Test</h3>
 <p>Assegureu-vos que la màquina virtual ara té dos discs durs: un amb AlmaLinux i un altre amb Debian utilitzant la comanda <code>lsblk</code>, hauria de mostrar-vos alguna cosa com això:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[root@localhost</span> ~]# lsblk</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span>               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sr0</span>                 11:0    1  1.7G  0 rom</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n1</span>            259:0    0   20G  0 disk</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p1</span>        259:1    0  600M  0 part /boot/efi</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p2</span>        259:2    0    1G  0 part /boot</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n1p3</span>        259:3    0 18.4G  0 part</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├─almalinux-root</span> 253:0    0 16.4G  0 lvm  /</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└─almalinux-swap</span> 253:1    0    2G  0 lvm  <span class="pp">[</span><span class="ss">SWAP</span><span class="pp">]</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n2</span>            259:4    0   20G  0 disk</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n2p1</span>        259:5    0  512M  0 part</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n2p2</span>        259:6    0 18.5G  0 part</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n2p3</span>        259:7    0  976M  0 part</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[root@localhost</span> ~]# lsblk</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span>               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sr0</span>                 11:0    1  1.7G  0 rom</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n1</span>            259:0    0   20G  0 disk</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p1</span>        259:1    0  600M  0 part /boot/efi</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p2</span>        259:2    0    1G  0 part /boot</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n1p3</span>        259:3    0 18.4G  0 part</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├─almalinux-root</span> 253:0    0 16.4G  0 lvm  /</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└─almalinux-swap</span> 253:1    0    2G  0 lvm  <span class="pp">[</span><span class="ss">SWAP</span><span class="pp">]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n2</span>            259:4    0   20G  0 disk</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n2p1</span>        259:5    0  512M  0 part</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n2p2</span>        259:6    0 18.5G  0 part</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n2p3</span>        259:7    0  976M  0 part</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <p>On <code>nvme0n1</code> és el disc d’AlmaLinux i <code>nvme0n2</code> és el disc de Debian. Es posible que el nom del disc no sigui <code>nvme</code>, pot ser <code>sda</code>, <code>vda</code>, etc. Depèn del tipus de disc que tinguis.</p>
 </section>
 </section>
