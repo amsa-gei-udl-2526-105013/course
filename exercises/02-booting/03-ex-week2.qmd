@@ -75,6 +75,57 @@ Reinicia la màquina virtual d'AlmaLinux i entra a la UEFI (normalment prement `
 La comanda `bcfg` es troba disponible a partir de la versió 2.3 de UEFI Shell. Si la vostra màquina virtual utilitza una versió anterior, és possible que no tingueu aquesta comanda disponible. En aquest cas, haureu d'actualitzar el firmware UEFI de la vostra màquina virtual o utilitzar una altra eina per gestionar les entrades d'arrencada com `efibootmgr` des de Linux.
 :::
 
+En cas de no poder accedir a la shell o no tenir disponible la comanda `bcfg` encara que es compleixi el requisit de la versió de UEFI Shell >= 2.3, cal arrencar des d'un fitxer EFI Shell V2 més complet. Podeu [descarregar-lo aquí.](https://github.com/pbatard/UEFI-Shell/releases/download/25H1/shellx64.efi)
+
+Per poder arrencar aquest fitxer des de VMware, l'hem d'escriure amb el format correcte a una imatge vmdk:
+
+1. El primer pas és crear una imatge de disc buida on després escriurem l'arbre de directoris adequat per EFI així com el fitxer descarregat a arrencar.
+
+    ```bash
+    dd if=/dev/zero of=Shell.img bs=1M count=64
+    ```
+2. Ara utilitzem parted per crear una taula de particions GPT i una partició FAT32 marcada com a bootable.
+
+    ```bash
+    parted Shell.img --script mklabel gpt
+    parted Shell.img --script mkpart ESP fat32 1MiB 100%
+    parted Shell.img --script set 1 boot on
+    ```
+3. Per poder treballar amb les particions dins del fitxer de disc, l’associem a un dispositiu loop.
+
+    ```bash
+    sudo losetup -Pf Shell.img
+    ```
+4. Formatem la partició EFI amb FAT32, obligatori per a UEFI:
+
+    ```bash
+    sudo mkfs.vfat -F32 /dev/loop0p1
+    ```
+5. Muntem la partició, creem l’arbre de directoris correcte i copiem el fitxer .efi amb el nom BOOTX64.EFI. Finalment, desmuntem la partició i desassociem el dispositiu loop.
+
+    ```bash
+    sudo mount /dev/loop0p1 /mnt
+    sudo mkdir -p /mnt/EFI/BOOT
+    sudo cp Shellx64.efi /mnt/EFI/BOOT/BOOTX64.EFI
+    sudo umount /mnt
+    sudo losetup -d /dev/loop0
+    ```
+6. Finalment convertim la imatge RAW a VMDK perquè pugui ser utilitzada a VMware:
+
+    ```bash
+    qemu-img convert -f raw -O vmdk Shell.img Shell.vmdk
+    ```
+
+Per usar aquest fitxer generat, afegiu un disc dur (Hard Disk) a la vostra màquina i obriu-lo.
+
+:::{.callout-important title="Nota"}
+En cas de tenir un altre disc dur bootejable a la màquina virtual, per defecte no arrencarà des del de UEFI Shell. Per poder executar-ho, heu d’entrar a la UEFI (normalment prement F2 o Esc durant l’arrencada) i seleccionar el disc dur corresponent a la UEFI Shell.
+:::
+
+Si per alguna raó no podeu executar les comandes per crear un disc dur amb l'imatge de UEFI Shell, el podeu [descarregar des d'aquí.](files/Shell.vmdk)
+
+A partir d'aquesta shell ja teniu disponible la comanda `bcfg`
+
 ## Entrega
 
 Has de presentar un document amb els següents punts:
