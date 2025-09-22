@@ -437,6 +437,44 @@ efi.secureBoot.enabled = "FALSE"</code></pre>
 <p>La comanda <code>bcfg</code> es troba disponible a partir de la versió 2.3 de UEFI Shell. Si la vostra màquina virtual utilitza una versió anterior, és possible que no tingueu aquesta comanda disponible. En aquest cas, haureu d’actualitzar el firmware UEFI de la vostra màquina virtual o utilitzar una altra eina per gestionar les entrades d’arrencada com <code>efibootmgr</code> des de Linux.</p>
 </div>
 </div>
+<p>En cas de no poder accedir a la shell o no tenir disponible la comanda <code>bcfg</code> encara que es compleixi el requisit de la versió de UEFI Shell &gt;= 2.3, cal arrencar des d’un fitxer EFI Shell V2 més complet. Podeu <a href="https://github.com/pbatard/UEFI-Shell/releases/download/25H1/shellx64.efi">descarregar-lo aquí.</a></p>
+<p>Per poder arrencar aquest fitxer des de VMware, l’hem d’escriure amb el format correcte a una imatge vmdk:</p>
+<ol type="1">
+<li><p>El primer pas és crear una imatge de disc buida on després escriurem l’arbre de directoris adequat per EFI així com el fitxer descarregat a arrencar.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=/dev/zero of=Shell.img bs=1M count=64</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Ara utilitzem parted per crear una taula de particions GPT i una partició FAT32 marcada com a bootable.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">parted</span> Shell.img <span class="at">--script</span> mklabel gpt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">parted</span> Shell.img <span class="at">--script</span> mkpart ESP fat32 1MiB 100%</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">parted</span> Shell.img <span class="at">--script</span> set 1 boot on</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Per poder treballar amb les particions dins del fitxer de disc, l’associem a un dispositiu loop.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> losetup <span class="at">-Pf</span> Shell.img</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Formatem la partició EFI amb FAT32, obligatori per a UEFI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkfs.vfat <span class="at">-F32</span> /dev/loop0p1</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Muntem la partició, creem l’arbre de directoris correcte i copiem el fitxer .efi amb el nom BOOTX64.EFI. Finalment, desmuntem la partició i desassociem el dispositiu loop.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mount /dev/loop0p1 /mnt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir <span class="at">-p</span> /mnt/EFI/BOOT</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cp Shellx64.efi /mnt/EFI/BOOT/BOOTX64.EFI</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> umount /mnt</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> losetup <span class="at">-d</span> /dev/loop0</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Finalment convertim la imatge RAW a VMDK perquè pugui ser utilitzada a VMware:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-img</span> convert <span class="at">-f</span> raw <span class="at">-O</span> vmdk Shell.img Shell.vmdk</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p>Per usar aquest fitxer generat, afegiu un disc dur (Hard Disk) a la vostra màquina i obriu-lo.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En cas de tenir un altre disc dur bootejable a la màquina virtual, per defecte no arrencarà des del de UEFI Shell. Per poder executar-ho, heu d’entrar a la UEFI (normalment prement F2 o Esc durant l’arrencada) i seleccionar el disc dur corresponent a la UEFI Shell.</p>
+</div>
+</div>
+<p>Si per alguna raó no podeu executar les comandes per crear un disc dur amb l’imatge de UEFI Shell, el podeu <a href="files/Shell.vmdk">descarregar des d’aquí.</a></p>
+<p>A partir d’aquesta shell ja teniu disponible la comanda <code>bcfg</code></p>
 </section>
 <section id="entrega" class="level2">
 <h2 class="anchored" data-anchor-id="entrega">Entrega</h2>
