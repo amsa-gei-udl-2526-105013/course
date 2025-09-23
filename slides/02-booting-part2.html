@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
+
+  <meta name="author" content="Jordi Mateo Fornés">
+  <title>AMSA - Fall 2025 – Arrencada del sistema (Part 2)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Arrencada del sistema (Part 2)</h1>
+  <p class="subtitle">Unitat 2 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jordi Mateo Fornés 
+</div>
+</div>
+</div>
+
+</section>
+<section id="etapes-de-larrancada" class="slide level2">
+<h2>Etapes de l’arrancada</h2>
+
+<img data-src="../figs/slides/02-booting/linux-unix-booting-process.png" class="r-stretch"></section>
+<section id="què-és-el-grubgrub2" class="slide level2 smaller">
+<h2>Què és el GRUB/GRUB2?</h2>
+<p><strong>GRUB</strong> (<em>GRand Unified Bootloader</em>) és un gestor d’arrencada molt utilitzat en sistemes operatius Linux i altres sistemes Unix-like. La seva funció principal és carregar un kernel del sistema operatiu a la memòria i iniciar el procés d’arrencada.</p>
+<ul>
+<li class="fragment"><strong>Funcions principals</strong>:
+<ul>
+<li class="fragment">Permet seleccionar entre múltiples sistemes operatius instal·lats en un mateix ordinador (multi-boot).</li>
+<li class="fragment">Proporciona una interfície per configurar opcions d’arrencada, com ara paràmetres del kernel.</li>
+<li class="fragment">Suporta diferents sistemes de fitxers, permetent accedir a particions amb formats com ext4, Btrfs, XFS, entre altres.</li>
+<li class="fragment">Ofereix una consola interactiva per a la resolució de problemes i la configuració avançada.</li>
+</ul></li>
+</ul>
+</section>
+<section id="etapes-dexecució-del-grub" class="slide level2 smaller">
+<h2>Etapes d’execució del GRUB</h2>
+<ul>
+<li class="fragment"><strong>Stage 1</strong>:
+<ul>
+<li class="fragment">En sistemes BIOS: efectivament és el codi al MBR (o VBR) → molt petit (≤ 446 bytes).</li>
+<li class="fragment">En sistemes UEFI: és un fitxer executable EFI (normalment a /boot/efi/EFI/grub/grubx64.efi).</li>
+</ul></li>
+<li class="fragment"><strong>Stage 1.5</strong> (només en BIOS, opcional):
+<ul>
+<li class="fragment">Proporciona suport bàsic per a sistemes de fitxers.</li>
+<li class="fragment">Normalment es troba en sectors buits després del MBR (espai entre MBR i primera partició). <em>core.img</em>.</li>
+</ul></li>
+<li class="fragment"><strong>Stage 2</strong>:
+<ul>
+<li class="fragment">Conté el GRUB complet amb el menú d’arrencada.</li>
+<li class="fragment">Pot carregar mòduls addicionals (drivers de FS, vídeo, xarxa, criptografia…).</li>
+<li class="fragment">Llegeix el fitxer de configuració (grub.cfg) i carrega el kernel i l’initramfs a la memòria.</li>
+<li class="fragment">Transfereix el control al kernel per iniciar el sistema operatiu.</li>
+</ul></li>
+</ul>
+</section>
+<section id="diagrama-darrencada-del-grub" class="slide level2 smaller">
+<h2>Diagrama d’arrencada del GRUB</h2>
+
+<img data-src="../figs/slides/02-booting/grub.png" class="r-stretch"><ul>
+<li class="fragment"><strong>set root=‘hd0,msdos1’</strong>: Indica la partició arrel on es troba el sistema operatiu que es vol arrencar.</li>
+<li class="fragment"><strong>linux /vmlinuz root=/dev/sda1</strong>: Indica la ruta del kernel i la partició arrel.</li>
+<li class="fragment"><strong>initrd /initramfs.img</strong>: Indica la ruta de l’initramfs.</li>
+<li class="fragment"><strong>boot</strong>: Inicia el sistema operatiu.</li>
+</ul>
+</section>
+<section id="configuració-del-grub-i" class="slide level2 smaller">
+<h2>Configuració del GRUB (I)</h2>
+<p>El fitxer principal de configuració de <strong>GRUB2</strong> és:<br>
+- <code>/boot/grub/grub.cfg</code> (o <code>/boot/grub2/grub.cfg</code> en algunes distribucions).</p>
+<div title="Important">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>No s’ha d’editar directament</strong>, ja que es regenera automàticament.</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="fitxers-i-directoris">Fitxers i directoris</h3>
+<ul>
+<li class="fragment"><strong><code>/etc/default/grub</code></strong> : Opcions generals de configuració i variables d’entorn.</li>
+<li class="fragment"><strong><code>/etc/grub.d/</code></strong><br>
+Directori amb scripts que generen <code>grub.cfg</code>:
+<ul>
+<li class="fragment"><code>00_header</code> → configuració inicial<br>
+</li>
+<li class="fragment"><code>10_linux</code> → detecta kernels Linux<br>
+</li>
+<li class="fragment"><code>30_os-prober</code> → detecta altres SO<br>
+</li>
+<li class="fragment"><code>40_custom</code> → entrades personalitzades</li>
+</ul></li>
+</ul>
+</section>
+<section id="configuració-del-grub-ii" class="slide level2">
+<h2>Configuració del GRUB (II)</h2>
+<p>Un cop modificats els fitxers anteriors, cal regenerar <code>grub.cfg</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="co"># Distribucions Debian/Ubuntu</span></span>
+<span id="cb1-2"><a></a><span class="fu">sudo</span> update-grub</span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a><span class="co"># Distribucions Arch, Fedora, openSUSE...</span></span>
+<span id="cb1-5"><a></a><span class="fu">sudo</span> grub-mkconfig <span class="at">-o</span> /boot/grub/grub.cfg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="variables-etcdefaultgrub" class="slide level2 smaller">
+<h2>Variables <code>/etc/default/grub</code></h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>GRUB_BACKGROUND</code></td>
+<td>Imatge de fons que es mostrarà al menú d’arrencada.</td>
+</tr>
+<tr class="even">
+<td><code>GRUB_TIMEOUT</code></td>
+<td>Temps en segons abans de carregar l’entrada predeterminada.</td>
+</tr>
+<tr class="odd">
+<td><code>GRUB_DEFAULT</code></td>
+<td>Entrada per defecte que es carregarà (index o nom)</td>
+</tr>
+<tr class="even">
+<td><code>GRUB_CMDLINE_LINUX</code></td>
+<td>Opcions de línia de comandes que es passen al nucli en arrencar el sistema.</td>
+</tr>
+<tr class="odd">
+<td><code>GRUB_DISABLE_RECOVERY</code></td>
+<td>Si <strong>true</strong>, desactiva les opcions de mode de recuperació.</td>
+</tr>
+<tr class="even">
+<td><code>GRUB_DISABLE_OS_PROBER</code></td>
+<td>Si <strong>true</strong>, impedeix que GRUB busqui altres sistemes operatius instal·lats.</td>
+</tr>
+<tr class="odd">
+<td><code>GRUB_PRELOAD_MODULES</code></td>
+<td>Llista de mòduls GRUB que es carregaran abans de mostrar el menú d’arrencada.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="paràmetres-del-kernel-més-comuns" class="slide level2 smaller">
+<h2>Paràmetres del kernel més comuns</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paràmetre</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>quiet</code></td>
+<td>Suprimeix els missatges del nucli durant l’arrencada.</td>
+</tr>
+<tr class="even">
+<td><code>single</code></td>
+<td>Inicia el sistema en mode d’usuari únic (single-user mode) per a tasques de manteniment.</td>
+</tr>
+<tr class="odd">
+<td><code>splash</code></td>
+<td>Mostra una imatge de fons durant l’arrencada en lloc de missatges de text.</td>
+</tr>
+<tr class="even">
+<td><code>nomodeset</code></td>
+<td>Desactiva la detecció de modes de vídeo, útil per a solucions de problemes amb gràfics.</td>
+</tr>
+<tr class="odd">
+<td><code>root=</code></td>
+<td>Especifica la partició arrel del sistema de fitxers.</td>
+</tr>
+<tr class="even">
+<td><code>init=</code></td>
+<td>Especifica un fitxer d’init alternatiu.</td>
+</tr>
+<tr class="odd">
+<td><code>ro</code></td>
+<td>Muntatge de la partició arrel en mode de només lectura durant l’arrencada.</td>
+</tr>
+<tr class="even">
+<td><code>rw</code></td>
+<td>Muntatge de la partició arrel en mode de lectura i escriptura durant l’arrencada.</td>
+</tr>
+<tr class="odd">
+<td><code>systemd.unit =</code></td>
+<td>Especifica el target de systemd a iniciar (ex: <code>multi-user.target</code>, <code>graphical.target</code>).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="consideracions-addicionals" class="slide level2">
+<h2>Consideracions addicionals</h2>
+<ul>
+<li class="fragment">En UEFI, GRUB2 és un fitxer EFI a /boot/efi/EFI/<distro>/grubx64.efi.</distro></li>
+<li class="fragment">Es poden protegir entrades amb contrasenya a /etc/grub.d/40_custom.</li>
+<li class="fragment">Al menú, amb <code>e</code> es poden passar paràmetres temporals al kernel.</li>
+<li class="fragment">GRUB permet <em>chainloading</em> per arrencar altres SO (Windows, BSD).</li>
+<li class="fragment">Amb UEFI Secure Boot, GRUB pot ser signat digitalment.</li>
+</ul>
+</section>
+<section id="secure-boot" class="slide level2 smaller">
+<h2>Secure Boot</h2>
+<p><strong>Secure Boot</strong> és una característica de seguretat del firmware UEFI que assegura que només es carregui i s’executi programari de confiança durant el procés d’arrencada del sistema.</p>
+<ol type="1">
+<li class="fragment">Quan s’encén el sistema
+<ul>
+<li class="fragment">UEFI comprova la signatura digital del bootloader EFI (per exemple, grubx64.efi) abans de carregar-lo.</li>
+<li class="fragment">La signatura és comparada amb les claus de confiança emmagatzemades en la DB (Database of allowed signatures) del firmware.</li>
+<li class="fragment">Si la signatura és vàlida, UEFI carrega i executa el bootloader. Sinó, impedeix l’execució del bootloader i mostra un missatge d’error.</li>
+</ul></li>
+<li class="fragment">Bootloader signat (GRUB EFI)
+<ul>
+<li class="fragment">Pot carregar mòduls addicionals signats, que també poden ser verificats pel mateix GRUB (<em>opcional</em>).</li>
+</ul></li>
+<li class="fragment">Kernel i initramfs
+<ul>
+<li class="fragment">El kernel Linux també pot estar signat (<em>opcional</em>, si s’utilitza Linux Kernel Signing).</li>
+<li class="fragment">Si s’utilitza <a href="http://github.com/rhboot/shim">Shim</a>, aquest actua com a intermediari: el firmware UEFI confia en Shim, i Shim verifica després GRUB i el kernel.</li>
+</ul></li>
+</ol>
+</section>
+<section id="problemes-de-secure-boot" class="slide level2">
+<h2>Problemes de Secure Boot</h2>
+<ul>
+<li class="fragment"><strong>Compatibilitat</strong>: No tots els sistemes operatius o distribucions Linux suporten Secure Boot de manera nativa.</li>
+<li class="fragment"><strong>Claus de confiança</strong>: La gestió de claus pot ser complexa, especialment en entorns corporatius.</li>
+<li class="fragment"><strong>Actualitzacions</strong>: Les actualitzacions del bootloader o del kernel poden requerir la re-signatura dels components.</li>
+<li class="fragment"><strong>Restriccions</strong>: Algunes funcionalitats avançades poden estar limitades per les polítiques de Secure Boot.</li>
+</ul>
+<p>Malgrat Secure Boot, s’han detectat vulnerabilitats que permeten carregar bootloaders no autoritzats en alguns dispositius (<a href="https://arstechnica.com/security/2024/07/secure-boot-is-completely-compromised-on-200-models-from-5-big-device-makers/?s=31">ArsTechnica, 2024</a>).</p>
+</section>
+<section>
+<section id="inici-del-sistema-operatiu" class="title-slide slide level1 center">
+<h1>Inici del sistema operatiu</h1>
+
+</section>
+<section id="què-és-el-kernel" class="slide level2 smaller">
+<h2>Què és el kernel?</h2>
+<p>El <strong>kernel</strong> és el nucli del sistema operatiu, <em>responsable de gestionar els recursos del sistema, com la memòria, el processador, els dispositius d’entrada/sortida, la xarxa i els processos d’usuari</em>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center-container">
+<p><img data-src="../figs/slides/02-booting/kernel.png"></p>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><p>El kernel es carrega a la memòria RAM durant el procés d’arrencada i es troba normalment a la partició arrel del sistema de fitxers (generalment en <strong>/boot</strong>).</p></li>
+<li class="fragment"><p>El <strong>kernel</strong> és un programa binari que es compila específicament per a l’arquitectura de maquinari del sistema (per exemple, x86, ARM, etc.)</p></li>
+<li class="fragment"><p>Pot ser personalitzat amb diferents mòduls i controladors segons les necessitats del sistema.</p></li>
+</ul>
+</div></div>
+</section>
+<section id="carregar-el-kernel" class="slide level2 smaller">
+<h2>Carregar el kernel</h2>
+<p>Per carregar el kernel, el bootloader necessita:</p>
+<ol type="1">
+<li class="fragment"><strong>Ruta del kernel</strong>
+<ul>
+<li class="fragment">Normalment un fitxer com <strong>vmlinuz-version</strong> dins de <code>/boot</code>.</li>
+</ul></li>
+<li class="fragment"><strong>Partició arrel</strong>
+<ul>
+<li class="fragment">La partició on es troba el sistema de fitxers del sistema operatiu.</li>
+</ul></li>
+<li class="fragment"><strong>Fitxer de configuració del bootloader</strong>
+<ul>
+<li class="fragment">Com <strong>grub.cfg</strong> en el cas de GRUB, que indica ruta del kernel, paràmetres i initramfs.</li>
+</ul></li>
+<li class="fragment"><strong>Càrrega de l’initramfs</strong>
+<ul>
+<li class="fragment"><strong>Initramfs</strong> (<em>initial RAM filesystem</em>) és un sistema de fitxers temporal a RAM.<br>
+</li>
+<li class="fragment">Permet inicialitzar controladors bàsics i muntar la partició arrel real abans de transferir el control al kernel complet.</li>
+</ul></li>
+</ol>
+<aside class="notes">
+<p>L’initramfs facilita la portabilitat i modularitat del kernel, permetent arrencar diferents configuracions de maquinari sense necessitat de recompilar el kernel cada cop.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="initramfs-o-initrd" class="title-slide slide level1 center">
+<h1>Initramfs o initrd</h1>
+
+</section>
+<section id="què-és-linitramfs" class="slide level2 smaller">
+<h2>Què és l’Initramfs?</h2>
+<p>L’<strong>Initramfs</strong> (<em>Initial RAM Filesystem</em>) és un petit sistema de fitxers integrat dins la imatge del nucli Linux.</p>
+<ul>
+<li class="fragment">Permet que el kernel pugui muntar la <strong>partició arrel</strong> durant l’arrencada.<br>
+</li>
+<li class="fragment">A diferència de l’antic <strong>initrd</strong>, que residia en un disc, l’initramfs es carrega completament a <strong>RAM com a imatge comprimida</strong>.</li>
+</ul>
+<div class="fragment">
+<h3 id="objectius">Objectius</h3>
+<ul>
+<li class="fragment">Proporcionar un <strong>sistema de fitxers temporal i mínim</strong>.<br>
+</li>
+<li class="fragment">Carregar <strong>mòduls essencials del kernel</strong> necessaris per accedir a maquinari i sistemes de fitxers.<br>
+</li>
+<li class="fragment">Executar scripts d’inicialització abans de transferir el control al sistema complet.</li>
+</ul>
+</div>
+</section>
+<section id="etapes-de-linitramfs-i" class="slide level2 smaller">
+<h2>Etapes de l’Initramfs (I)</h2>
+<ol type="1">
+<li class="fragment"><strong>Descompressió a la RAM</strong>
+<ul>
+<li class="fragment">El fitxer CPIO de l’initramfs es descomprimeix a un sistema de fitxers temporal a RAM (<code>tmpfs</code>), creant l’entorn mínim necessari per iniciar el kernel.<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Execució de l’script <code>/init</code></strong>
+<ul>
+<li class="fragment"><code>/init</code> és l’entrypoint principal de l’initramfs.<br>
+</li>
+<li class="fragment">Executa la seqüència d’inicialització: muntatge de sistemes virtuals, càrrega de mòduls i preparació de l’entorn.<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Creació del sistema de fitxers temporal</strong>
+<ul>
+<li class="fragment">Muntatge de <code>/proc</code>, <code>/sys</code> i <code>/dev</code>.<br>
+</li>
+<li class="fragment">Creació de directoris temporals (<code>/tmp</code>, <code>/run</code>) per permetre que els scripts i utilitats funcionin.<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Carregar mòduls del kernel</strong>
+<ul>
+<li class="fragment">Carrega controladors necessaris per accedir a maquinari (discos, controladors de xarxa, LVM, RAID, xifrat).<br>
+</li>
+<li class="fragment">Si els mòduls estan integrats al kernel, aquesta etapa pot ser mínima o nul·la.</li>
+</ul></li>
+</ol>
+</section>
+<section id="etapes-de-linitramfs-ii" class="slide level2 smaller">
+<h2>Etapes de l’Initramfs (II)</h2>
+<ol start="5" type="1">
+<li class="fragment"><strong>Muntatge de la partició arrel real</strong>
+<ul>
+<li class="fragment">Localitza la partició arrel (per exemple <code>/dev/sda1</code> o <code>UUID=...</code>).<br>
+</li>
+<li class="fragment">Muntatge en un punt temporal (<code>/mnt/root</code> o similar).<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Transició al sistema complet (<code>switch_root</code>)</strong>
+<ul>
+<li class="fragment">Substitueix l’entorn temporal de l’initramfs pel sistema de fitxers real.<br>
+</li>
+<li class="fragment">Executa el binari <code>init</code> del sistema complet (normalment <code>/sbin/init</code> o systemd).<br>
+</li>
+</ul></li>
+<li class="fragment"><strong>Alliberament de l’initramfs</strong>
+<ul>
+<li class="fragment">Destruir l’entorn temporal a RAM.<br>
+</li>
+<li class="fragment">Alliberar la memòria utilitzada pel sistema de fitxers temporal, deixant el control complet al sistema operatiu.</li>
+</ul></li>
+</ol>
+</section>
+<section id="característiques-de-linitramfs" class="slide level2 smaller">
+<h2>Característiques de l’Initramfs</h2>
+<ul>
+<li class="fragment">Facilita la portabilitat i modularitat del kernel, permetent arrencar diferents configuracions de maquinari sense necessitat de recompilar el kernel cada cop.</li>
+<li class="fragment">No sempre està present, pot estar buit o omès si el sistema no necessita un espai RAM inicial (per exemple, en sistemes simples o compilacions estàtiques del nucli).</li>
+<li class="fragment">Es configura durant la compilació del nucli <code>make menuconfig</code> i es pot definir el contingut de l’<strong>initramfs</strong> amb un fitxer de configuració, s’utiltizen variables:
+<ul>
+<li class="fragment"><strong>CONFIG_BLK_DEV_INITRD</strong>: Activa la creació de l’<strong>initramfs</strong>.</li>
+<li class="fragment"><strong>CONFIG_INITRAMFS_SOURCE</strong>: Especifica el fitxer CPIO, un directori o un fitxer d’especificació.</li>
+</ul></li>
+<li class="fragment">També es pot personalitzar segons les necessitats del sistema, permetent afegir <strong>mòduls del kernel, scripts personalitzats o utilitats addicionals</strong>.</li>
+</ul>
+</section>
+<section id="contingut-de-linitramfs" class="slide level2 smaller">
+<h2>Contingut de l’initramfs</h2>
+<ol type="1">
+<li class="fragment"><strong>Fitxers executables</strong>
+<ul>
+<li class="fragment">Ex: <strong>BusyBox</strong>, que encapsula moltes utilitats Unix (<code>ls</code>, <code>cp</code>, <code>mount</code>, shell, etc.).<br>
+</li>
+<li class="fragment">Poden incloure altres programes compilats estàticament.</li>
+</ul></li>
+<li class="fragment"><strong>Mòduls del kernel</strong>
+<ul>
+<li class="fragment">Controladors per discos, xarxes, sistemes RAID o LVM.<br>
+</li>
+<li class="fragment">Són carregats si no estan integrats dins del nucli.</li>
+</ul></li>
+<li class="fragment"><strong>Fitxers de dispositiu i sistemes especials</strong>
+<ul>
+<li class="fragment"><code>/dev</code> conté dispositius com <code>tty</code> o <code>null</code>.<br>
+</li>
+<li class="fragment">Gestionats per utilitats com <strong>mdev</strong> o <strong>udev</strong>.</li>
+</ul></li>
+</ol>
+<div class="fragment center-container">
+<p>Tots aquests elements es troben <strong>comprimits en un fitxer CPIO</strong>, descomprimits a RAM durant l’arrencada i executats per l’script <code>/init</code>.</p>
+</div>
+</section>
+<section id="configuració-de-linitramfs" class="slide level2 smaller">
+<h2>Configuració de l’initramfs</h2>
+<p>L’<strong>initramfs</strong> es pot personalitzar segons les necessitats del sistema, permetent afegir <strong>mòduls del kernel, scripts personalitzats o utilitats addicionals</strong>. La configuració depèn de la distribució:</p>
+<h3 id="debianubuntu">Debian/Ubuntu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="ex">update-initramfs</span> <span class="at">-u</span> <span class="at">-k</span> <span class="op">&lt;</span>versió<span class="op">&gt;</span></span>
+<span id="cb2-2"><a></a><span class="co"># -u actualitza l'initramfs</span></span>
+<span id="cb2-3"><a></a><span class="co"># -k especifica la versió del nucli</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<h3 id="fedorared-hat">Fedora/Red Hat</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="ex">dracut</span> <span class="at">-f</span> /boot/initramfs-<span class="op">&lt;</span>versió<span class="op">&gt;</span>.img <span class="op">&lt;</span>versió<span class="op">&gt;</span></span>
+<span id="cb3-2"><a></a><span class="co"># -f força la regeneració</span></span>
+<span id="cb3-3"><a></a><span class="co"># El primer argument és la ruta on es vol guardar l'initramfs generat</span></span>
+<span id="cb3-4"><a></a><span class="co"># El segon argument és la versió del nucli</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="initramfs-tools-debian-i" class="slide level2 smaller">
+<h2><code>initramfs-tools</code> (Debian) (I)</h2>
+<ul>
+<li class="fragment"><strong><code>/etc/initramfs-tools/modules</code></strong><br>
+Llista de <strong>mòduls addicionals</strong> del kernel a incloure a l’initramfs, per exemple controladors de xarxa o discos RAID.<br>
+</li>
+<li class="fragment"><strong><code>/etc/initramfs-tools/hooks/</code></strong><br>
+Scripts que s’executen <strong>durant la creació</strong> de l’initramfs, útils per afegir fitxers o directoris personalitzats.<br>
+</li>
+<li class="fragment"><strong><code>/etc/initramfs-tools/conf.d/</code></strong><br>
+Fitxers de configuració addicionals per modificar paràmetres específics de l’initramfs.<br>
+</li>
+<li class="fragment"><strong><code>/etc/initramfs-tools/initramfs.conf</code></strong><br>
+Configuració principal, inclou opcions com compressió, ús de scripts, paràmetres de muntatge.<br>
+</li>
+<li class="fragment"><strong><code>/usr/share/initramfs-tools/</code></strong><br>
+Scripts i fitxers estàndard utilitzats per initramfs-tools, no modificats normalment.</li>
+</ul>
+</section>
+<section id="initramfs-tools-debian-ii" class="slide level2 smaller">
+<h2><code>initramfs-tools</code> (Debian) (II)</h2>
+<ul>
+<li class="fragment"><strong><code>/etc/initramfs-tools/scripts/</code></strong><br>
+Scripts que s’executen <strong>durant l’arrencada</strong>:
+<ul>
+<li class="fragment"><strong><code>init-top/</code></strong> → scripts executats <strong>just després de descomprimir l’initramfs</strong> i abans de muntar <code>/proc</code>, <code>/sys</code> i <code>/dev</code>. Ideal per inicialitzar serveis crítics o preparar dispositius especials.<br>
+</li>
+<li class="fragment"><strong><code>init-bottom/</code></strong> → scripts executats <strong>just abans de fer <code>switch_root</code></strong> al sistema complet. Útil per passos finals com muntar la partició arrel, desbloquejar LUKS o activar LVM.<br>
+</li>
+<li class="fragment"><strong><code>local-bottom/</code></strong> → scripts addicionals definits per l’administrador.</li>
+<li class="fragment"><strong><code>local-top/</code></strong> → scripts addicionals definits per l’administrador.</li>
+<li class="fragment"><strong><code>premount/</code></strong> → scripts executats <strong>abans de muntar la partició arrel</strong>. Ideal per preparar dispositius o sistemes de fitxers especials.</li>
+<li class="fragment"><strong><code>mount/</code></strong> → scripts executats <strong>durant el muntatge de la partició arrel</strong>. Útil per passos específics relacionats amb el muntatge.</li>
+<li class="fragment"><strong><code>cleanup/</code></strong> → scripts executats <strong>després de fer <code>switch_root</code></strong> al sistema complet. Ideal per netejar recursos temporals o realitzar tasques posteriors a l’arrencada.</li>
+</ul></li>
+</ul>
+</section>
+<section id="dracut-fedorared-hat" class="slide level2 smaller">
+<h2><code>dracut</code> (Fedora/Red Hat)</h2>
+<ul>
+<li class="fragment"><strong><code>/etc/dracut.conf</code></strong><br>
+Fitxer de configuració principal de Dracut, on es poden definir opcions generals: compressió, tipus de fitxer d’initramfs, paràmetres del kernel, etc.<br>
+</li>
+<li class="fragment"><strong><code>/etc/dracut.conf.d/</code></strong><br>
+Fitxers de configuració addicionals, útils per a configuracions específiques de mòduls o projectes.<br>
+</li>
+<li class="fragment"><strong><code>/usr/lib/dracut/modules.d/</code></strong><br>
+Conté <strong>mòduls estàndard</strong> de Dracut (ex: mòduls de xarxa, lvm, cryptsetup), carregats automàticament segons la configuració.<br>
+</li>
+<li class="fragment"><strong><code>/etc/dracut/modules.d/</code></strong><br>
+Mòduls personalitzats creats per l’administrador, per afegir scripts o fitxers específics.<br>
+</li>
+<li class="fragment"><strong><code>/usr/share/dracut/</code></strong><br>
+Conté scripts i fitxers estàndard utilitzats durant la generació de l’initramfs, igual que a initramfs-tools.</li>
+</ul>
+</section>
+<section id="quan-regenerar-linitramfs" class="slide level2 smaller">
+<h2>Quan regenerar l’initramfs?</h2>
+<ul>
+<li class="fragment"><strong>Actualització del nucli</strong>: Quan es <em>compila o instal·la un nou kernel</em>, l’initramfs associat ha de ser regenerat per garantir que carrega correctament els mòduls i el maquinari necessari.</li>
+<li class="fragment"><strong>Configuració RAID</strong>: Si es modifiquen o s’afegeixen sistemes <em>RAID</em>, l’initramfs ha de reflectir aquests canvis per assegurar un arrencada correcta.</li>
+<li class="fragment"><strong>Xifrat de discos</strong>: Per a sistemes amb particions xifrades (<em>LUKS</em>), cal actualitzar l’initramfs després de canvis en la configuració de xifrat per poder accedir a les particions durant l’arrencada.</li>
+<li class="fragment"><strong>Configuració de xarxa</strong>: Si es canvien components de xarxa que s’utilitzen en el procés d’arrencada (<em>sistemes amb arrencada PXE</em>).</li>
+</ul>
+</section>
+<section id="cas-dus-usb-amb-clau-de-desxifrat" class="slide level2 smaller">
+<h2>Cas d’us: USB amb clau de desxifrat</h2>
+<p>Un cas d’ús comú de l’<strong>initramfs</strong> és en sistemes amb <strong>particions xifrades amb LUKS</strong> que utilitzen una <strong>clau emmagatzemada en un dispositiu USB</strong> per desxifrar la partició arrel durant l’arrencada.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ol type="1">
+<li class="fragment">Munti els sistemes virtuals necessaris (<code>/proc</code>, <code>/sys</code>).<br>
+</li>
+<li class="fragment">Munti la unitat USB que conté la clau.<br>
+</li>
+<li class="fragment">Llegeixi la clau i desxifri la partició LUKS.<br>
+</li>
+<li class="fragment">Activar volums LVM si cal.<br>
+</li>
+<li class="fragment">Muntar la partició arrel i transferir el control amb <code>switch_root</code>.</li>
+</ol>
+</div><div class="column" style="width:60%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="co">#!/bin/busybox sh</span></span>
+<span id="cb4-2"><a></a><span class="fu">mount</span> <span class="at">-t</span> proc proc /proc</span>
+<span id="cb4-3"><a></a><span class="fu">mount</span> <span class="at">-t</span> sysfs sys /sys</span>
+<span id="cb4-4"><a></a><span class="fu">mount</span> /dev/sdb1 /mnt</span>
+<span id="cb4-5"><a></a><span class="va">KEYFILE</span><span class="op">=</span>/mnt/keyfile</span>
+<span id="cb4-6"><a></a><span class="ex">cryptsetup</span> luksOpen /dev/sda1 crypted <span class="at">--key-file</span> <span class="va">$KEYFILE</span></span>
+<span id="cb4-7"><a></a><span class="bu">echo</span> <span class="st">"Retira el dispositiu USB i prem Enter per continuar."</span></span>
+<span id="cb4-8"><a></a><span class="bu">read</span></span>
+<span id="cb4-9"><a></a><span class="ex">vgchange</span> <span class="at">-a</span> y</span>
+<span id="cb4-10"><a></a><span class="fu">mount</span> /dev/mapper/vg-root /mnt</span>
+<span id="cb4-11"><a></a><span class="bu">exec</span> switch_root /mnt /sbin/init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="pid-1-initsystemd" class="slide level2 smaller">
+<h2>PID 1: init/systemd</h2>
+<p>Quan s’acaba el procés d’inicialització del sistema en l’espai del kernel i es descomprimeix i executa l’initramfs, es produeix una transició important cap a l’espai d’usuari.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="bu">exec</span> switch_root /mnt /sbin/init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">El comandament <code>switch_root</code> substitueix l’arrel del sistema de fitxers actual (l’initramfs) per la partició arrel real del sistema operatiu.</li>
+<li class="fragment">El kernel deixa de gestionar directament els processos i passa el control a un procés en l’espai d’usuari.</li>
+<li class="fragment">El procés <strong>PID 1</strong> és el primer procés que s’inicia en l’espai d’usuari i és responsable de la gestió dels processos del sistema operatiu.</li>
+<li class="fragment">Tradicionalment, aquest procés era el programa <strong>init</strong>, però en els sistemes moderns, <em>systemd</em> ha substituït <em>init</em> com a responsable principal de la gestió de processos.</li>
+</ul>
+</section>
+<section id="funcions-de-pid-1" class="slide level2 smaller">
+<h2>Funcions de PID 1</h2>
+<ol type="1">
+<li class="fragment"><strong>Gestió de la inicialització del sistema</strong>. Carrega els serveis i dimonis necessaris per al bon funcionament del sistema.</li>
+<li class="fragment"><strong>Gestió dels processos del sistema</strong>. Controla la creació, execució i finalització dels processos. Si un procés orfe (un procés que perd el seu procés pare) continua en execució, el PID 1 assumeix la seva gestió i, eventualment, la seva terminació.</li>
+<li class="fragment"><strong>Arrel de l’arbre de processos</strong>: Tots els altres processos del sistema pengen d’ell, directament o indirectament. Això fa que sigui fonamental per a l’estabilitat i la continuïtat del sistema.</li>
+<li class="fragment"><strong>Apagat i reinici del sistema</strong>: El PID 1 també és responsable de controlar l’apagat i reinici del sistema, garantint que els processos es tanquin adequadament i que el sistema es desconnecti de manera segura</li>
+</ol>
+</section>
+<section id="systemd-vs-sysvinit" class="slide level2 smaller">
+<h2>Systemd vs SysVinit</h2>
+<p>El canvi de <strong>SysVinit</strong> a <a href="https://systemd.io/"><strong>Systemd</strong></a> en moltes distribucions de Linux va ser motivat per la necessitat de millorar l’eficiència i la gestió dels serveis del sistema.</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<h3 id="sysvinit">SysVinit</h3>
+<ul>
+<li class="fragment"><strong>Seqüencial</strong>: Basat en scripts. <em>Cada servei depèn de l’execució completa del servei anterior, la qual cosa pot ser lenta</em>.</li>
+<li class="fragment"><strong>Simple</strong>: Cada servei s’inicia amb un script directament llegible i modificable per l’administrador del sistema.</li>
+<li class="fragment"><strong>Inflexible</strong>: Dificultat engestionar dependències. <em>No permet arrencar serveis en paral·lel ni controlar els processos un cop arrencats</em>.</li>
+</ul>
+</div><div class="column" style="width:55%;">
+<h3 id="systemd">Systemd</h3>
+<ul>
+<li class="fragment"><strong>Rendiment</strong>: Capacitat de carregar serveis en paral·lel. Reducció temps d’inici del sistema.</li>
+<li class="fragment"><strong>Modularitat</strong>: Els serveis es gestionen a través d’unitats (<em>unit files</em>) que poden especificar dependències, condicions de reinici automàtic,etc.</li>
+<li class="fragment"><strong>Cgroups</strong>: Limitar/gestionar els recursos assignats a cada servei.</li>
+<li class="fragment"><strong>Monitoratge</strong>: Control i seguiment granular dels serveis amb <em>journalctl</em>.</li>
+</ul>
+</div></div>
+</section>
+<section id="crítiques-a-systemd" class="slide level2 smaller">
+<h2>Crítiques a Systemd</h2>
+<ul>
+<li class="fragment"><strong>Complexitat</strong>
+<ul>
+<li class="fragment">Integra múltiples funcionalitats (gestió de serveis, journal, timers, logind, networkd, etc.) en un sol procés. Això pot augmentar la superfície de fallada i dificultar la depuració.</li>
+</ul></li>
+<li class="fragment"><strong>Trenca amb la filosofia Unix tradicional</strong>
+<ul>
+<li class="fragment">Unix promou eines petites, especialitzades i composables.<br>
+</li>
+<li class="fragment">Systemd concentra moltes tasques en un únic sistema de gestió.</li>
+</ul></li>
+<li class="fragment"><strong>Dependència del sistema</strong>
+<ul>
+<li class="fragment">Molts scripts, paquets i eines modernes depenen de systemd, dificultant la compatibilitat amb sistemes alternatius (SysVinit, OpenRC).</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<h4 id="debat-en-la-comunitat">Debat en la comunitat</h4>
+<ul>
+<li class="fragment">Els defensors de <strong>systemd</strong> argumenten que simplifica l’administració de sistemes moderns i ofereix funcions que abans requerien múltiples eines externes.<br>
+</li>
+<li class="fragment">Els crítics insisteixen en que és massa intrusiu i redueix la flexibilitat per a administradors avançats i entorns mínims.<br>
+</li>
+</ul>
+</div>
+</section>
+<section id="backdoor-en-xz-utils-i" class="slide level2 smaller">
+<h2>Backdoor en XZ Utils (I)</h2>
+<p>Recents vulnerabilitats en paquets com <strong>xz-utils</strong> han posat en evidència la complexitat de <em>Systemd</em> i com una backdoor ocult pot comprometre gran part de la infraestructura moderna de Linux.</p>
+<ul>
+<li class="fragment">El backdoor va ser introduït de manera gradual, començant amb contribucions sospitoses al projecte <strong>libarchive el 2021</strong>.</li>
+<li class="fragment">Durant el 2022, un desenvolupador desconegut, <em>JiaT75</em>, va guanyar influència dins del projecte <strong>xz-utils</strong>, substituint el contacte del mantenidor original i introduint canvis que van ocultar les vulnerabilitats.</li>
+<li class="fragment">El 2023, <em>JiaT75</em> va introduir modificacions malicioses a <strong>xz-utils</strong>, aprofitant-les per comprometre sistemes a través de dependències amb Systemd.</li>
+</ul>
+<p><strong><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-3094">CVE-2024-3094</a></strong>: Vulnerabilitat que permet l’execució de codi maliciós en el sistema mitjançant un defecte en la descompressió de fitxers <strong>.xz</strong>.</p>
+</section>
+<section id="backdoor-en-xz-utils-ii" class="slide level2 smaller">
+<h2>Backdoor en XZ Utils (II)</h2>
+<p>Aquesta vulnerabilitat va afectar molts servidors Linux, que van actualitzar <strong>xz-utils</strong> amb la versió compromesa.</p>
+<ul>
+<li class="fragment"><strong>liblzma</strong> és una llibreria de compressió que es pot enllaçar amb altres programes. Per exemple, <strong>OpenSSH</strong> es pot vincular a <strong>liblzma</strong> per gestionar la descompressió de fitxers de configuració.</li>
+<li class="fragment">En sistemes amb <strong>systemd</strong>, <strong>OpenSSH</strong> enllaça amb <strong>systemd</strong>, que a la vegada enllaça amb <strong>liblzma</strong>. Això permet a <strong>XZ Utils</strong> controlar indirectament serveis essencials com <strong>sshd</strong>.</li>
+<li class="fragment">Mitjançant una backdoor oculta en versions modificades de <strong>xz-utils</strong>, un atacant amb una clau de xifrat prèviament establerta podria carregar codi maliciós en certificats SSH i executar-lo en dispositius compromesos.</li>
+</ul>
+<div class="center-container">
+<p>Aquests esdeveniments posen de manifest les contrapartides de la complexitat de <strong>Systemd</strong> i com una vulnerabilitat en un paquet aparentment inofensiu com <strong>xz-utils</strong> pot tenir un impacte significatiu en la seguretat del sistema i serveis crítics com <strong>sshd</strong>.</p>
+</div>
+</section>
+<section id="executar-els-targets-o-runlevels" class="slide level2 smaller">
+<h2>Executar els Targets o Runlevels</h2>
+<p>El <strong>PID 1</strong> executa els <em>targets</em> de systemd. En sistemes més antics, s’utilitzaven els <em>runlevels</em> d’init. Els targets representen un conjunt de serveis i mòduls que s’executen per a cada estat del sistema. La seva funció és definir l’estat del sistema i els serveis que s’han de carregar en aquest estat. La transició entre els <em>targets</em> es pot fer manualment amb la comanda <code>systemctl isolate</code> o automàticament amb la comanda <code>systemctl set-default</code>.</p>
+<div class="fragment">
+<ul>
+<li class="fragment"><strong>default.target</strong>: Apunta a <em>graphical.target</em> o <em>multi-user.target</em>-</li>
+<li class="fragment"><strong>graphical.target</strong>: Defineix un entorn gràfic.</li>
+<li class="fragment"><strong>multi-user.target</strong>: Proporciona un entorn no gràfic, permetent múltiples usuaris al sistema, habitual per a servidors.</li>
+<li class="fragment"><strong>rescue.target</strong>: Proporciona un entorn de rescat amb una consola de línia de comandes.</li>
+<li class="fragment"><strong>emergency.target</strong>: Ofereix un entorn d’emergència que inicialitza el mínim de serveis necessaris per a la solució de problemes.</li>
+<li class="fragment"><strong>shutdown.target</strong>: Gestiona l’apagat del sistema.</li>
+<li class="fragment"><strong>reboot.target</strong>: Gestiona el reinici del sistema.</li>
+</ul>
+</div>
+</section>
+<section id="units-de-systemd" class="slide level2 smaller">
+<h2>Units de systemd</h2>
+<p>Els <strong>units</strong> són els fitxers de configuració de <strong>systemd</strong> que defineixen els serveis, ens permeten gestionar-los i controlar-los.</p>
+<ul>
+<li class="fragment"><code>/etc/systemd/system/</code> – Fitxers d’unitat personalitzats per l’administrador.</li>
+<li class="fragment"><code>/run/systemd/system/</code> – Configuració en temps d’execució, és a dir, afecta només un arrencada única.</li>
+<li class="fragment"><code>/usr/lib/systemd/system/</code> – Configuració proporcionada per la distribució. A Debian és <code>/lib/systemd/system/</code>.</li>
+</ul>
+<p>Quan hi ha dos fitxers de configuració amb el mateix nom, <strong>systemd</strong> carregarà només un des del directori que estigui més alt en la jerarquia. Per exemple, la configuració a <code>/etc</code> sempre sobreescriu la configuració a <code>/usr</code>.</p>
+<p>Després de canviar la configuració, és necessari recarregar <strong>systemd</strong> amb: <code>systemctl daemon-reload</code>.</p>
+</section>
+<section id="tipus-dunitats" class="slide level2 smaller">
+<h2>Tipus d’unitats</h2>
+<ul>
+<li class="fragment"><strong>Serveis</strong>: Fitxers que defineixen com s’inicien, s’aturen i es gestionen els serveis. Ex: <code>/etc/systemd/system/sshd.service</code> (servei SSH).</li>
+<li class="fragment"><strong>Sockets</strong>: Units que gestionen els <em>sockets</em> de comunicació per als serveis.</li>
+<li class="fragment"><strong>Devices</strong>: Units que representen dispositius de maquinari.</li>
+<li class="fragment"><strong>Mounts</strong>: Units que gestionen els punts de muntatge del sistema de fitxers.</li>
+<li class="fragment"><strong>Paths</strong>: Units que monitoren els canvis en fitxers o directoris específics.</li>
+<li class="fragment"><strong>Timers</strong>: Units que planifiquen tasques per a la seva execució en moments específics.</li>
+<li class="fragment"><strong>Targets</strong>: Units que agrupen altres units per a l’arrencada d’estats del sistema.</li>
+</ul>
+</section>
+<section id="targets-i-systemd" class="slide level2 smaller">
+<h2>Targets i Systemd</h2>
+
+<img data-src="../figs/slides/02-booting/systemd.png" class="r-stretch"></section>
+<section id="exemple-de-fitxer-dunitat" class="slide level2 smaller">
+<h2>Exemple de fitxer d’unitat</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="ex">[Unit]</span></span>
+<span id="cb6-2"><a></a><span class="va">Description</span><span class="op">=</span>CUPS <span class="ex">Scheduler</span></span>
+<span id="cb6-3"><a></a><span class="va">Documentation</span><span class="op">=</span>man:cupsd<span class="kw">(</span><span class="ex">8</span><span class="kw">)</span></span>
+<span id="cb6-4"><a></a><span class="va">After</span><span class="op">=</span>network.target</span>
+<span id="cb6-5"><a></a><span class="ex">[Service]</span></span>
+<span id="cb6-6"><a></a><span class="va">ExecStart</span><span class="op">=</span>/usr/sbin/cupsd <span class="ex">-l</span></span>
+<span id="cb6-7"><a></a><span class="va">Type</span><span class="op">=</span>notify</span>
+<span id="cb6-8"><a></a><span class="ex">[Install]</span></span>
+<span id="cb6-9"><a></a><span class="va">Also</span><span class="op">=</span>cups.socket <span class="ex">cups.path</span></span>
+<span id="cb6-10"><a></a><span class="va">WantedBy</span><span class="op">=</span>printer.target</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside class="notes">
+<p>Aquest fitxer defineix el servei <strong>CUPS</strong> (Common Unix Printing System) és un sistema que té una depenència amb la xarxa (<code>After=network.target</code>), s’inicia amb el comandament <code>/usr/sbin/cupsd -l</code> i es configura per iniciar-se automàticament quan s’arrenca el sistema (<code>WantedBy=printer.target</code>). Printer.target és un <em>target</em> que agrupa serveis relacionats amb la impressió. Cups.socket i cups.path són altres unitats que també s’inicien quan s’inicia el servei CUPS ja que estan lligades a aquest servei. El tipus de servei és <code>notify</code>, el qual indica que el servei enviarà una notificació a systemd quan estigui llest.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dependències-entre-unitats" class="slide level2 smaller">
+<h2>Dependències entre unitats</h2>
+<p>Les unitats són objectes gestionats per <strong>systemd</strong>. Les dependències són associacions entre elles. Cada tipus d’unitat té algunes dependències per defecte (a menys que s’especifiqui el contrari).</p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<h4 id="relacionals">Relacionals</h4>
+<ul>
+<li class="fragment"><strong>Requires</strong>: Indica que una unitat depèn d’una altra unitat per a la seva activació. Si la unitat requerida no està activa, la unitat que la requereix no s’activarà.</li>
+<li class="fragment"><strong>Wants</strong>: Similar a <strong>Requires</strong>, però no és tan estricte. Si la unitat requerida no està activa, la unitat que la vol no es bloquejarà.</li>
+<li class="fragment"><strong>BindsTo</strong>: Similar a <strong>Requires</strong>, però si la unitat requerida es deté, la unitat que la vincula també es detindrà.</li>
+<li class="fragment"><strong>PartOf</strong>: Indica que una unitat és part d’una altra unitat. Si la unitat pare es deté, la unitat fill també es detindrà.</li>
+<li class="fragment"><strong>Conflicts</strong>: Indica que dues unitats no poden estar actives al mateix temps. Si una unitat s’activa, l’altra es detindrà automàticament.</li>
+</ul>
+</div><div class="column" style="width:35%;">
+<h4 id="ordenació">Ordenació</h4>
+<ul>
+<li class="fragment"><strong>After</strong>: Indica que una unitat s’ha d’iniciar després d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.</li>
+<li class="fragment"><strong>Before</strong>: Indica que una unitat s’ha d’iniciar abans d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.</li>
+</ul>
+</div></div>
+</section>
+<section id="transaccions-a-systemd-i" class="slide level2 smaller">
+<h2>Transaccions a systemd (I)</h2>
+<p>Cada vegada que l’usuari o un servei sol·licita una acció (per exemple, iniciar o aturar un servei), es crea una <strong>transacció</strong> que gestiona l’execució ordenada de les unitats afectades.</p>
+<ol type="1">
+<li class="fragment"><strong>Creació de feines (jobs)</strong>
+<ul>
+<li class="fragment">Es crea una feina per a la unitat sol·licitada.<br>
+</li>
+<li class="fragment">S’afegeixen recursivament les feines corresponents a totes les <strong>dependències</strong> de la unitat.</li>
+</ul></li>
+<li class="fragment"><strong>Minimització de la transacció</strong>
+<ul>
+<li class="fragment">Eliminar feines duplicades o redundants.<br>
+</li>
+<li class="fragment">Eliminar feines que no estiguin referenciades per cap altre job (ancoratge).</li>
+</ul></li>
+<li class="fragment"><strong>Resolució de cicles de dependències</strong>
+<ul>
+<li class="fragment">Detectar <strong>loops</strong> en el gràfic de dependències.<br>
+</li>
+<li class="fragment">Trencar-los eliminant feines problemàtiques per evitar deadlocks.</li>
+</ul></li>
+</ol>
+</section>
+<section id="transaccions-a-systemd-i-1" class="slide level2 smaller">
+<h2>Transaccions a systemd (I)</h2>
+<ol start="4" type="1">
+<li class="fragment"><strong>Fusió i optimització de feines</strong>
+<ul>
+<li class="fragment">Fusionar feines similars per reduir el nombre d’operacions.<br>
+</li>
+<li class="fragment">Prioritzar feines ja existents a la cua.</li>
+</ul></li>
+<li class="fragment"><strong>Enviament i execució</strong>
+<ul>
+<li class="fragment">Afegir les feines a la <strong>cua de jobs</strong> de systemd.<br>
+</li>
+<li class="fragment">Executar les feines segons la dependència i l’ordre optimitzat.</li>
+</ul></li>
+</ol>
+<div class="fragment">
+<p>Garanteix que les unitats es gestionin de manera atòmica i ordenada, permetent a systemd paral·lelitzar serveis mentre respecta les dependències.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Les <strong>transaccions</strong> garanteixen que les unitats es gestionin de manera atòmica i ordenada.<br>
+</li>
+<li>Això permet a systemd <strong>paral·lelitzar serveis</strong> mentre respecta les dependències.<br>
+</li>
+<li>Cadascuna de les feines conté informació sobre la unitat, la seva acció (<code>start</code>, <code>stop</code>, <code>reload</code>) i les condicions d’execució.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="systemctl-i" class="slide level2 smaller">
+<h2><code>systemctl</code> (I)</h2>
+<p>La comanda <code>systemctl</code> és l’eina principal per interactuar amb <strong>systemd</strong> i gestionar els serveis i unitats del sistema. Algunes de les operacions més comunes inclouen:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comanda</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>systemctl start &lt;unit&gt;</code></td>
+<td>Inicia una unitat (servei, socket, etc.).</td>
+</tr>
+<tr class="even">
+<td><code>systemctl stop &lt;unit&gt;</code></td>
+<td>Atura una unitat.</td>
+</tr>
+<tr class="odd">
+<td><code>systemctl restart &lt;unit&gt;</code></td>
+<td>Reinicia una unitat.</td>
+</tr>
+<tr class="even">
+<td><code>systemctl status &lt;unit&gt;</code></td>
+<td>Mostra l’estat actual d’una unitat.</td>
+</tr>
+<tr class="odd">
+<td><code>systemctl enable &lt;unit&gt;</code></td>
+<td>Habilita una unitat perquè s’iniciï automàticament en arrencar el sistema.</td>
+</tr>
+<tr class="even">
+<td><code>systemctl disable &lt;unit&gt;</code></td>
+<td>Deshabilita una unitat perquè no s’iniciï automàticament.</td>
+</tr>
+<tr class="odd">
+<td><code>systemctl is-active &lt;unit&gt;</code></td>
+<td>Comprova si una unitat està activa.</td>
+</tr>
+<tr class="even">
+<td><code>systemctl is-enabled &lt;unit&gt;</code></td>
+<td>Comprova si una unitat està habilitada per arrencar automàticament.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="systemctl-ii" class="slide level2 smaller">
+<h2><code>systemctl</code> (II)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comanda</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>systemctl list-units</code></td>
+<td>Llista totes les unitats carregades actualment.</td>
+</tr>
+<tr class="even">
+<td><code>systemctl list-unit-files</code></td>
+<td>Llista tots els fitxers d’unitats disponibles.</td>
+</tr>
+<tr class="odd">
+<td><code>systemctl list-dependencies &lt;SERVICE&gt;</code></td>
+<td>Mostra les dependències d’una unitat.</td>
+</tr>
+<tr class="even">
+<td><code>systemctl list-jobs</code></td>
+<td>Mostra les feines pendents i en execució.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="unitat-install" class="slide level2 smaller">
+<h2>Unitat [<code>INSTALL</code>]</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a></a><span class="ex">[Install]</span></span>
+<span id="cb7-2"><a></a><span class="va">WantedBy</span><span class="op">=</span>multi-user.target</span>
+<span id="cb7-3"><a></a><span class="va">Also</span><span class="op">=</span>sysstat-collect.timer</span>
+<span id="cb7-4"><a></a><span class="va">Also</span><span class="op">=</span>sysstat-summary.timer</span>
+<span id="cb7-5"><a></a><span class="va">Alias</span><span class="op">=</span>monitoring.service</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">La secció <code>[Install]</code> defineix com s’instal·la i s’inicia una unitat.</li>
+<li class="fragment"><code>WantedBy=multi-user.target</code> indica que aquesta unitat s’ha d’iniciar quan s’arrenca el sistema en mode multiusuari (runlevel 3).</li>
+<li class="fragment"><code>Also=</code> permet associar altres unitats que s’han d’iniciar juntament amb aquesta.</li>
+<li class="fragment"><code>Alias=</code> crea un nom alternatiu per a la unitat, facilitant la seva referència.</li>
+</ul>
+<aside class="notes">
+<p>En aquest cas, la unitat s’iniciarà automàticament en arrencar el sistema en mode multiusuari, i també s’iniciaran els temporitzadors <code>sysstat-collect.timer</code> i <code>sysstat-summary.timer</code>. A més, es pot referenciar aquesta unitat amb el nom alternatiu <code>monitoring.service</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="opcions-service-i" class="slide level2 smaller">
+<h2>Opcions [<code>Service</code>] (I)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opció</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Type=</code></td>
+<td>Defineix el tipus de servei (simple, forking, oneshot, notify, idle).</td>
+</tr>
+<tr class="even">
+<td><code>ExecStart=</code></td>
+<td>Comanda que s’executa per iniciar el servei.</td>
+</tr>
+<tr class="odd">
+<td><code>ExecStop=</code></td>
+<td>Comanda que s’executa per aturar el servei.</td>
+</tr>
+<tr class="even">
+<td><code>ExecReload=</code></td>
+<td>Comanda que s’executa per recarregar la configuració del servei.</td>
+</tr>
+<tr class="odd">
+<td><code>RemainAfterExit=</code></td>
+<td>Indica si el servei es manté actiu després de finalitzar.</td>
+</tr>
+<tr class="even">
+<td><code>Restart=</code></td>
+<td>Defineix si el servei s’ha de reiniciar en cas de fallada.</td>
+</tr>
+<tr class="odd">
+<td><code>User=</code></td>
+<td>Defineix l’usuari amb el qual s’executa el servei.</td>
+</tr>
+<tr class="even">
+<td><code>Group=</code></td>
+<td>Defineix el grup amb el qual s’executa el servei.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="opcions-service-ii" class="slide level2 smaller">
+<h2>Opcions [<code>Service</code>] (II)</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Opció</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Environment=</code></td>
+<td>Defineix variables d’entorn per al servei.</td>
+</tr>
+<tr class="even">
+<td><code>WorkingDirectory=</code></td>
+<td>Defineix el directori de treball del servei.</td>
+</tr>
+<tr class="odd">
+<td><code>PIDFile=</code></td>
+<td>Especifica el fitxer que conté el PID del servei.</td>
+</tr>
+<tr class="even">
+<td><code>TimeoutStartSec=</code></td>
+<td>Temps d’espera per a l’inici del servei.</td>
+</tr>
+<tr class="odd">
+<td><code>TimeoutStopSec=</code></td>
+<td>Temps d’espera per a l’aturada del servei.</td>
+</tr>
+<tr class="even">
+<td><code>StandardOutput=</code></td>
+<td>Defineix on s’envia la sortida estàndard del servei.</td>
+</tr>
+<tr class="odd">
+<td><code>StandardError=</code></td>
+<td>Defineix on s’envia l’error</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tipus-de-serveis-i" class="slide level2 smaller">
+<h2>Tipus de serveis (I)</h2>
+<ul>
+<li class="fragment"><strong>Simple</strong>: Per defecte, aquest servei s’inicia immediatament després del <code>fork()</code>. No espera cap senyal de que el servei estigui llest.</li>
+<li class="fragment"><strong>Forking</strong>: Aquest tipus de servei és per a processos que es bifurquen (fork) i es converteixen en dimonis. El servei es considera actiu després que el procés pare finalitzi.</li>
+<li class="fragment"><strong>Oneshot</strong>: Aquest tipus és per a serveis que realitzen una tasca única i després finalitzen. Systemd espera que el procés acabi abans de considerar el servei com a actiu.</li>
+<li class="fragment"><strong>Notify</strong>: Aquest tipus de servei utilitza el mecanisme de notificació de systemd per informar quan està llest. El servei ha d’enviar una notificació explícita a systemd.</li>
+<li class="fragment"><strong>DBus</strong>: Aquest tipus de servei s’utilitza per a serveis que es comuniquen a través de DBus. El servei es considera actiu quan el nom del bus apareix al bus de sistema.</li>
+<li class="fragment"><strong>Idle</strong>: Aquest tipus de servei s’inicia només quan el sistema està inactiu, és a dir, quan no hi ha altres feines pendents.</li>
+</ul>
+</section>
+<section id="efecte-del-tipus-de-servei-al-runtime" class="slide level2 smaller">
+<h2>Efecte del tipus de servei al runtime</h2>
+
+<img data-src="../figs/slides/02-booting/service-types.png" class="r-stretch"></section>
+<section id="script-de-lusuari" class="slide level2 smaller">
+<h2>Script de l’usuari</h2>
+<p>Un cop s’han carregat tots els serveis i el sistema està en marxa, els usuaris poden iniciar sessió al sistema. Els scripts de l’usuari es troben a la carpeta <code>/etc/profile.d/</code> i s’executen quan l’usuari inicia sessió.</p>
+<ul>
+<li class="fragment"><strong>/etc/profile</strong>: Conté la configuració global per a tots els usuaris. S’executa en iniciar sessió en un entorn de shell.</li>
+<li class="fragment"><strong>/etc/bashrc</strong>: Proporciona configuració per a shells interactius. S’executa cada vegada que s’inicia una nova sessió de shell.</li>
+<li class="fragment"><strong>~/.bashrc</strong>: Fitxer de configuració específic per a l’usuari, que s’executa en iniciar una sessió de shell interactiu.</li>
+<li class="fragment"><strong>~/.bash_profile</strong>: S’executa quan l’usuari inicia sessió a la terminal. Normalment, s’utilitza per configurar l’entorn de l’usuari, incloent la configuració de l’PATH.</li>
+<li class="fragment"><strong>~/.bash_logout</strong>: S’executa quan l’usuari tanca la sessió de shell. Aquí es poden incloure comandes de neteja o tancament.</li>
+<li class="fragment"><strong>~/.bash_history</strong>: Fitxer que emmagatzema l’històric de les comandes executades per l’usuari en la sessió de shell.</li>
+</ul>
+</section>
+<section id="thats-all" class="slide level2">
+<h2>That’s all</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div title="Take Home Message">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Take Home Message</strong></p>
+</div>
+<div class="callout-content">
+<p>El procés d’arrencada és un procés complex. Els administradors de sistemes han de conèixer aquest procés per poder gestionar i solucionar problemes durant l’arrencada del sistema i garantir un sistema segur, estable i eficient.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:50%;">
+<p><img data-src="https://static.posters.cz/image/750/posters/looney-tunes-thats-all-folks-i295.jpg" style="width:70.0%"></p>
+</div></div>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../figs/corporative/institute.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Unitat 2 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) <a href="../index.html">🏠</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/amsa-gei-udl-2526-105013\.github\.io\/course\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Configuració d’entorn de virtualització – AMSA - Fall 2025</title>
+<title>Desxifrat automàtic mitjançant clau en disc secundari (USB emulat) – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Activitat 1 · Configuració d’entorn de virtualització</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/05-ex-week3.html">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -195,16 +195,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
   </div>
 </li>
@@ -218,13 +218,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</span></a>
   </div>
 </li>
@@ -309,25 +309,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link active" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#objectius" id="toc-objectius" class="nav-link" data-scroll-target="#objectius">Objectius</a></li>
-  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">Objectius</a></li>
+  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link" data-scroll-target="#requeriments-previs">Requeriments Previs</a></li>
+  <li><a href="#passos" id="toc-passos" class="nav-link" data-scroll-target="#passos">Passos</a>
   <ul class="collapse">
-  <li><a href="#creació-de-màquines-virtuals" id="toc-creació-de-màquines-virtuals" class="nav-link" data-scroll-target="#creació-de-màquines-virtuals">Creació de màquines virtuals</a></li>
-  <li><a href="#creació-de-snapshots" id="toc-creació-de-snapshots" class="nav-link" data-scroll-target="#creació-de-snapshots">Creació de snapshots</a></li>
-  <li><a href="#configuració-daccés-remot-amb-ssh" id="toc-configuració-daccés-remot-amb-ssh" class="nav-link" data-scroll-target="#configuració-daccés-remot-amb-ssh">Configuració d’accés remot amb SSH</a></li>
-  <li><a href="#ús-de-la-snapshot" id="toc-ús-de-la-snapshot" class="nav-link" data-scroll-target="#ús-de-la-snapshot">Ús de la snapshot</a></li>
+  <li><a href="#creació-del-disc-secundari-amb-la-clau" id="toc-creació-del-disc-secundari-amb-la-clau" class="nav-link" data-scroll-target="#creació-del-disc-secundari-amb-la-clau">Creació del disc secundari amb la clau</a></li>
+  <li><a href="#muntar-el-disc-i-crear-la-clau" id="toc-muntar-el-disc-i-crear-la-clau" class="nav-link" data-scroll-target="#muntar-el-disc-i-crear-la-clau">Muntar el disc i crear la clau</a></li>
+  <li><a href="#afegir-la-clau-a-la-partició-luks" id="toc-afegir-la-clau-a-la-partició-luks" class="nav-link" data-scroll-target="#afegir-la-clau-a-la-partició-luks">Afegir la clau a la partició LUKS</a></li>
   </ul></li>
-  <li><a href="#activitat-proposada" id="toc-activitat-proposada" class="nav-link" data-scroll-target="#activitat-proposada">Activitat proposada</a></li>
+  <li><a href="#edita-el-fitxer-etccrypttab" id="toc-edita-el-fitxer-etccrypttab" class="nav-link" data-scroll-target="#edita-el-fitxer-etccrypttab">Edita el fitxer <code>/etc/crypttab</code></a>
+  <ul class="collapse">
+  <li><a href="#crear-lscript-per-muntar-el-disc-i-llegir-la-clau" id="toc-crear-lscript-per-muntar-el-disc-i-llegir-la-clau" class="nav-link" data-scroll-target="#crear-lscript-per-muntar-el-disc-i-llegir-la-clau">Crear l’script per muntar el disc i llegir la clau</a></li>
+  <li><a href="#confiigurar-cryptsetup-per-a-la-initramfs" id="toc-confiigurar-cryptsetup-per-a-la-initramfs" class="nav-link" data-scroll-target="#confiigurar-cryptsetup-per-a-la-initramfs">Confiigurar <code>cryptsetup</code> per a la initramfs</a></li>
+  <li><a href="#incloure-el-fitxer-etccrypttab-a-la-initramfs" id="toc-incloure-el-fitxer-etccrypttab-a-la-initramfs" class="nav-link" data-scroll-target="#incloure-el-fitxer-etccrypttab-a-la-initramfs">Incloure el fitxer <code>/etc/crypttab</code> a la initramfs</a></li>
+  <li><a href="#actualitzar-la-initramfs" id="toc-actualitzar-la-initramfs" class="nav-link" data-scroll-target="#actualitzar-la-initramfs">Actualitzar la initramfs</a></li>
+  <li><a href="#comprovar-la-inclusió-de-lscript-i-cryptsetup-a-la-initramfs" id="toc-comprovar-la-inclusió-de-lscript-i-cryptsetup-a-la-initramfs" class="nav-link" data-scroll-target="#comprovar-la-inclusió-de-lscript-i-cryptsetup-a-la-initramfs">Comprovar la inclusió de l’script i <code>cryptsetup</code> a la initramfs</a></li>
+  <li><a href="#prova-larrencada" id="toc-prova-larrencada" class="nav-link" data-scroll-target="#prova-larrencada">Prova l’arrencada</a></li>
+  <li><a href="#consultar-el-log-darrencada" id="toc-consultar-el-log-darrencada" class="nav-link" data-scroll-target="#consultar-el-log-darrencada">Consultar el log d’arrencada</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Activitat 1 · Configuració d’entorn de virtualització</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/05-ex-week3.html">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Configuració d’entorn de virtualització</h1>
+<h1 class="title">Desxifrat automàtic mitjançant clau en disc secundari (USB emulat)</h1>
 </div>
 
 
@@ -344,70 +352,146 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aquest exercici té com a objectiu recordar i consolidar les habilitats en la configuració d’entorns de virtualització utilitzant màquines virtuals (MV). Durant el curs, la creació i destrucció de MV serà una tasca recurrent, per la qual cosa és fonamental tenir una base sòlida. Preparant una plantilla preinstal·lada, podreu estalviar temps significatiu evitant la reinstal·lació completa del sistema operatiu cada cop que necessiteu un nou entorn de treball.</p>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
-<ul>
-<li>Disposar d’un hipervisor de virtualització instal·lat a la vostra màquina hoste. Es recomana utilitzar <a href="https://www.vmware.com/products/workstation-pro.html">VMware Workstation Pro</a> o <a href="https://www.vmware.com/products/fusion.html">VMware Fusion</a>. Podeu reutilitzar la instal·lació que ja vau fer a l’assignatura de Sistemes Operatius.</li>
-</ul>
-</section>
 <section id="objectius" class="level2">
 <h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
 <ul>
-<li>Crear i configurar màquines virtuals amb distribucions Linux.</li>
-<li>Utilitzar snapshots per gestionar l’estat de les MV.</li>
-<li>Configurar i establir una connexió remota segura a les MV utilitzant SSH.</li>
+<li>Aprendre a personalitzar la <strong>initramfs</strong> per buscar una clau en un disc secundari (emulant un USB).</li>
+<li>Desxifrar automàticament una partició LUKS durant l’arrencada amb una <strong>keyfile</strong>.</li>
+<li>Entendre els hooks i scripts d’<code>initramfs-tools</code> i com incloure binaris (<code>cryptsetup</code>) a la imatge.</li>
 </ul>
 </section>
-<section id="tasques" class="level2">
-<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
-<section id="creació-de-màquines-virtuals" class="level3">
-<h3 class="anchored" data-anchor-id="creació-de-màquines-virtuals">Creació de màquines virtuals</h3>
-<p>Creareu dues màquines virtuals amb les distribucions Linux que farem servir durant el curs. Assegureu-vos de descarregar les imatges ISO correctament:</p>
-<ol type="1">
-<li><p><strong>AlmaLinux</strong>: Una distribució de GNU/Linux basada en Red Hat Enterprise Linux (RHEL).Descarregueu la <a href="https://mirrors.almalinux.org/isos.html">versió 9.6</a>.</p></li>
-<li><p><strong>Debian</strong>: Una distribució popular coneguda per la seva estabilitat. Descarregueu la <a href="https://debian.uvigo.es/debian-cd/12.5.0/">versió 12.5.0</a>.</p></li>
-</ol>
-<p>En la configuració no necessitareu finestres gràfiques, i de moment podeu utilitzar una configuració de disc i particions estàndard. Més endavant, durant el curs, anirem ajustant la configuració segons les necessitats específiques de cada pràctica.</p>
-</section>
-<section id="creació-de-snapshots" class="level3">
-<h3 class="anchored" data-anchor-id="creació-de-snapshots">Creació de snapshots</h3>
-<p>Un cop instal·lades les dues màquines virtuals, creeu una snapshot de cadascuna. Una snapshot és una <strong>instantània</strong> de l’estat actual de la màquina virtual, incloent-hi la seva memòria, configuració i l’estat dels seus discos virtuals. Aquesta eina us permetrà tornar ràpidament a un estat inicial net en qualsevol moment, evitant haver de reinstal·lar el sistema si alguna configuració falla.</p>
-</section>
-<section id="configuració-daccés-remot-amb-ssh" class="level3">
-<h3 class="anchored" data-anchor-id="configuració-daccés-remot-amb-ssh">Configuració d’accés remot amb SSH</h3>
-<p>Per facilitar la connexió i gestió de les màquines virtuals, configurarem l’accés remot mitjançant SSH (Secure Shell). Això us permetrà connectar-vos a les MV des de la vostra màquina hoste utilitzant una terminal o PowerShell amb suport SSH (Linux o MacOS).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> user@vm_ip_address</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ús-de-la-snapshot" class="level3">
-<h3 class="anchored" data-anchor-id="ús-de-la-snapshot">Ús de la snapshot</h3>
-<p>Un cop hàgiu completat la configuració inicial i les proves amb les màquines virtuals, practiqueu l’ús de les snapshots:</p>
-<ol type="1">
-<li>Instal·leu algun programari a la MV amb debian com les eines de desenvolupament (gcc, make, etc).</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recordeu instal·lar com a root</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install build-essential</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="2" type="1">
-<li>Comproveu que el programari està instal·lat correctament.</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">--version</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="3" type="1">
-<li>Després, torneu a la snapshot creada anteriorment per veure que el programari ja no està instal·lat.</li>
-</ol>
-</section>
-</section>
-<section id="activitat-proposada" class="level2">
-<h2 class="anchored" data-anchor-id="activitat-proposada">Activitat proposada</h2>
+<section id="requeriments-previs" class="level2">
+<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments Previs</h2>
 <ul>
-<li>Escriu un script senzill que et permeti obrir la MV i connectar-te via SSH amb un sol comandament. Aquest script hauria de:
-<ul>
-<li>Iniciar la màquina virtual si no està en funcionament.</li>
-<li>Esperar fins que la MV estigui completament engegada.</li>
-<li>Connectar-se a la MV mitjançant SSH.</li>
-</ul></li>
+<li>Tenir una màquina virtual (MV) amb Debian instal·lat, aquesta màquina virtual s’ha d’haver creat seleccionat l’opció de LVM xifrat durant la instal·lació.</li>
+<li>Afegeix un disc secundari a la màquina virtual que simularà un USB de 4GB i de tipus SATA.</li>
+<li>Totes les comandes s’han d’executar amb permisos de superusuari (<code>root</code>). Per tant, <code>su -</code>.</li>
+<li>Realitzar un <code>apt update -y &amp;&amp; apt upgrade -y</code> per assegurar-se que el sistema està actualitzat.</li>
+<li>Instal·lar el paquet <code>apt install parted vim -y</code> per gestionar particions.</li>
 </ul>
+</section>
+<section id="passos" class="level2">
+<h2 class="anchored" data-anchor-id="passos">Passos</h2>
+<section id="creació-del-disc-secundari-amb-la-clau" class="level3">
+<h3 class="anchored" data-anchor-id="creació-del-disc-secundari-amb-la-clau">Creació del disc secundari amb la clau</h3>
+<p>Primer, cal crear un disc secundari que simuli un USB. Això es pot fer afegint un nou disc a la màquina virtual. En aquest exemple, suposarem que el nou disc és <code>/dev/sda</code>. Si el teu disc és diferent, substitueix <code>/dev/sda</code> pel nom correcte. Per obtenir el nom del nou disc, pots utilitzar la comanda <code>lsblk</code> o <code>df -h</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">parted</span> <span class="at">--script</span> /dev/sda mklabel msdos</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">parted</span> <span class="at">--script</span> /dev/sda mkpart primary ext4 1MiB 100%</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.ext4</span> <span class="at">-L</span> KEYDISK /dev/sda1</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquestes comandes creen una taula de particions MBR i una partició primària que ocupa tot l’espai del disc, formatada amb el sistema de fitxers ext4 i amb l’etiqueta <code>KEYDISK</code>.</p>
+</section>
+<section id="muntar-el-disc-i-crear-la-clau" class="level3">
+<h3 class="anchored" data-anchor-id="muntar-el-disc-i-crear-la-clau">Muntar el disc i crear la clau</h3>
+<p>Primer crearem un punt de muntatge i muntarem la partició del disc secundari. Després, generarem un fitxer de clau amb dades aleatòries i li assignarem permisos restrictius per garantir la seva seguretat.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /tmp/keydisk</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/sda1 /tmp/keydisk</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=/dev/urandom of=/tmp/keydisk/keyfile.bin bs=4096 count=1</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 0400 /tmp/keydisk/keyfile.bin</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="afegir-la-clau-a-la-partició-luks" class="level3">
+<h3 class="anchored" data-anchor-id="afegir-la-clau-a-la-partició-luks">Afegir la clau a la partició LUKS</h3>
+<p>Afegirem el fitxer de clau a la partició LUKS que conté la partició arrel. En aquest exemple, suposarem que la partició LUKS és <code>/dev/nvme0n1p3</code>. Si el teu dispositiu és diferent, substitueix <code>/dev/nvme0n1p3</code> pel nom correcte.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cryptsetup</span> luksDump /dev/nvme0n1p3</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cryptsetup</span> luksAddKey /dev/nvme0n1p3 /tmp/keydisk/keyfile.bin</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En aquest punt, se’t demanarà introduïr una passphrase existent per autoritzar l’afegiment de la nova clau, entra la passphrase i comprova que la clau s’ha afegit correctament amb:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cryptsetup</span> luksDump /dev/nvme0n1p3</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ara veuras una línia addicional a <strong>Key Slot</strong>. Indicant que la clau s’ha afegit correctament.</p>
+</section>
+</section>
+<section id="edita-el-fitxer-etccrypttab" class="level2">
+<h2 class="anchored" data-anchor-id="edita-el-fitxer-etccrypttab">Edita el fitxer <code>/etc/crypttab</code></h2>
+<p>Aquest fitxer s’utilitza per definir les particions xifrades que s’han de desxifrar durant l’arrencada. Edita el fitxer <code>/etc/crypttab</code> i afegeix la a entre el <strong>UUID</strong> de la partició LUKS i les opcions, la ruta al fitxer de clau que hem creat anteriorment. Per fer-ho, elimineu <code>none</code> i afegiu la ruta al fitxer de clau.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># /etc/crypttab</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n1p3_crypt</span> UUID=XXXXXXXXX /tmp/keydisk/keyfile.bin  luks,discard</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Indicarem que la keyfile es troba a <code>/tmp/keydisk/keyfile.bin</code>, ja que en la initramfs muntarem el disc secundari a <code>/tmp/keydisk</code> i llegirem la clau des d’allà.</p>
+<section id="crear-lscript-per-muntar-el-disc-i-llegir-la-clau" class="level3">
+<h3 class="anchored" data-anchor-id="crear-lscript-per-muntar-el-disc-i-llegir-la-clau">Crear l’script per muntar el disc i llegir la clau</h3>
+<p>Crearem un script que s’executarà durant l’arrencada per muntar el disc secundari, llegir la clau i desxifrar la partició LUKS. Aquest script es col·locarà a <code>/etc/initramfs-tools/scripts/local-top/</code> i s’anomenarà <code>mount_disk</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">### </span><span class="re">BEGIN</span><span class="co"> INIT INFO</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Provides:          mount_disk</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Required-Start:    $local_fs</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Required-Stop:</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Default-Start:     S</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Default-Stop:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Short-Description: Unlock LUKS root using a keyfile on a secondary disk</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Description:       Finds and mounts a secondary disk</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">### </span><span class="re">END</span><span class="co"> INIT INFO</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">log_msg()</span> <span class="kw">{</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"mount_disk: </span><span class="va">$1</span><span class="st">"</span> <span class="op">&gt;</span> /dev/kmsg</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="va">KEYDISK_UUID</span><span class="op">=</span><span class="st">"XXXXXX"</span> <span class="co"># &lt;-- Substitueix amb el teu UUID corresponent al disc secundari</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="va">KEYFILE_PATH</span><span class="op">=</span><span class="st">"/keyfile.bin"</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="ex">log_msg</span> <span class="st">"Iniciant desxifrat automàtic amb keyfile."</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="va">MNT_POINT</span><span class="op">=</span><span class="st">"/tmp/keydisk"</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$MNT_POINT</span><span class="st">"</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="va">DEV</span><span class="op">=</span><span class="va">$(</span><span class="ex">blkid</span> <span class="at">-U</span> <span class="st">"</span><span class="va">$KEYDISK_UUID</span><span class="st">"</span><span class="va">)</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-n</span> <span class="st">"</span><span class="va">$DEV</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">log_msg</span> <span class="st">"Dispositiu trobat a </span><span class="va">$DEV</span><span class="st">. Muntant..."</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mount</span> <span class="at">-t</span> ext4 <span class="st">"</span><span class="va">$DEV</span><span class="st">"</span> <span class="st">"</span><span class="va">$MNT_POINT</span><span class="st">"</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">[</span> <span class="va">$?</span> <span class="ot">-ne</span> 0 <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="ex">log_msg</span> <span class="st">"ERROR: No s'ha pogut muntar </span><span class="va">$DEV</span><span class="st">."</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">exit</span> 0</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="ex">log_msg</span> <span class="st">"ERROR: No s'ha trobat cap dispositiu amb l'UUID especificat."</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 0</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprovar si el keyfile existeix</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$MNT_POINT</span><span class="st">/</span><span class="va">$KEYFILE_PATH</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="ex">log_msg</span> <span class="st">"Keyfile trobat. Desxifrant LUKS..."</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="ex">log_msg</span> <span class="st">"ERROR: No s'ha trobat el keyfile."</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span> 0</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Guarda aquest script com a <code>/etc/initramfs-tools/scripts/local-top/mount_disk</code> i fes-lo executable:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x /etc/initramfs-tools/scripts/local-top/mount_disk</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="confiigurar-cryptsetup-per-a-la-initramfs" class="level3">
+<h3 class="anchored" data-anchor-id="confiigurar-cryptsetup-per-a-la-initramfs">Confiigurar <code>cryptsetup</code> per a la initramfs</h3>
+<p><code>cryptsetup</code> ja esta inclòs en la initramfs per defecte, però cal assegurar-se que està configurat per utilitzar el fitxer de clau des del disc secundari. Edita el fitxer <code>/etc/cryptsetup-initramfs/conf-hook</code> i afegeix la següent línia que permet que no es demani la contrasenya si es troba el fitxer de clau:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  /etc/cryptsetup-initramfs/conf-hook</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">ASKPASS</span><span class="op">=</span>n</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="incloure-el-fitxer-etccrypttab-a-la-initramfs" class="level3">
+<h3 class="anchored" data-anchor-id="incloure-el-fitxer-etccrypttab-a-la-initramfs">Incloure el fitxer <code>/etc/crypttab</code> a la initramfs</h3>
+<p>Per assegurar que el fitxer <code>/etc/crypttab</code> es troba disponible durant l’arrencada, cal crear un script que el copiï a la initramfs. Crearem un script anomenat <code>copy-crypttab</code> a <code>/etc/initramfs-tools/hooks/</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /etc/crypttab <span class="st">"</span><span class="va">${DESTDIR}</span><span class="st">/cryptroot/crypttab"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Guarda aquest script com a <code>/etc/initramfs-tools/hooks/copy-crypttab</code> i fes-lo executable:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x /etc/initramfs-tools/hooks/copy-crypttab</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="actualitzar-la-initramfs" class="level3">
+<h3 class="anchored" data-anchor-id="actualitzar-la-initramfs">Actualitzar la initramfs</h3>
+<p>Perquè els canvis tinguin efecte, cal actualitzar la initramfs. Això es fa amb la comanda següent:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">update-initramfs</span> <span class="at">-u</span> <span class="at">-k</span> <span class="va">$(</span><span class="fu">uname</span> <span class="at">-r</span><span class="va">)</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="comprovar-la-inclusió-de-lscript-i-cryptsetup-a-la-initramfs" class="level3">
+<h3 class="anchored" data-anchor-id="comprovar-la-inclusió-de-lscript-i-cryptsetup-a-la-initramfs">Comprovar la inclusió de l’script i <code>cryptsetup</code> a la initramfs</h3>
+<p>Per assegurar-te que l’script s’ha inclòs correctament a la initramfs i que <code>cryptsetup</code> també hi és, pots utilitzar les següents comandes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsinitramfs</span> /boot/initrd.img-<span class="va">$(</span><span class="fu">uname</span> <span class="at">-r</span><span class="va">)</span> <span class="kw">|</span> <span class="fu">grep</span> mount_disk</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lsinitramfs</span> /boot/initrd.img-<span class="va">$(</span><span class="fu">uname</span> <span class="at">-r</span><span class="va">)</span> <span class="kw">|</span> <span class="fu">grep</span> cryptsetup</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="prova-larrencada" class="level3">
+<h3 class="anchored" data-anchor-id="prova-larrencada">Prova l’arrencada</h3>
+<p>Reinicia la màquina virtual per provar l’arrencada. Si tot està configurat correctament, la partició LUKS s’hauria de desxifrar automàticament utilitzant la clau emmagatzemada al disc secundari. Sense demanar la contrasenya manualment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">reboot</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="consultar-el-log-darrencada" class="level3">
+<h3 class="anchored" data-anchor-id="consultar-el-log-darrencada">Consultar el log d’arrencada</h3>
+<p>Durant l’arrencada, el sistema registrarà missatges al kernel log. Pots consultar aquests missatges per verificar que l’script s’ha executat correctament i que la partició LUKS s’ha desxifrat. Utilitza la comanda següent per veure els missatges rellevants:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmesg</span> <span class="kw">|</span> <span class="fu">grep</span> mount_disk</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
