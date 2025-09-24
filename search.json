@@ -1803,7 +1803,7 @@
     "href": "slides/02-booting-part2.html#etapes-dexecució-del-grub",
     "title": "Arrencada del sistema (Part 2)",
     "section": "Etapes d’execució del GRUB",
-    "text": "Etapes d’execució del GRUB\n\nStage 1:\n\nEn sistemes BIOS: efectivament és el codi al MBR (o VBR) → molt petit (≤ 446 bytes).\nEn sistemes UEFI: és un fitxer executable EFI (normalment a /boot/efi/EFI/grub/grubx64.efi).\n\nStage 1.5 (només en BIOS, opcional):\n\nProporciona suport bàsic per a sistemes de fitxers.\nNormalment es troba en sectors buits després del MBR (espai entre MBR i primera partició). core.img.\n\nStage 2:\n\nConté el GRUB complet amb el menú d’arrencada.\nPot carregar mòduls addicionals (drivers de FS, vídeo, xarxa, criptografia…).\nLlegeix el fitxer de configuració (grub.cfg) i carrega el kernel i l’initramfs a la memòria.\nTransfereix el control al kernel per iniciar el sistema operatiu.",
+    "text": "Etapes d’execució del GRUB\n\nStage 1:\n\nEn sistemes BIOS: efectivament és el codi al MBR (o VBR) → molt petit (≤ 446 bytes).\nEn sistemes UEFI: és un fitxer executable EFI (normalment a /boot/efi/EFI/grub/grubx64.efi).\n\nStage 1.5 (només en BIOS, opcional):\n\nProporciona suport bàsic per a sistemes de fitxers.\nNormalment es troba en sectors buits després del MBR (espai entre MBR i primera partició). core.img.\n\nStage 2:\n\nConté el GRUB complet amb el menú d’arrencada.\nPot carregar mòduls addicionals (drivers de FS, vídeo, xarxa, criptografia…).\nTransfereix el control al kernel per iniciar el sistema operatiu.",
     "crumbs": [
       "Diapositives",
       "Unitat 02 · Arrencada del sistema (Part 2)"
@@ -1858,7 +1858,7 @@
     "href": "slides/02-booting-part2.html#paràmetres-del-kernel-més-comuns",
     "title": "Arrencada del sistema (Part 2)",
     "section": "Paràmetres del kernel més comuns",
-    "text": "Paràmetres del kernel més comuns\n\n\n\n\n\n\n\nParàmetre\nDescripció\n\n\n\n\nquiet\nSuprimeix els missatges del nucli durant l’arrencada.\n\n\nsingle\nInicia el sistema en mode d’usuari únic (single-user mode) per a tasques de manteniment.\n\n\nsplash\nMostra una imatge de fons durant l’arrencada en lloc de missatges de text.\n\n\nnomodeset\nDesactiva la detecció de modes de vídeo, útil per a solucions de problemes amb gràfics.\n\n\nroot=\nEspecifica la partició arrel del sistema de fitxers.\n\n\ninit=\nEspecifica un fitxer d’init alternatiu.\n\n\nro\nMuntatge de la partició arrel en mode de només lectura durant l’arrencada.\n\n\nrw\nMuntatge de la partició arrel en mode de lectura i escriptura durant l’arrencada.\n\n\nsystemd.unit =\nEspecifica el target de systemd a iniciar (ex: multi-user.target, graphical.target).",
+    "text": "Paràmetres del kernel més comuns\n\n\n\n\n\n\n\nParàmetre\nDescripció\n\n\n\n\nquiet\nSuprimeix els missatges del nucli durant l’arrencada.\n\n\nsingle\nInicia el sistema en mode d’usuari únic (single-user mode) per a tasques de manteniment.\n\n\nnomodeset\nDesactiva la detecció de modes de vídeo, útil per a solucions de problemes amb gràfics.\n\n\nroot=\nEspecifica la partició arrel del sistema de fitxers.\n\n\ninit=\nEspecifica un fitxer d’init alternatiu.\n\n\nro\nMuntatge de la partició arrel en mode de només lectura durant l’arrencada.\n\n\nrw\nMuntatge de la partició arrel en mode de lectura i escriptura durant l’arrencada.\n\n\nsystemd.unit =\nEspecifica el target de systemd a iniciar (ex: multi-user.target, graphical.target).",
     "crumbs": [
       "Diapositives",
       "Unitat 02 · Arrencada del sistema (Part 2)"
@@ -1880,7 +1880,7 @@
     "href": "slides/02-booting-part2.html#secure-boot",
     "title": "Arrencada del sistema (Part 2)",
     "section": "Secure Boot",
-    "text": "Secure Boot\nSecure Boot és una característica de seguretat del firmware UEFI que assegura que només es carregui i s’executi programari de confiança durant el procés d’arrencada del sistema.\n\nQuan s’encén el sistema\n\nUEFI comprova la signatura digital del bootloader EFI (per exemple, grubx64.efi) abans de carregar-lo.\nLa signatura és comparada amb les claus de confiança emmagatzemades en la DB (Database of allowed signatures) del firmware.\nSi la signatura és vàlida, UEFI carrega i executa el bootloader. Sinó, impedeix l’execució del bootloader i mostra un missatge d’error.\n\nBootloader signat (GRUB EFI)\n\nPot carregar mòduls addicionals signats, que també poden ser verificats pel mateix GRUB (opcional).\n\nKernel i initramfs\n\nEl kernel Linux també pot estar signat (opcional, si s’utilitza Linux Kernel Signing).\nSi s’utilitza Shim, aquest actua com a intermediari: el firmware UEFI confia en Shim, i Shim verifica després GRUB i el kernel.",
+    "text": "Secure Boot\nSecure Boot és una característica de seguretat del firmware UEFI que assegura que només es carregui i s’executi programari de confiança durant el procés d’arrencada del sistema.\n\nUEFI comprova la signatura digital del bootloader EFI (per exemple, grubx64.efi) abans de carregar-lo.\nLa signatura és comparada amb les claus de confiança emmagatzemades en la DB (Database of allowed signatures) del firmware.\nSi la signatura és vàlida, UEFI carrega i executa el bootloader. Sinó, impedeix l’execució del bootloader i mostra un missatge d’error.\nPot carregar mòduls addicionals signats, que també poden ser verificats pel mateix GRUB (opcional).\nEl kernel Linux també pot estar signat (opcional, si s’utilitza Linux Kernel Signing).\nSi s’utilitza Shim, aquest actua com a intermediari: el firmware UEFI confia en Shim, i Shim verifica després GRUB i el kernel.",
     "crumbs": [
       "Diapositives",
       "Unitat 02 · Arrencada del sistema (Part 2)"
@@ -1935,7 +1935,7 @@
     "href": "slides/02-booting-part2.html#etapes-de-linitramfs-i",
     "title": "Arrencada del sistema (Part 2)",
     "section": "Etapes de l’Initramfs (I)",
-    "text": "Etapes de l’Initramfs (I)\n\nDescompressió a la RAM\n\nEl fitxer CPIO de l’initramfs es descomprimeix a un sistema de fitxers temporal a RAM (tmpfs), creant l’entorn mínim necessari per iniciar el kernel.\n\n\nExecució de l’script /init\n\n/init és l’entrypoint principal de l’initramfs.\n\nExecuta la seqüència d’inicialització: muntatge de sistemes virtuals, càrrega de mòduls i preparació de l’entorn.\n\n\nCreació del sistema de fitxers temporal\n\nMuntatge de /proc, /sys i /dev.\n\nCreació de directoris temporals (/tmp, /run) per permetre que els scripts i utilitats funcionin.\n\n\nCarregar mòduls del kernel\n\nCarrega controladors necessaris per accedir a maquinari (discos, controladors de xarxa, LVM, RAID, xifrat).\n\nSi els mòduls estan integrats al kernel, aquesta etapa pot ser mínima o nul·la.",
+    "text": "Etapes de l’Initramfs (I)\n\nDescompressió a la RAM\n\nEl fitxer CPIO de l’initramfs es descomprimeix a un sistema de fitxers temporal a RAM (tmpfs), creant l’entorn mínim necessari per iniciar el kernel.\n\n\nExecució de l’script /init\n\n/init és l’entrypoint principal de l’initramfs.\n\nExecuta la seqüència d’inicialització: muntatge de sistemes virtuals, càrrega de mòduls i preparació de l’entorn.\n\n\nCreació del sistema de fitxers temporal\n\nMuntatge de /proc, /sys i /dev.\n\nCreació de directoris temporals (/tmp, /run) per permetre que els scripts i utilitats funcionin.",
     "crumbs": [
       "Diapositives",
       "Unitat 02 · Arrencada del sistema (Part 2)"
@@ -1946,7 +1946,18 @@
     "href": "slides/02-booting-part2.html#etapes-de-linitramfs-ii",
     "title": "Arrencada del sistema (Part 2)",
     "section": "Etapes de l’Initramfs (II)",
-    "text": "Etapes de l’Initramfs (II)\n\nMuntatge de la partició arrel real\n\nLocalitza la partició arrel (per exemple /dev/sda1 o UUID=...).\n\nMuntatge en un punt temporal (/mnt/root o similar).\n\n\nTransició al sistema complet (switch_root)\n\nSubstitueix l’entorn temporal de l’initramfs pel sistema de fitxers real.\n\nExecuta el binari init del sistema complet (normalment /sbin/init o systemd).\n\n\nAlliberament de l’initramfs\n\nDestruir l’entorn temporal a RAM.\n\nAlliberar la memòria utilitzada pel sistema de fitxers temporal, deixant el control complet al sistema operatiu.",
+    "text": "Etapes de l’Initramfs (II)\n\nCarregar mòduls del kernel\n\nCarrega controladors necessaris per accedir a maquinari (discos, controladors de xarxa, LVM, RAID, xifrat).\n\nSi els mòduls estan integrats al kernel, aquesta etapa pot ser mínima o nul·la.\n\nMuntatge de la partició arrel real\n\nLocalitza la partició arrel (per exemple /dev/sda1 o UUID=...).\n\nMuntatge en un punt temporal (/mnt/root o similar).\n\n\nTransició al sistema complet (switch_root)\n\nSubstitueix l’entorn temporal de l’initramfs pel sistema de fitxers real.\n\nExecuta el binari init del sistema complet (normalment /sbin/init o systemd).",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 2)"
+    ]
+  },
+  {
+    "objectID": "slides/02-booting-part2.html#etapes-de-linitramfs-iii",
+    "href": "slides/02-booting-part2.html#etapes-de-linitramfs-iii",
+    "title": "Arrencada del sistema (Part 2)",
+    "section": "Etapes de l’Initramfs (III)",
+    "text": "Etapes de l’Initramfs (III)\n\nAlliberament de l’initramfs\n\nDestruir l’entorn temporal a RAM.\n\nAlliberar la memòria utilitzada pel sistema de fitxers temporal, deixant el control complet al sistema operatiu.",
     "crumbs": [
       "Diapositives",
       "Unitat 02 · Arrencada del sistema (Part 2)"
@@ -2001,7 +2012,18 @@
     "href": "slides/02-booting-part2.html#initramfs-tools-debian-ii",
     "title": "Arrencada del sistema (Part 2)",
     "section": "initramfs-tools (Debian) (II)",
-    "text": "initramfs-tools (Debian) (II)\n\n/etc/initramfs-tools/scripts/\nScripts que s’executen durant l’arrencada:\n\ninit-top/ → scripts executats just després de descomprimir l’initramfs i abans de muntar /proc, /sys i /dev. Ideal per inicialitzar serveis crítics o preparar dispositius especials.\n\ninit-bottom/ → scripts executats just abans de fer switch_root al sistema complet. Útil per passos finals com muntar la partició arrel, desbloquejar LUKS o activar LVM.\n\nlocal-bottom/ → scripts addicionals definits per l’administrador.\nlocal-top/ → scripts addicionals definits per l’administrador.\npremount/ → scripts executats abans de muntar la partició arrel. Ideal per preparar dispositius o sistemes de fitxers especials.\nmount/ → scripts executats durant el muntatge de la partició arrel. Útil per passos específics relacionats amb el muntatge.\ncleanup/ → scripts executats després de fer switch_root al sistema complet. Ideal per netejar recursos temporals o realitzar tasques posteriors a l’arrencada.",
+    "text": "initramfs-tools (Debian) (II)\n\n/etc/initramfs-tools/scripts/\nScripts que s’executen durant l’arrencada:\n\ninit-top/ → scripts executats just després de descomprimir l’initramfs i abans de muntar /proc, /sys i /dev. Ideal per inicialitzar serveis crítics o preparar dispositius especials.\n\ninit-bottom/ → scripts executats just abans de fer switch_root al sistema complet. Útil per passos finals com muntar la partició arrel, desbloquejar LUKS o activar LVM.\n\nlocal-bottom/ → scripts addicionals definits per l’administrador.\nlocal-top/ → scripts addicionals definits per l’administrador.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 2)"
+    ]
+  },
+  {
+    "objectID": "slides/02-booting-part2.html#initramfs-tools-debian-ii-1",
+    "href": "slides/02-booting-part2.html#initramfs-tools-debian-ii-1",
+    "title": "Arrencada del sistema (Part 2)",
+    "section": "initramfs-tools (Debian) (II)",
+    "text": "initramfs-tools (Debian) (II)\n\npremount/ → scripts executats abans de muntar la partició arrel. Ideal per preparar dispositius o sistemes de fitxers especials.\nmount/ → scripts executats durant el muntatge de la partició arrel. Útil per passos específics relacionats amb el muntatge.\ncleanup/ → scripts executats després de fer switch_root al sistema complet. Ideal per netejar recursos temporals o realitzar tasques posteriors a l’arrencada.",
     "crumbs": [
       "Diapositives",
       "Unitat 02 · Arrencada del sistema (Part 2)"

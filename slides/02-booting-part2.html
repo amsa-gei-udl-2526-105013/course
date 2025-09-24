@@ -240,7 +240,6 @@ Jordi Mateo Fornés
 <ul>
 <li class="fragment">Conté el GRUB complet amb el menú d’arrencada.</li>
 <li class="fragment">Pot carregar mòduls addicionals (drivers de FS, vídeo, xarxa, criptografia…).</li>
-<li class="fragment">Llegeix el fitxer de configuració (grub.cfg) i carrega el kernel i l’initramfs a la memòria.</li>
 <li class="fragment">Transfereix el control al kernel per iniciar el sistema operatiu.</li>
 </ul></li>
 </ul>
@@ -367,30 +366,26 @@ Directori amb scripts que generen <code>grub.cfg</code>:
 <td>Inicia el sistema en mode d’usuari únic (single-user mode) per a tasques de manteniment.</td>
 </tr>
 <tr class="odd">
-<td><code>splash</code></td>
-<td>Mostra una imatge de fons durant l’arrencada en lloc de missatges de text.</td>
-</tr>
-<tr class="even">
 <td><code>nomodeset</code></td>
 <td>Desactiva la detecció de modes de vídeo, útil per a solucions de problemes amb gràfics.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>root=</code></td>
 <td>Especifica la partició arrel del sistema de fitxers.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>init=</code></td>
 <td>Especifica un fitxer d’init alternatiu.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>ro</code></td>
 <td>Muntatge de la partició arrel en mode de només lectura durant l’arrencada.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>rw</code></td>
 <td>Muntatge de la partició arrel en mode de lectura i escriptura durant l’arrencada.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>systemd.unit =</code></td>
 <td>Especifica el target de systemd a iniciar (ex: <code>multi-user.target</code>, <code>graphical.target</code>).</td>
 </tr>
@@ -410,25 +405,16 @@ Directori amb scripts que generen <code>grub.cfg</code>:
 <section id="secure-boot" class="slide level2 smaller">
 <h2>Secure Boot</h2>
 <p><strong>Secure Boot</strong> és una característica de seguretat del firmware UEFI que assegura que només es carregui i s’executi programari de confiança durant el procés d’arrencada del sistema.</p>
-<ol type="1">
-<li class="fragment">Quan s’encén el sistema
 <ul>
 <li class="fragment">UEFI comprova la signatura digital del bootloader EFI (per exemple, grubx64.efi) abans de carregar-lo.</li>
 <li class="fragment">La signatura és comparada amb les claus de confiança emmagatzemades en la DB (Database of allowed signatures) del firmware.</li>
 <li class="fragment">Si la signatura és vàlida, UEFI carrega i executa el bootloader. Sinó, impedeix l’execució del bootloader i mostra un missatge d’error.</li>
-</ul></li>
-<li class="fragment">Bootloader signat (GRUB EFI)
-<ul>
 <li class="fragment">Pot carregar mòduls addicionals signats, que també poden ser verificats pel mateix GRUB (<em>opcional</em>).</li>
-</ul></li>
-<li class="fragment">Kernel i initramfs
-<ul>
 <li class="fragment">El kernel Linux també pot estar signat (<em>opcional</em>, si s’utilitza Linux Kernel Signing).</li>
 <li class="fragment">Si s’utilitza <a href="http://github.com/rhboot/shim">Shim</a>, aquest actua com a intermediari: el firmware UEFI confia en Shim, i Shim verifica després GRUB i el kernel.</li>
-</ul></li>
-</ol>
+</ul>
 </section>
-<section id="problemes-de-secure-boot" class="slide level2">
+<section id="problemes-de-secure-boot" class="slide level2 smaller">
 <h2>Problemes de Secure Boot</h2>
 <ul>
 <li class="fragment"><strong>Compatibilitat</strong>: No tots els sistemes operatius o distribucions Linux suporten Secure Boot de manera nativa.</li>
@@ -539,20 +525,19 @@ Directori amb scripts que generen <code>grub.cfg</code>:
 <ul>
 <li class="fragment">Muntatge de <code>/proc</code>, <code>/sys</code> i <code>/dev</code>.<br>
 </li>
-<li class="fragment">Creació de directoris temporals (<code>/tmp</code>, <code>/run</code>) per permetre que els scripts i utilitats funcionin.<br>
-</li>
+<li class="fragment">Creació de directoris temporals (<code>/tmp</code>, <code>/run</code>) per permetre que els scripts i utilitats funcionin.</li>
 </ul></li>
+</ol>
+</section>
+<section id="etapes-de-linitramfs-ii" class="slide level2 smaller">
+<h2>Etapes de l’Initramfs (II)</h2>
+<ol start="4" type="1">
 <li class="fragment"><strong>Carregar mòduls del kernel</strong>
 <ul>
 <li class="fragment">Carrega controladors necessaris per accedir a maquinari (discos, controladors de xarxa, LVM, RAID, xifrat).<br>
 </li>
 <li class="fragment">Si els mòduls estan integrats al kernel, aquesta etapa pot ser mínima o nul·la.</li>
 </ul></li>
-</ol>
-</section>
-<section id="etapes-de-linitramfs-ii" class="slide level2 smaller">
-<h2>Etapes de l’Initramfs (II)</h2>
-<ol start="5" type="1">
 <li class="fragment"><strong>Muntatge de la partició arrel real</strong>
 <ul>
 <li class="fragment">Localitza la partició arrel (per exemple <code>/dev/sda1</code> o <code>UUID=...</code>).<br>
@@ -567,6 +552,11 @@ Directori amb scripts que generen <code>grub.cfg</code>:
 <li class="fragment">Executa el binari <code>init</code> del sistema complet (normalment <code>/sbin/init</code> o systemd).<br>
 </li>
 </ul></li>
+</ol>
+</section>
+<section id="etapes-de-linitramfs-iii" class="slide level2 smaller">
+<h2>Etapes de l’Initramfs (III)</h2>
+<ol start="7" type="1">
 <li class="fragment"><strong>Alliberament de l’initramfs</strong>
 <ul>
 <li class="fragment">Destruir l’entorn temporal a RAM.<br>
@@ -659,10 +649,15 @@ Scripts que s’executen <strong>durant l’arrencada</strong>:
 </li>
 <li class="fragment"><strong><code>local-bottom/</code></strong> → scripts addicionals definits per l’administrador.</li>
 <li class="fragment"><strong><code>local-top/</code></strong> → scripts addicionals definits per l’administrador.</li>
+</ul></li>
+</ul>
+</section>
+<section id="initramfs-tools-debian-ii-1" class="slide level2 smaller">
+<h2><code>initramfs-tools</code> (Debian) (II)</h2>
+<ul>
 <li class="fragment"><strong><code>premount/</code></strong> → scripts executats <strong>abans de muntar la partició arrel</strong>. Ideal per preparar dispositius o sistemes de fitxers especials.</li>
 <li class="fragment"><strong><code>mount/</code></strong> → scripts executats <strong>durant el muntatge de la partició arrel</strong>. Útil per passos específics relacionats amb el muntatge.</li>
 <li class="fragment"><strong><code>cleanup/</code></strong> → scripts executats <strong>després de fer <code>switch_root</code></strong> al sistema complet. Ideal per netejar recursos temporals o realitzar tasques posteriors a l’arrencada.</li>
-</ul></li>
 </ul>
 </section>
 <section id="dracut-fedorared-hat" class="slide level2 smaller">
