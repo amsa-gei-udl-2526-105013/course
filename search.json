@@ -2041,6 +2041,17 @@
     ]
   },
   {
+    "objectID": "slides/02-booting-part2.html#exercicis-propostas",
+    "href": "slides/02-booting-part2.html#exercicis-propostas",
+    "title": "Arrencada del sistema (Part 2)",
+    "section": "Exercicis Propostas",
+    "text": "Exercicis Propostas\n\nModificant la contrasenya de l’usuari root a través del GRUB\nDesxifrat automàtic mitjançant clau en disc secundari (USB emulat)\nDiscussió: Secure Boot és realment segur?: Cerca notícies recents sobre Secure Boot i comparteix-les al fòrum del curs. Debatiu sobre avantatges, desavantatges, vulnerabilitats conegudes i experiències personals.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 2)"
+    ]
+  },
+  {
     "objectID": "slides/02-booting-part2.html#thats-all",
     "href": "slides/02-booting-part2.html#thats-all",
     "title": "Arrencada del sistema (Part 2)",
