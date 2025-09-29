@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Emulació en mode d’usuari amb QEMU – AMSA - Fall 2025</title>
+<title>Anàlisi del procés d’arrencada amb systemd – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html">Activitat 2 · Emulació en mode d’usuari amb QEMU</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/06-ex-week4.html">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -195,13 +195,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
@@ -210,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
   </div>
 </li>
@@ -218,13 +218,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -257,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</span></a>
   </div>
 </li>
@@ -338,24 +338,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link active" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#objectius" id="toc-objectius" class="nav-link" data-scroll-target="#objectius">Objectius</a></li>
-  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
-  <ul class="collapse">
-  <li><a href="#escriure-i-compilar-un-programa-hello-world-per-a-arm" id="toc-escriure-i-compilar-un-programa-hello-world-per-a-arm" class="nav-link" data-scroll-target="#escriure-i-compilar-un-programa-hello-world-per-a-arm">Escriure i compilar un programa Hello World per a ARM</a></li>
-  <li><a href="#compilació-per-a-larquitectura-de-la-teva-mv" id="toc-compilació-per-a-larquitectura-de-la-teva-mv" class="nav-link" data-scroll-target="#compilació-per-a-larquitectura-de-la-teva-mv">Compilació per a l’arquitectura de la teva MV</a></li>
-  <li><a href="#execució-del-programa-amb-qemu" id="toc-execució-del-programa-amb-qemu" class="nav-link" data-scroll-target="#execució-del-programa-amb-qemu">Execució del programa amb QEMU</a></li>
-  <li><a href="#preguntes-finals" id="toc-preguntes-finals" class="nav-link" data-scroll-target="#preguntes-finals">Preguntes finals</a></li>
-  </ul></li>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">Objectius</a></li>
+  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link" data-scroll-target="#requeriments-previs">Requeriments Previs</a></li>
+  <li><a href="#anàlisi-del-procés-darrencada-amb-systemd" id="toc-anàlisi-del-procés-darrencada-amb-systemd" class="nav-link" data-scroll-target="#anàlisi-del-procés-darrencada-amb-systemd">Anàlisi del procés d’arrencada amb systemd</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html">Activitat 2 · Emulació en mode d’usuari amb QEMU</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/06-ex-week4.html">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Emulació en mode d’usuari amb QEMU</h1>
+<h1 class="title">Anàlisi del procés d’arrencada amb systemd</h1>
 </div>
 
 
@@ -372,81 +366,204 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aquest exercici t’introduirà a l’emulació en mode d’usuari de QEMU, una eina que et permet executar un programa compilat per a una arquitectura de CPU diferent de la teva màquina. Concretament, executaràs un programa de 32 bits compilat per a ARM en un sistema x86 (processadors Intel o AMD) o ARM de 64 bits (processadors Apple M). Per simplificar l’exercici, utiltizarem un <em>Hello, World!</em> com a programa d’exemple.</p>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
-<ul>
-<li>Disposar d’una màquina virtual amb <strong>Debian</strong> configurada segons les instruccions de l’exercici de configuració d’entorn de virtualització.</li>
-<li>Disposar de les eines bàsiques de desenvolupament instal·lades a la màquina virtual (compilador <code>gcc</code>, <code>make</code>, etc.). Pots instal·lar-les com a <em>root</em> amb la comanda següent: <code>apt install build-essential</code>.</li>
-</ul>
-</section>
 <section id="objectius" class="level2">
 <h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
-<ol type="1">
-<li>Introduir-se en l’ús de QEMU en mode d’usuari per a l’emulació d’aplicacions.</li>
-<li>Comprendre la diferència entre compilació nativa i compilació creuada.</li>
-<li>Compilar i executar un programa senzill per a una arquitectura diferent de la teva màquina.</li>
-</ol>
-</section>
-<section id="tasques" class="level2">
-<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
-<section id="escriure-i-compilar-un-programa-hello-world-per-a-arm" class="level3">
-<h3 class="anchored" data-anchor-id="escriure-i-compilar-un-programa-hello-world-per-a-arm">Escriure i compilar un programa Hello World per a ARM</h3>
-<ol type="1">
-<li>Crea un fitxer anomenat <code>hello.c</code> amb el següent contingut:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Hello, World!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per compilar-lo per a l’arquitectura ARM, necessites un compilador creuat. En aquest laboratori, utilitzarem el GNU ARM toolchain per a Linux. Instal·la’l amb la següent comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install gcc-arm-linux-gnueabi</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ara, compila el programa per a ARM amb aquesta comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a usuari normal</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">arm-linux-gnueabi-gcc</span> <span class="at">-o</span> helloarm <span class="at">-static</span> hello.c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Això generarà un executable anomenat <strong>helloarm</strong>. La bandera -static crea un binari estàticament enllaçat, la qual cosa significa que totes les biblioteques necessàries s’inclouen dins del propi fitxer.</p>
-<p>Si intentes executar helloarm directament, rebràs un error:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./helloarm</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">-bash:</span> ./helloarm: no es pot executar el fitxer binari: Error de format d<span class="st">'execució</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Aquest error es produeix perquè el teu sistema operatiu no reconeix l’arquitectura del fitxer. Pots verificar-ho amb la comanda <code>file</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> helloarm</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">helloarm:</span> ELF 32-bit LSB executable, ARM, EABI5 version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> statically linked, not stripped</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="compilació-per-a-larquitectura-de-la-teva-mv" class="level3">
-<h3 class="anchored" data-anchor-id="compilació-per-a-larquitectura-de-la-teva-mv">Compilació per a l’arquitectura de la teva MV</h3>
-<p>Per entendre la diferència, ara compila el mateix codi per a l’arquitectura de la teva màquina amb gcc:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-o</span> hellohost hello.c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Si l’executes, funcionarà sense problemes:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./hellohost</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Hello,</span> World!</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per comprovar-ne l’arquitectura, utilitza de nou la comanda <code>file</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> hellohost</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple per a x86</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">hellohost:</span> ELF 64-bit LSB shared object, x86-64, version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> dynamically linked...</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple per a Apple M Series (ARM 64-bit)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hellohost:</span> ELF 64-bit LSB shared object, ARM aarch64, version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> dynamically linked...</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="execució-del-programa-amb-qemu" class="level3">
-<h3 class="anchored" data-anchor-id="execució-del-programa-amb-qemu">Execució del programa amb QEMU</h3>
-<p>Finalment, per executar el binari ARM a la teva màquina, necessites el component de QEMU per a emulació en mode d’usuari. Instal·la’l amb aquesta comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install qemu-user</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Un cop instal·lat, pots executar el programa helloarm amb l’emulador qemu-arm:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-arm</span> helloarm</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Hello,</span> World!</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="preguntes-finals" class="level3">
-<h3 class="anchored" data-anchor-id="preguntes-finals">Preguntes finals</h3>
 <ul>
-<li>Investiga quines altres arquitectures són compatibles amb QEMU en mode d’usuari. Prova de compilar i executar un programa per a una d’aquestes arquitectures.</li>
-<li>Per què la compilació estàtica és important en aquest context? Per què no cal incloure la bandera <code>-static</code> en la compilació normal? Quines avantatges i inconvenients té cada enfocament?</li>
+<li>Aprendre a utilitzar les eines de <code>systemd</code> per analitzar el procés d’arrencada del sistema.</li>
+<li>Entendre com identificar quines unitats són les més crítiques per al temps d’arrencada.</li>
+<li>Aprendre a interpretar la sortida de les comandes <code>systemd-analyze</code> i <code>systemctl</code>.</li>
+</ul>
+</section>
+<section id="requeriments-previs" class="level2">
+<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments Previs</h2>
+<ul>
+<li>Tenir una màquina virtual (MV) amb Debian instal·lat.</li>
+<li>Totes les comandes s’han d’executar amb permisos de superusuari (<code>root</code>). Per tant, <code>su -</code>.</li>
+</ul>
+</section>
+<section id="anàlisi-del-procés-darrencada-amb-systemd" class="level2">
+<h2 class="anchored" data-anchor-id="anàlisi-del-procés-darrencada-amb-systemd">Anàlisi del procés d’arrencada amb systemd</h2>
+<p>La comanda <code>systemd</code> ens permet gestionar els serveis del sistema i controlar el procés d’arrencada. Podeu comprovar les seves possibilitats amb la comanda <code>man systemd</code>. Una de les funcionalitats més útils de <code>systemd</code> és la capacitat de generar informació detallada sobre el procés d’arrencada del sistema.</p>
+<p>El primer pas per analitzar el procés d’arrencada amb <code>systemd</code> és utilitzar la comanda <code>systemd-analyze</code> per obtenir informació sobre el temps que ha trigat el sistema a arrencar. Aquesta comanda mostrarà informació sobre el temps que ha trigat el sistema a arrencar, incloent el temps que ha trigat el kernel i l’espai d’usuari.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Startup</span> finished in 899ms <span class="er">(</span><span class="ex">kernel</span><span class="kw">)</span> <span class="ex">+</span> 2.074s <span class="er">(</span><span class="ex">userspace</span><span class="kw">)</span> <span class="ex">=</span> 2.973s</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">graphical.target</span> reached after 2.068s in userspace.</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Kernel</th>
+<th>Espai d’usuari</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>899ms</td>
+<td>2.074s</td>
+<td>2.973s</td>
+</tr>
+</tbody>
+</table>
+<p>En aquest cas, els primers 899ms s’utilitzen per carregar les funcions del kernel com ara els controladors de dispositius i el sistema de fitxers. Els següents 2.074s s’utilitzen per carregar l’espai d’usuari, com ara els serveis i els processos del sistema. En total, el sistema ha trigat 2.973s a arrencar.</p>
+<p>Ara que tenim aquesta informació, podem utilitzar la comanda <code>systemd-analyze blame</code> per obtenir informació detallada sobre el temps que ha trigat cada unitat a carregar durant el procés d’arrencada. Aquesta opció ens llistarà les unitats ordenades per temps d’arrencada, de major a menor.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Temps</th>
+<th>Unitat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.876s</td>
+<td>systemd-random-seed.service</td>
+</tr>
+<tr class="even">
+<td>784ms</td>
+<td>dbus.service</td>
+</tr>
+<tr class="odd">
+<td>782ms</td>
+<td>e2scrub_reap.service</td>
+</tr>
+<tr class="even">
+<td>778ms</td>
+<td>systemd-logind.service</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>4ms</td>
+<td>systemd-update-utmp-runlevel.service</td>
+</tr>
+</tbody>
+</table>
+<p>Amb aquesta informació, podem identificar les unitats que poden estar retardant el procés d’arrencada i optimitzar-les si cal. Per obtenir més informació sobre una unitat específica, podeu utilitzar la comanda <code>systemctl status</code> seguida del nom de la unitat. Per exemple, si volem informació sobre la unitat <code>systemd-random-seed.service</code>, podem executar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status systemd-random-seed.service</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquesta informació ens mostrarà:</p>
+<ol type="1">
+<li>L’estat actual de la unitat (inactiu, actiu, desactivat, error o recarregant).</li>
+<li>La linia <strong>Loaded</strong> ens indica la ruta al fitxer on es desa la configuració de la unitat. En aquest cas, <code>/lib/systemd/system/systemd-random-seed.service</code>. A més ens indica <em>static</em> que vol dir que la unitat no es pot desactivar. Altres unitats ens poden indicar <em>error</em>, <em>masked</em>, <em>not-found</em>, <em>enable</em> o <em>disabled</em></li>
+<li>La entrada al manual de la unitat, si n’hi ha.</li>
+<li>Finalment, ens mostra informació sobre el procés: PID, estat del procés i temps que ha estat en execució (això en el exemple) també pot mostrar la memòria, el cgroup, o el nombre de tasques associades.</li>
+</ol>
+<p>Si volem saber exactament què fa aquest servei, podem consultar el manual amb la comanda <code>man systemd-random-seed.service</code>.</p>
+<p>En el manual d’aquesta comanda us explicarà de forma detallada què aquest servei carrega una llavor aleatòria al espai del nucli quan arranca i la desa quan s’apaga. Aquesta llavor es guarda a <code>/var/lib/systemd/random-seed</code>. Per defecte, no s’assigna entropia quan s’escriu la llavor al nucli, però això es pot canviar amb <code>$SYSTEMD_RANDOM_SEED_CREDIT</code>. El servei s’executa després de muntar el sistema de fitxers <code>/var/</code>, per la qual cosa és recomanable utilitzar un carregador d’arrencada que passi una llavor inicial al nucli, com <code>systemd-boot</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Observació">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Observació
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Amb aquesta informació podem identificar quina és la funció de cada servei i decidir si pel nostre sistema és necessari o no. En aquest cas, el servei <code>systemd-random-seed.service</code> és necessari per a la generació de nombres aleatoris, per tant, no és recomanable desactivar-lo.</p>
+</div>
+</div>
+<p>Si volem informació sobre la unitat <code>systemd-random-seed.service</code>, podem utilitzar la comanda <code>systemctl cat systemd-random-seed.service</code> per veure la configuració de la unitat.</p>
+<pre class="text"><code># /lib/systemd/system/systemd-random-seed.service
+#  SPDX-License-Identifier: LGPL-2.1-or-later
+#
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Load/Save Random Seed
+Documentation=man:systemd-random-seed.service(8) man:random(4)
+DefaultDependencies=no
+RequiresMountsFor=/var/lib/systemd/random-seed
+Conflicts=shutdown.target
+After=systemd-remount-fs.service
+Before=first-boot-complete.target shutdown.target
+Wants=first-boot-complete.target
+ConditionVirtualization=!container
+ConditionPathExists=!/etc/initrd-release
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/lib/systemd/systemd-random-seed load
+ExecStop=/lib/systemd/systemd-random-seed save
+
+# This service waits until the kernel's entropy pool is initialized, and may be
+# used as ordering barrier for service that require an initialized entropy
+# pool. Since initialization can take a while on entropy-starved systems, let's
+# increase the timeout substantially here.
+TimeoutSec=10min</code></pre>
+<p>Aquesta informació ens mostra la configuració de la unitat, incloent la descripció, la documentació, les dependències, les condicions, el tipus de servei, els comandaments d’inici i parada, i altres opcions de configuració. El servei té una dependència de muntatge per a <code>/var/lib/systemd/random-seed</code>, i s’executa després de <code>systemd-remount-fs.service</code> i abans de <code>first-boot-complete.target</code> i <code>shutdown.target</code>. A més, ens indica que és un servei de tipus <code>oneshot</code>, que s’executa una sola vegada i roman actiu després de la sortida. Els comandaments d’inici i parada són <code>/lib/systemd/systemd-random-seed load</code> i <code>/lib/systemd/systemd-random-seed save</code>, respectivament.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Nota">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si observeu el paramètre <strong>TimeoutSec=10min</strong> aquesta unitat pot trigar fins a 10 minuts a carregar. Si el sistema està en un entorn amb poca entropia, aquesta unitat pot trigar més temps a carregar.</p>
+</div>
+</div>
+<p>Per exemple, editarem la unitat <code>systemd-random-seed.service</code> per activar la entropia al sistema. Per editar la unitat podeu utilitzar qualsevol editor de text ( i.e <code>vi</code>) o bé la comanda <code>systemctl edit systemd-random-seed.service</code> que obrirà un editor de text per afegir la línia. Un cop obert l’editor heu d’afegir la lína a la secció <code>[Service]</code> i desar el fitxer. Recordeu que per fer aquesta acció necessitareu permisos d’administrador. Per tant, <code>su -</code> per canviar a l’usuari root i després fer la comanda.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">Environment</span><span class="op">=</span>SYSTEMD_RANDOM_SEED_CREDIT=4096</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Compte! Si feu anar el <code>systemctl edit</code> aquest crearà un fitxer de configuració a <code>/etc/systemd/system/systemd-random-seed.service.d/override.conf</code> que sobreescriurà la configuració de la unitat original. Per afegir la configuració còpieu la configuració original i afegiu la línia <code>Environment=SYSTEMD_RANDOM_SEED_CREDIT=4096</code> a la secció <code>[Service]</code>.</p>
+</blockquote>
+<p>Estem assignant un crèdit de 4096 a la llavor aleatòria. Això augmentarà la quantitat d’entropia que es passa al nucli quan s’escriu la llavor. Un crèdit més alt pot augmentar la seguretat del sistema, però també pot augmentar el temps d’arrencada en sistemes amb poca entropia.</p>
+<p>Un cop hàgim fet els canvis, guardarem el fitxer i sortirem de l’editor. Després, podem fer un <code>reboot</code> per aplicar els canvis. Quan el sistema s’hagi reiniciat, podem tornar a utilitzar la comanda <code>systemd-analyze</code> per comprovar si els canvis han tingut algun impacte en el temps d’arrencada del sistema.</p>
+<p>Una altra opció interesant que ens ofereix <code>systemd</code> és la comanda <code>systemd-analyze critical-chain</code>. Aquesta comanda ens permet veure la cadena crítica de les unitats de temps del sistema. Això ens mostra quines unitats són les més crítiques per al temps d’arrencada del sistema. Per analizar la sortida, heu de mirar el temps després del caràcter <code>@</code> per veure quant temps ha trigat la unitat a activar-se o iniciar-se, i el temps després del caràcter <code>+</code> per veure quant temps ha trigat la unitat a iniciar-se. A més, aquesta comanda només mostra el temps que les unitats han passat a l’estat <em>activant-se</em>, i no cobreix les unitats que mai han passat per l’estat <em>activant-se</em> (com les unitats de dispositius que passen directament de <em>inactiu</em> a <em>actiu</em>). Tot i això, és una eina útil per identificar les unitats que poden estar retardant el procés d’arrencada.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">graphical.target</span> @2.076s</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">└─multi-user.target</span> @2.075s</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└─ssh.service</span> @1.497s +578ms</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└─network.target</span> @1.494s</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└─networking.service</span> @1.225s +268ms</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└─apparmor.service</span> @1.158s +63ms</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          <span class="ex">└─local-fs.target</span> @1.158s</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└─run-credentials-systemd\x2dtmpfiles\x2dsetup.service.mount</span> @1.171s</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>              <span class="ex">└─local-fs-pre.target</span> @242ms</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                <span class="ex">└─systemd-tmpfiles-setup-dev.service</span> @224ms +17ms</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                  <span class="ex">└─systemd-sysusers.service</span> @192ms +20ms</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                    <span class="ex">└─systemd-remount-fs.service</span> @131ms +54ms</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                      <span class="ex">└─systemd-journald.socket</span> @114ms</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">└─-.mount</span> @86ms</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                          <span class="ex">└─-.slice</span> @86ms</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En aquest cas, podem veure que la unitat <code>ssh.service</code> és la més crítica per al temps d’arrencada del sistema, ja que ha trigat 578ms a iniciar-se. A més, podem veure les dependències de totes les unitats que s’han carregat durant el procés d’arrencada. Començant pel <code>graphical.target</code> i seguint per les unitats <code>multi-user.target</code>, aquestes dos unitats ens asseguren que el sistema ha arrencat en mode gràfic i multiusuari. A partir d’aquest moment es carreguen la resta de serveis.</p>
+<p>Un altra opció interessant és utilitzar la comanda <code>systemd-analyze plot</code> per generar un gràfic del procés d’arrencada del sistema. Aquesta comanda generarà un fitxer SVG amb el gràfic del procés d’arrencada, que podeu visualitzar amb un navegador web o un visor d’imatges.</p>
+<ul>
+<li><p>Si volem analitzar tots les unitats:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-analyze</span> plot <span class="op">&gt;</span> boot_system.svg</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Si volem analitzar les unitats de la instancia de l’usuari:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-analyze</span> <span class="at">--user</span> plot <span class="op">&gt;</span> boot_user.svg</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Si volem les unitats de l’arrencada del sistema:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemd-analyze</span> <span class="at">--system</span> plot <span class="op">&gt;</span> boot_system.svg</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul>
+<hr>
+<blockquote class="blockquote">
+<p>⚠️ <strong>Compte</strong>: Com puc visualtizar una imatge SVG en un debian sense interfície gràfica?</p>
+<p>Per visualitzar una imatge SVG en un sistema sense interfície gràfica, podeu descarregar el fitxer SVG a la vostra màquina local i visualitzar-lo amb un visor d’imatges o un navegador web. Per exemple, podeu utilitzar la comanda <code>scp</code> per descarregar el fitxer SVG a la vostra màquina local:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> user@remote:/path/to/boot.svg /path/to/local/boot.svg</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</blockquote>
+<hr>
+<blockquote class="blockquote">
+<p>⚠️ <strong>Compte</strong>: Debian no permet conexions remotes com a root per defecte. Abans de fer-ho, com debian per defecte no permet l’execució de <code>scp</code> com a root, caldrà fer-ho com a usuari normal i després copiar el fitxer a la carpeta desitjada.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> boot.svg /tmp </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> user:user /tmp/boot.svg  </span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</blockquote>
+<p>Per a més informació sobre les opcions de la comanda <code>systemd-analyze</code>, podeu consultar el manual amb la comanda <code>man systemd-analyze</code>.</p>
+<p>Per acabar, podem comentar que així com <code>systemctl status unitat</code> ens mostra la informació d’una unitat. També podem consultar la informació de totes les unitats amb:</p>
+<ul>
+<li><p><code>systemctl status</code>: Mostra informació sobre l’estat actual del sistema o d’una unitat específica acompanyada de les dades més recents del registre del diari.</p></li>
+<li><p><code>systemctl list-units</code>: Mostra una llista de totes les unitats carregades al sistema, incloent les unitats actives, inactives i fallades.</p></li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

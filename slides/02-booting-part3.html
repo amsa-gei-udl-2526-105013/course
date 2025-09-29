@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Jordi Mateo Fornés">
-  <title>AMSA - Fall 2025 – Arrencada del sistema (Part 2)</title>
+  <title>AMSA - Fall 2025 – Arrencada del sistema (Part 3)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -194,7 +194,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Arrencada del sistema (Part 2)</h1>
+  <h1 class="title">Arrencada del sistema (Part 3)</h1>
   <p class="subtitle">Unitat 2 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
 
 <div class="quarto-title-authors">
@@ -235,14 +235,14 @@ Jordi Mateo Fornés
 <p>El canvi de <strong>SysVinit</strong> a <a href="https://systemd.io/"><strong>Systemd</strong></a> en moltes distribucions de Linux va ser motivat per la necessitat de millorar l’eficiència i la gestió dels serveis del sistema.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<h3 id="sysvinit">SysVinit</h3>
+<h4 id="sysvinit">SysVinit</h4>
 <ul>
 <li class="fragment"><strong>Seqüencial</strong>: Basat en scripts. <em>Cada servei depèn de l’execució completa del servei anterior, la qual cosa pot ser lenta</em>.</li>
 <li class="fragment"><strong>Simple</strong>: Cada servei s’inicia amb un script directament llegible i modificable per l’administrador del sistema.</li>
 <li class="fragment"><strong>Inflexible</strong>: Dificultat engestionar dependències. <em>No permet arrencar serveis en paral·lel ni controlar els processos un cop arrencats</em>.</li>
 </ul>
 </div><div class="column" style="width:55%;">
-<h3 id="systemd">Systemd</h3>
+<h4 id="systemd">Systemd</h4>
 <ul>
 <li class="fragment"><strong>Rendiment</strong>: Capacitat de carregar serveis en paral·lel. Reducció temps d’inici del sistema.</li>
 <li class="fragment"><strong>Modularitat</strong>: Els serveis es gestionen a través d’unitats (<em>unit files</em>) que poden especificar dependències, condicions de reinici automàtic,etc.</li>
@@ -254,20 +254,14 @@ Jordi Mateo Fornés
 <section id="crítiques-a-systemd" class="slide level2 smaller">
 <h2>Crítiques a Systemd</h2>
 <ul>
-<li class="fragment"><strong>Complexitat</strong>
-<ul>
-<li class="fragment">Integra múltiples funcionalitats (gestió de serveis, journal, timers, logind, networkd, etc.) en un sol procés. Això pot augmentar la superfície de fallada i dificultar la depuració.</li>
-</ul></li>
+<li class="fragment"><strong>Complexitat</strong>: Integra múltiples funcionalitats (gestió de serveis, journal, timers, logind, networkd, etc.) en un sol procés. Això pot augmentar la superfície de fallada i dificultar la depuració.</li>
 <li class="fragment"><strong>Trenca amb la filosofia Unix tradicional</strong>
 <ul>
 <li class="fragment">Unix promou eines petites, especialitzades i composables.<br>
 </li>
 <li class="fragment">Systemd concentra moltes tasques en un únic sistema de gestió.</li>
 </ul></li>
-<li class="fragment"><strong>Dependència del sistema</strong>
-<ul>
-<li class="fragment">Molts scripts, paquets i eines modernes depenen de systemd, dificultant la compatibilitat amb sistemes alternatius (SysVinit, OpenRC).</li>
-</ul></li>
+<li class="fragment"><strong>Dependència del sistema</strong>: Molts scripts, paquets i eines modernes depenen de systemd, dificultant la compatibilitat amb sistemes alternatius (SysVinit, OpenRC).</li>
 </ul>
 <div class="fragment">
 <h4 id="debat-en-la-comunitat">Debat en la comunitat</h4>
@@ -303,7 +297,7 @@ Jordi Mateo Fornés
 </section>
 <section id="executar-els-targets-o-runlevels" class="slide level2 smaller">
 <h2>Executar els Targets o Runlevels</h2>
-<p>El <strong>PID 1</strong> executa els <em>targets</em> de systemd. En sistemes més antics, s’utilitzaven els <em>runlevels</em> d’init. Els targets representen un conjunt de serveis i mòduls que s’executen per a cada estat del sistema. La seva funció és definir l’estat del sistema i els serveis que s’han de carregar en aquest estat. La transició entre els <em>targets</em> es pot fer manualment amb la comanda <code>systemctl isolate</code> o automàticament amb la comanda <code>systemctl set-default</code>.</p>
+<p>El <strong>PID 1</strong> executa els <em>targets</em> de systemd o <em>runlevels</em> d’init. Els targets representen un conjunt de serveis i mòduls que s’executen per a cada estat del sistema. La seva funció és definir l’estat del sistema i els serveis que s’han de carregar en aquest estat. La transició entre els <em>targets</em> es pot fer manualment amb la comanda <code>systemctl isolate</code> o automàticament amb la comanda <code>systemctl set-default</code>.</p>
 <div class="fragment">
 <ul>
 <li class="fragment"><strong>default.target</strong>: Apunta a <em>graphical.target</em> o <em>multi-user.target</em>-</li>
@@ -320,12 +314,16 @@ Jordi Mateo Fornés
 <h2>Units de systemd</h2>
 <p>Els <strong>units</strong> són els fitxers de configuració de <strong>systemd</strong> que defineixen els serveis, ens permeten gestionar-los i controlar-los.</p>
 <ul>
-<li class="fragment"><code>/etc/systemd/system/</code> – Fitxers d’unitat personalitzats per l’administrador.</li>
-<li class="fragment"><code>/run/systemd/system/</code> – Configuració en temps d’execució, és a dir, afecta només un arrencada única.</li>
-<li class="fragment"><code>/usr/lib/systemd/system/</code> – Configuració proporcionada per la distribució. A Debian és <code>/lib/systemd/system/</code>.</li>
+<li class="fragment"><code>/etc/systemd/system/</code>: Fitxers d’unitat personalitzats per l’administrador.</li>
+<li class="fragment"><code>/run/systemd/system/</code>: Configuració en temps d’execució, és a dir, afecta només un arrencada única.</li>
+<li class="fragment"><code>/usr/lib/systemd/system/</code>: Configuració proporcionada per la distribució. A Debian és <code>/lib/systemd/system/</code>.</li>
 </ul>
+<div class="fragment">
 <p>Quan hi ha dos fitxers de configuració amb el mateix nom, <strong>systemd</strong> carregarà només un des del directori que estigui més alt en la jerarquia. Per exemple, la configuració a <code>/etc</code> sempre sobreescriu la configuració a <code>/usr</code>.</p>
+</div>
+<div class="fragment center-container">
 <p>Després de canviar la configuració, és necessari recarregar <strong>systemd</strong> amb: <code>systemctl daemon-reload</code>.</p>
+</div>
 </section>
 <section id="tipus-dunitats" class="slide level2 smaller">
 <h2>Tipus d’unitats</h2>
@@ -341,10 +339,14 @@ Jordi Mateo Fornés
 </section>
 <section id="targets-i-systemd" class="slide level2 smaller">
 <h2>Targets i Systemd</h2>
-
-<img data-src="../figs/slides/02-booting/systemd.png" class="r-stretch"></section>
+<div class="center-container">
+<p><img data-src="../figs/slides/02-booting/systemd.png"></p>
+</div>
+</section>
 <section id="exemple-de-fitxer-dunitat" class="slide level2 smaller">
 <h2>Exemple de fitxer d’unitat</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="ex">[Unit]</span></span>
 <span id="cb2-2"><a></a><span class="va">Description</span><span class="op">=</span>CUPS <span class="ex">Scheduler</span></span>
 <span id="cb2-3"><a></a><span class="va">Documentation</span><span class="op">=</span>man:cupsd<span class="kw">(</span><span class="ex">8</span><span class="kw">)</span></span>
@@ -355,6 +357,18 @@ Jordi Mateo Fornés
 <span id="cb2-8"><a></a><span class="ex">[Install]</span></span>
 <span id="cb2-9"><a></a><span class="va">Also</span><span class="op">=</span>cups.socket <span class="ex">cups.path</span></span>
 <span id="cb2-10"><a></a><span class="va">WantedBy</span><span class="op">=</span>printer.target</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment">CUPS (Common Unix Printing System) és un sistema d’impressió utilitzat en sistemes Unix i Linux.</li>
+<li class="fragment">Té una dependència amb la xarxa (<code>After=network.target</code>), ja que sovint es connecta a impressores de xarxa.</li>
+</ul>
+</div></div>
+<ul>
+<li class="fragment">S’inicia amb el comandament <code>/usr/sbin/cupsd -l</code>, que posa en marxa el servei d’impressió.</li>
+<li class="fragment">Es configura per iniciar-se automàticament quan s’arrenca el sistema (<code>WantedBy=printer.target</code>).</li>
+<li class="fragment"><code>Cups.socket</code> és una unitat de tipus <em>socket</em> que permet a CUPS escoltar connexions entrants per a serveis d’impressió.</li>
+<li class="fragment"><code>Cups.path</code> és una unitat de tipus <em>path</em> que monitoritza canvis en fitxers o directoris relacionats amb la configuració d’impressió.</li>
+</ul>
 <aside class="notes">
 <p>Aquest fitxer defineix el servei <strong>CUPS</strong> (Common Unix Printing System) és un sistema que té una depenència amb la xarxa (<code>After=network.target</code>), s’inicia amb el comandament <code>/usr/sbin/cupsd -l</code> i es configura per iniciar-se automàticament quan s’arrenca el sistema (<code>WantedBy=printer.target</code>). Printer.target és un <em>target</em> que agrupa serveis relacionats amb la impressió. Cups.socket i cups.path són altres unitats que també s’inicien quan s’inicia el servei CUPS ja que estan lligades a aquest servei. El tipus de servei és <code>notify</code>, el qual indica que el servei enviarà una notificació a systemd quan estigui llest.</p>
 <style type="text/css">
@@ -369,11 +383,9 @@ Jordi Mateo Fornés
           display:block!important;
       }</style></aside>
 </section>
-<section id="dependències-entre-unitats" class="slide level2 smaller">
-<h2>Dependències entre unitats</h2>
+<section id="dependències-entre-unitats-i" class="slide level2 smaller">
+<h2>Dependències entre unitats (I)</h2>
 <p>Les unitats són objectes gestionats per <strong>systemd</strong>. Les dependències són associacions entre elles. Cada tipus d’unitat té algunes dependències per defecte (a menys que s’especifiqui el contrari).</p>
-<div class="columns">
-<div class="column" style="width:65%;">
 <h4 id="relacionals">Relacionals</h4>
 <ul>
 <li class="fragment"><strong>Requires</strong>: Indica que una unitat depèn d’una altra unitat per a la seva activació. Si la unitat requerida no està activa, la unitat que la requereix no s’activarà.</li>
@@ -382,13 +394,14 @@ Jordi Mateo Fornés
 <li class="fragment"><strong>PartOf</strong>: Indica que una unitat és part d’una altra unitat. Si la unitat pare es deté, la unitat fill també es detindrà.</li>
 <li class="fragment"><strong>Conflicts</strong>: Indica que dues unitats no poden estar actives al mateix temps. Si una unitat s’activa, l’altra es detindrà automàticament.</li>
 </ul>
-</div><div class="column" style="width:35%;">
+</section>
+<section id="dependències-entre-unitats-ii" class="slide level2 smaller">
+<h2>Dependències entre unitats (II)</h2>
 <h4 id="ordenació">Ordenació</h4>
 <ul>
 <li class="fragment"><strong>After</strong>: Indica que una unitat s’ha d’iniciar després d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.</li>
 <li class="fragment"><strong>Before</strong>: Indica que una unitat s’ha d’iniciar abans d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.</li>
 </ul>
-</div></div>
 </section>
 <section id="transaccions-a-systemd-i" class="slide level2 smaller">
 <h2>Transaccions a systemd (I)</h2>
@@ -567,8 +580,8 @@ Jordi Mateo Fornés
 <h2>Opcions [<code>Service</code>] (I)</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 35%">
-<col style="width: 64%">
+<col style="width: 36%">
+<col style="width: 63%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -616,8 +629,8 @@ Jordi Mateo Fornés
 <h2>Opcions [<code>Service</code>] (II)</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
+<col style="width: 31%">
+<col style="width: 68%">
 </colgroup>
 <thead>
 <tr class="header">

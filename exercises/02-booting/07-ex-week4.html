@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Emulació en mode d’usuari amb QEMU – AMSA - Fall 2025</title>
+<title>Servei de Còpia de Seguretat Automàtica amb systemd – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html">Activitat 2 · Emulació en mode d’usuari amb QEMU</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/07-ex-week4.html">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -195,13 +195,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
@@ -210,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
   </div>
 </li>
@@ -218,13 +218,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</span></a>
   </div>
 </li>
@@ -338,24 +338,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link active" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#objectius" id="toc-objectius" class="nav-link" data-scroll-target="#objectius">Objectius</a></li>
-  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
-  <ul class="collapse">
-  <li><a href="#escriure-i-compilar-un-programa-hello-world-per-a-arm" id="toc-escriure-i-compilar-un-programa-hello-world-per-a-arm" class="nav-link" data-scroll-target="#escriure-i-compilar-un-programa-hello-world-per-a-arm">Escriure i compilar un programa Hello World per a ARM</a></li>
-  <li><a href="#compilació-per-a-larquitectura-de-la-teva-mv" id="toc-compilació-per-a-larquitectura-de-la-teva-mv" class="nav-link" data-scroll-target="#compilació-per-a-larquitectura-de-la-teva-mv">Compilació per a l’arquitectura de la teva MV</a></li>
-  <li><a href="#execució-del-programa-amb-qemu" id="toc-execució-del-programa-amb-qemu" class="nav-link" data-scroll-target="#execució-del-programa-amb-qemu">Execució del programa amb QEMU</a></li>
-  <li><a href="#preguntes-finals" id="toc-preguntes-finals" class="nav-link" data-scroll-target="#preguntes-finals">Preguntes finals</a></li>
-  </ul></li>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">Objectius</a></li>
+  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link" data-scroll-target="#requeriments-previs">Requeriments Previs</a></li>
+  <li><a href="#servei-bàsic-amb-systemd" id="toc-servei-bàsic-amb-systemd" class="nav-link" data-scroll-target="#servei-bàsic-amb-systemd">Servei bàsic amb systemd</a></li>
+  <li><a href="#servei-amb-timer-amb-systemd" id="toc-servei-amb-timer-amb-systemd" class="nav-link" data-scroll-target="#servei-amb-timer-amb-systemd">Servei amb Timer amb systemd</a></li>
+  <li><a href="#exercicis-proposats" id="toc-exercicis-proposats" class="nav-link" data-scroll-target="#exercicis-proposats">Exercicis Proposats</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html">Activitat 2 · Emulació en mode d’usuari amb QEMU</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/07-ex-week4.html">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Emulació en mode d’usuari amb QEMU</h1>
+<h1 class="title">Servei de Còpia de Seguretat Automàtica amb systemd</h1>
 </div>
 
 
@@ -372,81 +368,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aquest exercici t’introduirà a l’emulació en mode d’usuari de QEMU, una eina que et permet executar un programa compilat per a una arquitectura de CPU diferent de la teva màquina. Concretament, executaràs un programa de 32 bits compilat per a ARM en un sistema x86 (processadors Intel o AMD) o ARM de 64 bits (processadors Apple M). Per simplificar l’exercici, utiltizarem un <em>Hello, World!</em> com a programa d’exemple.</p>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
-<ul>
-<li>Disposar d’una màquina virtual amb <strong>Debian</strong> configurada segons les instruccions de l’exercici de configuració d’entorn de virtualització.</li>
-<li>Disposar de les eines bàsiques de desenvolupament instal·lades a la màquina virtual (compilador <code>gcc</code>, <code>make</code>, etc.). Pots instal·lar-les com a <em>root</em> amb la comanda següent: <code>apt install build-essential</code>.</li>
-</ul>
-</section>
 <section id="objectius" class="level2">
 <h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
-<ol type="1">
-<li>Introduir-se en l’ús de QEMU en mode d’usuari per a l’emulació d’aplicacions.</li>
-<li>Comprendre la diferència entre compilació nativa i compilació creuada.</li>
-<li>Compilar i executar un programa senzill per a una arquitectura diferent de la teva màquina.</li>
-</ol>
-</section>
-<section id="tasques" class="level2">
-<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
-<section id="escriure-i-compilar-un-programa-hello-world-per-a-arm" class="level3">
-<h3 class="anchored" data-anchor-id="escriure-i-compilar-un-programa-hello-world-per-a-arm">Escriure i compilar un programa Hello World per a ARM</h3>
-<ol type="1">
-<li>Crea un fitxer anomenat <code>hello.c</code> amb el següent contingut:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Hello, World!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per compilar-lo per a l’arquitectura ARM, necessites un compilador creuat. En aquest laboratori, utilitzarem el GNU ARM toolchain per a Linux. Instal·la’l amb la següent comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install gcc-arm-linux-gnueabi</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ara, compila el programa per a ARM amb aquesta comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a usuari normal</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">arm-linux-gnueabi-gcc</span> <span class="at">-o</span> helloarm <span class="at">-static</span> hello.c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Això generarà un executable anomenat <strong>helloarm</strong>. La bandera -static crea un binari estàticament enllaçat, la qual cosa significa que totes les biblioteques necessàries s’inclouen dins del propi fitxer.</p>
-<p>Si intentes executar helloarm directament, rebràs un error:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./helloarm</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">-bash:</span> ./helloarm: no es pot executar el fitxer binari: Error de format d<span class="st">'execució</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Aquest error es produeix perquè el teu sistema operatiu no reconeix l’arquitectura del fitxer. Pots verificar-ho amb la comanda <code>file</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> helloarm</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">helloarm:</span> ELF 32-bit LSB executable, ARM, EABI5 version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> statically linked, not stripped</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="compilació-per-a-larquitectura-de-la-teva-mv" class="level3">
-<h3 class="anchored" data-anchor-id="compilació-per-a-larquitectura-de-la-teva-mv">Compilació per a l’arquitectura de la teva MV</h3>
-<p>Per entendre la diferència, ara compila el mateix codi per a l’arquitectura de la teva màquina amb gcc:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-o</span> hellohost hello.c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Si l’executes, funcionarà sense problemes:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./hellohost</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Hello,</span> World!</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per comprovar-ne l’arquitectura, utilitza de nou la comanda <code>file</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> hellohost</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple per a x86</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">hellohost:</span> ELF 64-bit LSB shared object, x86-64, version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> dynamically linked...</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple per a Apple M Series (ARM 64-bit)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hellohost:</span> ELF 64-bit LSB shared object, ARM aarch64, version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> dynamically linked...</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="execució-del-programa-amb-qemu" class="level3">
-<h3 class="anchored" data-anchor-id="execució-del-programa-amb-qemu">Execució del programa amb QEMU</h3>
-<p>Finalment, per executar el binari ARM a la teva màquina, necessites el component de QEMU per a emulació en mode d’usuari. Instal·la’l amb aquesta comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install qemu-user</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Un cop instal·lat, pots executar el programa helloarm amb l’emulador qemu-arm:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-arm</span> helloarm</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Hello,</span> World!</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="preguntes-finals" class="level3">
-<h3 class="anchored" data-anchor-id="preguntes-finals">Preguntes finals</h3>
 <ul>
-<li>Investiga quines altres arquitectures són compatibles amb QEMU en mode d’usuari. Prova de compilar i executar un programa per a una d’aquestes arquitectures.</li>
-<li>Per què la compilació estàtica és important en aquest context? Per què no cal incloure la bandera <code>-static</code> en la compilació normal? Quines avantatges i inconvenients té cada enfocament?</li>
+<li>Aprendre a crear un servei bàsic amb <code>systemd</code>.</li>
+<li>Configurar un servei que s’executi a l’inici del sistema.</li>
+<li>Entendre els fitxers d’unitat de <code>systemd</code> i com gestionar-los.</li>
+<li>Crear un script senzill per realitzar una còpia de seguretat de la carpeta <code>/home</code> i desar-lo a <code>/backup</code>.</li>
+</ul>
+</section>
+<section id="requeriments-previs" class="level2">
+<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments Previs</h2>
+<ul>
+<li>Tenir una màquina virtual (MV) amb Debian instal·lat.</li>
+<li>Totes les comandes s’han d’executar amb permisos de superusuari (<code>root</code>). Per tant, <code>su -</code>.</li>
+<li>Realitzar un <code>apt update -y &amp;&amp; apt upgrade -y</code> per assegurar-se que el sistema està actualitzat.</li>
+<li>Instal·lar el paquet <code>vim</code> per editar fitxers: <code>apt install vim -y</code>.</li>
+<li>Crear la carpeta <code>/backup</code> on es desaran les còpies de seguretat: <code>mkdir -p /backup</code>.</li>
+</ul>
+</section>
+<section id="servei-bàsic-amb-systemd" class="level2">
+<h2 class="anchored" data-anchor-id="servei-bàsic-amb-systemd">Servei bàsic amb systemd</h2>
+<ol type="1">
+<li><p>Crearem un script que farà la còpia de seguretat de la carpeta <code>/home</code>, per fer-ho simplement crearem un arxiu <code>.tar.gz</code> amb la data i hora actual al nom de l’arxiu. Aquest arxiu es desarà a la carpeta <code>/backup</code> que hem creat anteriorment. El script es col·locarà a <code>/usr/local/bin/backup.sh</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czf</span> /backup/system_backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d_%H%M%S<span class="va">)</span>.tar.gz /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Configurarem un servei que faci una còpia de seguretat cada cop que s’iniciï el sistema. Crearem un fitxer de servei a <code>/etc/systemd/system/backup.service</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Backup Service</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">After</span><span class="ot">=</span><span class="st">network.target</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Type</span><span class="ot">=</span><span class="st">oneshot</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">/usr/local/bin/backup.sh</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">multi-user.target</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El target <code>multi-user.target</code> s’utilitza perquè el servei s’executi quan el sistema està en mode multiusuari, és a dir, quan la majoria dels serveis del sistema ja estan en funcionament.</p>
+</div>
+</div>
+<ol start="3" type="1">
+<li><p>Activarem el servei perquè s’executi a l’inici del sistema amb la comanda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> start backup.service</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Comprova l’estat del servei amb:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status backup.service</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El servei no s’ha arrancat degut a errors en l’script. Revisa el fitxer de registre amb <code>journalctl -xeu backup.service</code> per veure els errors i corregir-los. On <code>xeu</code> indica que volem veure els missatges d’error i advertència filtrant per unitat. El error que observareu és que el script no té permisos d’execució. Per solucionar-ho, simplement afegiu permisos d’execució a l’script amb <code>chmod +x /usr/local/bin/backup.sh</code> i torneu a iniciar el servei amb <code>systemctl restart backup.service</code>.</p>
+</div>
+</div>
+<ol start="5" type="1">
+<li><p>Comprovarem el contigut de la carpeta <code>/backup</code>. Un cop el servei s’hagi executat correctament, hauríeu de veure un fitxer de còpia de seguretat amb la data actual al nom del fitxer.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> /backup</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Activarem el servei perquè s’executi a l’inici del sistema amb la comanda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable backup.service</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Finalment, reiniciarem el sistema per assegurar-nos que el servei s’executa correctament a l’inici:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">reboot</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Després de reiniciar, comprova que el fitxer de còpia de seguretat s’ha creat correctament a la carpeta <code>/backup</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> /backup</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="servei-amb-timer-amb-systemd" class="level2">
+<h2 class="anchored" data-anchor-id="servei-amb-timer-amb-systemd">Servei amb Timer amb systemd</h2>
+<p>El servei que hem creat anteriorment s’executa només una vegada a l’inici del sistema. Ara crearem un servei que s’executi diàriament a una hora específica utilitzant un timer de <code>systemd</code>. El primer pas és crear el servei que volem executar periòdicament, en aquest cas, el mateix script de còpia de seguretat que hem creat abans. El segon pas és crear un fitxer de timer que programi l’execució del servei.</p>
+<ol type="1">
+<li><p>Crearem un fitxer de timer a <code>/etc/systemd/system/backup-daily.timer</code> per programar l’execució del servei diàriament a les 2:00 AM.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Runs backup-daily.service daily at 2:00 AM</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">Requires</span><span class="ot">=</span><span class="st">backup-daily.service</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[Timer]</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dt">OnCalendar</span><span class="ot">=</span><span class="st">*-*-* 02:00:00</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dt">Persistent</span><span class="ot">=</span><span class="kw">true</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">timers.target</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>on el camp <code>OnCalendar</code>, <code>*-*-* 02:00:00</code> indica que el servei s’executarà diàriament a les 2:00 AM. La línia <code>Persistent=true</code> assegura que si el sistema està apagat a l’hora programada, el servei s’executarà tan aviat com el sistema s’iniciï. El <code>*-*-*</code> és un comodí que representa qualsevol any, mes i dia.</p></li>
+<li><p>Crearem el fitxer de servei a <code>/etc/systemd/system/backup-daily.service</code> que serà el que s’executarà diàriament.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Daily Backup Service</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">Type</span><span class="ot">=</span><span class="st">oneshot</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">/usr/local/bin/backup.sh</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Activarem el timer perquè s’executi diàriament amb la comanda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> backup-daily.timer</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>L’argument <code>--now</code> activa el timer immediatament després d’habilitar-lo, de manera que no cal reiniciar el sistema per començar a utilitzar-lo.</p>
+</div>
+</div>
+<ol start="4" type="1">
+<li><p>Comprova l’estat del timer amb:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> status backup-daily.timer</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Per veure quan s’executarà el proper cop el servei, utilitza la comanda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> list-timers <span class="at">--all</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Per provar que el servei funciona correctament, pots forçar l’execució del servei amb la comanda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> start backup-daily.service</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="exercicis-proposats" class="level2">
+<h2 class="anchored" data-anchor-id="exercicis-proposats">Exercicis Proposats</h2>
+<ul>
+<li><p>Modifica el servei perquè faci una còpia de seguretat de la carpeta <code>/var</code> i <code>/etc</code> en lloc de <code>/home</code>. Un cop fet això, utilitza <code>systemd-analyze</code> i <code>systemd-analyze blame</code> per analitzar el servei abans i després d’activar-lo. Comenta i justifica els resultats obtinguts.</p></li>
+<li><p>Crea un servei que permeti actualitzar el sistema automàticament cada diumenge a les 3:00 AM. Aquest servei hauria d’executar <code>apt update &amp;&amp; apt upgrade -y</code>.</p></li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

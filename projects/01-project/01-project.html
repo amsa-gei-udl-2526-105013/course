@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jordi Mateo Fornés jordi.mateo@udl.cat">
 
-<title>Emulació en mode d’usuari amb QEMU – AMSA - Fall 2025</title>
+<title>Pràctica 01: Snapshots i restauració amb systemd i initramfs – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html">Activitat 2 · Emulació en mode d’usuari amb QEMU</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projectes</a></li><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projecte 1 · Snapshots i Backups amb systemd i initramfs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -186,22 +187,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Activitats</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
@@ -210,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
   </div>
 </li>
@@ -313,16 +314,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">Projectes</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Projecte 1 · Snapshots i Backups amb systemd i initramfs</span></a>
   </div>
 </li>
@@ -338,30 +339,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link active" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#objectius" id="toc-objectius" class="nav-link" data-scroll-target="#objectius">Objectius</a></li>
-  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
-  <ul class="collapse">
-  <li><a href="#escriure-i-compilar-un-programa-hello-world-per-a-arm" id="toc-escriure-i-compilar-un-programa-hello-world-per-a-arm" class="nav-link" data-scroll-target="#escriure-i-compilar-un-programa-hello-world-per-a-arm">Escriure i compilar un programa Hello World per a ARM</a></li>
-  <li><a href="#compilació-per-a-larquitectura-de-la-teva-mv" id="toc-compilació-per-a-larquitectura-de-la-teva-mv" class="nav-link" data-scroll-target="#compilació-per-a-larquitectura-de-la-teva-mv">Compilació per a l’arquitectura de la teva MV</a></li>
-  <li><a href="#execució-del-programa-amb-qemu" id="toc-execució-del-programa-amb-qemu" class="nav-link" data-scroll-target="#execució-del-programa-amb-qemu">Execució del programa amb QEMU</a></li>
-  <li><a href="#preguntes-finals" id="toc-preguntes-finals" class="nav-link" data-scroll-target="#preguntes-finals">Preguntes finals</a></li>
-  </ul></li>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">Objectius</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#entorn-de-treball" id="toc-entorn-de-treball" class="nav-link" data-scroll-target="#entorn-de-treball">Entorn de treball</a></li>
+  <li><a href="#preparació-de-la-màquina-virtual" id="toc-preparació-de-la-màquina-virtual" class="nav-link" data-scroll-target="#preparació-de-la-màquina-virtual">Preparació de la màquina virtual</a></li>
+  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a></li>
+  <li><a href="#organització-i-lliurament" id="toc-organització-i-lliurament" class="nav-link" data-scroll-target="#organització-i-lliurament">Organització i lliurament</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html">Unitat 01 · Fonaments de l’Administració de Sistemes</a></li><li class="breadcrumb-item"><a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html">Activitat 2 · Emulació en mode d’usuari amb QEMU</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projectes</a></li><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projecte 1 · Snapshots i Backups amb systemd i initramfs</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Emulació en mode d’usuari amb QEMU</h1>
+<h1 class="title">Pràctica 01: Snapshots i restauració amb systemd i initramfs</h1>
+<p class="subtitle lead">Unitat 2 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordi Mateo Fornés <a href="mailto:jordi.mateo@udl.cat" class="email">jordi.mateo@udl.cat</a> </p>
+          </div>
+  </div>
     
   
     
@@ -372,81 +377,117 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Aquest exercici t’introduirà a l’emulació en mode d’usuari de QEMU, una eina que et permet executar un programa compilat per a una arquitectura de CPU diferent de la teva màquina. Concretament, executaràs un programa de 32 bits compilat per a ARM en un sistema x86 (processadors Intel o AMD) o ARM de 64 bits (processadors Apple M). Per simplificar l’exercici, utiltizarem un <em>Hello, World!</em> com a programa d’exemple.</p>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
-<ul>
-<li>Disposar d’una màquina virtual amb <strong>Debian</strong> configurada segons les instruccions de l’exercici de configuració d’entorn de virtualització.</li>
-<li>Disposar de les eines bàsiques de desenvolupament instal·lades a la màquina virtual (compilador <code>gcc</code>, <code>make</code>, etc.). Pots instal·lar-les com a <em>root</em> amb la comanda següent: <code>apt install build-essential</code>.</li>
-</ul>
-</section>
 <section id="objectius" class="level2">
 <h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
-<ol type="1">
-<li>Introduir-se en l’ús de QEMU en mode d’usuari per a l’emulació d’aplicacions.</li>
-<li>Comprendre la diferència entre compilació nativa i compilació creuada.</li>
-<li>Compilar i executar un programa senzill per a una arquitectura diferent de la teva màquina.</li>
-</ol>
+<ul>
+<li>Comprendre el procés d’arrencada en Linux (GRUB → initramfs → systemd).</li>
+<li>Configurar i gestionar serveis <code>systemd</code>.</li>
+<li>Crear snapshots de l’estat del sistema i restaurar-los.</li>
+<li>Introduir-se a la personalització d’<code>initramfs</code> i opcionalment GRUB.</li>
+</ul>
+</section>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>En entorns reals, és freqüent necessitar tornar a un estat anterior del sistema després d’una fallada o una actualització incorrecta. Aquesta pràctica simula aquest escenari: configurarem un mecanisme de snapshots i un procés per restaurar-los en arrencar la màquina.</p>
+</section>
+<section id="entorn-de-treball" class="level2">
+<h2 class="anchored" data-anchor-id="entorn-de-treball">Entorn de treball</h2>
+<ul>
+<li>Màquina virtual amb Debian 12 i amb UEFI amb 20 GB de disc.</li>
+<li>Disc virtual addicional de 20 GB per emmagatzemar els snapshots.</li>
+</ul>
+</section>
+<section id="preparació-de-la-màquina-virtual" class="level2">
+<h2 class="anchored" data-anchor-id="preparació-de-la-màquina-virtual">Preparació de la màquina virtual</h2>
+<p>Un cop arrencada la màquina virtual, afegiu un disc dur addicional de 20 GB. Aquest disc serà utilitzat per emmagatzemar els snapshots. Per exemple, si el disc principal és <code>/dev/nvme0n1</code>, el nou disc podria ser <code>/dev/nvme0n2</code>. Un cop afegit el disc, inicieu la màquina virtual i comproveu que el nou disc és visible amb <code>lsblk</code>.</p>
+<p>Un cop identificat el nou disc, cal crear-hi un sistema de fitxers i muntar-lo. Per exemple, si el nou disc és <code>/dev/nvme0n2</code>, podeu fer-ho així:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root o amb sudo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.ext4</span> /dev/nvme0n2</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2 /mnt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /mnt/snapshots</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Per evitar haver de muntar el disc manualment cada cop, afegiu una entrada a <code>/etc/fstab</code>. Per exemple, afegiu aquesta línia al final del fitxer:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/dev/nvme0n2</span>  /mnt  ext4  defaults  0  2</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Advertència">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>Advertència
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assegureu-vos d’indicar el disc correcte que pot ser nvme0n2, sdb, vdb,… No utilitzeu el disc principal on està instal·lat el sistema operatiu.</p>
+</div>
+</div>
+<p>Un cop muntat el disc, instal·leu <code>rsync</code> si no està instal·lat:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root o amb sudo</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> update</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install rsync</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En cas de problemes amb el <code>update</code>, igual necessitareu fer un <code>apt upgrade</code> abans.</p>
 </section>
 <section id="tasques" class="level2">
 <h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
-<section id="escriure-i-compilar-un-programa-hello-world-per-a-arm" class="level3">
-<h3 class="anchored" data-anchor-id="escriure-i-compilar-un-programa-hello-world-per-a-arm">Escriure i compilar un programa Hello World per a ARM</h3>
 <ol type="1">
-<li>Crea un fitxer anomenat <code>hello.c</code> amb el següent contingut:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Hello, World!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per compilar-lo per a l’arquitectura ARM, necessites un compilador creuat. En aquest laboratori, utilitzarem el GNU ARM toolchain per a Linux. Instal·la’l amb la següent comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install gcc-arm-linux-gnueabi</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ara, compila el programa per a ARM amb aquesta comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a usuari normal</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">arm-linux-gnueabi-gcc</span> <span class="at">-o</span> helloarm <span class="at">-static</span> hello.c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Això generarà un executable anomenat <strong>helloarm</strong>. La bandera -static crea un binari estàticament enllaçat, la qual cosa significa que totes les biblioteques necessàries s’inclouen dins del propi fitxer.</p>
-<p>Si intentes executar helloarm directament, rebràs un error:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./helloarm</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">-bash:</span> ./helloarm: no es pot executar el fitxer binari: Error de format d<span class="st">'execució</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Aquest error es produeix perquè el teu sistema operatiu no reconeix l’arquitectura del fitxer. Pots verificar-ho amb la comanda <code>file</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> helloarm</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">helloarm:</span> ELF 32-bit LSB executable, ARM, EABI5 version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> statically linked, not stripped</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="compilació-per-a-larquitectura-de-la-teva-mv" class="level3">
-<h3 class="anchored" data-anchor-id="compilació-per-a-larquitectura-de-la-teva-mv">Compilació per a l’arquitectura de la teva MV</h3>
-<p>Per entendre la diferència, ara compila el mateix codi per a l’arquitectura de la teva màquina amb gcc:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-o</span> hellohost hello.c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Si l’executes, funcionarà sense problemes:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./hellohost</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Hello,</span> World!</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per comprovar-ne l’arquitectura, utilitza de nou la comanda <code>file</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> hellohost</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple per a x86</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">hellohost:</span> ELF 64-bit LSB shared object, x86-64, version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> dynamically linked...</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple per a Apple M Series (ARM 64-bit)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hellohost:</span> ELF 64-bit LSB shared object, ARM aarch64, version 1 <span class="er">(</span><span class="ex">SYSV</span><span class="kw">)</span><span class="ex">,</span> dynamically linked...</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="execució-del-programa-amb-qemu" class="level3">
-<h3 class="anchored" data-anchor-id="execució-del-programa-amb-qemu">Execució del programa amb QEMU</h3>
-<p>Finalment, per executar el binari ARM a la teva màquina, necessites el component de QEMU per a emulació en mode d’usuari. Instal·la’l amb aquesta comanda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install qemu-user</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Un cop instal·lat, pots executar el programa helloarm amb l’emulador qemu-arm:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-arm</span> helloarm</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Hello,</span> World!</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="preguntes-finals" class="level3">
-<h3 class="anchored" data-anchor-id="preguntes-finals">Preguntes finals</h3>
+<li><strong>Crear snapshots amb <code>rsync</code> (2 punts)</strong> 📝
 <ul>
-<li>Investiga quines altres arquitectures són compatibles amb QEMU en mode d’usuari. Prova de compilar i executar un programa per a una d’aquestes arquitectures.</li>
-<li>Per què la compilació estàtica és important en aquest context? Per què no cal incloure la bandera <code>-static</code> en la compilació normal? Quines avantatges i inconvenients té cada enfocament?</li>
+<li>Escriure un script que creï snapshots dels directoris <code>/home, /opt, /bin, /usr</code> a <code>/mnt/snapshots</code> utilitzant <code>rsync</code>.</li>
+<li>Crea un primer snapshot manualment per tenir una base de dades inicial i anomeneu-lo <code>snapshot_00000000_000000</code>, feu servir script com a <code>root</code>.</li>
+<li>Provar l’script manualment i assegurar-se que es poden crear diversos snapshots.</li>
+<li>Utilitzar un format de nom com <code>snapshot_YYYYMMDD_HHMMSS</code> per al directori.</li>
+<li>Els snapshots han de ser còpies completes del sistema, excepte el directori de snapshots.</li>
+<li>Implementar una política per mantenir el snapshot inicial i els 3 snapshots més recents, eliminant els més antics.</li>
+</ul></li>
+<li><strong>Automatitzar la creació de snapshots amb <code>systemd</code> (3 punts)</strong> ⚙️
+<ul>
+<li>Crear un servei <code>systemd</code> que executi l’script de creació de snapshots a cada apagada de la màquina.</li>
+<li>Validar que cada vegada que s’aturi la màquina es crea un nou snapshot.</li>
+</ul></li>
+<li><strong>Restaurar snapshots en arrencada amb <code>systemd</code> (3 punts)</strong> 🔄
+<ul>
+<li>Escriure un script que mostri un llistat de snapshots disponibles i permeti seleccionar-ne un per restaurar.</li>
+<li>Crear un servei <code>systemd</code> que s’executi abans de <code>multi-user.target</code> i cridi aquest script.</li>
+<li>Comprovar que en arrencar la màquina es mostra el menú de snapshots.</li>
+<li>Validar que es pot restaurar un snapshot seleccionat.</li>
+</ul></li>
+<li><strong>Restaurar snapshots des d’<code>initramfs</code> (1/2 punts)</strong> 🚀
+<ul>
+<li>Afegir un parametre al kernel per indicar el fitxer de snapshot a restaurar. Aquest paràmetres’anomenarà <code>snapshot=</code> i rebrrà el nom de la snapshot a restaurar, per exemple <code>snapshot=snapshot_20240101_120000</code>. En cas de no rebre cap paràmetre, no es restaurarà cap snapshot.</li>
+<li>Afegir un script a <code>initramfs</code> que carregui el disc secundari, llegeixi el paràmetre i restauri el snapshot abans de muntar <code>/</code>.
+<ul>
+<li><strong>Simple</strong>: Utilitzant comandes integrades a <code>initramfs</code>. (<strong>1 punt</strong>)</li>
+<li><strong>Avançat</strong>: Afegint programari compilat estaticament a <code>initramfs</code>. (<strong>2 punts</strong>)</li>
+</ul></li>
+<li>Reconstruir l’<code>initramfs</code> i validar que s’ha restaurat el snapshot correcte.</li>
+</ul></li>
+</ol>
+</section>
+<section id="organització-i-lliurament" class="level2">
+<h2 class="anchored" data-anchor-id="organització-i-lliurament">Organització i lliurament</h2>
+<p>Accediu a l’activitat a través de l’enllaç al <a href="https://classroom.github.com/a/MT3q9LBg">Github Classroom</a>. Un cop acceptada l’activitat, clonareu el repositori a la vostra màquina local i començareu a treballar. Podeu treballar amb grups de fins a 3 persones.</p>
+<pre class="text"><code>📂 practica01/
+├── SOLUCIÓ.md               
+├── scripts/
+│   ├── create_snapshot.sh    
+│   ├── restore_snapshot.sh   
+│   └── helpers.sh            
+├── systemd/
+│   ├── snapshot.service      
+│   └── restore.service       
+├── initramfs/
+│   └── snapshot_menu        
+└── grub/
+    └── 40_custom_snapshot    </code></pre>
+<p>El document <code>SOLUCIÓ.md</code> ha d’incloure:</p>
+<ul>
+<li>Explicació de cada part de la pràctica i comandes utilitzades.</li>
+<li>Diferències entre les comandes <code>cp</code>, <code>rsync</code> i <code>tar</code> per fer còpies de seguretat.</li>
+<li>Conjunt de proves realitzades per validar cada part.</li>
+<li>Captures de pantalla que mostrin el funcionament correcte.</li>
+<li>Documentació o prompts consultats.</li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
