@@ -1150,182 +1150,286 @@
     "href": "slides/02-booting-part3.html#etapes-de-larrancada",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Etapes de l’arrancada",
-    "text": "Etapes de l’arrancada"
+    "text": "Etapes de l’arrancada",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#pid-1-initsystemd",
     "href": "slides/02-booting-part3.html#pid-1-initsystemd",
     "title": "Arrencada del sistema (Part 3)",
     "section": "PID 1: init/systemd",
-    "text": "PID 1: init/systemd\nQuan s’acaba el procés d’inicialització del sistema en l’espai del kernel i es descomprimeix i executa l’initramfs, es produeix una transició important cap a l’espai d’usuari.\nexec switch_root /mnt /sbin/init\n\nEl comandament switch_root substitueix l’arrel del sistema de fitxers actual (l’initramfs) per la partició arrel real del sistema operatiu.\nEl kernel deixa de gestionar directament els processos i passa el control a un procés en l’espai d’usuari.\nEl procés PID 1 és el primer procés que s’inicia en l’espai d’usuari i és responsable de la gestió dels processos del sistema operatiu.\nTradicionalment, aquest procés era el programa init, però en els sistemes moderns, systemd ha substituït init com a responsable principal de la gestió de processos."
+    "text": "PID 1: init/systemd\nQuan s’acaba el procés d’inicialització del sistema en l’espai del kernel i es descomprimeix i executa l’initramfs, es produeix una transició important cap a l’espai d’usuari.\nexec switch_root /mnt /sbin/init\n\nEl comandament switch_root substitueix l’arrel del sistema de fitxers actual (l’initramfs) per la partició arrel real del sistema operatiu.\nEl kernel deixa de gestionar directament els processos i passa el control a un procés en l’espai d’usuari.\nEl procés PID 1 és el primer procés que s’inicia en l’espai d’usuari i és responsable de la gestió dels processos del sistema operatiu.\nTradicionalment, aquest procés era el programa init, però en els sistemes moderns, systemd ha substituït init com a responsable principal de la gestió de processos.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#funcions-de-pid-1",
     "href": "slides/02-booting-part3.html#funcions-de-pid-1",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Funcions de PID 1",
-    "text": "Funcions de PID 1\n\nGestió de la inicialització del sistema. Carrega els serveis i dimonis necessaris per al bon funcionament del sistema.\nGestió dels processos del sistema. Controla la creació, execució i finalització dels processos. Si un procés orfe (un procés que perd el seu procés pare) continua en execució, el PID 1 assumeix la seva gestió i, eventualment, la seva terminació.\nArrel de l’arbre de processos: Tots els altres processos del sistema pengen d’ell, directament o indirectament. Això fa que sigui fonamental per a l’estabilitat i la continuïtat del sistema.\nApagat i reinici del sistema: El PID 1 també és responsable de controlar l’apagat i reinici del sistema, garantint que els processos es tanquin adequadament i que el sistema es desconnecti de manera segura"
+    "text": "Funcions de PID 1\n\nGestió de la inicialització del sistema. Carrega els serveis i dimonis necessaris per al bon funcionament del sistema.\nGestió dels processos del sistema. Controla la creació, execució i finalització dels processos. Si un procés orfe (un procés que perd el seu procés pare) continua en execució, el PID 1 assumeix la seva gestió i, eventualment, la seva terminació.\nArrel de l’arbre de processos: Tots els altres processos del sistema pengen d’ell, directament o indirectament. Això fa que sigui fonamental per a l’estabilitat i la continuïtat del sistema.\nApagat i reinici del sistema: El PID 1 també és responsable de controlar l’apagat i reinici del sistema, garantint que els processos es tanquin adequadament i que el sistema es desconnecti de manera segura",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#systemd-vs-sysvinit",
     "href": "slides/02-booting-part3.html#systemd-vs-sysvinit",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Systemd vs SysVinit",
-    "text": "Systemd vs SysVinit\nEl canvi de SysVinit a Systemd en moltes distribucions de Linux va ser motivat per la necessitat de millorar l’eficiència i la gestió dels serveis del sistema.\n\n\nSysVinit\n\nSeqüencial: Basat en scripts. Cada servei depèn de l’execució completa del servei anterior, la qual cosa pot ser lenta.\nSimple: Cada servei s’inicia amb un script directament llegible i modificable per l’administrador del sistema.\nInflexible: Dificultat engestionar dependències. No permet arrencar serveis en paral·lel ni controlar els processos un cop arrencats.\n\n\nSystemd\n\nRendiment: Capacitat de carregar serveis en paral·lel. Reducció temps d’inici del sistema.\nModularitat: Els serveis es gestionen a través d’unitats (unit files) que poden especificar dependències, condicions de reinici automàtic,etc.\nCgroups: Limitar/gestionar els recursos assignats a cada servei.\nMonitoratge: Control i seguiment granular dels serveis amb journalctl."
+    "text": "Systemd vs SysVinit\nEl canvi de SysVinit a Systemd en moltes distribucions de Linux va ser motivat per la necessitat de millorar l’eficiència i la gestió dels serveis del sistema.\n\n\nSysVinit\n\nSeqüencial: Basat en scripts. Cada servei depèn de l’execució completa del servei anterior, la qual cosa pot ser lenta.\nSimple: Cada servei s’inicia amb un script directament llegible i modificable per l’administrador del sistema.\nInflexible: Dificultat engestionar dependències. No permet arrencar serveis en paral·lel ni controlar els processos un cop arrencats.\n\n\nSystemd\n\nRendiment: Capacitat de carregar serveis en paral·lel. Reducció temps d’inici del sistema.\nModularitat: Els serveis es gestionen a través d’unitats (unit files) que poden especificar dependències, condicions de reinici automàtic,etc.\nCgroups: Limitar/gestionar els recursos assignats a cada servei.\nMonitoratge: Control i seguiment granular dels serveis amb journalctl.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#crítiques-a-systemd",
     "href": "slides/02-booting-part3.html#crítiques-a-systemd",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Crítiques a Systemd",
-    "text": "Crítiques a Systemd\n\nComplexitat: Integra múltiples funcionalitats (gestió de serveis, journal, timers, logind, networkd, etc.) en un sol procés. Això pot augmentar la superfície de fallada i dificultar la depuració.\nTrenca amb la filosofia Unix tradicional\n\nUnix promou eines petites, especialitzades i composables.\n\nSystemd concentra moltes tasques en un únic sistema de gestió.\n\nDependència del sistema: Molts scripts, paquets i eines modernes depenen de systemd, dificultant la compatibilitat amb sistemes alternatius (SysVinit, OpenRC).\n\n\nDebat en la comunitat\n\nEls defensors de systemd argumenten que simplifica l’administració de sistemes moderns i ofereix funcions que abans requerien múltiples eines externes.\n\nEls crítics insisteixen en que és massa intrusiu i redueix la flexibilitat per a administradors avançats i entorns mínims."
+    "text": "Crítiques a Systemd\n\nComplexitat: Integra múltiples funcionalitats (gestió de serveis, journal, timers, logind, networkd, etc.) en un sol procés. Això pot augmentar la superfície de fallada i dificultar la depuració.\nTrenca amb la filosofia Unix tradicional\n\nUnix promou eines petites, especialitzades i composables.\n\nSystemd concentra moltes tasques en un únic sistema de gestió.\n\nDependència del sistema: Molts scripts, paquets i eines modernes depenen de systemd, dificultant la compatibilitat amb sistemes alternatius (SysVinit, OpenRC).\n\n\nDebat en la comunitat\n\nEls defensors de systemd argumenten que simplifica l’administració de sistemes moderns i ofereix funcions que abans requerien múltiples eines externes.\n\nEls crítics insisteixen en que és massa intrusiu i redueix la flexibilitat per a administradors avançats i entorns mínims.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#backdoor-en-xz-utils-i",
     "href": "slides/02-booting-part3.html#backdoor-en-xz-utils-i",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Backdoor en XZ Utils (I)",
-    "text": "Backdoor en XZ Utils (I)\nRecents vulnerabilitats en paquets com xz-utils han posat en evidència la complexitat de Systemd i com una backdoor ocult pot comprometre gran part de la infraestructura moderna de Linux.\n\nEl backdoor va ser introduït de manera gradual, començant amb contribucions sospitoses al projecte libarchive el 2021.\nDurant el 2022, un desenvolupador desconegut, JiaT75, va guanyar influència dins del projecte xz-utils, substituint el contacte del mantenidor original i introduint canvis que van ocultar les vulnerabilitats.\nEl 2023, JiaT75 va introduir modificacions malicioses a xz-utils, aprofitant-les per comprometre sistemes a través de dependències amb Systemd.\n\nCVE-2024-3094: Vulnerabilitat que permet l’execució de codi maliciós en el sistema mitjançant un defecte en la descompressió de fitxers .xz."
+    "text": "Backdoor en XZ Utils (I)\nRecents vulnerabilitats en paquets com xz-utils han posat en evidència la complexitat de Systemd i com una backdoor ocult pot comprometre gran part de la infraestructura moderna de Linux.\n\nEl backdoor va ser introduït de manera gradual, començant amb contribucions sospitoses al projecte libarchive el 2021.\nDurant el 2022, un desenvolupador desconegut, JiaT75, va guanyar influència dins del projecte xz-utils, substituint el contacte del mantenidor original i introduint canvis que van ocultar les vulnerabilitats.\nEl 2023, JiaT75 va introduir modificacions malicioses a xz-utils, aprofitant-les per comprometre sistemes a través de dependències amb Systemd.\n\nCVE-2024-3094: Vulnerabilitat que permet l’execució de codi maliciós en el sistema mitjançant un defecte en la descompressió de fitxers .xz.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#backdoor-en-xz-utils-ii",
     "href": "slides/02-booting-part3.html#backdoor-en-xz-utils-ii",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Backdoor en XZ Utils (II)",
-    "text": "Backdoor en XZ Utils (II)\nAquesta vulnerabilitat va afectar molts servidors Linux, que van actualitzar xz-utils amb la versió compromesa.\n\nliblzma és una llibreria de compressió que es pot enllaçar amb altres programes. Per exemple, OpenSSH es pot vincular a liblzma per gestionar la descompressió de fitxers de configuració.\nEn sistemes amb systemd, OpenSSH enllaça amb systemd, que a la vegada enllaça amb liblzma. Això permet a XZ Utils controlar indirectament serveis essencials com sshd.\nMitjançant una backdoor oculta en versions modificades de xz-utils, un atacant amb una clau de xifrat prèviament establerta podria carregar codi maliciós en certificats SSH i executar-lo en dispositius compromesos.\n\n\nAquests esdeveniments posen de manifest les contrapartides de la complexitat de Systemd i com una vulnerabilitat en un paquet aparentment inofensiu com xz-utils pot tenir un impacte significatiu en la seguretat del sistema i serveis crítics com sshd."
+    "text": "Backdoor en XZ Utils (II)\nAquesta vulnerabilitat va afectar molts servidors Linux, que van actualitzar xz-utils amb la versió compromesa.\n\nliblzma és una llibreria de compressió que es pot enllaçar amb altres programes. Per exemple, OpenSSH es pot vincular a liblzma per gestionar la descompressió de fitxers de configuració.\nEn sistemes amb systemd, OpenSSH enllaça amb systemd, que a la vegada enllaça amb liblzma. Això permet a XZ Utils controlar indirectament serveis essencials com sshd.\nMitjançant una backdoor oculta en versions modificades de xz-utils, un atacant amb una clau de xifrat prèviament establerta podria carregar codi maliciós en certificats SSH i executar-lo en dispositius compromesos.\n\n\nAquests esdeveniments posen de manifest les contrapartides de la complexitat de Systemd i com una vulnerabilitat en un paquet aparentment inofensiu com xz-utils pot tenir un impacte significatiu en la seguretat del sistema i serveis crítics com sshd.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#executar-els-targets-o-runlevels",
     "href": "slides/02-booting-part3.html#executar-els-targets-o-runlevels",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Executar els Targets o Runlevels",
-    "text": "Executar els Targets o Runlevels\nEl PID 1 executa els targets de systemd o runlevels d’init. Els targets representen un conjunt de serveis i mòduls que s’executen per a cada estat del sistema. La seva funció és definir l’estat del sistema i els serveis que s’han de carregar en aquest estat. La transició entre els targets es pot fer manualment amb la comanda systemctl isolate o automàticament amb la comanda systemctl set-default.\n\n\ndefault.target: Apunta a graphical.target o multi-user.target-\ngraphical.target: Defineix un entorn gràfic.\nmulti-user.target: Proporciona un entorn no gràfic, permetent múltiples usuaris al sistema, habitual per a servidors.\nrescue.target: Proporciona un entorn de rescat amb una consola de línia de comandes.\nemergency.target: Ofereix un entorn d’emergència que inicialitza el mínim de serveis necessaris per a la solució de problemes.\nshutdown.target: Gestiona l’apagat del sistema.\nreboot.target: Gestiona el reinici del sistema."
+    "text": "Executar els Targets o Runlevels\nEl PID 1 executa els targets de systemd o runlevels d’init. Els targets representen un conjunt de serveis i mòduls que s’executen per a cada estat del sistema. La seva funció és definir l’estat del sistema i els serveis que s’han de carregar en aquest estat. La transició entre els targets es pot fer manualment amb la comanda systemctl isolate o automàticament amb la comanda systemctl set-default.\n\n\ndefault.target: Apunta a graphical.target o multi-user.target-\ngraphical.target: Defineix un entorn gràfic.\nmulti-user.target: Proporciona un entorn no gràfic, permetent múltiples usuaris al sistema, habitual per a servidors.\nrescue.target: Proporciona un entorn de rescat amb una consola de línia de comandes.\nemergency.target: Ofereix un entorn d’emergència que inicialitza el mínim de serveis necessaris per a la solució de problemes.\nshutdown.target: Gestiona l’apagat del sistema.\nreboot.target: Gestiona el reinici del sistema.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#units-de-systemd",
     "href": "slides/02-booting-part3.html#units-de-systemd",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Units de systemd",
-    "text": "Units de systemd\nEls units són els fitxers de configuració de systemd que defineixen els serveis, ens permeten gestionar-los i controlar-los.\n\n/etc/systemd/system/: Fitxers d’unitat personalitzats per l’administrador.\n/run/systemd/system/: Configuració en temps d’execució, és a dir, afecta només un arrencada única.\n/usr/lib/systemd/system/: Configuració proporcionada per la distribució. A Debian és /lib/systemd/system/.\n\n\nQuan hi ha dos fitxers de configuració amb el mateix nom, systemd carregarà només un des del directori que estigui més alt en la jerarquia. Per exemple, la configuració a /etc sempre sobreescriu la configuració a /usr.\n\n\nDesprés de canviar la configuració, és necessari recarregar systemd amb: systemctl daemon-reload."
+    "text": "Units de systemd\nEls units són els fitxers de configuració de systemd que defineixen els serveis, ens permeten gestionar-los i controlar-los.\n\n/etc/systemd/system/: Fitxers d’unitat personalitzats per l’administrador.\n/run/systemd/system/: Configuració en temps d’execució, és a dir, afecta només un arrencada única.\n/usr/lib/systemd/system/: Configuració proporcionada per la distribució. A Debian és /lib/systemd/system/.\n\n\nQuan hi ha dos fitxers de configuració amb el mateix nom, systemd carregarà només un des del directori que estigui més alt en la jerarquia. Per exemple, la configuració a /etc sempre sobreescriu la configuració a /usr.\n\n\nDesprés de canviar la configuració, és necessari recarregar systemd amb: systemctl daemon-reload.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#tipus-dunitats",
     "href": "slides/02-booting-part3.html#tipus-dunitats",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Tipus d’unitats",
-    "text": "Tipus d’unitats\n\nServeis: Fitxers que defineixen com s’inicien, s’aturen i es gestionen els serveis. Ex: /etc/systemd/system/sshd.service (servei SSH).\nSockets: Units que gestionen els sockets de comunicació per als serveis.\nDevices: Units que representen dispositius de maquinari.\nMounts: Units que gestionen els punts de muntatge del sistema de fitxers.\nPaths: Units que monitoren els canvis en fitxers o directoris específics.\nTimers: Units que planifiquen tasques per a la seva execució en moments específics.\nTargets: Units que agrupen altres units per a l’arrencada d’estats del sistema."
+    "text": "Tipus d’unitats\n\nServeis: Fitxers que defineixen com s’inicien, s’aturen i es gestionen els serveis. Ex: /etc/systemd/system/sshd.service (servei SSH).\nSockets: Units que gestionen els sockets de comunicació per als serveis.\nDevices: Units que representen dispositius de maquinari.\nMounts: Units que gestionen els punts de muntatge del sistema de fitxers.\nPaths: Units que monitoren els canvis en fitxers o directoris específics.\nTimers: Units que planifiquen tasques per a la seva execució en moments específics.\nTargets: Units que agrupen altres units per a l’arrencada d’estats del sistema.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#targets-i-systemd",
     "href": "slides/02-booting-part3.html#targets-i-systemd",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Targets i Systemd",
-    "text": "Targets i Systemd"
+    "text": "Targets i Systemd",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#exemple-de-fitxer-dunitat",
     "href": "slides/02-booting-part3.html#exemple-de-fitxer-dunitat",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Exemple de fitxer d’unitat",
-    "text": "Exemple de fitxer d’unitat\n\n\n[Unit]\nDescription=CUPS Scheduler\nDocumentation=man:cupsd(8)\nAfter=network.target\n[Service]\nExecStart=/usr/sbin/cupsd -l\nType=notify\n[Install]\nAlso=cups.socket cups.path\nWantedBy=printer.target\n\n\nCUPS (Common Unix Printing System) és un sistema d’impressió utilitzat en sistemes Unix i Linux.\nTé una dependència amb la xarxa (After=network.target), ja que sovint es connecta a impressores de xarxa.\n\n\n\nS’inicia amb el comandament /usr/sbin/cupsd -l, que posa en marxa el servei d’impressió.\nEs configura per iniciar-se automàticament quan s’arrenca el sistema (WantedBy=printer.target).\nCups.socket és una unitat de tipus socket que permet a CUPS escoltar connexions entrants per a serveis d’impressió.\nCups.path és una unitat de tipus path que monitoritza canvis en fitxers o directoris relacionats amb la configuració d’impressió.\n\n\nAquest fitxer defineix el servei CUPS (Common Unix Printing System) és un sistema que té una depenència amb la xarxa (After=network.target), s’inicia amb el comandament /usr/sbin/cupsd -l i es configura per iniciar-se automàticament quan s’arrenca el sistema (WantedBy=printer.target). Printer.target és un target que agrupa serveis relacionats amb la impressió. Cups.socket i cups.path són altres unitats que també s’inicien quan s’inicia el servei CUPS ja que estan lligades a aquest servei. El tipus de servei és notify, el qual indica que el servei enviarà una notificació a systemd quan estigui llest."
+    "text": "Exemple de fitxer d’unitat\n\n\n[Unit]\nDescription=CUPS Scheduler\nDocumentation=man:cupsd(8)\nAfter=network.target\n[Service]\nExecStart=/usr/sbin/cupsd -l\nType=notify\n[Install]\nAlso=cups.socket cups.path\nWantedBy=printer.target\n\n\nCUPS (Common Unix Printing System) és un sistema d’impressió utilitzat en sistemes Unix i Linux.\nTé una dependència amb la xarxa (After=network.target), ja que sovint es connecta a impressores de xarxa.\n\n\n\nS’inicia amb el comandament /usr/sbin/cupsd -l, que posa en marxa el servei d’impressió.\nEs configura per iniciar-se automàticament quan s’arrenca el sistema (WantedBy=printer.target).\nCups.socket és una unitat de tipus socket que permet a CUPS escoltar connexions entrants per a serveis d’impressió.\nCups.path és una unitat de tipus path que monitoritza canvis en fitxers o directoris relacionats amb la configuració d’impressió.\n\n\nAquest fitxer defineix el servei CUPS (Common Unix Printing System) és un sistema que té una depenència amb la xarxa (After=network.target), s’inicia amb el comandament /usr/sbin/cupsd -l i es configura per iniciar-se automàticament quan s’arrenca el sistema (WantedBy=printer.target). Printer.target és un target que agrupa serveis relacionats amb la impressió. Cups.socket i cups.path són altres unitats que també s’inicien quan s’inicia el servei CUPS ja que estan lligades a aquest servei. El tipus de servei és notify, el qual indica que el servei enviarà una notificació a systemd quan estigui llest.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#dependències-entre-unitats-i",
     "href": "slides/02-booting-part3.html#dependències-entre-unitats-i",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Dependències entre unitats (I)",
-    "text": "Dependències entre unitats (I)\nLes unitats són objectes gestionats per systemd. Les dependències són associacions entre elles. Cada tipus d’unitat té algunes dependències per defecte (a menys que s’especifiqui el contrari).\nRelacionals\n\nRequires: Indica que una unitat depèn d’una altra unitat per a la seva activació. Si la unitat requerida no està activa, la unitat que la requereix no s’activarà.\nWants: Similar a Requires, però no és tan estricte. Si la unitat requerida no està activa, la unitat que la vol no es bloquejarà.\nBindsTo: Similar a Requires, però si la unitat requerida es deté, la unitat que la vincula també es detindrà.\nPartOf: Indica que una unitat és part d’una altra unitat. Si la unitat pare es deté, la unitat fill també es detindrà.\nConflicts: Indica que dues unitats no poden estar actives al mateix temps. Si una unitat s’activa, l’altra es detindrà automàticament."
+    "text": "Dependències entre unitats (I)\nLes unitats són objectes gestionats per systemd. Les dependències són associacions entre elles. Cada tipus d’unitat té algunes dependències per defecte (a menys que s’especifiqui el contrari).\nRelacionals\n\nRequires: Indica que una unitat depèn d’una altra unitat per a la seva activació. Si la unitat requerida no està activa, la unitat que la requereix no s’activarà.\nWants: Similar a Requires, però no és tan estricte. Si la unitat requerida no està activa, la unitat que la vol no es bloquejarà.\nBindsTo: Similar a Requires, però si la unitat requerida es deté, la unitat que la vincula també es detindrà.\nPartOf: Indica que una unitat és part d’una altra unitat. Si la unitat pare es deté, la unitat fill també es detindrà.\nConflicts: Indica que dues unitats no poden estar actives al mateix temps. Si una unitat s’activa, l’altra es detindrà automàticament.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#dependències-entre-unitats-ii",
     "href": "slides/02-booting-part3.html#dependències-entre-unitats-ii",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Dependències entre unitats (II)",
-    "text": "Dependències entre unitats (II)\nOrdenació\n\nAfter: Indica que una unitat s’ha d’iniciar després d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.\nBefore: Indica que una unitat s’ha d’iniciar abans d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici."
+    "text": "Dependències entre unitats (II)\nOrdenació\n\nAfter: Indica que una unitat s’ha d’iniciar després d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.\nBefore: Indica que una unitat s’ha d’iniciar abans d’una altra unitat. No crea una dependència estricta, només defineix l’ordre d’inici.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#transaccions-a-systemd-i",
     "href": "slides/02-booting-part3.html#transaccions-a-systemd-i",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Transaccions a systemd (I)",
-    "text": "Transaccions a systemd (I)\nCada vegada que l’usuari o un servei sol·licita una acció (per exemple, iniciar o aturar un servei), es crea una transacció que gestiona l’execució ordenada de les unitats afectades.\n\nCreació de feines (jobs)\n\nEs crea una feina per a la unitat sol·licitada.\n\nS’afegeixen recursivament les feines corresponents a totes les dependències de la unitat.\n\nMinimització de la transacció\n\nEliminar feines duplicades o redundants.\n\nEliminar feines que no estiguin referenciades per cap altre job (ancoratge).\n\nResolució de cicles de dependències\n\nDetectar loops en el gràfic de dependències.\n\nTrencar-los eliminant feines problemàtiques per evitar deadlocks."
+    "text": "Transaccions a systemd (I)\nCada vegada que l’usuari o un servei sol·licita una acció (per exemple, iniciar o aturar un servei), es crea una transacció que gestiona l’execució ordenada de les unitats afectades.\n\nCreació de feines (jobs)\n\nEs crea una feina per a la unitat sol·licitada.\n\nS’afegeixen recursivament les feines corresponents a totes les dependències de la unitat.\n\nMinimització de la transacció\n\nEliminar feines duplicades o redundants.\n\nEliminar feines que no estiguin referenciades per cap altre job (ancoratge).\n\nResolució de cicles de dependències\n\nDetectar loops en el gràfic de dependències.\n\nTrencar-los eliminant feines problemàtiques per evitar deadlocks.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#transaccions-a-systemd-i-1",
     "href": "slides/02-booting-part3.html#transaccions-a-systemd-i-1",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Transaccions a systemd (I)",
-    "text": "Transaccions a systemd (I)\n\nFusió i optimització de feines\n\nFusionar feines similars per reduir el nombre d’operacions.\n\nPrioritzar feines ja existents a la cua.\n\nEnviament i execució\n\nAfegir les feines a la cua de jobs de systemd.\n\nExecutar les feines segons la dependència i l’ordre optimitzat.\n\n\n\nGaranteix que les unitats es gestionin de manera atòmica i ordenada, permetent a systemd paral·lelitzar serveis mentre respecta les dependències.\n\n\n\nLes transaccions garanteixen que les unitats es gestionin de manera atòmica i ordenada.\n\nAixò permet a systemd paral·lelitzar serveis mentre respecta les dependències.\n\nCadascuna de les feines conté informació sobre la unitat, la seva acció (start, stop, reload) i les condicions d’execució."
+    "text": "Transaccions a systemd (I)\n\nFusió i optimització de feines\n\nFusionar feines similars per reduir el nombre d’operacions.\n\nPrioritzar feines ja existents a la cua.\n\nEnviament i execució\n\nAfegir les feines a la cua de jobs de systemd.\n\nExecutar les feines segons la dependència i l’ordre optimitzat.\n\n\n\nGaranteix que les unitats es gestionin de manera atòmica i ordenada, permetent a systemd paral·lelitzar serveis mentre respecta les dependències.\n\n\n\nLes transaccions garanteixen que les unitats es gestionin de manera atòmica i ordenada.\n\nAixò permet a systemd paral·lelitzar serveis mentre respecta les dependències.\n\nCadascuna de les feines conté informació sobre la unitat, la seva acció (start, stop, reload) i les condicions d’execució.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#systemctl-i",
     "href": "slides/02-booting-part3.html#systemctl-i",
     "title": "Arrencada del sistema (Part 3)",
     "section": "systemctl (I)",
-    "text": "systemctl (I)\nLa comanda systemctl és l’eina principal per interactuar amb systemd i gestionar els serveis i unitats del sistema. Algunes de les operacions més comunes inclouen:\n\n\n\n\n\n\n\nComanda\nDescripció\n\n\n\n\nsystemctl start &lt;unit&gt;\nInicia una unitat (servei, socket, etc.).\n\n\nsystemctl stop &lt;unit&gt;\nAtura una unitat.\n\n\nsystemctl restart &lt;unit&gt;\nReinicia una unitat.\n\n\nsystemctl status &lt;unit&gt;\nMostra l’estat actual d’una unitat.\n\n\nsystemctl enable &lt;unit&gt;\nHabilita una unitat perquè s’iniciï automàticament en arrencar el sistema.\n\n\nsystemctl disable &lt;unit&gt;\nDeshabilita una unitat perquè no s’iniciï automàticament.\n\n\nsystemctl is-active &lt;unit&gt;\nComprova si una unitat està activa.\n\n\nsystemctl is-enabled &lt;unit&gt;\nComprova si una unitat està habilitada per arrencar automàticament."
+    "text": "systemctl (I)\nLa comanda systemctl és l’eina principal per interactuar amb systemd i gestionar els serveis i unitats del sistema. Algunes de les operacions més comunes inclouen:\n\n\n\n\n\n\n\nComanda\nDescripció\n\n\n\n\nsystemctl start &lt;unit&gt;\nInicia una unitat (servei, socket, etc.).\n\n\nsystemctl stop &lt;unit&gt;\nAtura una unitat.\n\n\nsystemctl restart &lt;unit&gt;\nReinicia una unitat.\n\n\nsystemctl status &lt;unit&gt;\nMostra l’estat actual d’una unitat.\n\n\nsystemctl enable &lt;unit&gt;\nHabilita una unitat perquè s’iniciï automàticament en arrencar el sistema.\n\n\nsystemctl disable &lt;unit&gt;\nDeshabilita una unitat perquè no s’iniciï automàticament.\n\n\nsystemctl is-active &lt;unit&gt;\nComprova si una unitat està activa.\n\n\nsystemctl is-enabled &lt;unit&gt;\nComprova si una unitat està habilitada per arrencar automàticament.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#systemctl-ii",
     "href": "slides/02-booting-part3.html#systemctl-ii",
     "title": "Arrencada del sistema (Part 3)",
     "section": "systemctl (II)",
-    "text": "systemctl (II)\n\n\n\n\n\n\n\nComanda\nDescripció\n\n\n\n\nsystemctl list-units\nLlista totes les unitats carregades actualment.\n\n\nsystemctl list-unit-files\nLlista tots els fitxers d’unitats disponibles.\n\n\nsystemctl list-dependencies &lt;SERVICE&gt;\nMostra les dependències d’una unitat.\n\n\nsystemctl list-jobs\nMostra les feines pendents i en execució."
+    "text": "systemctl (II)\n\n\n\n\n\n\n\nComanda\nDescripció\n\n\n\n\nsystemctl list-units\nLlista totes les unitats carregades actualment.\n\n\nsystemctl list-unit-files\nLlista tots els fitxers d’unitats disponibles.\n\n\nsystemctl list-dependencies &lt;SERVICE&gt;\nMostra les dependències d’una unitat.\n\n\nsystemctl list-jobs\nMostra les feines pendents i en execució.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#unitat-install",
     "href": "slides/02-booting-part3.html#unitat-install",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Unitat [INSTALL]",
-    "text": "Unitat [INSTALL]\n[Install]\nWantedBy=multi-user.target\nAlso=sysstat-collect.timer\nAlso=sysstat-summary.timer\nAlias=monitoring.service\n\nLa secció [Install] defineix com s’instal·la i s’inicia una unitat.\nWantedBy=multi-user.target indica que aquesta unitat s’ha d’iniciar quan s’arrenca el sistema en mode multiusuari (runlevel 3).\nAlso= permet associar altres unitats que s’han d’iniciar juntament amb aquesta.\nAlias= crea un nom alternatiu per a la unitat, facilitant la seva referència.\n\n\nEn aquest cas, la unitat s’iniciarà automàticament en arrencar el sistema en mode multiusuari, i també s’iniciaran els temporitzadors sysstat-collect.timer i sysstat-summary.timer. A més, es pot referenciar aquesta unitat amb el nom alternatiu monitoring.service."
+    "text": "Unitat [INSTALL]\n[Install]\nWantedBy=multi-user.target\nAlso=sysstat-collect.timer\nAlso=sysstat-summary.timer\nAlias=monitoring.service\n\nLa secció [Install] defineix com s’instal·la i s’inicia una unitat.\nWantedBy=multi-user.target indica que aquesta unitat s’ha d’iniciar quan s’arrenca el sistema en mode multiusuari (runlevel 3).\nAlso= permet associar altres unitats que s’han d’iniciar juntament amb aquesta.\nAlias= crea un nom alternatiu per a la unitat, facilitant la seva referència.\n\n\nEn aquest cas, la unitat s’iniciarà automàticament en arrencar el sistema en mode multiusuari, i també s’iniciaran els temporitzadors sysstat-collect.timer i sysstat-summary.timer. A més, es pot referenciar aquesta unitat amb el nom alternatiu monitoring.service.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#opcions-service-i",
     "href": "slides/02-booting-part3.html#opcions-service-i",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Opcions [Service] (I)",
-    "text": "Opcions [Service] (I)\n\n\n\n\n\n\n\nOpció\nDescripció\n\n\n\n\nType=\nDefineix el tipus de servei (simple, forking, oneshot, notify, idle).\n\n\nExecStart=\nComanda que s’executa per iniciar el servei.\n\n\nExecStop=\nComanda que s’executa per aturar el servei.\n\n\nExecReload=\nComanda que s’executa per recarregar la configuració del servei.\n\n\nRemainAfterExit=\nIndica si el servei es manté actiu després de finalitzar.\n\n\nRestart=\nDefineix si el servei s’ha de reiniciar en cas de fallada.\n\n\nUser=\nDefineix l’usuari amb el qual s’executa el servei.\n\n\nGroup=\nDefineix el grup amb el qual s’executa el servei."
+    "text": "Opcions [Service] (I)\n\n\n\n\n\n\n\nOpció\nDescripció\n\n\n\n\nType=\nDefineix el tipus de servei (simple, forking, oneshot, notify, idle).\n\n\nExecStart=\nComanda que s’executa per iniciar el servei.\n\n\nExecStop=\nComanda que s’executa per aturar el servei.\n\n\nExecReload=\nComanda que s’executa per recarregar la configuració del servei.\n\n\nRemainAfterExit=\nIndica si el servei es manté actiu després de finalitzar.\n\n\nRestart=\nDefineix si el servei s’ha de reiniciar en cas de fallada.\n\n\nUser=\nDefineix l’usuari amb el qual s’executa el servei.\n\n\nGroup=\nDefineix el grup amb el qual s’executa el servei.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#opcions-service-ii",
     "href": "slides/02-booting-part3.html#opcions-service-ii",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Opcions [Service] (II)",
-    "text": "Opcions [Service] (II)\n\n\n\n\n\n\n\nOpció\nDescripció\n\n\n\n\nEnvironment=\nDefineix variables d’entorn per al servei.\n\n\nWorkingDirectory=\nDefineix el directori de treball del servei.\n\n\nPIDFile=\nEspecifica el fitxer que conté el PID del servei.\n\n\nTimeoutStartSec=\nTemps d’espera per a l’inici del servei.\n\n\nTimeoutStopSec=\nTemps d’espera per a l’aturada del servei.\n\n\nStandardOutput=\nDefineix on s’envia la sortida estàndard del servei.\n\n\nStandardError=\nDefineix on s’envia l’error"
+    "text": "Opcions [Service] (II)\n\n\n\n\n\n\n\nOpció\nDescripció\n\n\n\n\nEnvironment=\nDefineix variables d’entorn per al servei.\n\n\nWorkingDirectory=\nDefineix el directori de treball del servei.\n\n\nPIDFile=\nEspecifica el fitxer que conté el PID del servei.\n\n\nTimeoutStartSec=\nTemps d’espera per a l’inici del servei.\n\n\nTimeoutStopSec=\nTemps d’espera per a l’aturada del servei.\n\n\nStandardOutput=\nDefineix on s’envia la sortida estàndard del servei.\n\n\nStandardError=\nDefineix on s’envia l’error",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#tipus-de-serveis-i",
     "href": "slides/02-booting-part3.html#tipus-de-serveis-i",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Tipus de serveis (I)",
-    "text": "Tipus de serveis (I)\n\nSimple: Per defecte, aquest servei s’inicia immediatament després del fork(). No espera cap senyal de que el servei estigui llest.\nForking: Aquest tipus de servei és per a processos que es bifurquen (fork) i es converteixen en dimonis. El servei es considera actiu després que el procés pare finalitzi.\nOneshot: Aquest tipus és per a serveis que realitzen una tasca única i després finalitzen. Systemd espera que el procés acabi abans de considerar el servei com a actiu.\nNotify: Aquest tipus de servei utilitza el mecanisme de notificació de systemd per informar quan està llest. El servei ha d’enviar una notificació explícita a systemd.\nDBus: Aquest tipus de servei s’utilitza per a serveis que es comuniquen a través de DBus. El servei es considera actiu quan el nom del bus apareix al bus de sistema.\nIdle: Aquest tipus de servei s’inicia només quan el sistema està inactiu, és a dir, quan no hi ha altres feines pendents."
+    "text": "Tipus de serveis (I)\n\nSimple: Per defecte, aquest servei s’inicia immediatament després del fork(). No espera cap senyal de que el servei estigui llest.\nForking: Aquest tipus de servei és per a processos que es bifurquen (fork) i es converteixen en dimonis. El servei es considera actiu després que el procés pare finalitzi.\nOneshot: Aquest tipus és per a serveis que realitzen una tasca única i després finalitzen. Systemd espera que el procés acabi abans de considerar el servei com a actiu.\nNotify: Aquest tipus de servei utilitza el mecanisme de notificació de systemd per informar quan està llest. El servei ha d’enviar una notificació explícita a systemd.\nDBus: Aquest tipus de servei s’utilitza per a serveis que es comuniquen a través de DBus. El servei es considera actiu quan el nom del bus apareix al bus de sistema.\nIdle: Aquest tipus de servei s’inicia només quan el sistema està inactiu, és a dir, quan no hi ha altres feines pendents.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#efecte-del-tipus-de-servei-al-runtime",
     "href": "slides/02-booting-part3.html#efecte-del-tipus-de-servei-al-runtime",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Efecte del tipus de servei al runtime",
-    "text": "Efecte del tipus de servei al runtime"
+    "text": "Efecte del tipus de servei al runtime",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#script-de-lusuari",
     "href": "slides/02-booting-part3.html#script-de-lusuari",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Script de l’usuari",
-    "text": "Script de l’usuari\nUn cop s’han carregat tots els serveis i el sistema està en marxa, els usuaris poden iniciar sessió al sistema. Els scripts de l’usuari es troben a la carpeta /etc/profile.d/ i s’executen quan l’usuari inicia sessió.\n\n/etc/profile: Conté la configuració global per a tots els usuaris. S’executa en iniciar sessió en un entorn de shell.\n/etc/bashrc: Proporciona configuració per a shells interactius. S’executa cada vegada que s’inicia una nova sessió de shell.\n~/.bashrc: Fitxer de configuració específic per a l’usuari, que s’executa en iniciar una sessió de shell interactiu.\n~/.bash_profile: S’executa quan l’usuari inicia sessió a la terminal. Normalment, s’utilitza per configurar l’entorn de l’usuari, incloent la configuració de l’PATH.\n~/.bash_logout: S’executa quan l’usuari tanca la sessió de shell. Aquí es poden incloure comandes de neteja o tancament.\n~/.bash_history: Fitxer que emmagatzema l’històric de les comandes executades per l’usuari en la sessió de shell."
+    "text": "Script de l’usuari\nUn cop s’han carregat tots els serveis i el sistema està en marxa, els usuaris poden iniciar sessió al sistema. Els scripts de l’usuari es troben a la carpeta /etc/profile.d/ i s’executen quan l’usuari inicia sessió.\n\n/etc/profile: Conté la configuració global per a tots els usuaris. S’executa en iniciar sessió en un entorn de shell.\n/etc/bashrc: Proporciona configuració per a shells interactius. S’executa cada vegada que s’inicia una nova sessió de shell.\n~/.bashrc: Fitxer de configuració específic per a l’usuari, que s’executa en iniciar una sessió de shell interactiu.\n~/.bash_profile: S’executa quan l’usuari inicia sessió a la terminal. Normalment, s’utilitza per configurar l’entorn de l’usuari, incloent la configuració de l’PATH.\n~/.bash_logout: S’executa quan l’usuari tanca la sessió de shell. Aquí es poden incloure comandes de neteja o tancament.\n~/.bash_history: Fitxer que emmagatzema l’històric de les comandes executades per l’usuari en la sessió de shell.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#exercicis-propostas",
     "href": "slides/02-booting-part3.html#exercicis-propostas",
     "title": "Arrencada del sistema (Part 3)",
     "section": "Exercicis Propostas",
-    "text": "Exercicis Propostas\n\nAnàlisi del procés d’arrencada amb systemd\nServei de Còpia de Seguretat Automàtica amb systemd\nDiscussió: Secure Boot és realment segur?: Cerca notícies recents sobre Secure Boot i comparteix-les al fòrum del curs. Debatiu sobre avantatges, desavantatges, vulnerabilitats conegudes i experiències personals.\nPràctica 01: Snapshots i restauració amb systemd i initramfs"
+    "text": "Exercicis Propostas\n\nAnàlisi del procés d’arrencada amb systemd\nServei de Còpia de Seguretat Automàtica amb systemd\nDiscussió: Secure Boot és realment segur?: Cerca notícies recents sobre Secure Boot i comparteix-les al fòrum del curs. Debatiu sobre avantatges, desavantatges, vulnerabilitats conegudes i experiències personals.\nPràctica 01: Snapshots i restauració amb systemd i initramfs",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/02-booting-part3.html#thats-all",
     "href": "slides/02-booting-part3.html#thats-all",
     "title": "Arrencada del sistema (Part 3)",
     "section": "That’s all",
-    "text": "That’s all\n\n\n\n\n\n\n\n\n\nTake Home Message\n\n\nEl procés d’arrencada és un procés complex. Els administradors de sistemes han de conèixer aquest procés per poder gestionar i solucionar problemes durant l’arrencada del sistema i garantir un sistema segur, estable i eficient."
+    "text": "That’s all\n\n\n\n\n\n\n\n\n\nTake Home Message\n\n\nEl procés d’arrencada és un procés complex. Els administradors de sistemes han de conèixer aquest procés per poder gestionar i solucionar problemes durant l’arrencada del sistema i garantir un sistema segur, estable i eficient.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 02 · Arrencada del sistema (Part 3)"
+    ]
   },
   {
     "objectID": "slides/01-foundations-of-systems-administration.html#benvinguda",
