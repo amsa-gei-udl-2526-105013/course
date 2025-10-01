@@ -416,7 +416,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#ec2-per-desplegar-el-servidor-vpn" id="toc-ec2-per-desplegar-el-servidor-vpn" class="nav-link" data-scroll-target="#ec2-per-desplegar-el-servidor-vpn">EC2 per desplegar el servidor VPN</a></li>
   </ul></li>
-  <li><a href="#test-final" id="toc-test-final" class="nav-link" data-scroll-target="#test-final">Test final</a></li>
   <li><a href="#neteja-els-recursos-creats" id="toc-neteja-els-recursos-creats" class="nav-link" data-scroll-target="#neteja-els-recursos-creats">Neteja els recursos creats</a></li>
   <li><a href="#exercics-adicionals" id="toc-exercics-adicionals" class="nav-link" data-scroll-target="#exercics-adicionals">Exercics Adicionals</a></li>
   </ul></li>
@@ -1047,13 +1046,6 @@ window.Quarto = {
 </blockquote>
 </section>
 </section>
-<section id="test-final" class="level2">
-<h2 class="anchored" data-anchor-id="test-final">Test final</h2>
-<p>Podeu utilitzar <code>curl</code> o recarregar la pàgina web per veure com el balancejador de càrrega distribueix el tràfic entre les instàncies EC2.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://AMSA-ALB-XXXXXXX.us-west-2.elb.amazonaws.com</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Per observar-ho podeu accedir als logs de les instàncies EC2 i veure com el tràfic es distribueix entre les dues instàncies.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/httpd/access_log</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
 <section id="neteja-els-recursos-creats" class="level2">
 <h2 class="anchored" data-anchor-id="neteja-els-recursos-creats">Neteja els recursos creats</h2>
 <p>Un cop finalitzat podeu eliminar totes les instàncies EC2 i la base de dades RDS per evitar càrrecs innecessaris al vostre compte d’AWS.</p>
@@ -1063,6 +1055,7 @@ window.Quarto = {
 <ol type="1">
 <li>Com milloraríeu els grups de seguretat, quins canvis faríeu?</li>
 <li>Què caldria fer per connectar un client MySQL des de casa a la base de dades RDS? Expliqueu els passos.</li>
+<li>Prepara un script que faci una prova de càrrega al balancejador de càrrega i mostri com es distribueix el tràfic entre les instàncies EC2.</li>
 </ol>
 
 

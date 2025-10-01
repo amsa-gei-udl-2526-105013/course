@@ -1039,18 +1039,6 @@
     ]
   },
   {
-    "objectID": "laboratories/02-network/01-aws-wordpress.html#test-final",
-    "href": "laboratories/02-network/01-aws-wordpress.html#test-final",
-    "title": "Desplegament d’una aplicació web amb alta disponibilitat amb AWS",
-    "section": "Test final",
-    "text": "Test final\nPodeu utilitzar curl o recarregar la pàgina web per veure com el balancejador de càrrega distribueix el tràfic entre les instàncies EC2.\ncurl http://AMSA-ALB-XXXXXXX.us-west-2.elb.amazonaws.com\nPer observar-ho podeu accedir als logs de les instàncies EC2 i veure com el tràfic es distribueix entre les dues instàncies.\nsudo tail -f /var/log/httpd/access_log",
-    "crumbs": [
-      "Laboratoris",
-      "Networking",
-      "Laboratori 03 · Desplegament d'una aplicació web amb alta disponibilitat amb AWS"
-    ]
-  },
-  {
     "objectID": "laboratories/02-network/01-aws-wordpress.html#neteja-els-recursos-creats",
     "href": "laboratories/02-network/01-aws-wordpress.html#neteja-els-recursos-creats",
     "title": "Desplegament d’una aplicació web amb alta disponibilitat amb AWS",
@@ -1067,7 +1055,7 @@
     "href": "laboratories/02-network/01-aws-wordpress.html#exercics-adicionals",
     "title": "Desplegament d’una aplicació web amb alta disponibilitat amb AWS",
     "section": "Exercics Adicionals",
-    "text": "Exercics Adicionals\n\nCom milloraríeu els grups de seguretat, quins canvis faríeu?\nQuè caldria fer per connectar un client MySQL des de casa a la base de dades RDS? Expliqueu els passos.",
+    "text": "Exercics Adicionals\n\nCom milloraríeu els grups de seguretat, quins canvis faríeu?\nQuè caldria fer per connectar un client MySQL des de casa a la base de dades RDS? Expliqueu els passos.\nPrepara un script que faci una prova de càrrega al balancejador de càrrega i mostri com es distribueix el tràfic entre les instàncies EC2.",
     "crumbs": [
       "Laboratoris",
       "Networking",
