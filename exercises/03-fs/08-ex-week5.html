@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca" xml:lang="ca"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Migració de directoris a particions diferents – AMSA - Fall 2025</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Cap resultat",
+    "search-matching-documents-text": "documents que coincideixen",
+    "search-copy-link-title": "Copia l'enllaç a la cerca",
+    "search-hide-matches-text": "Amaga les coincidències addicionals",
+    "search-more-match-text": "altra coincidència en aquest document",
+    "search-more-matches-text": "altres coincidències en aquest document",
+    "search-clear-button-title": "Neteja",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel·la",
+    "search-submit-button-title": "Envia",
+    "search-label": "Cerca"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Migració de directoris a particions diferents</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="../../index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
+    <a href="https://github.com/amsa-gei-udl-2526-105013/course/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://cv.udl.cat/" title="Sakai" class="quarto-navigation-tool px-1" aria-label="Sakai"><i class="bi bi-person-fill"></i></a>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Informació del curs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../.././course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Planificació</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Diapositives</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 1)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Activitats</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 1 · Booting amb MBR i BIOS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 2 · Booting amb UEFI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 3 · Dual Boot amb UEFI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Laboratoris</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori · Fonaments de l’Administració de Sistemes amb AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 01 · Introducció a AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 02 · Desplegament d’una aplicació web amb AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">Networking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 03 · Desplegament d’una aplicació web amb alta disponibilitat amb AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">Projectes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 1 · Snapshots i Backups amb systemd i initramfs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En aquesta pàgina</h2>
+   
+  <ul>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">Objectius</a></li>
+  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
+  <li><a href="#particions-i-sistemes-de-fitxers" id="toc-particions-i-sistemes-de-fitxers" class="nav-link" data-scroll-target="#particions-i-sistemes-de-fitxers">Particions i Sistemes de Fitxers</a>
+  <ul class="collapse">
+  <li><a href="#crear-particions-i-sistemes-de-fitxers" id="toc-crear-particions-i-sistemes-de-fitxers" class="nav-link" data-scroll-target="#crear-particions-i-sistemes-de-fitxers">Crear Particions i Sistemes de Fitxers</a></li>
+  <li><a href="#migrar-directoris-a-les-noves-particions" id="toc-migrar-directoris-a-les-noves-particions" class="nav-link" data-scroll-target="#migrar-directoris-a-les-noves-particions">Migrar Directoris a les Noves Particions</a></li>
+  <li><a href="#configurar-el-muntatge-automàtic" id="toc-configurar-el-muntatge-automàtic" class="nav-link" data-scroll-target="#configurar-el-muntatge-automàtic">Configurar el Muntatge Automàtic</a></li>
+  </ul></li>
+  <li><a href="#simulant-una-corrupció-a-home" id="toc-simulant-una-corrupció-a-home" class="nav-link" data-scroll-target="#simulant-una-corrupció-a-home">Simulant una corrupció a <code>/home</code></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Migració de directoris a particions diferents</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objectius" class="level2">
+<h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
+<ul>
+<li>Crear particions i sistemes de fitxers (<strong>ext4, xfs</strong>).</li>
+<li>Migrar directoris reals a particions separades amb coherència i sense pèrdua de dades.</li>
+<li>Configurar el muntatge automàtic amb UUID i opcions de seguretat (<em>nodev, nosuid, noexec</em>).</li>
+<li>Diagnosticar i recuperar problemes reals: saturació d’espai i corrupció de sistema de fitxers.</li>
+<li><strong>Eines</strong>: <code>fdisk</code>, <code>mkfs.*</code>, <code>tune2fs</code>, <code>mount</code>, <code>rsync</code>, <code>xfs_repair</code>, <code>hexedit</code>.</li>
+</ul>
+</section>
+<section id="requeriments-previs" class="level2">
+<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
+<ul>
+<li><p>Tenir una màquina virtual (MV) amb Debian instal·lat.</p></li>
+<li><p>Crear un disc dur virtual addicional de 10GB del tipus SATA o NVMe.</p></li>
+<li><p>Instal·lar els paquets <code>xfsprogs</code>, <code>rsync</code>, <code>hexedit</code> i <code>build-essential</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> update <span class="at">-y</span> <span class="kw">&amp;&amp;</span> <span class="ex">apt</span> install xfsprogs rsync hexedit build-essential <span class="at">-y</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Totes les comandes s’han d’executar amb permisos de superusuari (<code>root</code>). Per tant, <code>su -</code>.</p></li>
+<li><p>Compte amb el nom del disc dur addicional, en aquest cas <code>/dev/nvme0n2</code>, però pot variar en funció de la configuració de la màquina virtual, utilitza la comanda <code>lsblk</code> per a identificar el disc dur addicional. Utilitza el nom correcte actualitzant-lo en les comandes que apareixen en aquest exercici.</p></li>
+</ul>
+</section>
+<section id="particions-i-sistemes-de-fitxers" class="level2">
+<h2 class="anchored" data-anchor-id="particions-i-sistemes-de-fitxers">Particions i Sistemes de Fitxers</h2>
+<section id="crear-particions-i-sistemes-de-fitxers" class="level3">
+<h3 class="anchored" data-anchor-id="crear-particions-i-sistemes-de-fitxers">Crear Particions i Sistemes de Fitxers</h3>
+<p>Assegurarem que el disc dur addicional està detectat pel sistema. En aquest cas, el disc dur és <code>/dev/nvme0n2</code>, però pot variar en funció de la configuració de la màquina virtual, utilitza la comanda <code>lsblk</code> per a identificar el disc dur addicional.</p>
+<p>Utilitzarem la comanda <code>fdisk</code> per a crear tres noves particions en el disc dur.</p>
+<ul>
+<li>La primera partició serà per a <code>/var</code> amb el sistema de fitxers <code>ext4</code>, etiqueta <code>var</code> mida 4GB.</li>
+<li>La segona partició serà per a <code>/tmp</code> amb el sistema de fitxers <code>xfs</code>, sense etiqueta i mida 2GB.</li>
+<li>La tercera partició serà per a <code>/opt</code> amb el sistema de fitxers <code>ext4</code>, etiqueta <code>opt</code> mida 3GB.</li>
+<li>La quarta partició serà <code>/home</code> amb el sistema de fitxers <code>ext4</code>, etiqueta <code>home</code> i la resta d’espai disponible (1GB).</li>
+</ul>
+<p>Crearem les noves particions en el disc dur. Podeu utilzar una pipeline per a automatitzar la creació de les particions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"n\np\n\n\n+4G\nn\np\n\n\n+2G\nn\np\n\n\n+3G\nn\np\n\n\n+1G\nw"</span> <span class="kw">|</span> <span class="ex">fdisk</span> /dev/nvme0n2</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El següent pas és crear els sistemes de fitxers en les particions que acabem de crear i assignar les etiquetes corresponents.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.ext4</span> /dev/nvme0n2p1</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tune2fs</span> <span class="at">-L</span> <span class="st">"var"</span> /dev/nvme0n2p1</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.xfs</span> /dev/nvme0n2p2</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.ext4</span> /dev/nvme0n2p3</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">tune2fs</span> <span class="at">-L</span> <span class="st">"opt"</span> /dev/nvme0n2p3</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.xfs</span> /dev/nvme0n2p4</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">tune2fs</span> <span class="at">-L</span> <span class="st">"home"</span> /dev/nvme0n2p4</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Monteu les particions en directoris temporals per a migrar les dades, per a això, creeu els directoris <code>/mnt/var</code>, <code>/mnt/tmp</code> , <code>/mnt/opt</code> i <code>/mnt/home</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /mnt/var /mnt/tmp /mnt/opt /mnt/home</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p1 /mnt/var</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p3 /mnt/opt</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p4 /mnt/home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="/tmp">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>/tmp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La partició <code>/tmp</code> és temporal i no conté dades importants, per tant, no la muntarem en aquest pas, ja que no necessitem migrar cap dada. Les seves dades es perdran en el reinici del sistema.</p>
+</div>
+</div>
+</section>
+<section id="migrar-directoris-a-les-noves-particions" class="level3">
+<h3 class="anchored" data-anchor-id="migrar-directoris-a-les-noves-particions">Migrar Directoris a les Noves Particions</h3>
+<p>Abans de migrar les dades, és important assegurar-se que no hi ha processos que estiguin utilitzant els directoris que volem migrar. Per a això, podem utilitzar la comanda <code>lsof</code> per a llistar els fitxers oberts en aquests directoris.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsof</span> +D /var</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lsof</span> +D /opt</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lsof</span> +D /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="Fitxers oberts">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Fitxers oberts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si hi ha processos que estan utilitzant els directoris que volem migrar, és recomanable aturar aquests processos abans de continuar amb la migració. Això és especialment important per al directori <code>/var</code>, ja que conté fitxers de registre i altres dades que poden ser utilitzades per diversos serveis del sistema.</p>
+</div>
+</div>
+<p>Hi ha moltes comandes per a migrar dades entre directoris, però en aquest cas utilitzarem la comanda <code>rsync</code> ja que ens permet mostrar el progrés de la còpia i també ens permet reprendre la còpia en cas que es talli la connexió o hi hagi un error. A més, també ens permet excloure directoris o fitxers que no volem migrar i ens permet fer còpies incrementals.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> /var/ /mnt/var</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> /opt/ /mnt/opt</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> /home/ /mnt/home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="rsync">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>rsync
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>rsync</code> és una eina molt potent per a la sincronització de fitxers i directoris. En aquest cas, utilitzem les opcions <code>-a</code> (mode arxiu) i <code>-v</code> (verbose) per a conservar els permisos, propietaris, marques de temps i per a mostrar el progrés de la còpia. La barra inclinada (<code>/</code>) al final dels directoris d’origen és important perquè indica a <code>rsync</code> que només volem copiar el contingut del directori i no el directori en si mateix. Si no posem la barra inclinada, <code>rsync</code> crearà un subdirectori amb el mateix nom que el directori d’origen dins del directori de destinació. Per a més informació sobre <code>rsync</code>, podeu consultar la documentació (<code>man rsync</code>).</p>
+</div>
+</div>
+<p>Un cop copiem les dades, és important verificar que les dades s’han copiat correctament. Per a això, podem utilitzar la comanda <code>diff</code> per a comparar els directoris d’origen i destinació.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> <span class="at">-r</span> /var /mnt/var</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> <span class="at">-r</span> /opt /mnt/opt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> <span class="at">-r</span> /home /mnt/home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si la comanda <code>diff</code> no mostra cap sortida, significa que els directoris són idèntics i que les dades s’han copiat correctament. Si hi ha diferències, la comanda <code>diff</code> mostrarà les línies que són diferents entre els dos directoris.</p>
+<p>Muntarem les noves particions en els directoris corresponents.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p1 /var</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p3 /opt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p4 /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Utiltiza la comanda <code>df</code> per a comprovar que les particions s’han muntat correctament o <code>lsblk</code> per a veure totes les particions i els seus punts de muntatge.</p>
+</section>
+<section id="configurar-el-muntatge-automàtic" class="level3">
+<h3 class="anchored" data-anchor-id="configurar-el-muntatge-automàtic">Configurar el Muntatge Automàtic</h3>
+<p>Si ara reinicieu el sistema <code>reboot</code>, les particions no estaran muntades automàticament. Per a que les particions es muntin automàticament en l’arrencada del sistema, hem d’editar el fitxer <code>/etc/fstab</code> i afegir les noves particions amb els seus punts de muntatge corresponents.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"/dev/nvme0n2p1 /var ext4 defaults 0 0"</span> <span class="op">&gt;&gt;</span> /etc/fstab</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"/dev/nvme0n2p2 /tmp xfs defaults 0 0"</span> <span class="op">&gt;&gt;</span> /etc/fstab</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"/dev/nvme0n2p3 /opt ext4 defaults 0 0"</span> <span class="op">&gt;&gt;</span> /etc/fstab</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"/dev/nvme0n2p4 /home xfs defaults 0 0"</span> <span class="op">&gt;&gt;</span> /etc/fstab</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="`/etc/fstab`">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span><code>/etc/fstab</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El fitxer <code>/etc/fstab</code> conté la informació de les particions que es muntaran automàticament en l’arrencada del sistema. Cada línia del fitxer conté la informació d’una partició. Els camps de cada línia són: dispositiu, punt de muntatge, sistema de fitxers, opcions, freqüència de comprovació i ordre de comprovació. Podeu consultar la documentació del fitxer per a més informació (<code>man fstab</code>).</p>
+</div>
+</div>
+<p>Pots provar la configuració del fitxer <code>/etc/fstab</code> sense reiniciar el sistema amb la comanda <code>mount -a</code>. Aquesta comanda muntarà totes les particions que estan definides en el fitxer <code>/etc/fstab</code>. També podem fer un <code>reboot</code> per a comprovar que les particions es muntin automàticament en l’arrencada del sistema, sempre hi quan la comanda <code>mount -a</code> no hagi donat cap error.</p>
+<p>En aquest punt podriam optimitzar la configuració particions per a millorar el rendiment del sistema.</p>
+<ol type="1">
+<li><p>Utiltizarem els UUIDs en lloc dels dispositius per a muntar les particions. Això ens permetrà identificar les particions de forma unívoca i evitar problemes en cas que els dispositius canviïn d’identificador. Per fer-ho podem utilitzar la comanda <code>sed</code> per actualitzar el fitxer <code>/etc/fstab</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">"s|/dev/nvme0n2p1|UUID=</span><span class="va">$(</span><span class="ex">blkid</span> <span class="at">-s</span> UUID <span class="at">-o</span> value /dev/nvme0n2p1<span class="va">)</span><span class="st">|"</span> /etc/fstab</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">"s|/dev/nvme0n2p2|UUID=</span><span class="va">$(</span><span class="ex">blkid</span> <span class="at">-s</span> UUID <span class="at">-o</span> value /dev/nvme0n2p2<span class="va">)</span><span class="st">|"</span> /etc/fstab</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">"s|/dev/nvme0n2p3|UUID=</span><span class="va">$(</span><span class="ex">blkid</span> <span class="at">-s</span> UUID <span class="at">-o</span> value /dev/nvme0n2p3<span class="va">)</span><span class="st">|"</span> /etc/fstab</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">"s|/dev/nvme0n2p4|UUID=</span><span class="va">$(</span><span class="ex">blkid</span> <span class="at">-s</span> UUID <span class="at">-o</span> value /dev/nvme0n2p4<span class="va">)</span><span class="st">|"</span> /etc/fstab</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>🔍 <strong>Pregunta</strong>: <em>En quins casos poden canviar els dispositius o tenir duplicats?</em></p>
+<p>Els dispositius poden canviar d’identificador en cas que es connectin més dispositius al sistema o es canvii l’ordre de connexió dels dispositius. Això pot provocar que les particions es muntin en llocs diferents dels esperats. Per a evitar aquest problema, és recomanable utilitzar els UUIDs en lloc dels dispositius per a muntar les particions.</p>
+</blockquote></li>
+<li><p>Utilitzarem opcions més específiques per protegir la partició <code>/tmp</code> per a evitar que s’executin programes des de la partició. Utilitzant les opcions <strong>nodev</strong>, <strong>nosuid</strong>, i <strong>noexec</strong>:</p>
+<ul>
+<li>Edita el fitxer <code>/etc/fstab</code> i afegeix les opcions <code>nodev</code>, <code>nosuid</code>, i <code>noexec</code> a la partició <code>/tmp</code>.</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Opcions de Muntatge">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Opcions de Muntatge
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La opció <code>defaults</code> és una col·lecció d’opcions que s’utilitzen per defecte en la majoria de sistemes de fitxers. Aquestes opcions inclouen <code>rw</code> (lectura i escriptura), <code>suid</code> (permet l’ús de l’atribut suid), és a dir, evita que es puguin exectuar programaes amb permisos de superusuari, <code>dev</code> (permet l’ús de dispositius), <code>exec</code> (permet l’execució de fitxers binaris), <code>auto</code> (muntatge automàtic en l’arrencada del sistema), <code>nouser</code> (només l’usuari root pot muntar la partició) i <code>async</code> (permet l’escriptura asíncrona).</p>
+</div>
+</div>
+<pre><code>- Comprova les opcions després d'editar el fitxer `/etc/fstab`.
+
+    ```bash
+    mount | grep /tmp
+    ```
+- Per aplicar les opcions de muntatge a la partició `/tmp`, farem un `reboot` del sistema.
+
+- Testem les opcions de muntatge de la partició `/tmp`:
+
+    1. Prova d'executar un programa des de la partició `/tmp` com a usuari no privilegiat.
+
+        ```bash
+        echo "echo 'Hello, World'" &gt; /tmp/hello.sh
+        chmod +x /tmp/hello.sh
+        /tmp/hello.sh
+        bash /tmp/hello.sh
+         ```
+
+    2. Prova de fer el mateix com a usuari privilegiat.
+
+        ```bash
+        su -
+        /tmp/hello.sh
+        bash /tmp/hello.sh
+        ```
+
+        &gt; 👁️ **Observació**:
+        &gt;
+        &gt; Observeu que la opció `noexec` impedeix la execució dels binaris però no ens protegeix contra l'execució de scripts de bash.
+
+    3. Prova d'accedir a un dispositiu creat a `/tmp`:
+
+        - Inicialitza un dispositiu a `/tmp` utilitzant la comanda `mknod`.
+
+            ```bash
+            mknod /tmp/dispositiu c 1 3
+            ```
+
+            &gt; ⚠️ **Compte**:
+            &gt;
+            &gt; La comanda `mknod` única i exclusivament la poden fer els usuaris amb permisos de superusuari. Per tant, feu servir la comanda `su` per a canviar a l'usuari `root` abans de fer servir la comanda `mknod`.
+
+        - Per accedir al dispositiu, utilitza la comanda `cat`.
+
+            ```bash
+            cat /tmp/dispositiu
+            ```
+
+        &gt; 👁️ **Observació**:
+        &gt;
+        &gt; Fixeu-vos que quan intento accedir a un dispositiu al directori actual, no hi ha cap problema. Però quan intento accedir al dispositiu creat a `/tmp`, rebre un missatge d'error indicant que no es pot accedir al dispositiu. Això és degut a la opció `nodev` que impedeix l'accés a dispositius en la partició.
+
+    4. Per veure, les implicacions de la opció `nosuid`, podem realitzar el següent experiment:
+
+        Per fer-ho, crearem un executable amb c que ens indicarà l'identificador de l'usuari real i l'identificador de l'usuari efectiu. On l'usuari real és l'usuari que ha iniciat la sessió i l'usuari efectiu és l'usuari que executa el programa. Si un programa té el bit `suid` activat, l'usuari efectiu serà l'usuari propietari del programa i no l'usuari que l'ha executat.
+
+        ```c
+        #include &lt;stdio.h&gt;
+        #include &lt;sys/types.h&gt;
+        #include &lt;unistd.h&gt;
+
+        int main() {
+            printf("Effective user ID: %d\n", geteuid());
+            printf("Real user ID: %d\n", getuid());
+            return 0;
+        }
+        ```
+
+        Compilem el programa amb la comanda `gcc`.
+
+        ```bash
+        gcc -o /tmp/suid /tmp/suid.c
+        ```
+
+        - Desactiva la opció `nosuid` i també la opció `noexec` per a la partició `/tmp`. Per fer-ho, utilitza l'usuari `root` per a editar el fitxer `/etc/fstab`.
+
+        - Remunta la partició `/tmp`.
+
+        - Prova d'executar el programa com a usuari no privilegiat.
+
+            ```bash
+            /tmp/suid
+            ```
+
+        - Activa la opció `nosuid` i torna a provar d'executar el programa.
+
+            ```bash
+            /tmp/suid
+            ```
+
+
+        &gt; 👁️ **Observació**:
+        &gt;
+        &gt; Fixeu-vos que quan la opció `nosuid` està activada, no es pot executar el programa amb permisos de superusuari. Això és important per a evitar que els usuaris no privilegiats puguin executar programes amb permisos de superusuari. Aquesta opció pot permetre escalar privilegis i comprometre la seguretat del sistema.</code></pre>
+<blockquote class="blockquote">
+<p>🔍 <strong>Pregunta</strong>: <em>Per què és important tenir els directoris <code>/var</code>, <code>/tmp</code> i <code>/opt</code> en particions diferents?</em></p>
+<p>La raó principal per a tenir els directoris <code>/var</code>, <code>/tmp</code> i <code>/opt</code> en particions diferents és per a millorar el rendiment i la seguretat del sistema. El directori <code>/var</code> conté dades variables com ara logs, bases de dades, correu electrònic, etc. Si aquest directori es queda sense espai, el sistema podria fallar. El mateix raonament s’aplica al directori <code>/tmp</code> i <code>/opt</code>. Per això, és important tenir-los en particions separades per a evitar que el sistema falli. A més, tenir els directoris <code>/var</code>, <code>/tmp</code> i <code>/opt</code> en particions separades també millora la seguretat del sistema ja que si una partició falla, les altres particions seguiran funcionant.</p>
+</blockquote>
+<p>Anem a fer una simulació de com respon el sistema en cas de no tenir els directoris <code>/var</code>, <code>/tmp</code> i <code>/opt</code> en particions separades. Per a això, simularem que el directori <code>/opt</code> es va omplint fins a ocupar tot l’espai disponible en la partició principal del sistema.</p>
+<ol type="1">
+<li><p>Desmuntem la partició <code>/opt</code> per a poder continuar amb l’exercici.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /opt</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Creeu un fitxer de 20GB al directori <code>/opt</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=/dev/urandom of=/opt/fitxer bs=1M count=20480</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Comprova l’estat del sistema.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/exercises/fs-01/df-omplert.png" class="img-fluid figure-img"></p>
+<figcaption>Comprova l’estat del sistema</figcaption>
+</figure>
+</div></li>
+<li><p>Intenta instal·lar un paquet amb <code>apt</code> i comprova que el sistema falla.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install htop</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/exercises/fs-01/apt-fallit.png" class="img-fluid figure-img"></p>
+<figcaption>Intenta instal·lar un paquet amb <code>apt</code> i comprova que el sistema falla</figcaption>
+</figure>
+</div>
+<p>Com podeu veure, el sistema fallarà ja que no té espai suficient per a instal·lar el paquet. Això és un problema greu ja que el sistema no podrà funcionar correctament fins que no alliberem espai en la partició principal.</p></li>
+<li><p>Elimina el fitxer que has creat per a poder continuar amb la resta de l’exercici.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> /opt/fitxer</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Munteu la partició <code>/opt</code> i torneu a crear el fitxer per a omplir el directori.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/nvme0n2p3 /opt</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=/dev/urandom of=/opt/fitxer bs=1M count=20480</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Ara únicament teniu la partició <code>/opt</code> plena; però el sistema pot continuar fent tasques:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install htop</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+</section>
+<section id="simulant-una-corrupció-a-home" class="level2">
+<h2 class="anchored" data-anchor-id="simulant-una-corrupció-a-home">Simulant una corrupció a <code>/home</code></h2>
+<p>En aquest escenari simularem que hem patit una corrupció a la partició <code>/home</code> i quines eines podem utiltzar per intentar recuperar les dades. Bàsicament editarem alguns bits de la partició <code>/home</code> amb un editor hexadecimal per a simular la corrupció i després utilitzarem l’eina <code>xfs_repair</code> per a intentar recuperar les dades.</p>
+<p>El primer pas que farem serà migrar el directori <code>/home</code> a una partició diferent per a poder simular la corrupció. A continuació, simularem la corrupció i finalment recuperarem les dades.</p>
+<p>Ara podem crear fitxers i directoris al directori <code>/home</code> del vostre usuari normal, en el meu cas <code>jordi</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> codi</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> dades</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> dades/pokemon.csv</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> codi/main.c</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> codi/Makefile</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> codi/README.md</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> .vim</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Per a simular una corrupció editarem alguns valors de la partició <code>/home</code> amb un editor hexadecimal.</p>
+<ol type="1">
+<li><p>Desmuntem la partició <code>/home</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Compte!</strong>: Si esteu connectats per SSH, no podreu desmuntar la partició <code>/home</code> ja que el vostre usuari està utilitzant aquesta partició. En la primera sessió. Per tant, haure de fer-ho a la consola de la màquina virtual.</p>
+</blockquote></li>
+<li><p>Obrirem la partició <code>/home</code> amb un editor hexadecimal:</p></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hexedit</span> /dev/nvme0n2p4 </span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li><p>Modifiqueu bits a l’atzar i deseu els canvis. Per fer-ho escriviu damunt dels valors hexadecimals altres valors. Un cop fet guardeu amb <strong>Ctrl + X i Y</strong>.</p></li>
+<li><p>Ara intentarem muntar la partició <code>/home</code> per a comprovar que ha estat corrompuda.</p></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Si la partició `/home` s'ha corromput, hauríeu de veure un missatge d'error com aquest:
+
+![home_corrupte](../../figs/exercises/fs-01/home_corrupte.png)</code></pre>
+<ol start="5" type="1">
+<li><p>Els diferents sistemes de fitxers tenen eines per a comprovar la integritat dels fitxers. Per exemple, el sistema de fitxers <code>xfs</code> té l’eina <code>xfs_ncheck</code> que permet comprovar la integritat dels fitxers.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xfs_ncheck</span> /dev/nvme0n2p4</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Per a reparar la partició <code>/home</code> utilitzarem l’eina <code>xfs_repair</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xfs_repair</span> /dev/nvme0n2p4</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Un cop reparada la partició <code>/home</code>, la muntarem de nou.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Comprovarem que la partició <code>/home</code> s’ha muntat correctament i conté els fitxers que havíem creat.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /home</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiat!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiat!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/amsa-gei-udl-2526-105013\.github\.io\/course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Jordi Mateo Fornés">
+  <title>AMSA - Fall 2025 – Sistema de fitxers (I)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Sistema de fitxers (I)</h1>
+  <p class="subtitle">Unitat 3 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jordi Mateo Fornés 
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<section id="introducció" class="title-slide slide level1 center">
+<h1>Introducció</h1>
+
+</section>
+<section id="necessitat-dun-sistema-de-fitxers-i" class="slide level2">
+<h2>Necessitat d’un Sistema de Fitxers (I)</h2>
+<p>La implementació d’un <strong>Sistema de Fitxers (FS)</strong> és essencial per a l’organització, emmagatzematge i recuperació eficient de la informació en qualsevol sistema operatiu modern.</p>
+<div title="Observació">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Observació</strong></p>
+</div>
+<div class="callout-content">
+<p>En els sistemes operatius moderns (<em>UNIX-like</em>), el seu rol s’estén molt més enllà de la gestió de dades persistents al disc, abracant una filosofia fonamental.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="center-container">
+<p><strong>Everything is a File</strong></p>
+</div>
+</section>
+<section id="necessitat-dun-sistema-de-fitxers-ii" class="slide level2 smaller">
+<h2>Necessitat d’un Sistema de Fitxers (II)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipus de Recurs</th>
+<th style="text-align: left;">Exemple de Path</th>
+<th style="text-align: left;">Sistema de Fitxers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Procés/Estat del Kernel</strong></td>
+<td style="text-align: left;"><code>/proc/PID</code> (p.&nbsp;ex., <code>/proc/1234/status</code>)</td>
+<td style="text-align: left;"><code>procfs</code> (Memòria, no disc)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dispositiu de Blocs</strong></td>
+<td style="text-align: left;"><code>/dev/sda1</code></td>
+<td style="text-align: left;"><code>devfs</code> o <code>udev</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Punts de Configuració</strong></td>
+<td style="text-align: left;"><code>/etc/hosts</code>, <code>/usr/bin/comando</code></td>
+<td style="text-align: left;">FS persistent (Ext4, XFS)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dades d’Usuari</strong></td>
+<td style="text-align: left;"><code>/home/username/documents</code></td>
+<td style="text-align: left;">FS persistent</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Xarxa</strong></td>
+<td style="text-align: left;"><code>/dev/tcp/80</code> (en certs entorns, e.g., Plan 9)</td>
+<td style="text-align: left;">Ús de <em>Sockets</em> com a <em>File Descriptors</em></td>
+</tr>
+</tbody>
+</table>
+<div title="Avantatge">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avantatge</strong></p>
+</div>
+<div class="callout-content">
+<p>La implementació d’un sistema de fitxers permet unificar l’accés a recursos heterogenis. El kernel pot tractar una E/S a <code>/dev/sda1</code> (blocs físics) i una E/S a <code>/proc/cpuinfo</code> (informació virtual) utilitzant la <strong>mateixa API</strong>. API.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dispositius-i-device-files" class="slide level2 smaller">
+<h2>Dispositius i Device Files</h2>
+<p>Un Fitxer de Dispositiu (<em>Device File o Node</em>) és un nom assignat a un dispositiu d’E/S (Entrada/Sortida), ja sigui <strong>físic</strong> (disc, targeta de so) o <strong>lògic</strong> (port de xarxa, terminal).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipus de Dispositiu</th>
+<th style="text-align: left;">Exemples Comuns</th>
+<th style="text-align: left;">Característica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Blocs (Block Devices)</td>
+<td style="text-align: left;"><code>/dev/sda</code> (Disc sencer), <code>/dev/sdb1</code> (Partició), <code>/dev/md0</code> (RAID)</td>
+<td style="text-align: left;">Transfereixen dades en blocs de mida fixa. Són cachejables i permeten accés aleatori.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Caràcters (Character Devices)</td>
+<td style="text-align: left;"><code>/dev/ttyX</code> (Terminals), <code>/dev/lp0</code> (Port Paral·lel), <code>/dev/input/mouse0</code></td>
+<td style="text-align: left;">Transfereixen dades seqüencialment caràcter a caràcter. No tenen caching de blocs.</td>
+</tr>
+</tbody>
+</table>
+<p>Els <strong>drivers</strong> és el conjunt de rutines del kernel que defineix com s’ha de dur a terme la comunicació específica amb el Hardware mitjançant <strong>interrupcions</strong>, <strong>accés directe a memòria (DMA)</strong> i <strong>E/S programada</strong>. Sense el driver, el fitxer a <code>/dev</code> seria inútil.</p>
+</section></section>
+<section>
+<section id="abstraccions-bàsiques-del-vfs" class="title-slide slide level1 center">
+<h1>Abstraccions Bàsiques del VFS</h1>
+
+</section>
+<section id="virtual-filesystem-switch-vfs" class="slide level2 smaller">
+<h2>Virtual Filesystem Switch (VFS)</h2>
+<p>Un <strong>Sistema de Fitxers (FS)</strong> és la capa lògica fonamental que gestiona l’accés i l’organització dels objectes (fitxers i directoris) sobre un dispositiu d’emmagatzematge.</p>
+<div title="Múltiples FS actius">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Múltiples FS actius</strong></p>
+</div>
+<div class="callout-content">
+<p>És habitual que un sistema operatiu gestioni simultàniament diverses instàncies de sistemes de fitxers diferents:</p>
+<ul>
+<li class="fragment"><strong>Ext4</strong> per a dades d’usuari (<code>/home</code>)</li>
+<li class="fragment"><strong>Btrfs</strong> per a backups automàtics</li>
+<li class="fragment"><strong>tmpfs</strong> per a fitxers temporals (<code>/tmp</code>)</li>
+<li class="fragment"><strong>procfs</strong> per a informació del kernel (<code>/proc</code>)</li>
+</ul>
+<p>Cadascun muntat en un punt d’accés lògic diferent.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="abstraccions-comunes-del-vfs" class="slide level2 smaller">
+<h2>Abstraccions Comunes del VFS</h2>
+<p>Tot i les diferències estructurals a nivell de disc, el <strong>VFS (Virtual Filesystem Switch)</strong> del <em>kernel</em> utilitza abstraccions uniformes per oferir una interfície consistent als processos.</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 25%">
+<col style="width: 41%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Abstracció</th>
+<th style="text-align: left;">Ubicació</th>
+<th style="text-align: left;">Funció Tècnica</th>
+<th style="text-align: left;">Persistència</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Superbloc</strong></td>
+<td style="text-align: left;">Disc + Memòria</td>
+<td style="text-align: left;">Conté <strong>metadata global</strong> del FS: tipus, mida, estat, punters clau</td>
+<td style="text-align: left;">Persistent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Inode</strong></td>
+<td style="text-align: left;">Disc + Memòria</td>
+<td style="text-align: left;"><strong>Metadata del fitxer</strong>: permisos, timestamps, punters a blocs de dades</td>
+<td style="text-align: left;">Persistent</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dentry</strong></td>
+<td style="text-align: left;">Només Memòria</td>
+<td style="text-align: left;"><strong>Entrada de Directori</strong>: cacheja nom del fitxer ↔︎ inode</td>
+<td style="text-align: left;">Temporal</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>File Object</strong></td>
+<td style="text-align: left;">Només Memòria</td>
+<td style="text-align: left;">Representa un fitxer obert per un procés (file descriptors)</td>
+<td style="text-align: left;">Temporal</td>
+</tr>
+</tbody>
+</table>
+<p>Permet que un programa pugui treballar amb fitxers <em>Ext4, XFS, NTFS o FAT32</em> sense modificar ni una sola línia de codi.</p>
+</section>
+<section id="jerarquia-lògica-de-les-abstraccions" class="slide level2 smaller">
+<h2>Jerarquia Lògica de les Abstraccions</h2>
+<p>Per entendre com el <em>kernel</em> mapeja un nom de fitxer a les dades, visualitzem la interacció entre les estructures <em>in-memory</em> i <em>on-disk</em>.</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">classDiagram
+    direction LR
+    
+    class Superbloc {
+        &lt;&lt;On-Disk i In-Memory&gt;&gt;
+        + Tipus FS (Ext4, XFS)
+        + Mida del Volum
+        + Punter a llistes d'Inodes Lliures
+    }
+
+    class Inode {
+        &lt;&lt;On-Disk i In-Memory&gt;&gt;
+        + Num Inode Únic
+        + Pointers a Blocs de Dades
+        + Permisos/ACLs
+        + UID/GID, Timestamps
+    }
+
+    class Dentry {
+        &lt;&lt;In-Memory Cache&gt;&gt;
+        + Nom del Fitxer/Directori
+        + Punter a Inode
+        + Punter al Dentry Pare
+    }
+
+    class FileObject {
+        &lt;&lt;In-Memory&gt;&gt;
+        + File Descriptor FD
+        + Offset de Lectura/Escriptura Actual
+        + Punter a Dentry (Path)
+    }
+
+    Superbloc "1" --&gt; "*" Inode : Gestiona
+    Dentry "1" --&gt; "1" Inode : Caching · Nom -&gt; Metadata
+    FileObject "1" --&gt; "1" Dentry : Resolució de Path
+    Inode "1" --&gt; "*" DataBlocks : Adreçament
+    
+    %% Colors per a claredat tècnica
+    classDef memory fill:#eaf7ff,stroke:#007bff
+    classDef disk fill:#f9f5dd,stroke:#c4aa18
+    class Dentry
+    FileObject memory
+    class Inode
+    Superbloc disk
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div title="Impacte del Dentry">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Impacte del Dentry</strong></p>
+</div>
+<div class="callout-content">
+<p>Una <code>Dentry Cache</code> saturada o poc eficient pot degradar significativament el rendiment del sistema (<strong>I/O latency</strong>), ja que el kernel es veu forçat a re-llegir l’estructura de directoris directament del disc.</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>FileObject: Un procés obre un fitxer, creant un FileObject amb un File Descriptor.</li>
+<li>Dentry (Cache): El FileObject resol el camí a través d’una cadena de Dentries (des de la muntura fins al fitxer final). El Dentry proporciona l’associació Nom → Inode.</li>
+<li>Inode: El número d’Inode permet al VFS carregar les metadades on-disk a memòria. Aquesta estructura conté els punters directes i indirectes als blocs de dades.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="relacions-in-memory-del-vfs" class="slide level2 smaller">
+<h2>Relacions <em>In-Memory</em> del VFS</h2>
+<ul>
+<li class="fragment">Múltiples descriptors de fitxer poden apuntar al mateix fitxer (<code>dup()</code>).</li>
+<li class="fragment">Múltiples abstraccions de fitxer poden apuntar a la mateixa <code>Dentry</code> (obrim el mateix <em>path</em> diverses vegades).</li>
+<li class="fragment">Múltiples <code>Dentries</code> poden apuntar al mateix <code>Inode</code> (Hard Links).</li>
+</ul>
+
+<img data-src="../figs/slides/03-fs/vfs-in-memory.png" style="width:60.0%" class="r-stretch"></section>
+<section id="el-superbloc" class="slide level2">
+<h2>El Superbloc</h2>
+<p>El <strong>Superbloc</strong> és el punt de referència absolut de qualsevol Sistema de Fitxers (FS). Sense aquesta estructura, el <em>kernel</em> no pot ni tan sols intentar muntar el volum.</p>
+<div title="Avís">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avís</strong></p>
+</div>
+<div class="callout-content">
+<p>Si el <strong>Superbloc</strong> es corromp (per un error de disc o d’E/S), el sistema de fitxers esdevé <strong>inaccessible</strong> fins que es restaura una de les seves còpies de seguretat (<em>backup copies</em>).</p>
+</div>
+</div>
+</div>
+</div>
+<p>Per aquest motiu, els FS moderns mantenen <strong>múltiples còpies</strong> del superbloc distribuïdes pel volum.</p>
+</section>
+<section id="organització-física-del-superbloc" class="slide level2 smaller">
+<h2>Organització Física del Superbloc</h2>
+
+<img data-src="../figs/slides/03-fs/superblocs.png" style="width:70.0%" class="r-stretch"><aside class="notes">
+<p>El diagrama mostra que el superbloc es troba típicament a l’inici del sistema de fitxers i que hi ha diversos blocs utilitzats amb diferents propòsits: alguns per emmagatzemar dentries, alguns per emmagatzemar inodes i alguns per emmagatzemar blocs de dades d’usuari. També hi ha blocs utilitzats per gestionar els blocs lliures disponibles (p.&nbsp;ex., mapes de bits per als sistemes de fitxers simples).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="abstraccions-del-superbloc" class="slide level2 smaller">
+<h2>Abstraccions del Superbloc</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Funció</th>
+<th style="text-align: left;">Ubicació</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Superbloc</strong></td>
+<td style="text-align: left;">Conté la metadata global del FS: tipus, mida, estat, i punters clau.</td>
+<td style="text-align: left;">Inici del FS (i còpies de seguretat).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>IMAP (Inode Map)</strong></td>
+<td style="text-align: left;">Bitmap per a l’assignació i desassignació d’Inodes. Indica quins Inodes estan lliures o en ús dins de la IZONE.</td>
+<td style="text-align: left;">Bloc(s) assignat(s) pel Superbloc.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>DMAP (Data Map)</strong></td>
+<td style="text-align: left;">Bitmap per a l’assignació i desassignació de Blocs de Dades. Indica quins blocs de la DZONE estan lliures o en ús.</td>
+<td style="text-align: left;">Bloc(s) assignat(s) pel Superbloc.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>IZONE</strong></td>
+<td style="text-align: left;">Àrea que conté les estructures d’Inode dels fitxers.</td>
+<td style="text-align: left;">Després dels mapes.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>DZONE</strong></td>
+<td style="text-align: left;">Àrea que conté les dades d’usuari (el contingut real dels fitxers).</td>
+<td style="text-align: left;">Després de la IZONE.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="estructura-i-implementació-del-superbloc" class="slide level2 smaller">
+<h2>Estructura i Implementació del Superbloc</h2>
+<p>El Superbloc no només s’autodefineix, sinó que defineix l’arquitectura de tota la partició:</p>
+<ul>
+<li class="fragment"><strong><code>fs_type</code></strong>: El tipus de FS (p.&nbsp;ex., EXT4_MAGIC).</li>
+<li class="fragment"><strong><code>s_blocks_count</code></strong>: El nombre total de blocs al FS.</li>
+<li class="fragment"><strong><code>s_log_block_size</code></strong>: Defineix la mida del bloc lògic (p.&nbsp;ex., 1K, 4K). <strong>Tota la I/O es fa en aquesta unitat.</strong></li>
+<li class="fragment"><strong>Punters a Bitmaps</strong>: Adreces del primer bloc de l’<strong>IMAP</strong> i el <strong>DMAP</strong>.</li>
+<li class="fragment"><strong>Estat del FS</strong>: Indica si el FS va ser desmuntat netament o si va patir un <em>crash</em> (<code>s_state</code> - important per al <em>fsck</em>).</li>
+</ul>
+</section>
+<section id="mapes-de-bits-bitmaps" class="slide level2 smaller">
+<h2>Mapes de Bits (Bitmaps)</h2>
+<p>Els mapes de bits són crucials per a l’eficiència en l’assignació:</p>
+<ol type="1">
+<li class="fragment"><strong>IMAP (Inode Bitmap):</strong> Cada bit representa l’estat d’un únic Inode a la IZONE. <code>1</code> = En ús, <code>0</code> = Lliure.</li>
+<li class="fragment"><strong>DMAP (Data Bitmap):</strong> Cada bit representa l’estat d’un únic bloc a la DZONE. <code>1</code> = Ocupat per dades, <code>0</code> = Lliure per assignació.</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Optimització (<em>Caching</em>)</strong></p>
+</div>
+<div class="callout-content">
+<p>Quan el FS es munta, el <em>kernel</em> carrega el <strong>Superbloc</strong> i, almenys parcialment, els mapes <strong>IMAP</strong> i <strong>DMAP</strong> a la memòria. Això permet que les noves assignacions de fitxers i blocs siguin extremadament ràpides sense requerir una E/S de disc constant.</p>
+</div>
+</div>
+</div>
+<div title="FS Grans">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>FS Grans</strong></p>
+</div>
+<div class="callout-content">
+<p>Es carreguen parcialment i a demanda per no gastar massa memòria en FS grans.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="operacions-bàsiques-del-vfs-i-crides-al-sistema" class="title-slide slide level1 center">
+<h1>Operacions Bàsiques del VFS i crides al Sistema</h1>
+
+</section>
+<section id="mapping-crides-de-sistema-vfs" class="slide level2 smaller">
+<h2>Mapping: Crides de Sistema → VFS</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Crida al Sistema</th>
+<th style="text-align: left;">Operació VFS</th>
+<th style="text-align: left;">Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>mount()</code></td>
+<td style="text-align: left;"><code>vfs_mount()</code></td>
+<td style="text-align: left;">Muntar un FS.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>open()</code></td>
+<td style="text-align: left;"><code>vfs_open()</code></td>
+<td style="text-align: left;">Obrir un fitxer (i obtenir un FD).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>stat()</code> / <code>fstat()</code></td>
+<td style="text-align: left;"><code>vfs_stat()</code> / <code>vfs_fstat()</code></td>
+<td style="text-align: left;">Consultar atributs del fitxer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>read()</code> / <code>write()</code></td>
+<td style="text-align: left;"><code>vfs_read()</code> / <code>vfs_write()</code></td>
+<td style="text-align: left;">Llegir o escriure dades.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>create()</code> / <code>delete()</code></td>
+<td style="text-align: left;"><code>vfs_create()</code> / <code>vfs_unlink()</code></td>
+<td style="text-align: left;">Crear i eliminar fitxers.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>close()</code></td>
+<td style="text-align: left;"><code>vfs_close()</code></td>
+<td style="text-align: left;">Tancar un fitxer</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:40%;">
+<p>El VFS és l’abstracció de Linux que permet gestionar múltiples tipus de FS (Ext4, XFS, NTFS) de manera transparent.</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Crida al Sistema open, read] --&gt; B{VFS};
+    B --&gt;|Operació abstracta| C1[Driver FS Específic Ext4];
+    B --&gt;|Operació abstracta| C2[Driver FS Específic XFS];
+    C1 --&gt; D[Subsistema d'Emmagatzematge E/S];
+    C2 --&gt; D;
+    
+    style B fill:#eaf7ff,stroke:#007bff
+    style C1 fill:#f9f5dd,stroke:#c4aa18
+    style C2 fill:#f9f5dd,stroke:#c4aa18
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="montatge-dun-fs" class="slide level2 smaller">
+<h2>Montatge d’un FS</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="co"># Sintaxi: mount -t &lt;fs_type&gt; &lt;device&gt; &lt;mount_point&gt;</span></span>
+<span id="cb1-2"><a></a><span class="fu">mount</span> <span class="at">-t</span> ext4 /dev/nvme0n1p2 /home</span>
+<span id="cb1-3"><a></a><span class="fu">mount</span> <span class="at">-t</span> btrfs /dev/sdb1 /backup</span>
+<span id="cb1-4"><a></a><span class="fu">mount</span> <span class="at">-t</span> tmpfs <span class="at">-o</span> size=1G tmpfs /tmp/ramdisk</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 50%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Pas</th>
+<th style="text-align: left;">Descripció</th>
+<th style="text-align: left;">Implicació</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1. <em>Entrada/Sortida</em></td>
+<td style="text-align: left;"><strong>Input</strong>: Dispositiu de blocs (Partició). <strong>Output</strong>: Dentry arrel del FS.</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2. <em>Check Device</em></td>
+<td style="text-align: left;">Validació de l’estructura inicial del FS.</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3. <em>Llegir Superbloc</em></td>
+<td style="text-align: left;">Determinar paràmetres (mida de bloc, magic number). Carregar el Superbloc a memòria.</td>
+<td style="text-align: left;">Crític: Estableix el context global.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4. <em>Crear Inode i Dentry</em></td>
+<td style="text-align: left;">Localitzar el Root Inode (e.g., inode 2 a Ext4) i crear l’estructura Dentry arrel a la memòria.</td>
+<td style="text-align: left;">Inici de la navegació lògica.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="obertura-dun-fitxer" class="slide level2 smaller">
+<h2>Obertura d’un Fitxer</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram 
+    participant P as Procés
+    participant VFS as VFS (Kernel)
+    participant FS as Driver de FS (read_inode)
+
+    P-&gt;&gt;VFS: open -&gt; /a/b/fitxer.txt 
+    VFS-&gt;&gt;VFS: 1. Per cada component a, b, fitxer.txt:
+    VFS-&gt;&gt;VFS: Resoldre Dentry Pare (Cache)
+    VFS-&gt;&gt;FS: 2. Carregar Inode si no està en cache (via Num. Inode)
+    VFS-&gt;&gt;VFS: 3. Final: Crear nou **FILE OBJECT**
+    VFS-&gt;&gt;P: 4. Assignar **File Descriptor** (FD)
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="consultar-atributs" class="slide level2">
+<h2>Consultar Atributs</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant P as Procés
+    participant VFS as VFS (Kernel)
+    participant FS as Driver de FS (read_inode)
+    P-&gt;&gt;VFS: stat -&gt; fitxer.txt o fstat -&gt; FD
+    VFS-&gt;&gt;VFS: 1. Accés a l'Inode via FD
+    VFS-&gt;&gt;FS: 2. Si no està en cache, llegir Inode del disc
+    FS--&gt;&gt;VFS: 3. Retornar Atributs
+    VFS--&gt;&gt;P: 4. Retornar Atributs UID, GID, Permisos, Mida, Timestamps
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="operacions-de-lectura" class="slide level2">
+<h2>Operacions de Lectura</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant P as Procés
+    participant VFS as VFS 
+    participant FS as Driver de FS · read
+    P-&gt;&gt;VFS: read -&gt; FD, buf, len
+    VFS-&gt;&gt;VFS: 1. Validar FD i permisos
+    VFS-&gt;&gt;VFS: 2. Calcular blocs a llegir -&gt; offset, len
+    VFS-&gt;&gt;FS: 3. Llegir dades file-&gt;dentry-&gt;inode-&gt;data blocks
+    FS--&gt;&gt;VFS: 4. Retornar dades a VFS
+    VFS--&gt;&gt;P: 5. Copiar dades a l'espai d'usuari
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="operacions-descriptura" class="slide level2">
+<h2>Operacions d’Escriptura</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant P as Procés
+    participant VFS as VFS
+    participant PC as Page Cache
+    participant FS as Driver FS
+    participant J as Journal
+    participant BD as Block Device
+
+    P-&gt;&gt;VFS: write -&gt; fd=5, buffer, 4096
+    VFS-&gt;&gt;VFS: Validar FD i permisos d'escriptura
+    VFS-&gt;&gt;VFS: Calcular nous blocs necessaris
+    
+    alt Fitxer necessita créixer
+        VFS-&gt;&gt;FS: Assignar nous blocs de dades
+        FS-&gt;&gt;FS: Actualizar bitmaps i inode
+        FS-&gt;&gt;J: Registrar transacció al journal
+    end
+    
+    VFS-&gt;&gt;PC: Escriure dades a la page cache · dirty pages
+    VFS--&gt;&gt;P: Retornar bytes escrits 
+    
+    Note over PC,BD: Writeback asíncron 
+    PC-&gt;&gt;BD: Flush dirty pages al disc
+    J-&gt;&gt;BD: Commit transacció journal
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="escriptura-asíncrona-i-writeback" class="slide level2 smaller">
+<h2>Escriptura Asíncrona i Writeback</h2>
+<p>La escriptura asíncrona permet que les operacions d’escriptura es realitzin en segon pla, millorant la resposta del sistema. Les dades es desplacen a la <em>page cache</em> i es poden escriure al disc més tard.</p>
+<ul>
+<li class="fragment"><strong>Dirty Pages:</strong> Pàgines a la memòria que han estat modificades però encara no s’han escrit al disc.</li>
+<li class="fragment"><strong>Writeback:</strong> Procés de transferir les <em>dirty pages</em> de la memòria al disc.</li>
+<li class="fragment"><strong>Journaling:</strong> Mecanisme per assegurar la integritat del FS en cas de fallada durant el writeback.</li>
+<li class="fragment"><strong>Flush:</strong> Operació per escriure immediatament les <em>dirty pages</em> al disc.</li>
+</ul>
+</section>
+<section id="creació-de-directoris" class="slide level2 smaller">
+<h2>Creació de Directoris</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant P as Procés
+    participant VFS as VFS
+    participant FS as Driver de FS · mkdir
+    P-&gt;&gt;VFS: mkdir -&gt; /a/b/novedirectori
+    VFS-&gt;&gt;VFS: 1. Resoldre Dentry Pare -&gt; /a/b -&gt; Determinar Inode Pare
+    VFS-&gt;&gt;VFS: 2. Llegir blocs de dades del directori pare · Trobar espai per a nova Dentry
+    VFS-&gt;&gt;FS: 4. Crear nou Inode per al directori
+    FS--&gt;&gt;VFS: 5. Retornar Num. Inode
+    VFS-&gt;&gt;VFS: 6. Afegir Dentry al directori par · Escriure els blocs de dades del directori pare modificats
+    VFS--&gt;&gt;P: 8. Retornar èxit o error
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="eliminació-de-fitxers" class="slide level2 smaller">
+<h2>Eliminació de Fitxers</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant P as Procés
+    participant VFS as VFS
+    participant FS as Driver de FS · unlink
+    P-&gt;&gt;VFS: unlink -&gt; /a/b/fitxer.txt
+    VFS-&gt;&gt;VFS: 1. Resoldre Dentry Pare -&gt; /a/b -&gt; Determinar Inode Pare
+    VFS-&gt;&gt;VFS: 2. Llegir blocs de dades del directori pare · Trobar i esborrar la Dentry
+    VFS-&gt;&gt;VFS: 4. Comprovar enllaços -&gt; Si és l'últim enllaç, desassignar blocs de dades i blocs d'inode
+    VFS-&gt;&gt;FS: 6. Actualitzar metadades al disc
+    FS--&gt;&gt;VFS: 7. Confirmació d'actualització
+    VFS--&gt;&gt;P: 8. Retornar èxit o error
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="superbloc-i-operacions-dinode" class="slide level2 smaller">
+<h2>Superbloc i Operacions d’Inode</h2>
+<p>El <strong>VFS (Virtual Filesystem Switch)</strong> estableix dos conjunts d’operacions que el <em>driver</em> de cada Sistema de Fitxers ha d’implementar. Aquests mètodes permeten al <em>kernel</em> interactuar amb les metadades de forma uniforme.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operació</th>
+<th style="text-align: left;">Funció Tècnica</th>
+<th style="text-align: left;">Propòsit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>fill_super()</code></strong></td>
+<td style="text-align: left;">Llegeix l’estat global del FS (total/lliure d’Inodes i Blocs).</td>
+<td style="text-align: left;">Inicialització i muntatge.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>write_super()</code></strong></td>
+<td style="text-align: left;">Persisteix les estadístiques i l’estat actualitzat al disc.</td>
+<td style="text-align: left;">Canvis en l’assignació.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>put_super()</code></strong></td>
+<td style="text-align: left;">Allibera la memòria associada a la instància del FS.</td>
+<td style="text-align: left;">Desmuntatge (<code>umount</code>).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="operacions-de-linode" class="slide level2 smaller">
+<h2>Operacions de l’Inode</h2>
+<p>Malgrat el nom, la majoria d’aquestes operacions tracten amb la gestió de les <strong>Dentries</strong> i la jerarquia de noms de fitxer (no el contingut de l’Inode en si).</p>
+<ul>
+<li class="fragment"><strong>Creació i Cerca:</strong> <code>create</code>, <strong><code>lookup</code></strong>, <code>link</code>, <code>unlink</code>.</li>
+<li class="fragment"><strong>Directori i Enllaços:</strong> <code>mkdir</code>, <code>rmdir</code>, <code>symlink</code>, <code>readlink</code>, <code>rename</code>.</li>
+</ul>
+<div title="Tipus d'Inode">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tipus d’Inode</strong></p>
+</div>
+<div class="callout-content">
+<p>Els <em>drivers</em> de FS treballen amb dos tipus d’Inode:</p>
+<ol type="1">
+<li class="fragment"><strong>VFS Inode:</strong> Estructura genèrica utilitzada pel <em>kernel</em>.</li>
+<li class="fragment"><strong>FS Inode:</strong> Estructura interna del <em>driver</em> (p.&nbsp;ex., la versió Ext4 o XFS).</li>
+</ol>
+<p>El <em>driver</em> és responsable de la conversió entre aquestes dues estructures segons sigui necessari.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="cache-i-optimitzacions" class="title-slide slide level1 center">
+<h1>Cache i Optimitzacions</h1>
+
+</section>
+<section id="cache-dinodes-icache" class="slide level2 smaller">
+<h2>Cache d’Inodes (Icache)</h2>
+<p>Aquesta <em>cache</em> emmagatzema les metadades del fitxer a memòria (l’estructura de l’Inode), evitant lectures repetitives a la <strong>IZONE</strong> del disc.</p>
+<ul>
+<li class="fragment"><strong>Estructura:</strong> S’indexa mitjançant una <strong>Taula Hash</strong> (<em>hash table</em>).</li>
+<li class="fragment"><strong>Clau Hash:</strong> Es genera a partir de la tupla <strong>(Superbloc, Número d’Inode)</strong>.</li>
+<li class="fragment"><strong>Política:</strong> Els Inodes es mantenen fins que el FS es desmunta, s’elimina el fitxer, o hi ha pressió de memòria (<em>memory pressure</em>).</li>
+</ul>
+</section>
+<section id="cache-de-dentries" class="slide level2 smaller">
+<h2>Cache de Dentries</h2>
+<p>La Dcache és l’eina més important per a la resolució ràpida de camins (<em>path lookup</em>). <strong>Cacheja la relació Nom <span class="math inline">\(\rightarrow\)</span> Inode.</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Estat de la Dentry</th>
+<th style="text-align: left;">Implicació Tècnica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>Used</code></strong></td>
+<td style="text-align: left;">L’objecte està en ús (p.&nbsp;ex., associat a un <code>FILE Objecte</code>). El seu <code>d_inode</code> és vàlid.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>Unused</code></strong></td>
+<td style="text-align: left;">El <code>d_inode</code> és vàlid, però l’objecte Dentry no està sent utilitzat activament per cap procés.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>Negative</code></strong></td>
+<td style="text-align: left;">L’<code>d_inode</code> no és vàlid. S’utilitza per recordar que un fitxer <strong>no existeix</strong> o ha estat eliminat, evitant cerques futures innecessàries al disc.</td>
+</tr>
+</tbody>
+</table>
+<div title="Optimització de la Dentry Cache">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Optimització de la Dentry Cache</strong></p>
+</div>
+<div class="callout-content">
+<p>L’accés a l’Inode <em>cache</em> (per al seu alliberament en condicions de memòria baixa) utilitza l’estat d’ús, basat en el Superbloc i el número d’Inode. La Dentry <em>cache</em> també fa servir taules hash per a cerques ultra-ràpides.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cache-de-pàgines-dades-i-es" class="slide level2 smaller">
+<h2>Cache de pàgines: Dades i E/S</h2>
+<p>La <strong>Cache de pàgines</strong> és el mecanisme principal del <em>kernel</em> per a la gestió de dades d’E/S, utilitzat per tots els sistemes de fitxers. Emmagatzema els blocs de dades del fitxer a la memòria del sistema,per a la lectura ràpida i per a l’escriptura diferida.</p>
+<div title="Gestió de Memòria">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Gestió de Memòria</strong></p>
+</div>
+<div class="callout-content">
+<p>Linux reutilitza la memòria lliure com a cache, però l’allibera quan un procés necessita RAM.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><strong>Dades Cachejades:</strong> Només dades de fitxers, no metadades de nivell de bloc (<em>block device data</em>).</li>
+<li class="fragment"><strong>Mecanismes d’E/S:</strong> Suporta operacions <code>read()</code>, <code>write()</code> i <strong><code>mmap()</code></strong> (mapes de memòria).</li>
+</ul>
+<div title="Estructura Interna: Ràdix-Arbre">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Estructura Interna: Ràdix-Arbre</strong></p>
+</div>
+<div class="callout-content">
+<p>La <strong>Cache de pàgines</strong> utilitza una estructura de dades Radix Tree per mapejar de manera eficient els offsets de fitxer a les pàgines de memòria. Això permet accés ràpid a pàgines de dades grans.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="sistemes-de-fitxers-específics" class="title-slide slide level1 center">
+<h1>Sistemes de Fitxers Específics</h1>
+
+</section>
+<section id="fat-file-allocation-table" class="slide level2 smaller">
+<h2>FAT: File Allocation Table</h2>
+<ul>
+<li class="fragment">Sistema de fitxers creat el 1977 i popularitzat gràcies a MS-DOS.</li>
+<li class="fragment">Encara popular avui (FAT32): USB, targetes de memòria, partició d’arrencada EFI.</li>
+<li class="fragment"><strong>File Allocation Table</strong>: Estructura de llista enllaçada que conté informació sobre els blocs ocupats per cada fitxer.</li>
+<li class="fragment">També determina si un bloc està en ús o no.</li>
+</ul>
+
+<img data-src="../figs/slides/03-fs/FAT.png" style="width:60.0%" class="r-stretch"></section>
+<section id="fat-organització-de-directoris" class="slide level2 smaller">
+<h2>FAT: Organització de Directoris</h2>
+<p>Els directoris en FAT són fitxers especials que contenen entrades de <strong>32 bytes per a cada fitxer o subdirectori</strong>. Cada entrada inclou: <em>nom, atributs, timestamps, primer clúster i mida del fitxer</em>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nom</th>
+<th style="text-align: center;">Index</th>
+<th style="text-align: center;">Dir?</th>
+<th style="text-align: center;">Permisos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>.</code></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">rwx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Windows</code></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">rwx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Users</code></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">rwx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pagefile.sys</code></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">r–</td>
+</tr>
+</tbody>
+</table>
+<p>El superbloc actua com a punt de referència per a tot el sistema de fitxers, emmagatzemant informació crítica com la mida del clúster, la ubicació de la FAT i la ubicació del directori arrel.</p>
+</section>
+<section id="fat-limitacions-tècniques" class="slide level2 smaller">
+<h2>FAT: Limitacions Tècniques</h2>
+<p><strong>Limitacions de capacitat:</strong></p>
+<ul>
+<li class="fragment"><strong>FAT32</strong>: màxim 2TB per volum</li>
+<li class="fragment"><strong>FAT32</strong>: màxim 4GB per fitxer</li>
+</ul>
+<p><strong>Problemes de rendiment:</strong></p>
+<ul>
+<li class="fragment">Localització de blocs lliures: <strong>scan complet</strong> de la FAT</li>
+<li class="fragment">Fragmentació severa (pobra localitat)</li>
+<li class="fragment">Fragmentació de metadata: cerques costoses</li>
+<li class="fragment">Llistes enllaçades ineficients per fitxers grans</li>
+</ul>
+<p><strong>Impacte pràctic:</strong></p>
+<ul>
+<li class="fragment">Un fitxer de 16MB (4096 clústers de 4KB) requereix <strong>4096 lectures</strong> de la FAT per accés seqüencial complet</li>
+</ul>
+</section>
+<section id="ext-extended-file-system" class="slide level2 smaller">
+<h2>EXT: Extended File System</h2>
+<p>Els sistemes <strong>EXT</strong> van ser dissenyats específicament per a Linux com a evolució dels sistemes Unix tradicionals.</p>
+<p><strong>Evolució:</strong></p>
+<ul>
+<li class="fragment"><strong>ext</strong> (1992): Primera versió, problemes de rendiment</li>
+<li class="fragment"><strong>ext2</strong> (1993): Inodes, directoris flexibles<br>
+</li>
+<li class="fragment"><strong>ext3</strong> (2001): <strong>Journaling</strong> per a consistència</li>
+<li class="fragment"><strong>ext4</strong> (2008): <strong>Extents</strong>, millor rendiment</li>
+</ul>
+<p><strong>Característiques:</strong></p>
+<ul>
+<li class="fragment"><strong>Inodes</strong> com a element bàsic</li>
+<li class="fragment"><strong>Bitmaps</strong> per gestió d’assignació</li>
+<li class="fragment"><strong>Block Groups</strong> per localitat de dades</li>
+<li class="fragment"><strong>Journaling</strong> per integritat</li>
+</ul>
+</section>
+<section id="ext-estructura-de-linode" class="slide level2 smaller">
+<h2>EXT: Estructura de l’Inode</h2>
+<p>L’<strong>inode</strong> és el nucli del sistema EXT. Cada fitxer té almenys un inode que conté tota la seva metadata:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a></a><span class="kw">struct</span> ext4_inode <span class="op">{</span></span>
+<span id="cb2-2"><a></a>    <span class="dt">uint16_t</span> i_mode<span class="op">;</span>        <span class="co">// Permisos i tipus de fitxer</span></span>
+<span id="cb2-3"><a></a>    <span class="dt">uint16_t</span> i_uid<span class="op">;</span>         <span class="co">// User ID del propietari</span></span>
+<span id="cb2-4"><a></a>    <span class="dt">uint32_t</span> i_size<span class="op">;</span>        <span class="co">// Mida del fitxer en bytes</span></span>
+<span id="cb2-5"><a></a>    <span class="dt">uint32_t</span> i_atime<span class="op">;</span>       <span class="co">// Últim temps d'accés</span></span>
+<span id="cb2-6"><a></a>    <span class="dt">uint32_t</span> i_ctime<span class="op">;</span>       <span class="co">// Temps de creació de l'inode</span></span>
+<span id="cb2-7"><a></a>    <span class="dt">uint32_t</span> i_mtime<span class="op">;</span>       <span class="co">// Últim temps de modificació</span></span>
+<span id="cb2-8"><a></a>    <span class="dt">uint16_t</span> i_gid<span class="op">;</span>         <span class="co">// Group ID del propietari</span></span>
+<span id="cb2-9"><a></a>    <span class="dt">uint16_t</span> i_links_count<span class="op">;</span> <span class="co">// Nombre de hard links</span></span>
+<span id="cb2-10"><a></a>    </span>
+<span id="cb2-11"><a></a>    <span class="co">// Punters a blocs de dades</span></span>
+<span id="cb2-12"><a></a>    <span class="dt">uint32_t</span> i_block<span class="op">[</span><span class="dv">15</span><span class="op">];</span>   <span class="co">// Blocs directes i indirectes</span></span>
+<span id="cb2-13"><a></a>    <span class="co">/*</span></span>
+<span id="cb2-14"><a></a><span class="co">     * i_block[0-11]: 12 punters directes (48KB amb blocs de 4KB)</span></span>
+<span id="cb2-15"><a></a><span class="co">     * i_block[12]:   1 punter simple indirecte (4MB addicionals)</span></span>
+<span id="cb2-16"><a></a><span class="co">     * i_block[13]:   1 punter doble indirecte (4GB addicionals)</span></span>
+<span id="cb2-17"><a></a><span class="co">     * i_block[14]:   1 punter triple indirecte (4TB addicionals)</span></span>
+<span id="cb2-18"><a></a><span class="co">     */</span></span>
+<span id="cb2-19"><a></a></span>
+<span id="cb2-20"><a></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Els <strong>i-nodes</strong> consumeixen un 10% de l’emmagatzematge del disc (<em>es pot configurar en el moment de la creació del sistema de fitxers</em>).</p>
+</section>
+<section id="ext-adreçament-de-blocs-ext2" class="slide level2 smaller">
+<h2>EXT: Adreçament de Blocs (ext2)</h2>
+
+<img data-src="../figs/slides/03-fs/inodes-ext.png" class="r-stretch"><p>Un fitxer de <strong>100MB</strong> (25.600 blocs de 4KB) necessita <strong>2 nivells d’indirecció</strong>, requerint múltiples lectures de metadades abans d’accedir a les dades reals.</p>
+</section>
+<section id="ext-organització" class="slide level2 smaller">
+<h2>EXT: Organització</h2>
+
+<img data-src="../figs/slides/03-fs/ext-filesystem.png" style="width:70.0%" class="r-stretch"><ul>
+<li class="fragment"><strong>Bitmap d’Inodes:</strong> mapa de bits d’inodes ocupats/lliures.</li>
+<li class="fragment"><strong>Bitmap de Blocs:</strong> mapa de bits de blocs ocupats/lliures.</li>
+<li class="fragment"><strong>Taula d’Inodes:</strong> cada entrada és un únic inode.</li>
+</ul>
+</section>
+<section id="ext3-problema-de-consistència-i" class="slide level2 smaller">
+<h2>EXT3: Problema de Consistència (I)</h2>
+<p>Imagineu que un fitxer necessita augmentar la seva mida, i això requereix assignar un nou bloc de dades i actualitzar l’inode per reflectir aquesta nova assignació. Aquest procés implica múltiples operacions d’escriptura al disc.</p>
+
+<img data-src="../figs/slides/03-fs/ext3-size-increase.png" class="r-stretch"></section>
+<section id="ext3-problema-de-consistència-ii" class="slide level2 smaller">
+<h2>EXT3: Problema de Consistència (II)</h2>
+<div class="center-container">
+<p>Imagina que el procés es veu interromput (crash) a mitja operació.</p>
+</div>
+
+<img data-src="../figs/slides/03-fs/ext3-crash.png" class="r-stretch"></section>
+<section id="journaling---consistència" class="slide level2 smaller">
+<h2>Journaling - Consistència</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+    participant P as Procés
+    participant K as Kernel
+    participant J as Journal
+    participant FS as Filesystem
+
+    P-&gt;&gt;K: write() - ampliar fitxer
+    
+    Note over K,J: FASE 1: Preparació
+    K-&gt;&gt;J: Crear transacció: T1
+    K-&gt;&gt;J: Nou bloc dades · Update bitmap · Update inode
+    K-&gt;&gt;J: COMMIT transacció T1
+    
+    Note over K,FS: FASE 2: Aplicació
+    K-&gt;&gt;FS: Aplicar canvis del journal
+    K-&gt;&gt;J: Marcar T1 com a completa
+    
+    K--&gt;&gt;P: write() completat
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="journaling-modes" class="slide level2 smaller">
+<h2>Journaling: Modes</h2>
+<ul>
+<li class="fragment"><p><strong>Journaling Complet:</strong> Tant les dades com les metadades s’escriuen al journal abans d’aplicar-les al sistema de fitxers. Màxima seguretat, però més lent.</p></li>
+<li class="fragment"><p><strong>Journaling de Metadades:</strong> Només les metadades s’escriuen al journal. Les dades es poden escriure directament al sistema de fitxers. Equilibri entre seguretat i rendiment.</p></li>
+<li class="fragment"><p><strong>Escriptura Diferida (Writeback):</strong> Les dades i les metadades es poden escriure directament al sistema de fitxers sense passar pel journal. Màxim rendiment, però risc de corrupció de dades en cas de fallada.</p></li>
+</ul>
+</section>
+<section id="ext3-journaling" class="slide level2 smaller">
+<h2>ext3 · Journaling</h2>
+<ul>
+<li class="fragment"><strong>Pre-escriptura (Write-Ahead Logging)</strong>:
+<ul>
+<li class="fragment">Abans d’escriure qualsevol dada o metadada al disc, es registra la intenció d’aquesta escriptura en un registre especial anomenat <strong>journal</strong>. Garanteix que les operacions es completin correctament, fins i tot en cas de fallades.</li>
+</ul></li>
+<li class="fragment"><strong>Si escriu el journal correctament</strong>:
+<ul>
+<li class="fragment">La transacció es marca com a completa. Els canvis es poden aplicar al sistema de fitxers de manera segura.</li>
+</ul></li>
+<li class="fragment"><strong>Si la escriptura del journal es veu interrompuda</strong>:
+<ul>
+<li class="fragment">La transacció no es completa (pèrdua de dades), però el sistema de fitxers roman consistent.</li>
+</ul></li>
+<li class="fragment"><strong>Si el journal s’escriu correctament, però el disc no</strong>:
+<ul>
+<li class="fragment">Temporalment, el sistema de fitxers perd la consistència.El registre té la informació per restaurar-la (durant l’arrencada, els journals inacabats es completen).</li>
+</ul></li>
+</ul>
+</section>
+<section id="ext4-extents-per-a-millor-eficiència" class="slide level2 smaller">
+<h2>ext4: Extents per a Millor Eficiència</h2>
+<p>El principal problema (<em>ext2/ext3</em>) era la gestió ineficient dels punters a blocs de dades, especialment per a fitxers grans.</p>
+<div class="fragment">
+<p>Un <strong>extends</strong> és un descriptor que representa un rang contigu de blocs, millorant l’eficiència en l’assignació i reduint la fragmentació.</p>
+</div>
+<ul>
+<li class="fragment">Rangs de blocs físics contigus, descrits amb una entrada (bloc inicial + nombre de blocs).</li>
+<li class="fragment">Un extent pot mapar fins a 128 MiB (blocs de 4KB) d’espai contigu amb blocs de 4 KiB.</li>
+<li class="fragment">L’inode d’ext4 pot contenir directament fins a 4 extents; si el fitxer és gran o fragmentat, s’utilitza una estructura d’arbre (HTree) per indexar més extents.</li>
+</ul>
+</section>
+<section id="ext4-estructura-dun-extent" class="slide level2 smaller">
+<h2>ext4: Estructura d’un Extent</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a></a><span class="kw">struct</span> ext4_extent <span class="op">{</span></span>
+<span id="cb3-2"><a></a>    <span class="dt">uint32_t</span> ee_block<span class="op">;</span>      <span class="co">// Bloc lògic inicial al fitxer</span></span>
+<span id="cb3-3"><a></a>    <span class="dt">uint16_t</span> ee_len<span class="op">;</span>        <span class="co">// Longitud en blocs (màxim 32.768)</span></span>
+<span id="cb3-4"><a></a>    <span class="dt">uint16_t</span> ee_start_hi<span class="op">;</span>   <span class="co">// Bits alts del bloc físic</span></span>
+<span id="cb3-5"><a></a>    <span class="dt">uint32_t</span> ee_start_lo<span class="op">;</span>   <span class="co">// Bits baixos del bloc físic</span></span>
+<span id="cb3-6"><a></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Inode] --&gt; B[Extent Header]
+    B --&gt; C1[Extent 1]
+    B --&gt; C2[Extent 2]
+    B --&gt; C3[Extent 3]
+    B --&gt; C4[Extent 4]
+    C1 --&gt; D1[Bloc Físic 1000 - 1023]
+    C2 --&gt; D2[Bloc Físic 2000 - 2023]
+    C3 --&gt; D3[Bloc Físic 3000 - 3023]
+    C4 --&gt; D4[Bloc Físic 4000 - 4023]
+    style A fill:#eaf7ff,stroke:#007bff
+    style B fill:#f9f5dd,stroke:#c4aa18
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="ext4-htreebtree" class="slide level2 smaller">
+<h2>ext4: HTree/Btree</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><p>Un <strong>B-tree</strong> és una estructura d’arbre auto-balancejada que manté dades ordenades i permet cerques, insercions i eliminacions en temps logarítmic.</p></li>
+<li class="fragment"><p>Un <strong>HTree</strong> és una variant de <em>B-tree</em> utilitzada específicament per indexar fitxers i directoris en <strong>ext4</strong>.</p></li>
+<li class="fragment"><p>La principal diferència és que les entrades es distribueixen en nodes fulla i no fulla, amb una estructura de capçalera específica per a cada node.</p></li>
+<li class="fragment"><p><strong>Inode/Arrel</strong>: Apunta a la capçalera de l’HTree.</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Inode] --&gt; B[HTree Root]
+    B --&gt; C1[Node No Fulla 1]
+    B --&gt; C2[Node No Fulla 2]
+    C1 --&gt; D1[Node Fulla 1]
+    C1 --&gt; D2[Node Fulla 2]
+    C2 --&gt; D3[Node Fulla 3]
+    C2 --&gt; D4[Node Fulla 4]
+    D1 --&gt; E1[Extent 1]
+    D1 --&gt; E2[Extent 2]
+    D2 --&gt; E3[Extent 3]
+    D3 --&gt; E4[Extent 4]
+    D4 --&gt; E5[Extent 5]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment"><strong>Nodes no fulla</strong>: Indexen altres nodes, permetent que l’arbre creixi i es mantingui balancejat.</li>
+<li class="fragment"><strong>Nodes fulla</strong>: Contenen les extents, que són rangs de blocs físics contigus.</li>
+<li class="fragment"><strong>Extents</strong>: Descriuen els blocs reals del fitxer o directori.</li>
+</ul>
+</div></div>
+</section>
+<section id="ext4-assignació-multibloc-i-retrassada" class="slide level2 smaller">
+<h2>ext4 · Assignació multibloc i retrassada</h2>
+<ul>
+<li class="fragment"><strong>Assignació Multibloc</strong>:
+<ul>
+<li class="fragment">ext4 pot assignar múltiples blocs a la vegada, agrupant blocs consecutius per minimitzar la fragmentació.</li>
+<li class="fragment">Això redueix la sobrecàrrega d’assignació i millora la localitat de les dades.</li>
+</ul></li>
+<li class="fragment"><strong>Assignació Retardada</strong>:
+<ul>
+<li class="fragment">L’assignació retardada espera a bloquejar l’espai fins just abans d’escriure, optimitzant la distribució de blocs.</li>
+<li class="fragment">Això permet agrupar escriptures i minimitzar la fragmentació.</li>
+</ul></li>
+</ul>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../figs/corporative/institute.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Unitat 3 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) <a href="../index.html">🏠</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/amsa-gei-udl-2526-105013\.github\.io\/course\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
