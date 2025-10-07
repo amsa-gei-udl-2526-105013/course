@@ -423,6 +423,7 @@ window.Quarto = {
   <li><a href="#taules-denrutament-i-associacions" id="toc-taules-denrutament-i-associacions" class="nav-link" data-scroll-target="#taules-denrutament-i-associacions">Taules d’Enrutament i Associacions</a>
   <ul class="collapse">
   <li><a href="#configuració-del-gateway-dinternet" id="toc-configuració-del-gateway-dinternet" class="nav-link" data-scroll-target="#configuració-del-gateway-dinternet">Configuració del Gateway d’Internet</a></li>
+  <li><a href="#creació-de-les-taules-de-rutes" id="toc-creació-de-les-taules-de-rutes" class="nav-link" data-scroll-target="#creació-de-les-taules-de-rutes">Creació de les taules de rutes</a></li>
   </ul></li>
   <li><a href="#grups-de-seguretat" id="toc-grups-de-seguretat" class="nav-link" data-scroll-target="#grups-de-seguretat">Grups de Seguretat</a>
   <ul class="collapse">
@@ -530,12 +531,50 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="creació-de-les-subxarxes">Creació de les subxarxes</h3>
 <p>A continuació, afegirem les subxarxes necessàries per a la nostra arquitectura. Aneu a <strong>VPC</strong> → <strong>Subnets</strong> → <strong>Create subnet</strong>. Seleccioneu la VPC que acabem de crear i afegiu les subxarxes següents:</p>
 <ul>
-<li><p><strong>AMSA-DMZ-01</strong>: Subxarxa pública a la zona <strong>us-east-1a</strong>. Aquesta subxarxa allotjarà la instància EC2 que farà de pont segur d’accés (mitjançant túnel SSH) per a la gestió de tots els recursos privats. <em>(10.0.1.0/24)</em>.</p></li>
-<li><p><strong>AMSA-DMZ-02</strong>: Subxarxa pública a la zona <strong>us-east-1b</strong>. Aquesta subxarxa allotjarà la instància EC2 que farà de pont segur d’accés (mitjançant túnel SSH) per a la gestió de tots els recursos privats. <em>(10.0.2.0/24)</em>.</p></li>
-<li><p><strong>AMSA-Private01</strong>: Subxarxa privada per a les instàncies de WordPress a la zona de disponibilitat <strong>us-east-1a</strong>. <em>(10.0.3.0/24)</em>.</p></li>
-<li><p><strong>AMSA-Private02</strong>: Subxarxa privada per a les instàncies de WordPress a la zona de disponibilitat <strong>us-east-1b</strong>. <em>(10.0.4.0/24)</em></p></li>
-<li><p><strong>AMSA-Data</strong>: Subxarxa privada per a dades a la zona de disponibilitat <strong>us-east-1c</strong>. <em>(10.0.5.0/24)</em></p></li>
+<li><strong>AMSA-DMZ-01</strong>: Subxarxa pública a la zona <strong>us-east-1a</strong>. Aquesta subxarxa allotjarà la instància EC2 que farà de pont segur d’accés (mitjançant túnel SSH) per a la gestió de tots els recursos privats. <em>(10.0.1.0/24)</em>.</li>
 </ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-DMZ-01.png" class="img-fluid figure-img"></p>
+<figcaption>AMSA-DMZ-01</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>AMSA-DMZ-02</strong>: Subxarxa pública a la zona <strong>us-east-1b</strong>. Aquesta subxarxa allotjarà la instància EC2 que farà de pont segur d’accés (mitjançant túnel SSH) per a la gestió de tots els recursos privats. <em>(10.0.2.0/24)</em>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-DMZ-02.png" class="img-fluid figure-img"></p>
+<figcaption>AMSA-DMZ-02</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>AMSA-Private01</strong>: Subxarxa privada per a les instàncies de WordPress a la zona de disponibilitat <strong>us-east-1a</strong>. <em>(10.0.3.0/24)</em>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-Private01.png" class="img-fluid figure-img"></p>
+<figcaption>AMSA-Private01</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>AMSA-Private02</strong>: Subxarxa privada per a les instàncies de WordPress a la zona de disponibilitat <strong>us-east-1b</strong>. <em>(10.0.4.0/24)</em></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-Private02.png" class="img-fluid figure-img"></p>
+<figcaption>AMSA-Private02</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>AMSA-Data</strong>: Subxarxa privada per a dades a la zona de disponibilitat <strong>us-east-1c</strong>. <em>(10.0.5.0/24)</em></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-Data.png" class="img-fluid figure-img"></p>
+<figcaption>AMSA-Data</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="taules-denrutament-i-associacions" class="level2">
@@ -543,19 +582,15 @@ window.Quarto = {
 <p>Per gestionar les rutes del tràfic i determinar com es distribueix entre les subxarxes, crearem taules de rutes i les associem a les subxarxes corresponents.</p>
 <section id="configuració-del-gateway-dinternet" class="level3">
 <h3 class="anchored" data-anchor-id="configuració-del-gateway-dinternet">Configuració del Gateway d’Internet</h3>
-<p>Utilitzeum un Gateway d’Internet (IGW) per permetre que les subxarxes públiques (Front-01 i Front-02) tinguin accés a Internet. Crearem el IGW i l’associarem a la nostra VPC.</p>
-<ul>
-<li><strong>Creació del Gateway d’Internet</strong>:</li>
-</ul>
+<p>Utilitzarem un <strong>Gateway d’Internet (IGW)</strong> per permetre que les subxarxes públiques <em>(AMSA-DMZ-01 i AMSA-DMZ-02</em>) tinguin accés a Internet tant per a tràfic entrant com sortint. Per fer-ho, primer crearem el IGW i després l’associarem a la nostra VPC.</p>
+<p>El primer pas és crear el Gateway d’Internet. Aneu a <strong>VPC</strong> → <strong>Internet Gateways</strong> → <strong>Create internet gateway</strong>. Un cop creat, l’anomeneu <strong>AMSA-IG</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/ig.png" class="img-fluid figure-img"></p>
 <figcaption>Gateway d’Internet per a la VPC</figcaption>
 </figure>
 </div>
-<ul>
-<li><strong>Associació del Gateway d’Internet amb la VPC</strong>:</li>
-</ul>
+<p>El segon pas és associar el Gateway d’Internet amb la VPC. Seleccioneu el Gateway d’Internet que acabem de crear i feu clic a <strong>Actions</strong> → <strong>Attach to VPC</strong>. Seleccioneu la VPC <strong>AMSA-VPC</strong> i feu clic a <strong>Attach internet gateway</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/attachIG.png" class="img-fluid figure-img"></p>
@@ -568,36 +603,77 @@ window.Quarto = {
 <figcaption>Associació del Gateway d’Internet amb la VPC</figcaption>
 </figure>
 </div>
-<ul>
-<li><p><strong>Taula de rutes per a la subxarxa AMSA-DMZ-01</strong>: La taula de rutes defineix com es dirigeix el tràfic dins de la VPC i cap a l’exterior. Crearem una taula de rutes específica per a la subxarxa <strong>AMSA-DMZ-01</strong>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Attached IGW 🛑">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>Attached IGW 🛑
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assegureu-vos que el Gateway d’Internet estigui correctament associat a la VPC. Si no està associat, les subxarxes públiques no podran accedir a Internet.</p>
+</div>
+</div>
+</section>
+<section id="creació-de-les-taules-de-rutes" class="level3">
+<h3 class="anchored" data-anchor-id="creació-de-les-taules-de-rutes">Creació de les taules de rutes</h3>
+<p>Cada subxarxa necessita una taula de rutes per definir com es dirigeix el tràfic sortint i entrant. Crearem taules de rutes específiques per a cada tipus de subxarxa (pública i privada) i les associem a les subxarxes corresponents.</p>
+<section id="enrutament-per-a-les-subxarxes-públiques-dmz" class="level4">
+<h4 class="anchored" data-anchor-id="enrutament-per-a-les-subxarxes-públiques-dmz">Enrutament per a les subxarxes públiques (DMZ)</h4>
+<p>El primer pas és crear la taula de rutes per a les subxarxes públiques. Aneu a <strong>VPC</strong> → <strong>Route Tables</strong> → <strong>Create route table</strong>. Seleccioneu la VPC <strong>AMSA-VPC</strong> i anomeneu la taula de rutes <strong>AMSA-DMZ01-RT</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-DMZ-RT.png" class="img-fluid figure-img"></p>
-<figcaption>Taula de rutes per a la subxarxa AMSA-DMZ-RT</figcaption>
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-DMZ01-RT.png" class="img-fluid figure-img"></p>
+<figcaption>Taula de rutes per a la subxarxa AMSA-DMZ01-RT</figcaption>
 </figure>
 </div>
-<ul>
-<li><p><strong>Associació de la taula de rutes amb la subxarxa AMSA-DMZ-01</strong>: Per fer-ho, navegarem a la consola de VPC d’AWS, seleccionarem la subxarxa <strong>AMSA-DMZ-01</strong> anireu a la secció <em>Subnet Associations</em> i clicareu a <em>Edit subnet associations</em>. A continuació, seleccionarem la taula de rutes <strong>AMSA-DMZ01-RouteTable</strong> i clicarem a <em>Save</em>.</p>
+<p>El segon pas és associar la taula de rutes (<em>AMSA-DMZ01-RT</em>) amb la subxarxa <strong>AMSA-DMZ-01</strong> i permetre el tràfic de sortida a Internet a través del Gateway d’Internet que hem creat anteriorment.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-DMZ-Subnet-Association.png" class="img-fluid figure-img"></p>
-<figcaption>Associant la taula de rutes amb la subxarxa</figcaption>
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-DMZ-Subnet-Association.png" class="img-fluid figure-img"></p>
+<figcaption>Associació de la taula de rutes amb la subxarxa AMSA-DMZ-01</figcaption>
 </figure>
 </div>
-<ul>
-<li><p><strong>Permetem el tràfic de sortida a Internet</strong>: Per fer-ho, navegarem a la consola de VPC d’AWS, seleccionarem la subxarxa <strong>AMSA-DMZ-01</strong> anireu a la secció <em>Routes</em> i clicareu a <em>Edit routes</em>. A continuació, <strong>Add route</strong> i editareu (Destination: 0.0.0.0/0; Target:Seleccionar el <strong>AMSA-IG</strong>).</p>
+<p>El tercer pas és permetre el tràfic de sortida a Internet a través del Gateway d’Internet que hem creat anteriorment. Per fer-ho aneu a la secció <em>Routes</em> i clicareu a <em>Edit routes</em>. A continuació, <strong>Add route</strong> i editareu (Destination: 0.0.0.0/0; Target:Seleccionar el <strong>AMSA-IG</strong>).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-Routes-DMZ.png" class="img-fluid figure-img"></p>
+<p><img src="../../figs/laboratories/03-aws-wp/wordpress/IG.png" class="img-fluid figure-img"></p>
 <figcaption>Permetem el tràfic amb l’exterior a través del IG</figcaption>
 </figure>
-</div></li>
-</ul></li>
-</ul></li>
-<li><p>Realitzarem el mateix procés per a la subxarxa <strong>AMSA-DMZ-02</strong>. Creació de la <strong>AMSA-DMZ02-RouteTable</strong> i l’associació amb la subxarxa i crearem la ruta al <strong>AMSA-IG</strong>.</p></li>
-<li><p><strong>Taula de rutes per a la subxarxa AMSA-Private01 i AMSA-Private02</strong>: Aquestes xarxes han de poder accedir a Internet. Però no volem que internet tingui accés a les seves EC2. Per tant, necessitem crear un NAT Gateway. I després associar-lo a la subxarxa.</p>
-<ul>
-<li><p><strong>Creació del NAT Gateway</strong>: Per crear un NAT Gateway, necessitem una IP elàstica (Elastic IP). Per tant, primer crearem una IP elàstica i després la utilitzarem per crear el NAT Gateway. L’anomeneu <strong>AMSA-NAT-EIP</strong>.</p>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="AMSA-DMZ-02 🛑">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>AMSA-DMZ-02 🛑
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Realitzeu els mateixos passos per a la subxarxa <strong>AMSA-DMZ-02</strong>, modificant només el nom de la taula de rutes i l’associació amb la subxarxa.</p>
+</div>
+</div>
+</section>
+<section id="enrutament-per-a-les-subxarxes-privades" class="level4">
+<h4 class="anchored" data-anchor-id="enrutament-per-a-les-subxarxes-privades">Enrutament per a les subxarxes privades</h4>
+<p>Les subxarxes privades no tenen accés directe a Internet per motius de seguretat. Per tant, necessitem configurar les taules de rutes per a aquestes subxarxes de manera que puguin accedir a Internet a través d’un NAT Gateway (Network Address Translation Gateway). Això permetrà que les instàncies dins de les subxarxes privades puguin iniciar connexions cap a l’exterior, però impedirà que l’exterior iniciï connexions cap a elles.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="NAT Gateway 🧠">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>NAT Gateway 🧠
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un NAT Gateway és un servei gestionat per AWS que permet a les instàncies en una subxarxa privada accedir a Internet per a actualitzacions de programari, descàrregues de paquets, etc., sense exposar aquestes instàncies directament a Internet. El NAT Gateway tradueix les adreces IP privades de les instàncies a una adreça IP pública quan aquestes instàncies fan peticions a Internet.</p>
+</div>
+</div>
+<p>Per crear el NAT Gateway, necessitem una IP elàstica (Elastic IP). Per tant, primer crearem una IP elàstica i després la utilitzarem per crear el NAT Gateway. L’anomeneu <strong>AMSA-NAT-EIP</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/ElasticIP-NAT.png" class="img-fluid figure-img"></p>
@@ -609,41 +685,47 @@ window.Quarto = {
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/ElasticIp-Nat2.png" class="img-fluid figure-img"></p>
 <figcaption>Actualitzar el nom de la IP elàstica</figcaption>
 </figure>
-</div></li>
-<li><p><strong>Creació del NAT Gateway</strong>: Un cop tenim la IP elàstica, podem crear el NAT Gateway. L’anomeneu <strong>AMSA-NG</strong> i l’associeu a la subxarxa <strong>AMSA-DMZ</strong>.</p>
+</div>
+<p>Un cop tenim la IP elàstica, podem crear el NAT Gateway. L’anomeneu <strong>AMSA-NG</strong> i l’associeu a la subxarxa <strong>AMSA-DMZ-01</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/nat-gw-create.png" class="img-fluid figure-img"></p>
 <figcaption>Creació del NAT Gateway</figcaption>
 </figure>
-</div></li>
-<li><p>Crearem la taula de rutes (<em>AMSA-Private01-RT</em>) per a la subxarxa <strong>AMSA-Private01</strong> i l’associarem a la subxarxa. Aquesta taula de rutes permetrà que les instàncies dins d’aquesta subxarxa accedeixin a Internet a través del NAT Gateway.</p>
+</div>
+<p>Crearem la taula de rutes (<em>AMSA-Private01-RT</em>) per a la subxarxa <strong>AMSA-Private01</strong> i l’associarem a la subxarxa. Aquesta taula de rutes permetrà que les instàncies dins d’aquesta subxarxa accedeixin a Internet a través del NAT Gateway.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-Private01-RT.png" class="img-fluid figure-img"></p>
 <figcaption>Taula de rutes per a la subxarxa AMSA-Private01</figcaption>
 </figure>
 </div>
-<ul>
-<li><p><strong>Associació de la taula de rutes amb la subxarxa AMSA-Private01</strong>: Per fer-ho, navegarem a la consola de VPC d’AWS, seleccionarem la subxarxa <strong>AMSA-Private01</strong> anireu a la secció <em>Subnet Associations</em> i clicareu a <em>Edit subnet associations</em>. A continuació, seleccionarem la taula de rutes <strong>AMSA-Private01-RT</strong> i clicarem a <em>Save</em>.</p>
+<p>El segon pas és associar la taula de rutes (<em>AMSA-Private01-RT</em>) amb la subxarxa <strong>AMSA-Private01</strong> i permetre el tràfic de sortida a Internet a través del NAT Gateway que hem creat anteriorment.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-Private01-Subnet-Association.png" class="img-fluid figure-img"></p>
-<figcaption>Associant la taula de rutes amb la subxarxa</figcaption>
+<p><img src="../../figs/laboratories/03-aws-wp/AMSA-Private01-RT-create.png" class="img-fluid figure-img"></p>
+<figcaption>Creació de la taula de rutes per a la subxarxa AMSA-Private01</figcaption>
 </figure>
-</div></li>
-<li><p><strong>Permetem el tràfic de sortida a Internet</strong>: Per fer-ho, navegarem a la consola de VPC d’AWS, seleccionarem la subxarxa <strong>AMSA-Private01</strong> anireu a la secció <em>Routes</em> i clicareu a <em>Edit routes</em>. A continuació, <strong>Add route</strong> i editareu (Destination: 0.0.0.0/0; Target:Seleccionar el <strong>AMSA-NG</strong>).</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-Routes-Private01.png" class="img-fluid figure-img"></p>
-<figcaption>Permetem el tràfic amb l’exterior a través del NAT Gateway</figcaption>
-</figure>
-</div></li>
-</ul></li>
-<li><p>Repetirem el mateix procés per a la subxarxa <strong>AMSA-Private02</strong>. Creació de la <strong>AMSA-Private02-RT</strong> i l’associació amb la subxarxa i crearem la ruta al <strong>AMSA-NG</strong>.</p></li>
-</ul></li>
-<li><p><strong>Taula de rutes per a AMSA-Data</strong>: La subxarxa <strong>AMSA-Data</strong> no requereix accés directe a Internet. Anomenarem <strong>AMSA-Data-RT</strong>. Només necessita rutes locals per comunicar-se amb altres subxarxes dins de la VPC. Per a això, crearem una taula de rutes i l’associarem a <strong>AMSA-Data</strong>, però sense definir cap ruta.</p></li>
-</ul>
+</div>
+<p>El tercer pas és permetre el tràfic de sortida a Internet a través del NAT Gateway que hem creat anteriorment. Per fer-ho aneu a la secció <em>Routes</em> i clicareu a <em>Edit routes</em>. A continuació, <strong>Add route</strong> i editareu (Destination: 0.0.0.0/0; Target:Seleccionar el <strong>AMSA-NG</strong>).</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="AMSA-Private02 🛑">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>AMSA-Private02 🛑
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Repetiu els mateixos passos per a la subxarxa <strong>AMSA-Private02</strong>, modificant només el nom de la taula de rutes i l’associació amb la subxarxa.</p>
+</div>
+</div>
+</section>
+<section id="enrutament-per-a-la-subxarxa-de-dades-amsa-data" class="level4">
+<h4 class="anchored" data-anchor-id="enrutament-per-a-la-subxarxa-de-dades-amsa-data">Enrutament per a la subxarxa de dades (AMSA-Data)</h4>
+<p>La subxarxa <strong>AMSA-Data</strong> no allotjarà instàncies que necessitin accés a Internet. Per tant, no necessitem configurar cap ruta per a aquesta subxarxa. Crearem una taula de rutes buida i l’associarem a la subxarxa <strong>AMSA-Data</strong>. Aquesta xarxa serà completament aïllada i només permetrà la comunicació interna dins de la VPC.</p>
+</section>
 </section>
 </section>
 <section id="grups-de-seguretat" class="level2">
@@ -744,7 +826,7 @@ window.Quarto = {
 <section id="configuració-del-servidor-web-amb-wordpress" class="level1">
 <h1>Configuració del Servidor Web amb WordPress</h1>
 <ol type="1">
-<li><p>Creareu una instancia EC2 amb Amazon Linux, seleccionant la VPC <strong>AMSA-VPC</strong> i la subxarxa <strong>AMSA-DMZ</strong>. Assegureu-vos que l’instància utilitzi el grup de seguretat <strong>AMSA-WP-SG</strong>. La podeu anomenar <strong>AMSA-DB-Config</strong>. Seleccionar <em>assignar ip pública</em>. Aquesta instància només la farem servir per inicialitzar la base de dades i després la podrem eliminar.</p></li>
+<li><p>Creareu una instancia EC2 amb Amazon Linux, seleccionant la VPC <strong>AMSA-VPC</strong> i la subxarxa <strong>AMSA-DMZ-01</strong>. Assegureu-vos que l’instància utilitzi el grup de seguretat <strong>AMSA-WP-SG</strong>. La podeu anomenar <strong>AMSA-DB-Config</strong>. Seleccionar <em>assignar ip pública</em>. Aquesta instància només la farem servir per inicialitzar la base de dades i després la podrem eliminar.</p></li>
 <li><p>Un cop configurada la instància, connecteu-vos-hi mitjançant SSH utilitzant la clau privada corresponent a la clau pública que vau associar a la instància durant la seva creació. I realitzeu la configuració de la base de dades MySQL per a WordPress.</p></li>
 <li><p>Anem a crear una plantilla de llançament (<strong>Launch Template</strong>) per a les instàncies EC2 que allotjaran WordPress. Aquesta plantilla inclourà la configuració necessària per a les instàncies, incloent-hi el script d’instal·lació i configuració de WordPress.</p>
 <ul>
@@ -925,7 +1007,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="configuració-vpn">Configuració VPN</h2>
 <section id="ec2-per-desplegar-el-servidor-vpn" class="level3">
 <h3 class="anchored" data-anchor-id="ec2-per-desplegar-el-servidor-vpn">EC2 per desplegar el servidor VPN</h3>
-<p>Per desplegar el servidor VPN, crearem una nova instància EC2 que actuarà com a servidor VPN. Aquesta instància EC2 haurà d’estar en una subxarxa pública connectada a interent. Anomenarem aquesta instància <strong>AMSA-VPN</strong> i la situarem a la subxarxa pública <strong>AMSA-DMZ</strong>. Aquesta instància EC2 utilitzarà el grup de seguretat <strong>AMSA-VPN-SG</strong> que permetrà el tràfic necessari per al funcionament del servidor VPN.</p>
+<p>Per desplegar el servidor VPN, crearem una nova instància EC2 que actuarà com a servidor VPN. Aquesta instància EC2 haurà d’estar en una subxarxa pública connectada a interent. Anomenarem aquesta instància <strong>AMSA-VPN</strong> i la situarem a la subxarxa pública <strong>AMSA-DMZ-01</strong>. Aquesta instància EC2 utilitzarà el grup de seguretat <strong>AMSA-VPN-SG</strong> que permetrà el tràfic necessari per al funcionament del servidor VPN.</p>
 <ol type="1">
 <li><p>Navegueu a la consola de AWS i seleccioneu el servei <strong>EC2</strong>. A la barra lateral, seleccioneu <strong>Instances</strong> i després <strong>Launch Instances</strong>.</p></li>
 <li><p>Seleccioneu la imatge <strong>Ubuntu Server 22.04 LTS</strong>.</p></li>
