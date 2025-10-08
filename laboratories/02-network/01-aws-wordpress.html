@@ -442,6 +442,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#neteja-els-recursos-creats" id="toc-neteja-els-recursos-creats" class="nav-link" data-scroll-target="#neteja-els-recursos-creats">Neteja els recursos creats</a></li>
   <li><a href="#exercics-adicionals" id="toc-exercics-adicionals" class="nav-link" data-scroll-target="#exercics-adicionals">Exercics Adicionals</a></li>
+  <li><a href="#recursos-addicionals" id="toc-recursos-addicionals" class="nav-link" data-scroll-target="#recursos-addicionals">Recursos Addicionals</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -966,7 +967,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>El balancejador de càrrega comprova ltg-04a salut de les instàncies EC2 a través del port 80 i la ruta <strong>/</strong>. Això significa que el balancejador de càrrega enviarà tràfic a les instàncies EC2 que responguin correctament a les peticions HTTP a la ruta <strong>/</strong>. Com que les nostres instàncies EC2 tenen WordPress instal·lat, aquestes instàncies respondran correctament a les peticions HTTP a la ruta <strong>/</strong>. <em>Podem deixar la configuració per defecte</em>.</p>
+<p>El balancejador de càrrega comprova la salut de les instàncies EC2 a través del port 80 i la ruta <strong>/</strong>. Això significa que el balancejador de càrrega enviarà tràfic a les instàncies EC2 que responguin correctament a les peticions HTTP a la ruta <strong>/</strong>. Com que les nostres instàncies EC2 tenen WordPress instal·lat, aquestes instàncies respondran correctament a les peticions HTTP a la ruta <strong>/</strong>. <em>Podem deixar la configuració per defecte</em>. La instal·lació de WordPress inclou una pàgina d’inici que respondrà amb 302 (Found) quan s’accedeixi a la ruta arrel (/), per això pot passar que el health check mostri que la instància no està saludable. Un cop configurat el WordPress, el health check mostrarà que la instància està saludable.</p>
 </div>
 </div>
 <ul>
@@ -1015,7 +1016,7 @@ window.Quarto = {
 <li><p>Configureu la instància:</p>
 <ul>
 <li><strong>Network</strong>: AMSA-VPC</li>
-<li><strong>Subnet</strong>: Front-01</li>
+<li><strong>Subnet</strong>: AMSA-DMZ-01</li>
 <li><strong>Auto-assign Public IP</strong>: Enable</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -1025,7 +1026,7 @@ window.Quarto = {
 </figure>
 </div></li>
 <li><p>Configureu el grup de seguretat: <strong>AMSA-VPN-SG</strong>.</p>
-<p>Si reviseu la documentació d’instal·lació del servidor OpenVPN: <a href="https://openvpn.net/images/pdf/OpenVPN_Access_Server_Sysadmin_Guide_Rev.pdf">OpenVPN Access Server System Administrator Guide</a>. Veure que necessitem els següents ports oberts: <strong>TCP 443, TCP 943, UDP 1194</strong>.</p>
+<p>Si reviseu la documentació d’instal·lació del servidor OpenVPN: <a href="https://openvpn.net/images/pdf/OpenVPN_Access_Server_Sysadmin_Guide_Rev.pdf">OpenVPN Access Server System Administrator Guide</a>. Veure que necessitem els següents ports oberts: <strong>TCP 943, UDP 1194</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../figs/laboratories/03-aws-wp/wordpress/AMSA-SG-VPN.png" class="img-fluid figure-img"></p>
@@ -1161,7 +1162,15 @@ window.Quarto = {
 <li>Com milloraríeu els grups de seguretat, quins canvis faríeu?</li>
 <li>Què caldria fer per connectar un client MySQL des de casa a la base de dades RDS? Expliqueu els passos.</li>
 <li>Prepara un script que faci una prova de càrrega al balancejador de càrrega i mostri com es distribueix el tràfic entre les instàncies EC2.</li>
+<li>Genera un infra_v3.yaml que contingui tota la infraestructura com a codi.</li>
 </ol>
+</section>
+<section id="recursos-addicionals" class="level2">
+<h2 class="anchored" data-anchor-id="recursos-addicionals">Recursos Addicionals</h2>
+<ul>
+<li><a href="src/infra-v1.yaml">infra_v1.yaml</a>: Aquest fitxer conté la infraestructura com a codi per crear tots els recursos d’AWS utilitzant AWS CloudFormation fins a la creació de templates de llançament.</li>
+<li><a href="src/infra-v2.yaml">infra_v2.yaml</a>: Aquest fitxer conté la infraestructura com a codi per crear tots els recursos d’AWS utilitzant AWS CloudFormation sense el load balancer ni les instancies EC2 corresponents als WordPress.</li>
+</ul>
 
 
 </section>
