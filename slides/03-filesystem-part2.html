@@ -251,7 +251,7 @@ Jordi Mateo Fornés
 <li class="fragment"><strong>Stripe</strong>: Un stripe és una unitat d’informació que es distribueix entre els diferents dispositius que formen el RAID. Conjunt de blocs distribuïts entre discs dins del RAID.</li>
 <li class="fragment"><strong>Bloc</strong>: Un bloc és una unitat d’informació que es llegeix o s’escriu en un dispositiu d’emmagatzematge. (<strong>512B, 4KB…</strong>).</li>
 </ul>
-<div title="Diferència entre Stripe i Bloc">
+<div class="fragment" title="Diferència entre Stripe i Bloc">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -568,15 +568,15 @@ Jordi Mateo Fornés
 </ul>
 <table class="caption-top">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -657,15 +657,15 @@ Jordi Mateo Fornés
 <h2>Comprovació d’errors amb Hamming [1100111]</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -746,15 +746,15 @@ Jordi Mateo Fornés
 <h2>Comprovació d’errors amb Hamming [0100110]</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -921,12 +921,12 @@ Jordi Mateo Fornés
 <h2>Comparativa de RAIDs</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 15%">
-<col style="width: 26%">
+<col style="width: 16%">
+<col style="width: 16%">
 <col style="width: 17%">
-<col style="width: 13%">
-<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1032,8 +1032,8 @@ Jordi Mateo Fornés
 <h2>Components del subsistema MD</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 32%">
-<col style="width: 67%">
+<col style="width: 33%">
+<col style="width: 66%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1252,14 +1252,15 @@ Jordi Mateo Fornés
 <section>
 <section id="casos-pràctics" class="title-slide slide level1 center">
 <h1>Casos Pràctics</h1>
-
+<ul>
+<li class="fragment"><p>El <strong>RAID 0</strong> ofereix una major velocitat de lectura i escriptura, però no proporciona cap mena de redundància. Una fallada en un disc faria que es perdessin totes les dades. Per tant, no és una bona opció per a un sistema root.</p></li>
+<li class="fragment"><p>El <strong>RAID 1</strong> ofereix redundància. No obstant això, no millora la velocitat d’escriptura. Aquest RAID és una bona opció per a un sistema root, ja que assegura la integritat de les dades.</p></li>
+</ul>
 </section>
 <section id="cas-pràctic-i" class="slide level2 smaller">
 <h2>Cas Pràctic (I)</h2>
 <p>Assumeix que vols configurar un RAID per configurar la partició <em>root</em> del teu servidor Debian. <em>quin RAID recomanaries i que t’aportaria?</em></p>
 <ul>
-<li class="fragment"><p>El <strong>RAID 0</strong> ofereix una major velocitat de lectura i escriptura, però no proporciona cap mena de redundància. Una fallada en un disc faria que es perdessin totes les dades. Per tant, no és una bona opció per a un sistema root.</p></li>
-<li class="fragment"><p>El <strong>RAID 1</strong> ofereix redundància. No obstant això, no millora la velocitat d’escriptura. Aquest RAID és una bona opció per a un sistema root, ja que assegura la integritat de les dades.</p></li>
 <li class="fragment"><p>El <strong>RAID 5</strong>. Aquest RAID ofereix redundància i una millora en la velocitat de lectura. No obstant això, requereix un mínim de tres discs i la velocitat d’escriptura pot veure’s afectada per les operacions de paritat. Aquest RAID pot ser una bona opció per a emmagatzemament de dades, però pot ser massa complex per a un sistema root.</p></li>
 <li class="fragment"><p><strong>El RAID 10</strong> combina les característiques del RAID 1 i del RAID 0, oferint tant redundància com una millora en la velocitat de lectura i escriptura. Aquest RAID pot ser una bona opció per a un sistema que requereixi un alt rendiment, però pot ser massa costós per a un sistema root.</p></li>
 </ul>
