@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca" xml:lang="ca"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jordi Mateo Fornés jordi.mateo@udl.cat">
 
-<title>contributing – AMSA - Fall 2025</title>
+<title>Pràctica 02: Diagnòstic i resolució d’incidències en un servidor – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,61 +21,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -89,17 +55,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Cap resultat",
+    "search-matching-documents-text": "documents que coincideixen",
+    "search-copy-link-title": "Copia l'enllaç a la cerca",
+    "search-hide-matches-text": "Amaga les coincidències addicionals",
+    "search-more-match-text": "altra coincidència en aquest document",
+    "search-more-matches-text": "altres coincidències en aquest document",
+    "search-clear-button-title": "Neteja",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancel·la",
+    "search-submit-button-title": "Envia",
+    "search-label": "Cerca"
   }
 }</script>
 
@@ -112,11 +78,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Pràctica 02: Diagnòstic i resolució d’incidències en un servidor</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
   </nav>
@@ -126,12 +92,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="./index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
+    <a href="../../index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
     <a href="https://github.com/amsa-gei-udl-2526-105013/course/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
     <a href="https://cv.udl.cat/" title="Sakai" class="quarto-navigation-tool px-1" aria-label="Sakai"><i class="bi bi-person-fill"></i></a>
 </div>
@@ -142,14 +108,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Informació del curs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="././course-information/schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../.././course-information/schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Planificació</span></a>
   </div>
 </li>
@@ -159,44 +125,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Diapositives</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/02-booting.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/02-booting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 2)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 3)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 1)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/03-filesystem-part2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/03-filesystem-part2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 2)</span></a>
   </div>
 </li>
@@ -206,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Activitats</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -215,20 +181,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
   </div>
 </li>
@@ -238,50 +204,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Booting amb MBR i BIOS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Booting amb UEFI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 3 · Dual Boot amb UEFI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</span></a>
   </div>
 </li>
@@ -291,20 +257,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 8 · Administració bàsica de Sistemes de Fitxers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/03-fs/09-ex-week6.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/03-fs/09-ex-week6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 9 · Configuració de RAIDs amb mdadm</span></a>
   </div>
 </li>
@@ -316,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">Laboratoris</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -325,26 +291,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori · Fonaments de l’Administració de Sistemes amb AWS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 01 · Introducció a AWS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 02 · Desplegament d’una aplicació web amb AWS</span></a>
   </div>
 </li>
@@ -354,14 +320,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">Networking</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 03 · Desplegament d’una aplicació web amb alta disponibilitat amb AWS</span></a>
   </div>
 </li>
@@ -373,14 +339,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">Projectes</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projecte 1 · Snapshots i Backups amb systemd i initramfs</span></a>
   </div>
 </li>
@@ -393,88 +359,129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#contribueix" id="toc-contribueix" class="nav-link active" data-scroll-target="#contribueix">Contribueix</a>
-  <ul class="collapse">
-  <li><a href="#instruccions-per-contribuïr" id="toc-instruccions-per-contribuïr" class="nav-link" data-scroll-target="#instruccions-per-contribuïr">Instruccions per contribuïr</a></li>
-  <li><a href="#edició-del-material" id="toc-edició-del-material" class="nav-link" data-scroll-target="#edició-del-material">Edició del material</a>
-  <ul class="collapse">
-  <li><a href="#desenvolupament-local" id="toc-desenvolupament-local" class="nav-link" data-scroll-target="#desenvolupament-local">🚀 Desenvolupament local</a></li>
-  <li><a href="#vs-code-integration" id="toc-vs-code-integration" class="nav-link" data-scroll-target="#vs-code-integration">💻 VS Code Integration</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#instruccions-generals" id="toc-instruccions-generals" class="nav-link active" data-scroll-target="#instruccions-generals">Instruccions generals</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">Context</a></li>
+  <li><a href="#procediment" id="toc-procediment" class="nav-link" data-scroll-target="#procediment">Procediment</a></li>
+  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a></li>
+  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega">Entrega</a></li>
+  <li><a href="#avaluació" id="toc-avaluació" class="nav-link" data-scroll-target="#avaluació">Avaluació</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Pràctica 02: Diagnòstic i resolució d’incidències en un servidor</h1>
+<p class="subtitle lead">Unitat 3 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="contribueix" class="level1">
-<h1>Contribueix</h1>
-<p>Aquest material és de codi obert i podeu col·laborar-hi, complementar-lo o corregir-lo mitjançant pull requests al repositori.</p>
-<section id="instruccions-per-contribuïr" class="level2">
-<h2 class="anchored" data-anchor-id="instruccions-per-contribuïr">Instruccions per contribuïr</h2>
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordi Mateo Fornés <a href="mailto:jordi.mateo@udl.cat" class="email">jordi.mateo@udl.cat</a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="instruccions-generals" class="level2">
+<h2 class="anchored" data-anchor-id="instruccions-generals">Instruccions generals</h2>
+<p>Aquesta pràctica és un <strong>hack-the-box</strong> de diagnosi i resolució d’incidències en un servidor Linux. El professor us proporcionarà una màquina virtual amb diversos problemes que haureu d’identificar i solucionar en format contrarellotge (temps limitat de la classe).</p>
 <ul>
-<li><strong>Fork el repositori</strong>: Fes clic al botó <strong>Fork</strong> a la part superior dreta de la pàgina. Això crearà una còpia del repositori al teu compte de GitHub. Veure imatge:</li>
+<li>⏱ <strong>Durada</strong>: 2 hores</li>
+<li>🖥️ <strong>Entorn</strong>: màquina virtual facilitada pel professor</li>
+<li>👥 <strong>Treball</strong>: en grups de 2–3 persones</li>
+<li>📄 <strong>Entrega</strong>: informe en Markdown amb les evidències (veure més detalls)</li>
 </ul>
-<p><img src="figs/contributing/fork.png" class="img-fluid"></p>
-<p><img src="figs/contributing/create-fork.png" class="img-fluid"></p>
-<ul>
-<li><p><strong>Clona el repositori a la teva màquina</strong>: Utilitza Git per clonar el repositori que has clonat a la teva màquina.</p></li>
-<li><p><strong>Crea una branca (branch) nova</strong>: Abans de fer canvis, crea una branca nova on faràs les teves modificacions. Això ajuda a mantenir les coses ordenades. Utilitza la comanda següent:</p></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> nom_de_la_branca</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><p>Fes els canvis: Realitza les modificacions necessàries en els fitxers del projecte.</p></li>
-<li><p>Afegeix i commiteja els canvis: Utilitza els següents comandos per afegir els canvis i fer un commit.</p></li>
-<li><p>Puja els canvis al teu repositori a GitHub amb la comanda següent:</p></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin nom_de_la_branca</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><strong>Crea una PR</strong>: Vés al teu repositori a GitHub i selecciona la branca on has fet els canvis. Apareixerà un missatge destacat dient que has fet una nova branca. Fes clic a “Compare &amp; pull request” per començar la PR.</li>
-</ul>
-<p>També, pots anar a la nova branca fent click al menu desplegable i seleccionant la branca que has creat <strong>1</strong> i fent click al botó <strong>New pull request</strong> <strong>2</strong>. Veure imatge:</p>
-<p><img src="figs/contributing/PR.png" class="img-fluid"></p>
-<ul>
-<li>Proporciona una descripció detallada dels canvis que has fet. A més, pots afegir captures de pantalla o informació addicional per ajudar els revisors a entendre els teus canvis. Fes clic a <strong>New pull request</strong> i beuras una pantalla com la següent:</li>
-</ul>
-<p><img src="figs/contributing/PR2.png" class="img-fluid"></p>
-<p><strong>1</strong> Indica el meu repositori (on vols enviar les modificacions) i <strong>2</strong> indica el teu fork (on has fet les modificacions). Assegura’t de seleccionar la branca amb les modificacions <strong>3</strong>. Finalment, fes clic a <strong>Create pull request</strong> <strong>4</strong>.</p>
-<ul>
-<li><strong>Envia la PR</strong>: Un cop hagis omplert tota la informació, fes clic al botó “Create pull request” per enviar la PR al projecte original.</li>
-</ul>
+<p>Podeu utilitzar qualsevol comanda i cercar informació en línia. Actueu amb cura i preserveu evidències abans de fer canvis irreversibles.</p>
 </section>
-<section id="edició-del-material" class="level2">
-<h2 class="anchored" data-anchor-id="edició-del-material">Edició del material</h2>
-<p>Per editar el material:</p>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>Heu rebut una trucada d’un client que té problemes amb el seu servidor Linux. La imatge de la màquina virtual que us ha facilitat conté el servidor del client. La vostra missió és identificar tots els problemes ocults al sistema, explicar-ne la causa, aplicar solucions raonades i deixar el sistema operatiu i net. Per a cada problema heu de documentar el procés de <strong>diagnosi i resolució</strong>.</p>
+</section>
+<section id="procediment" class="level2">
+<h2 class="anchored" data-anchor-id="procediment">Procediment</h2>
 <ol type="1">
-<li>Al teu ordinador, necessitareu instal·lar <a href="https://quarto.org/docs/get-started/">Quarto</a>.</li>
-<li>Directament al navegador, podeu editar els fitxers <code>.qmd</code> fent clic al botó de llapis que apareix a la part superior dreta de cada fitxer. Això crearà una nova branca amb els teus canvis i et permetrà fer una PR directament des del navegador.</li>
+<li>Arrencar la màquina virtual i observar el comportament inicial.</li>
+<li>Investigar sistemàticament (logs, dispositius, serveis, espai, permisos).</li>
+<li>Apliar solucions i verificar la recuperació.</li>
+<li>Documentar el procés de diagnosi i resolució.</li>
 </ol>
-<section id="desenvolupament-local" class="level3">
-<h3 class="anchored" data-anchor-id="desenvolupament-local">🚀 Desenvolupament local</h3>
-<p>Abans de començar, assegura’t que tens <a href="https://quarto.org/docs/get-started/">Quarto</a> instal·lat al teu ordinador. Obra un terminal o un IDE com VSCode i navega fins a la carpeta on tens el projecte.</p>
-<p>Per veure una previsualització local del lloc web:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Això obrirà una previsualització local al teu navegador. La previsualització s’actualitza automàticament quan deses els canvis.</p>
 </section>
-<section id="vs-code-integration" class="level3">
-<h3 class="anchored" data-anchor-id="vs-code-integration">💻 VS Code Integration</h3>
-<p>Es pot integrar amb Visual Studio Code (VSCode) per a una millor experiència d’edició. Si no tens VSCode, pots descarregar-lo des de <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a>.</p>
+<section id="tasques" class="level2">
+<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
 <ul>
-<li><strong>Quarto: Edició en mode visual</strong>: Permet editar els fitxers <code>.qmd</code> en un mode visual que facilita l’ús de les funcions de Quarto.</li>
-<li><strong>Quarto: Previsualització</strong>: Obre una previsualització del fitxer <code>.qmd</code> actual.</li>
-<li><strong>Quarto: Edició en mode font</strong>: Torna a l’edició en mode text pla.</li>
+<li>Comproveu els logs del sistema (dmesg, journalctl, /var/log/syslog).</li>
+<li>Verifiqueu l’estat dels serveis amb systemctl.</li>
+<li>Comproveu l’espai en disc amb la comanda <code>df</code>.</li>
+<li>Reviseu els permisos dels fitxers i directoris rellevants.</li>
+<li>Es molt important que l’usuari <code>jordi</code> tingui un programa amb <code>c</code> anomenat <code>hola</code> a <code>/home/jordi/bin/hola</code> que imprimeixi <code>Hola, món!</code> quan s’executi.</li>
+<li>Es molt important que elimineu l’arxiu <code>/srv/lab/passwords.txt</code> que conté contrasenyes en text pla i que no s’hauria d’haver creat mai.</li>
+<li>Reporteu els logs amb evidències de cada problema, reviseu els logs també entre arrencades.</li>
 </ul>
+</section>
+<section id="entrega" class="level2">
+<h2 class="anchored" data-anchor-id="entrega">Entrega</h2>
+<p>Entregueu un informe en format Markdown al repositori <a href="https://classroom.github.com/a/XXXX">Classroom</a> amb el nom de l’arxiu <code>practica02.md</code> que contingui:</p>
+<ul>
+<li>Símptoma observat (captura o sortida de comandes).</li>
+<li>Comandes utilitzades per diagnosticar.</li>
+<li>Solució aplicada (i per què).</li>
+<li>Recomanació per evitar-ho en futur.</li>
+<li>Arxius d’evidència: export de journals i logs rellevants.</li>
+<li>Llista de comandes executades (p.&nbsp;ex. un commands.txt amb les comandes clau).</li>
+</ul>
+</section>
+<section id="avaluació" class="level2">
+<h2 class="anchored" data-anchor-id="avaluació">Avaluació</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Criteri</th>
+<th>Percentatge</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identificació correcta dels problemes</td>
+<td>40%</td>
+</tr>
+<tr class="even">
+<td>Solucions aplicades i afecte rebut</td>
+<td>30%</td>
+</tr>
+<tr class="odd">
+<td>Qualitat de la documentació i evidències</td>
+<td>20%</td>
+</tr>
+<tr class="even">
+<td>Bona pràctica operativa (preservar evidències, justificar canvis)</td>
+<td>10%</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote class="blockquote">
+<p>Happy SysAdmin! 🕵️‍♂️</p>
+</blockquote>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -503,12 +510,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiat!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiat!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
