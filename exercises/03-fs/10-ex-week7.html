@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Booting amb MBR i BIOS – AMSA - Fall 2025</title>
+<title>Laboratori: Desplegament d’un servidor web amb LVM – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Activitat 1 · Booting amb MBR i BIOS</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/03-fs/08-ex-week5.html">Unitat 03 · Sistemes de fitxers</a></li><li class="breadcrumb-item"><a href="../../exercises/03-fs/10-ex-week7.html">Activitat 10 · Administració de volums lògics amb LVM</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -242,16 +242,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Booting amb MBR i BIOS</span></a>
   </div>
 </li>
@@ -295,13 +295,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
@@ -316,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/03-fs/10-ex-week7.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/03-fs/10-ex-week7.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 10 · Administració de volums lògics amb LVM</span></a>
   </div>
 </li>
@@ -408,21 +408,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#objectiu" id="toc-objectiu" class="nav-link active" data-scroll-target="#objectiu">Objectiu</a></li>
-  <li><a href="#requisits-previs" id="toc-requisits-previs" class="nav-link" data-scroll-target="#requisits-previs">Requisits previs</a>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">🎯 Objectius</a></li>
+  <li><a href="#escenari" id="toc-escenari" class="nav-link" data-scroll-target="#escenari">🧱 Escenari</a></li>
+  <li><a href="#preparació-de-la-màquina-virtual" id="toc-preparació-de-la-màquina-virtual" class="nav-link" data-scroll-target="#preparació-de-la-màquina-virtual">🧩 Preparació de la màquina virtual</a></li>
+  <li><a href="#activitat-1.-creació-dels-volums-físics-i-grup-de-volums" id="toc-activitat-1.-creació-dels-volums-físics-i-grup-de-volums" class="nav-link" data-scroll-target="#activitat-1.-creació-dels-volums-físics-i-grup-de-volums">🧠 Activitat 1. Creació dels volums físics i grup de volums</a>
   <ul class="collapse">
-  <li><a href="#part-1-el-bootloader-de-primera-etapa-mbr" id="toc-part-1-el-bootloader-de-primera-etapa-mbr" class="nav-link" data-scroll-target="#part-1-el-bootloader-de-primera-etapa-mbr">Part 1: El Bootloader de Primera Etapa (MBR)</a></li>
-  <li><a href="#part-2-el-bootloader-de-segona" id="toc-part-2-el-bootloader-de-segona" class="nav-link" data-scroll-target="#part-2-el-bootloader-de-segona">Part 2: El Bootloader de Segona</a></li>
+  <li><a href="#pas-1-crear-els-volums-físics" id="toc-pas-1-crear-els-volums-físics" class="nav-link" data-scroll-target="#pas-1-crear-els-volums-físics">Pas 1: Crear els volums físics</a></li>
+  <li><a href="#pas-2-crear-el-grup-de-volums-vg_webapp" id="toc-pas-2-crear-el-grup-de-volums-vg_webapp" class="nav-link" data-scroll-target="#pas-2-crear-el-grup-de-volums-vg_webapp">Pas 2: Crear el grup de volums <code>vg_webapp</code></a></li>
   </ul></li>
+  <li><a href="#activitat-2.-creació-i-muntatge-dels-volums-lògics" id="toc-activitat-2.-creació-i-muntatge-dels-volums-lògics" class="nav-link" data-scroll-target="#activitat-2.-creació-i-muntatge-dels-volums-lògics">⚙️ Activitat 2. Creació i muntatge dels volums lògics</a>
+  <ul class="collapse">
+  <li><a href="#pas-1-crear-els-lv" id="toc-pas-1-crear-els-lv" class="nav-link" data-scroll-target="#pas-1-crear-els-lv">Pas 1: Crear els LV</a></li>
+  <li><a href="#pas-2-formatar-els-lv-amb-sistemes-de-fitxers" id="toc-pas-2-formatar-els-lv-amb-sistemes-de-fitxers" class="nav-link" data-scroll-target="#pas-2-formatar-els-lv-amb-sistemes-de-fitxers">Pas 2: Formatar els LV amb sistemes de fitxers</a></li>
+  <li><a href="#pas-3-muntar-els-volums" id="toc-pas-3-muntar-els-volums" class="nav-link" data-scroll-target="#pas-3-muntar-els-volums">Pas 3: Muntar els volums</a></li>
+  </ul></li>
+  <li><a href="#activitat-3.-redimensionar-volums-lògics" id="toc-activitat-3.-redimensionar-volums-lògics" class="nav-link" data-scroll-target="#activitat-3.-redimensionar-volums-lògics">📏 Activitat 3. Redimensionar volums lògics</a>
+  <ul class="collapse">
+  <li><a href="#escenari-1-augmentar-lv_data-de-10-gb-a-20-gb" id="toc-escenari-1-augmentar-lv_data-de-10-gb-a-20-gb" class="nav-link" data-scroll-target="#escenari-1-augmentar-lv_data-de-10-gb-a-20-gb">Escenari 1: Augmentar lv_data de 10 GB a 20 GB</a></li>
+  <li><a href="#escenari-2-reduir-lv_run-de-1-gb-a-500-mb" id="toc-escenari-2-reduir-lv_run-de-1-gb-a-500-mb" class="nav-link" data-scroll-target="#escenari-2-reduir-lv_run-de-1-gb-a-500-mb">Escenari 2: Reduir lv_run de 1 GB a 500 MB</a></li>
+  </ul></li>
+  <li><a href="#activitat-4.-creació-dsnapshots" id="toc-activitat-4.-creació-dsnapshots" class="nav-link" data-scroll-target="#activitat-4.-creació-dsnapshots">💾 Activitat 4. Creació d’snapshots</a>
+  <ul class="collapse">
+  <li><a href="#pas-1-crear-dades" id="toc-pas-1-crear-dades" class="nav-link" data-scroll-target="#pas-1-crear-dades">Pas 1: Crear dades</a></li>
+  <li><a href="#pas-2-crear-snapshot" id="toc-pas-2-crear-snapshot" class="nav-link" data-scroll-target="#pas-2-crear-snapshot">Pas 2: Crear snapshot</a></li>
+  <li><a href="#pas-3-muntar-snapshot" id="toc-pas-3-muntar-snapshot" class="nav-link" data-scroll-target="#pas-3-muntar-snapshot">Pas 3: Muntar snapshot</a></li>
+  <li><a href="#pas-4-modificar-dades-originals-i-comparar" id="toc-pas-4-modificar-dades-originals-i-comparar" class="nav-link" data-scroll-target="#pas-4-modificar-dades-originals-i-comparar">Pas 4: Modificar dades originals i comparar</a></li>
+  <li><a href="#pas-5-crear-un-segon-snapshot-i-comprovar-versions" id="toc-pas-5-crear-un-segon-snapshot-i-comprovar-versions" class="nav-link" data-scroll-target="#pas-5-crear-un-segon-snapshot-i-comprovar-versions">Pas 5: Crear un segon snapshot i comprovar versions</a></li>
+  <li><a href="#neteja" id="toc-neteja" class="nav-link" data-scroll-target="#neteja">🧹 Neteja</a></li>
+  </ul></li>
+  <li><a href="#exercicis-addicionals" id="toc-exercicis-addicionals" class="nav-link" data-scroll-target="#exercicis-addicionals">Exercicis addicionals</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Activitat 1 · Booting amb MBR i BIOS</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/03-fs/08-ex-week5.html">Unitat 03 · Sistemes de fitxers</a></li><li class="breadcrumb-item"><a href="../../exercises/03-fs/10-ex-week7.html">Activitat 10 · Administració de volums lògics amb LVM</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Booting amb MBR i BIOS</h1>
+<h1 class="title">Laboratori: Desplegament d’un servidor web amb LVM</h1>
 </div>
 
 
@@ -439,252 +462,263 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objectiu" class="level2">
-<h2 class="anchored" data-anchor-id="objectiu">Objectiu</h2>
-<ul>
-<li>Entendre com funciona el procés d’arrencada amb BIOS i MBR.</li>
-<li>Crear un bootloader senzill de primera i segona etapa.</li>
-<li>Practicar l’ús de QEMU per emular una màquina amb BIOS.</li>
-</ul>
-</section>
-<section id="requisits-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requisits-previs">Requisits previs</h2>
-<ul>
-<li>Una màquina virtual amb Debian i accés a la terminal.</li>
-</ul>
-<section id="part-1-el-bootloader-de-primera-etapa-mbr" class="level3">
-<h3 class="anchored" data-anchor-id="part-1-el-bootloader-de-primera-etapa-mbr">Part 1: El Bootloader de Primera Etapa (MBR)</h3>
-<p>L’objectiu d’aquesta part és crear un disc virtual amb un MBR que la BIOS pugui reconèixer i executar, mostrant un missatge de benvinguda.</p>
-<section id="creació-de-la-imatge-del-disc" class="level4">
-<h4 class="anchored" data-anchor-id="creació-de-la-imatge-del-disc">Creació de la imatge del disc</h4>
-<p>Crearem un fitxer de <em>10 MiB</em> que servirà com a disc dur virtual. Utilitzarem la comanda <code>dd</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=/dev/zero of=disk.img bs=512 count=20480</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Observeu que <code>bs=512</code> estableix la mida del bloc a 512 bytes, i <code>count=20480</code> indica que volem 20480 blocs, resultant en un fitxer de 10 MiB (512 bytes * 20480 blocs = 10 MiB). A més, aquest fitxer estarà inicialitzat amb zeros (<code>if=/dev/zero</code>) i es crearà amb el nom <code>disk.img</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Recordatori">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Recordatori
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>MBR significa <em>Master Boot Record</em> i ocupa els primers 512 bytes del disc.</p>
-</div>
-</div>
-</section>
-<section id="bootloader-de-primera-etapa" class="level4">
-<h4 class="anchored" data-anchor-id="bootloader-de-primera-etapa">Bootloader de primera etapa</h4>
-<p>El bootloader de primera etapa és un petit programa que s’executa quan la BIOS carrega el MBR. Aquest programa ha de ser molt petit, ja que només té 512 bytes per treballar. En aquest exercici, escriurem un bootloader senzill en llenguatge d’assemblador que mostrarà un missatge de benvinguda.</p>
-<p>Crea un fitxer anomenat <code>boot.asm</code> amb el següent contingut:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[<span class="bu">org</span> <span class="bn">0x7c00</span><span class="op">]</span>      <span class="co">; L'adreça on la BIOS carrega el nostre codi</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">jmp</span> <span class="op">short</span> start   <span class="co">; Salt a la rutina principal per evitar que la BIOS executi la taula de particions</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">nop</span>               <span class="co">; </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">start:</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">; Configurem els registres del segment</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">xor</span> <span class="kw">ax</span><span class="op">,</span> <span class="kw">ax</span>      <span class="co">; Posa AX a 0</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ds</span><span class="op">,</span> <span class="kw">ax</span>      <span class="co">; Configurem DS (segment de dades) a 0</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">es</span><span class="op">,</span> <span class="kw">ax</span>      <span class="co">; Configurem ES (segment extra) a 0</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ss</span><span class="op">,</span> <span class="kw">ax</span>      <span class="co">; Configurem SS (segment de pila) a 0</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">sp</span><span class="op">,</span> <span class="bn">0x7c00</span>  <span class="co">; Configurem el punter de pila</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">; Imprimir el missatge de benvinguda</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">si</span><span class="op">,</span> msg     <span class="co">; Carreguem l'adreça del missatge a SI</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">.print_loop:</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">lodsb</span>           <span class="co">; Carreguem un byte des de [DS:SI] a AL, i incrementem SI</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cmp</span> <span class="kw">al</span><span class="op">,</span> <span class="dv">0</span>       <span class="co">; Comparem AL amb zero</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">je</span> <span class="op">.</span>done_print  <span class="co">; Si AL és zero, hem arribat al final del missatge</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ah</span><span class="op">,</span> <span class="bn">0x0e</span>    <span class="co">; Funció BIOS per a l'escriptura en mode teletip</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">int</span> <span class="bn">0x10</span>        <span class="co">; Crida a la interrupció de vídeo</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>print_loop</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">.done_print:</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">; Bucle infinit per aturar l'execució</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cli</span>             <span class="co">; Deshabilitem les interrupcions</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">.halt:</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">hlt</span>             <span class="co">; Aturem la CPU</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>halt       <span class="co">; Saltem a nosaltres mateixos en cas de despertar-nos d'un HLT</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>msg <span class="dt">db</span> <span class="st">"Hola, soc l'MBR. La primera etapa d'arrencada ha funcionat!"</span><span class="op">,</span> <span class="dv">0</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">; Omplim la resta del sector amb zeros</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="pp">times</span> <span class="dv">510</span> <span class="op">-</span> <span class="op">($-$$)</span> <span class="dt">db</span> <span class="dv">0</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">; La signatura MBR</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="dt">dw</span> <span class="bn">0xaa55</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La primera línia <code>[org 0x7c00]</code> indica a l’assemblador que el codi s’ha de considerar com si s’executés a l’adreça <code>0x7C00</code>, que és on la BIOS carrega el sector MBR a la memòria.</p>
-<p>Abans de l’execució del nostre codi, els registres de segment de la <strong>CPU (DS, ES, SS)</strong> poden contenir valors aleatoris. Per garantir que les adreces de memòria siguin interpretades correctament en mode real, els inicialitzem a zero amb les instruccions <code>mov ds, ax</code>, <code>mov es, ax</code> i <code>mov ss, ax</code>.</p>
-<p>La instrucció <code>mov sp, 0x7c00</code> estableix el punter de pila (SP) a la mateixa adreça on s’ha carregat el MBR, evitant que la pila sobrescrigui el codi. En bootloaders més complexos, això permetria utilitzar instruccions com <code>CALL</code>, <code>PUSH</code> i <code>POP</code> sense problemes.</p>
-<p>La rutina de bucle llegeix cada caràcter de la cadena de text i el mostra a la pantalla mitjançant la interrupció BIOS <code>0x10</code>, <em>funció teletip (AH=0x0E)</em>. Un cop s’ha imprès tot el missatge, s’utilitza la instrucció <code>HLT</code> dins d’un bucle infinit per aturar la CPU. Això evita que la CPU continuï executant dades no definides més enllà del sector MBR, cosa que podria provocar comportaments inesperats.</p>
-</section>
-<section id="ensamblar-i-escriure-el-bootloader-al-disc" class="level4">
-<h4 class="anchored" data-anchor-id="ensamblar-i-escriure-el-bootloader-al-disc">Ensamblar i escriure el bootloader al disc</h4>
-<p>Utilitzarem <code>nasm</code> per ensamblar el nostre codi i <code>dd</code> per escriure’l al disc virtual:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instal·lar nasm si no el tens</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-c</span> <span class="st">"apt install nasm -y"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensamblar el codi</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nasm</span> <span class="at">-f</span> bin <span class="at">-o</span> boot.bin boot.asm</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On <code>-f bin</code> indica que volem un fitxer binari pla, i <code>-o boot.bin</code> especifica el nom del fitxer de sortida.</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Problemes">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Problemes
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Si la comanda d’instalació de <code>qemu</code> no acaba correctament, heu de fer un <code>su -c "apt update"</code> i problablement també un <code>su -c "apt upgrade -y"</code> abans de tornar a intentar instal·lar <code>qemu</code>.</p>
-</div>
-</div>
-<p>Ara, escrivim el bootloader al disc virtual:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=boot.bin of=disk.img bs=512 count=1 conv=notrunc</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On <code>conv=notrunc</code> assegura que no truncarem el fitxer de sortida, mantenint la resta del disc intacta.</p>
-<p>Per comprovar que el bootloader s’ha escrit correctament, podem utilitzar <code>hexdump</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hexdump</span> <span class="at">-C</span> <span class="at">-n</span> 512 disk.img <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">'1,16p'</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>on <code>-n 512</code> limita la sortida als primers 512 bytes (el sector MBR) i <code>sed -n '1,16p'</code> mostra només les primeres 16 línies de la sortida.</p>
-<p>També podem comprovar la signatura MBR (els últims dos bytes del sector) amb:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hexdump</span> <span class="at">-C</span> <span class="at">-s</span> 510 <span class="at">-n</span> 2 disk.img</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Haurias de veure <code>55 aa</code>, el <code>00000200</code> indica l’offset.</p>
-</section>
-<section id="executar-la-imatge-del-disc-amb-qemu" class="level4">
-<h4 class="anchored" data-anchor-id="executar-la-imatge-del-disc-amb-qemu">Executar la imatge del disc amb QEMU</h4>
-<p>Finalment, podem executar la nostra imatge de disc amb QEMU per veure el nostre missatge de benvinguda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instal·lar QEMU si no el tens</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">su</span> <span class="at">-c</span> <span class="st">"apt install qemu-system-x86 -y"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Executar la imatge del disc</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-system-x86_64</span> <span class="at">-drive</span> file=disk.img,format=raw <span class="at">-nographic</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-note callout-titled" title="Nota">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Nota
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>La nostra màquina virtual és mode text (<code>-nographic</code>), així que hauries de veure el missatge de benvinguda a la terminal. Si teniu una interfície gràfica, podeu ometre <code>-nographic</code> per veure la sortida en una finestra de QEMU.</p>
-</div>
-</div>
-<p>Enhorabona! Acabes de crear i executar un bootloader de primera etapa senzill que mostra un missatge de benvinguda. Aquest és el primer pas per entendre com funciona el procés d’arrencada d’un sistema operatiu.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Sortir de QEMU">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Consell</span>Sortir de QEMU
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<p>En aquest laboratori aprendrem a utilitzar <strong>LVM (Logical Volume Manager)</strong> per administrar l’emmagatzematge d’un servidor web. Simularem un entorn real on diferents tipus de dades (codi font, dades de la web, i fitxers temporals) es gestionen mitjançant <strong>volums lògics</strong>, millorant la flexibilitat i escalabilitat del sistema.</p>
+<section id="objectius" class="level2">
+<h2 class="anchored" data-anchor-id="objectius">🎯 Objectius</h2>
 <ol type="1">
-<li>Per sortir de QEMU, utilitza la combinació de tecles <code>Ctrl + A</code>, seguida de <code>X</code>.</li>
-<li>Alternativament, pots <code>Ctrl + C</code> a la terminal per anar a la línia de comandes de QEMU i després escriure <code>quit</code> per sortir.</li>
+<li>Entendre el funcionament i components de <strong>LVM</strong>: PV, VG i LV.<br>
+</li>
+<li>Crear, formatar i muntar volums lògics per a un servei web.<br>
+</li>
+<li>Ampliar o reduir la mida dels volums.<br>
+</li>
+<li>Crear i utilitzar <strong>snapshots</strong> per fer còpies de seguretat en calent.</li>
 </ol>
+</section>
+<section id="escenari" class="level2">
+<h2 class="anchored" data-anchor-id="escenari">🧱 Escenari</h2>
+<p>Gestionarem una aplicació web desplegada en un servidor AlmaLinux.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><strong>Directori</strong></th>
+<th><strong>Funció</strong></th>
+<th><strong>Exemple de contingut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/opt/webapp/sources</code></td>
+<td>Codi font Django</td>
+<td>Python, HTML, JS</td>
+</tr>
+<tr class="even">
+<td><code>/opt/webapp/data</code></td>
+<td>Dades, imatges, logs</td>
+<td>CSV, JPG, LOG</td>
+</tr>
+<tr class="odd">
+<td><code>/opt/webapp/run</code></td>
+<td>Fitxers temporals i sockets</td>
+<td>PID, sock</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="preparació-de-la-màquina-virtual" class="level2">
+<h2 class="anchored" data-anchor-id="preparació-de-la-màquina-virtual">🧩 Preparació de la màquina virtual</h2>
+<ol type="1">
+<li><p><strong>Crea una nova MV</strong> amb AlmaLinux i un disc principal de 20 GB.<br>
+Durant la instal·lació, selecciona <em>LVM com a esquema de particionat</em>.</p></li>
+<li><p><strong>Afegeix dos discos addicionals de 20 GB</strong> cadascun (ex. <code>nvme0n2</code> i <code>nvme0n3</code>).</p></li>
+<li><p><strong>Comprova l’estat inicial del sistema:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Hauries de veure una sortida semblant a:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n1</span>     20G  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p1</span> 600M  /boot/efi</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p2</span>   1G  /boot</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├─nvme0n1p3</span>   2G  <span class="pp">[</span><span class="ss">SWAP</span><span class="pp">]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">└─nvme0n1p4</span> 16.4G /</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n2</span>     20G</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">nvme0n3</span>     20G</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="activitat-1.-creació-dels-volums-físics-i-grup-de-volums" class="level2">
+<h2 class="anchored" data-anchor-id="activitat-1.-creació-dels-volums-físics-i-grup-de-volums">🧠 Activitat 1. Creació dels volums físics i grup de volums</h2>
+<section id="pas-1-crear-els-volums-físics" class="level3">
+<h3 class="anchored" data-anchor-id="pas-1-crear-els-volums-físics">Pas 1: Crear els volums físics</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pvcreate</span> /dev/nvme0n2 /dev/nvme0n3</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="💡 Comprova l'estat dels PV">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>💡 Comprova l’estat dels PV
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quin és l’estat del camp <strong>Allocatable</strong> abans de crear el grup de volums?</p>
+</div>
+</div>
+</section>
+<section id="pas-2-crear-el-grup-de-volums-vg_webapp" class="level3">
+<h3 class="anchored" data-anchor-id="pas-2-crear-el-grup-de-volums-vg_webapp">Pas 2: Crear el grup de volums <code>vg_webapp</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vgcreate</span> vg_webapp /dev/nvme0n2 /dev/nvme0n3</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="💡 Comprova l'estat del VG">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>💡 Comprova l’estat del VG
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Quina és la mida total del grup de volums <code>vg_webapp</code>?</li>
+<li>Quants extents té el VG i quina és la mida de cada extent?</li>
+</ul>
 </div>
 </div>
 </section>
 </section>
-<section id="part-2-el-bootloader-de-segona" class="level3">
-<h3 class="anchored" data-anchor-id="part-2-el-bootloader-de-segona">Part 2: El Bootloader de Segona</h3>
-<p>En aquest punt, ja tenim el nostre bootloader de primera etapa, però la seva funció principal és passar el control a un programa més gran. Aquest serà el nostre bootloader de segona etapa. Per fer-ho, el MBR ha de llegir un sector del disc i carregar-lo a la memòria. Normalment, el MBR analitzaria la taula de particions per trobar on comença el següent bootloader. No obstant això, per a aquest exercici, simplificarem aquest procés i codificarem directament l’adreça del nostre bootloader de segona etapa al codi.</p>
-<p>La interrupció <code>int 0x13h</code> de la BIOS és la responsable de les operacions d’entrada/sortida de disc i requereix un paquet d’adreces de disc (<strong>DAP</strong>) per funcionar. Aquest <strong>DAP</strong> és una estructura de dades de 16 bytes que li diu a la BIOS on llegir i on escriure les dades. La proposta és configurar el nostre <strong>DAP</strong> per llegir el sector 2048 del disc (<code>dword [si+8], 2048</code>) i carregar-lo a la memòria a l’adreça 0x8000 <code>(word [si+4], 0x8000)</code>.</p>
-<p>Escriu un fitxer anomenat <code>second_boot.asm</code> amb el següent contingut:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>[<span class="bu">org</span> <span class="bn">0x8000</span><span class="op">]</span>     <span class="co">; Stage2 carregat pel MBR a 0x8000</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">mov</span> <span class="kw">si</span><span class="op">,</span> msg</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">.print_loop:</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">lodsb</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">or</span> <span class="kw">al</span><span class="op">,</span> <span class="kw">al</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jz</span> <span class="op">.</span>done</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ah</span><span class="op">,</span> <span class="bn">0x0e</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">int</span> <span class="bn">0x10</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>print_loop</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">.done:</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">$</span>       </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>msg <span class="dt">db</span> <span class="st">"Hola des del bootloader de segona etapa!"</span><span class="op">,</span> <span class="dv">0</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ara ensamblarem aquest codi i el prepararem per ser carregat pel nostre bootloader de primera etapa.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nasm</span> <span class="at">-f</span> bin <span class="at">-o</span> second_boot.bin second_boot.asm</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ara, escriurem aquest bootloader de segona etapa al disc virtual, però no al principi. El MBR està dissenyat per carregar el bootloader de segona etapa des d’una ubicació específica del disc. En aquest cas, utilitzarem el sector 2048 (1 MiB) per a això. Representaria la primera partició d’un disc amb una taula de particions estàndard.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=second_boot.bin of=disk.img bs=512 count=1 seek=2048 conv=notrunc</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Modifiqueu el vostre <code>boot.asm</code> per carregar aquest bootloader de segona etapa des del sector 2048:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>[<span class="bu">org</span> <span class="bn">0x7c00</span><span class="op">]</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">jmp</span> <span class="op">short</span> start</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">nop</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">start:</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">xor</span> <span class="kw">ax</span><span class="op">,</span> <span class="kw">ax</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ds</span><span class="op">,</span> <span class="kw">ax</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">es</span><span class="op">,</span> <span class="kw">ax</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ss</span><span class="op">,</span> <span class="kw">ax</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">sp</span><span class="op">,</span> <span class="bn">0x7c00</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">; Missatge Stage1</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">si</span><span class="op">,</span> msg_mbr</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">.print_loop_mbr:</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">lodsb</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">or</span> <span class="kw">al</span><span class="op">,</span> <span class="kw">al</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jz</span> <span class="op">.</span>load_next_stage</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ah</span><span class="op">,</span> <span class="bn">0x0e</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">int</span> <span class="bn">0x10</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>print_loop_mbr</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">.load_next_stage:</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">; Configura DAP a 0x0600</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">si</span><span class="op">,</span> <span class="bn">0x0600</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">byte</span> <span class="op">[</span><span class="kw">si</span><span class="op">],</span> <span class="bn">0x10</span>         <span class="co">; mida del DAP</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">byte</span> <span class="op">[</span><span class="kw">si</span><span class="op">+</span><span class="dv">1</span><span class="op">],</span> <span class="bn">0x00</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">word</span> <span class="op">[</span><span class="kw">si</span><span class="op">+</span><span class="dv">2</span><span class="op">],</span> <span class="dv">1</span>          <span class="co">; sectors a llegir</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">word</span> <span class="op">[</span><span class="kw">si</span><span class="op">+</span><span class="dv">4</span><span class="op">],</span> <span class="bn">0x8000</span>     <span class="co">; offset destí</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">word</span> <span class="op">[</span><span class="kw">si</span><span class="op">+</span><span class="dv">6</span><span class="op">],</span> <span class="bn">0x0000</span>     <span class="co">; segment destí</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">dword</span> <span class="op">[</span><span class="kw">si</span><span class="op">+</span><span class="dv">8</span><span class="op">],</span> <span class="dv">2048</span>      <span class="co">; LBA</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="dt">dword</span> <span class="op">[</span><span class="kw">si</span><span class="op">+</span><span class="dv">12</span><span class="op">],</span> <span class="dv">0</span>        <span class="co">; high LBA</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">; BIOS extended read</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ah</span><span class="op">,</span> <span class="bn">0x42</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">dl</span><span class="op">,</span> <span class="bn">0x80</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">int</span> <span class="bn">0x13</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jc</span> <span class="op">.</span>boot_failed</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="dv">0</span><span class="op">:</span><span class="bn">0x8000</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="fu">.boot_failed:</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">si</span><span class="op">,</span> msg_fail</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="fu">.print_loop_fail:</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">lodsb</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">or</span> <span class="kw">al</span><span class="op">,</span> <span class="kw">al</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jz</span> <span class="op">.</span>halt</span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> <span class="kw">ah</span><span class="op">,</span> <span class="bn">0x0e</span></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">int</span> <span class="bn">0x10</span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>print_loop_fail</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="fu">.halt:</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cli</span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    <span class="bu">hlt</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> <span class="op">.</span>halt</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>msg_mbr <span class="dt">db</span> <span class="st">"Hola, soc l'MBR. Carregant Stage2..."</span><span class="op">,</span><span class="dv">0</span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>msg_fail <span class="dt">db</span> <span class="st">"Error carregant Stage2!"</span><span class="op">,</span><span class="dv">0</span></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a><span class="pp">times</span> <span class="dv">510</span><span class="op">-($-$$)</span> <span class="dt">db</span> <span class="dv">0</span></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="dt">dw</span> <span class="bn">0xAA55</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ara ensamblarem el nou MBR:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nasm</span> <span class="at">-f</span> bin <span class="at">-o</span> boot.bin boot.asm</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>I escriurem el nou MBR al disc virtual:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=boot.bin of=disk.img bs=512 count=1 conv=notrunc</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Finalment, executem la imatge del disc amb QEMU per veure el nostre missatge de benvinguda i la càrrega del bootloader de segona etapa:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qemu-system-x86_64</span> <span class="at">-drive</span> file=disk.img,format=raw <span class="at">-nographic</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Enhorabona! Acabes de crear i executar un bootloader de primera etapa que carrega un bootloader de segona etapa des d’una ubicació específica del disc.</p>
-
-
+<section id="activitat-2.-creació-i-muntatge-dels-volums-lògics" class="level2">
+<h2 class="anchored" data-anchor-id="activitat-2.-creació-i-muntatge-dels-volums-lògics">⚙️ Activitat 2. Creació i muntatge dels volums lògics</h2>
+<section id="pas-1-crear-els-lv" class="level3">
+<h3 class="anchored" data-anchor-id="pas-1-crear-els-lv">Pas 1: Crear els LV</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lvcreate</span> <span class="at">-L</span> 1G <span class="at">-n</span> lv_sources vg_webapp</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lvcreate</span> <span class="at">-L</span> 10G <span class="at">-n</span> lv_data vg_webapp</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lvcreate</span> <span class="at">-L</span> 1G <span class="at">-n</span> lv_run vg_webapp</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="pas-2-formatar-els-lv-amb-sistemes-de-fitxers" class="level3">
+<h3 class="anchored" data-anchor-id="pas-2-formatar-els-lv-amb-sistemes-de-fitxers">Pas 2: Formatar els LV amb sistemes de fitxers</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.xfs</span> /dev/vg_webapp/lv_sources</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.ext4</span> /dev/vg_webapp/lv_data</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.xfs</span> /dev/vg_webapp/lv_run</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="💡 Discussió">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>💡 Discussió
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Per què podria ser interessant utilitzar <strong>xfs</strong> per a <code>/run</code> i <strong>ext4</strong> per a <code>/data</code> o al revés?</p>
+</div>
+</div>
+</section>
+<section id="pas-3-muntar-els-volums" class="level3">
+<h3 class="anchored" data-anchor-id="pas-3-muntar-els-volums">Pas 3: Muntar els volums</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/webapp/<span class="dt">{sources</span><span class="op">,</span><span class="dt">data</span><span class="op">,</span><span class="dt">run}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/vg_webapp/lv_sources /opt/webapp/sources</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/vg_webapp/lv_data /opt/webapp/data</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/vg_webapp/lv_run /opt/webapp/run</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="💡 Comprova els muntatges">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>💡 Comprova els muntatges
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Utilitza <code>df -h</code> per verificar que els volums estan muntats correctament.</li>
+<li>Afegeix les entrades corresponents a <code>/etc/fstab</code> per muntar-los automàticament en reiniciar.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="activitat-3.-redimensionar-volums-lògics" class="level2">
+<h2 class="anchored" data-anchor-id="activitat-3.-redimensionar-volums-lògics">📏 Activitat 3. Redimensionar volums lògics</h2>
+<section id="escenari-1-augmentar-lv_data-de-10-gb-a-20-gb" class="level3">
+<h3 class="anchored" data-anchor-id="escenari-1-augmentar-lv_data-de-10-gb-a-20-gb">Escenari 1: Augmentar lv_data de 10 GB a 20 GB</h3>
+<p>Quan s’amplia un volum lògic, s’afegeixen nous extents al final del volum. Si el sistema de fitxers és <strong>ext4</strong>, cal actualitzar-ne la taula d’espai amb <code>resize2fs</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lvextend</span> <span class="at">-L</span> +10G /dev/vg_webapp/lv_data</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">resize2fs</span> /dev/vg_webapp/lv_data</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="escenari-2-reduir-lv_run-de-1-gb-a-500-mb" class="level3">
+<h3 class="anchored" data-anchor-id="escenari-2-reduir-lv_run-de-1-gb-a-500-mb">Escenari 2: Reduir lv_run de 1 GB a 500 MB</h3>
+<p>El sistema de fitxers <em>xfs</em> no permet reduir volums.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /opt/webapp/run</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lvremove</span> /dev/vg_webapp/lv_run</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lvcreate</span> <span class="at">-L</span> 500M <span class="at">-n</span> lv_run vg_webapp</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mkfs.xfs</span> <span class="at">-f</span> /dev/vg_webapp/lv_run</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/vg_webapp/lv_run /opt/webapp/run</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="💡 Reduir o Ampliar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>💡 Reduir o Ampliar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Què creus que és més segur: redimensionar un volum lògic cap amunt o cap avall? Per què?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="activitat-4.-creació-dsnapshots" class="level2">
+<h2 class="anchored" data-anchor-id="activitat-4.-creació-dsnapshots">💾 Activitat 4. Creació d’snapshots</h2>
+<p>Els snapshots LVM permeten fer còpies de seguretat en calent del sistema de fitxers. Aquest mecanisme utilitza la tècnica <strong>Copy-on-Write (COW)</strong> per mantenir versions consistents de les dades mentre s’estan utilitzant.</p>
+<section id="pas-1-crear-dades" class="level3">
+<h3 class="anchored" data-anchor-id="pas-1-crear-dades">Pas 1: Crear dades</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello, World1!"</span> <span class="op">&gt;</span> /opt/webapp/data/file1.txt</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello, World2!"</span> <span class="op">&gt;</span> /opt/webapp/data/file2.txt</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello, World3!"</span> <span class="op">&gt;</span> /opt/webapp/data/file3.txt</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pas-2-crear-snapshot" class="level3">
+<h3 class="anchored" data-anchor-id="pas-2-crear-snapshot">Pas 2: Crear snapshot</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lvcreate</span> <span class="at">-L</span> 1G <span class="at">-s</span> <span class="at">-n</span> snap_data /dev/vg_webapp/lv_data</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pas-3-muntar-snapshot" class="level3">
+<h3 class="anchored" data-anchor-id="pas-3-muntar-snapshot">Pas 3: Muntar snapshot</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /snaps</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/vg_webapp/snap_data /snaps</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> <span class="at">-r</span> /opt/webapp/data /snaps</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pas-4-modificar-dades-originals-i-comparar" class="level3">
+<h3 class="anchored" data-anchor-id="pas-4-modificar-dades-originals-i-comparar">Pas 4: Modificar dades originals i comparar</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=/dev/zero of=/opt/webapp/data/file3.txt bs=1M count=100</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> <span class="at">-r</span> /opt/webapp/data /snaps</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="💡 Reflexió: Mida snapshot">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>💡 Reflexió: Mida snapshot
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Què passa amb la mida de l’snapshot quan s’escriuen noves dades?</p>
+</div>
+</div>
+</section>
+<section id="pas-5-crear-un-segon-snapshot-i-comprovar-versions" class="level3">
+<h3 class="anchored" data-anchor-id="pas-5-crear-un-segon-snapshot-i-comprovar-versions">Pas 5: Crear un segon snapshot i comprovar versions</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lvcreate</span> <span class="at">-L</span> 1G <span class="at">-s</span> <span class="at">-n</span> snap_data2 /dev/vg_webapp/lv_data</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /snaps</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> /dev/vg_webapp/snap_data2 /snaps</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-li</span> /opt/webapp/data /snaps/</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Inodes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Alerta</span>Inodes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Els fitxers inalterats comparteixen inode; els modificats tenen un inode nou.</p>
+</div>
+</div>
+</section>
+<section id="neteja" class="level3">
+<h3 class="anchored" data-anchor-id="neteja">🧹 Neteja</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> /snaps</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lvremove</span> /dev/vg_webapp/snap_data</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lvremove</span> /dev/vg_webapp/snap_data2</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="exercicis-addicionals" class="level2">
+<h2 class="anchored" data-anchor-id="exercicis-addicionals">Exercicis addicionals</h2>
+<ul>
+<li>Descriu els passos per migrar un <code>LV</code> existent a un altre <code>PV</code> utilitzant <code>pvmove</code>. Quin avantatge té aquest procediment respecte a copiar fitxers manualment?</li>
+<li>Configura un mirall de <code>/opt/webapp/data</code> utilitzant LVM. Realitza una prova simulant la fallada d’un disc i comprova que les dades es mantenen accessibles. Quines implicacions té sobre el rendiment?</li>
+<li>Cerca informació sobre l’eina <code>fio</code> i realitza un experiment per avaluar el rendiment d’un volum <em>striped</em>. Representa una gràfica amb els resultats per diferents valors de <code>--stripe-size</code> (<code>64K</code>, <code>128K</code>, <code>256K</code>, <code>512K</code>, <code>1M</code>, <code>2M</code>). Interpreta la relació entre mida de bloc i rendiment.</li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
