@@ -2686,7 +2686,7 @@
     "href": "projects/02-project/02-project.html",
     "title": "Pràctica 02: Diagnòstic i resolució d’incidències en un servidor",
     "section": "",
-    "text": "Aquesta pràctica és un hack-the-box de diagnosi i resolució d’incidències en un servidor Linux. El professor us proporcionarà una màquina virtual amb diversos problemes que haureu d’identificar i solucionar en format contrarellotge (temps limitat de la classe).\n\n⏱ Durada: 2 hores\n🖥️ Entorn: màquina virtual facilitada pel professor\n👥 Treball: en grups de 2–3 persones\n📄 Entrega: informe en paper\n\nPodeu utilitzar qualsevol comanda i cercar informació en línia. Actueu amb cura i preserveu evidències abans de fer canvis irreversibles.",
+    "text": "Aquesta pràctica és un hack-the-box de diagnosi i resolució d’incidències en un servidor Linux. El professor us proporcionarà una màquina virtual amb diversos problemes que haureu d’identificar i solucionar en format contrarellotge (temps limitat de la classe).\n\n⏱ Durada: 2 hores\n🖥️ Entorn: màquina virtual facilitada pel professor\n👥 Treball: en grups de 2–3 persones\n📄 Entrega: Informe en format pdf al campus virtual.\n\nPodeu utilitzar qualsevol comanda i cercar informació en línia. Actueu amb cura i preserveu evidències abans de fer canvis irreversibles.",
     "crumbs": [
       "Projectes",
       "Projecte 2 · Diagnòstic i Resolució d'Incidències"
@@ -2697,7 +2697,7 @@
     "href": "projects/02-project/02-project.html#instruccions-generals",
     "title": "Pràctica 02: Diagnòstic i resolució d’incidències en un servidor",
     "section": "",
-    "text": "Aquesta pràctica és un hack-the-box de diagnosi i resolució d’incidències en un servidor Linux. El professor us proporcionarà una màquina virtual amb diversos problemes que haureu d’identificar i solucionar en format contrarellotge (temps limitat de la classe).\n\n⏱ Durada: 2 hores\n🖥️ Entorn: màquina virtual facilitada pel professor\n👥 Treball: en grups de 2–3 persones\n📄 Entrega: informe en paper\n\nPodeu utilitzar qualsevol comanda i cercar informació en línia. Actueu amb cura i preserveu evidències abans de fer canvis irreversibles.",
+    "text": "Aquesta pràctica és un hack-the-box de diagnosi i resolució d’incidències en un servidor Linux. El professor us proporcionarà una màquina virtual amb diversos problemes que haureu d’identificar i solucionar en format contrarellotge (temps limitat de la classe).\n\n⏱ Durada: 2 hores\n🖥️ Entorn: màquina virtual facilitada pel professor\n👥 Treball: en grups de 2–3 persones\n📄 Entrega: Informe en format pdf al campus virtual.\n\nPodeu utilitzar qualsevol comanda i cercar informació en línia. Actueu amb cura i preserveu evidències abans de fer canvis irreversibles.",
     "crumbs": [
       "Projectes",
       "Projecte 2 · Diagnòstic i Resolució d'Incidències"
@@ -2730,7 +2730,7 @@
     "href": "projects/02-project/02-project.html#tasques",
     "title": "Pràctica 02: Diagnòstic i resolució d’incidències en un servidor",
     "section": "Tasques",
-    "text": "Tasques\n\nComproveu els logs del sistema (dmesg, journalctl, /var/log/syslog).\nVerifiqueu l’estat dels serveis amb systemctl.\nComproveu l’espai en disc amb la comanda df.\nReviseu els permisos dels fitxers i directoris rellevants.\nEs molt important que l’usuari jordi tingui un programa amb c anomenat hola a /home/jordi/bin/hola que imprimeixi Hola, món! quan s’executi.\nEs molt important que elimineu l’arxiu /srv/lab/passwords.txt que conté contrasenyes en text pla i que no s’hauria d’haver creat mai.\nReporteu els logs amb evidències de cada problema, reviseu els logs també entre arrencades.\n\n\n⚠️ Recordeu: no coneixeu cap password inicialment. El sistema té 2 usuaris: root i jordi.",
+    "text": "Tasques\n\nComproveu els logs del sistema (dmesg, journalctl, /var/log/syslog).\nVerifiqueu l’estat dels serveis amb systemctl.\nComproveu l’espai en disc amb la comanda df.\nReviseu els permisos dels fitxers i directoris rellevants.\nEs molt important que l’usuari jordi tingui un programa amb c anomenat hola a /home/jordi/bin/hola que imprimeixi Hola, món! quan s’executi.\nEs molt important que elimineu l’arxiu /srv/lab/passwords.txt que conté contrasenyes en text pla i que no s’hauria d’haver creat mai.\nReporteu els logs amb evidències de cada problema, reviseu els logs també entre arrencades.\n\n\nEl sistema té 2 usuaris: root i jordi. Els passwords d’aquests usuaris són 1234.",
     "crumbs": [
       "Projectes",
       "Projecte 2 · Diagnòstic i Resolució d'Incidències"
