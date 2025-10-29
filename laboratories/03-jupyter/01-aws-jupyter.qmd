@@ -1,0 +1,517 @@
+---
+title: "Servidor de Python al Cloud amb Emmagatzematge S3 Compartit"
+author: "Assignatura d'Administració de Sistemes"
+---
+
+## 🎯 Objectius
+
+- Configurar un servidor Jupyter Notebook a AWS EC2.
+- Utilitzar `systemd` per gestionar Jupyter com a servei.
+- Descobrir l'emmagatzematge al núvol amb AWS S3.
+- Accedir a S3 des de Jupyter i diferents clients.
+- Sincronitzar dades entre EC2 i S3.
+- Automatitzar la sincronització amb scripts i Lambda.
+
+## 🧱 Fase 1: Llançament del Núvol (EC2 + Jupyter com a servei)
+
+### 1.1 Crear instància EC2
+
+1. Aneu al **AWS Educate Learner Lab** i accediu al vostre entorn.
+2. Cerqueu **EC2** i creeu una nova instància.
+3. Seleccioneu una **AMI Linux** i tipus d’instància de baix cost (`t2.micro`).
+4. Configureu un **Security Group**:
+
+   * Port 22 (SSH) acceptant 0.0.0.0/0.
+   * Port 8888 (Jupyter) acceptant 0.0.0.0/0.
+5. Llançeu la instància.
+
+### 1.2 Instal·lar Jupyter Notebook
+
+1. Connecteu-vos a la instància via SSH.
+2. Actualitzeu els paquets:
+
+    ```bash
+    sudo yum update -y
+    ```
+
+3. Comproveu que Python3 està instal·lat:
+
+    ```bash
+    python3 --version
+    ```
+
+4. Crearem un entorn virtual per Jupyter al directori `/home/ec2-user/jupyter/env`:
+
+    ```bash
+    mkdir -p /home/ec2-user/jupyter
+    python3 -m venv /home/ec2-user/jupyter/env
+    source /home/ec2-user/jupyter/env/bin/activate
+    ```
+
+5. Instal·leu Jupyter:
+
+    ```bash
+    pip install jupyter
+    ```
+
+6. Comproveu la instal·lació:
+
+    ```bash
+    jupyter --version
+    ```
+
+7. Arranqueu Jupyter:
+
+    ```bash
+    jupyter-notebook --ip=0.0.0.0 --port=8888 --no-browser
+   ```
+
+8. Accediu a Jupyter des del navegador amb `http://<IP_PUBLICA>:8888`. A la terminal veureu un token d’accés que necessitareu per entrar.
+
+#### Pregunta de reflexió
+
+* Per què és recomanable executar Jupyter en un entorn virtual separat en lloc d’instal·lar-lo directament al sistema?
+
+### 🧠 Servei `jupyter` amb systemd
+
+Ara configurarem Jupyter per executar-lo com un servei de sistema amb `systemd`, de manera que s’iniciï automàticament a l’arrencada i s’executi en segon pla. La següent taula resumeix els components principals que crearem:
+
+| Component | Lloc | Propòsit |
+|-----------|------|----------|
+| Usuari de sistema | `jupyter`  (no shell, no home) | Executar Jupyter de manera segura, únicament per a aquest servei. |
+| Configuració Jupyter | `/etc/jupyter` | Configuració i credencials de Jupyter. |
+| Entorn virtual | `/opt/jupyter/env` | Paquets de Python aïllats per Jupyter. |
+| Directori de treball | `/srv/jupyter` | On es guarden els notebooks i dades. |
+| Unitat systemd | `/etc/systemd/system/jupyter.service` | Configuració del servei Jupyter per a systemd. |
+
+
+1. Crearem un usuari dedicat per a Jupyter:
+
+    ```bash
+    sudo useradd --system --no-create-home --shell /sbin/nologin jupyter
+    sudo passwd -l jupyter
+    ```
+
+2. Crearem els directoris necessaris:
+
+    ```bash
+    sudo mkdir -p /etc/jupyter /opt/jupyter/env /srv/jupyter mkdir /etc/jupyter/runtime /srv/jupyter/notebooks
+    sudo chown -R jupyter:jupyter /srv/jupyter /etc/jupyter /opt/jupyter
+    ```
+
+3. Instal·larem Jupyter a l’entorn virtual:
+
+    ```bash
+    sudo python3 -m venv /opt/jupyter/env
+    sudo chown -R jupyter:jupyter /opt/jupyter/env
+    sudo -u jupyter /opt/jupyter/env/bin/pip install --upgrade pip
+    sudo -u jupyter /opt/jupyter/env/bin/pip install jupyter
+    ```
+
+4. Genereu el fitxer de configuració de Jupyter:
+
+    ```bash
+    sudo -u jupyter env HOME=/tmp /opt/jupyter/env/bin/jupyter-notebook --generate-config --config-dir=/etc/jupyter
+    ```
+
+5. Editeu el fitxer de configuració per definir directori i ports:
+
+    ```bash
+    sudo -u jupyter vi /etc/jupyter/jupyter_notebook_config.py
+    ```
+
+    Afegiu les línies següents:
+
+    ```python
+    c.ServerApp.ip = '0.0.0.0'
+    c.ServerApp.port = 8888
+    c.ServerApp.open_browser = False
+    c.ServerApp.root_dir = '/srv/jupyter'
+    c.ServerApp.notebook_dir = '/srv/jupyter/notebooks'
+    c.serverApp.token = ''  
+    c.ServerApp.password = ''  
+    ```
+
+6. Generar una contrasenya per Jupyter:
+
+    ```bash
+    sudo -u jupyter /opt/jupyter/env/bin/python3 -c "from jupyter_server.auth import passwd; print(passwd())"
+    ```
+
+7. Copieu la sortida i afegiu-la a `c.ServerApp.password` al fitxer de configuració.
+
+8. Creeu el fitxer de servei systemd:
+
+    ```bash
+    sudo vi /etc/systemd/system/jupyter.service
+    ```
+
+    Afegiu el següent contingut:
+
+    ```ini
+    [Unit]
+    Description=Jupyter Service
+    After=network.target
+
+    [Service]
+    Type=simple
+    User=jupyter
+    Group=jupyter
+    WorkingDirectory=/srv/jupyter
+    Environment="XDG_DATA_HOME=/srv/jupyter/.local/share"
+    Environment="JUPYTER_CONFIG_DIR=/etc/jupyter"
+    Environment="PATH=/opt/jupyter/env/bin"
+    Environment="JUPYTER_RUNTIME_DIR=/etc/jupyter/runtime"
+    ExecStart=/opt/jupyter/env/bin/jupyter-notebook --config=/etc/jupyter/jupyter_notebook_config.py
+    Restart=failure
+    RestartSec=10
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+9. Activeu i inicieu el servei:
+
+    ```bash
+    sudo systemctl daemon-reload
+    sudo systemctl enable jupyter
+    sudo systemctl start jupyter
+    sudo systemctl status jupyter
+    ```
+
+10. Accediu a Jupyter des del navegador amb `http://<IP_PUBLICA>:8888` i utilitzeu la contrasenya establerta.
+
+::: {.callout-note title="Logs de Jupyter"}
+
+Podeu veure els logs de Jupyter amb:
+
+```bash
+journalctl -u jupyter -f
+```
+
+:::
+
+#### Preguntes de reflexió
+
+* Què passaria si canviem `Type=simple` a `Type=forking`? Quines modificacions hauríem de fer al fitxer de servei?
+* Quin avantatge té separar l’usuari que executa Jupyter del teu usuari d’administració?
+* Quines implicacions té mantenir un servei com Jupyter en execució contínua? (Considereu consum de recursos, seguretat, monitorització.)
+
+## 💾 Fase 2: Configuració d’emmagatzematge S3
+
+### 2.1 Creació de buckets S3
+
+Crearem diferents buckets S3 per emmagatzemar els notebooks, les dades, els resultats i també per fer de backup. Per fer-ho, seguirem els passos següents:
+
+1. Aneu al servei S3 a AWS i creeu els següents buckets (assegureu-vos que els noms siguin únics a nivell global):
+
+   * `amsa-<vostre_nom>-notebooks`
+   * `amsa-<vostre_nom>-data`
+   * `amsa-<vostre_nom>-results`
+   * `amsa-<vostre_nom>-backup`
+
+2. Configurarem que únicament el vostre usuari tingui accés als buckets creats. 
+
+::: {.callout-note title="Política d'Accés S3"}
+A la realitat, hauríeu de crear una política d'accés S3 que permeti només al vostre usuari accedir als buckets. Però ens els learner labs d'AWS Educate, això no és possible. Per tant, en aquest laboratori l'owner del bucket (el vostre usuari d'AWS Educate) serà l'únic que podrà accedir als seu continguts.
+:::
+
+- Seleccioneu **General purpose**.
+- ACLs desactivades.
+- Activeu tots els controls de bloqueig d’accés públic.
+- Desactiveu el versionat.
+- Server-side encryption with Amazon S3 managed keys (SSE-S3).
+- Seleccioneu **Bucket Key** activada.
+
+3. Un cop creats els buckets, anoteu-vos els noms per utilitzar-los més endavant.
+
+4. Podeu pujar documents de mostra als buckets per exemple des del vostre ordinador local, aneu a la interfície web de S3, seleccioneu el bucket i pengeu fitxers.
+
+### 2.2 Configuració de l’AWS CLI a l’EC2
+
+1. Instal·leu l’AWS CLI a l’instància EC2:
+
+    ```bash
+    sudo yum install awscli -y
+    ```
+
+2. Configureu l’AWS CLI amb les vostres credencials d’AWS Educate:
+
+    ```bash
+    aws configure
+    ```
+
+3. Aneu a la pestaña d'accés al Learner Lab i a la secció AWS Details -> Show AWS CLI ->  copieu l'Access Key ID i el Secret Access Key i enganxeu-los a la terminal quan us ho demani. Per a la regió, utilitzeu `us-east-1` o la que correspongui al vostre entorn.
+
+    ```plaintext
+    AWS Access Key ID [None]: <ACCESS_KEY>
+    AWS Secret Access Key [None]: <SECRET_KEY>
+    Default region name [None]: us-east-1
+    Default output format [None]: None
+    ```
+
+4. Comproveu que podeu accedir als buckets creats:
+
+    ```bash
+    aws s3 ls
+    ```
+
+5. Copiar fitxers entre l’EC2 i S3:
+
+    ```bash
+    cd /tmp
+    echo "Això és un fitxer de prova per a S3" > file.txt
+    aws s3 cp file.txt s3://amsa-<vostre_nom>-notebooks/file.txt
+    ```
+
+6. Comproveu que el fitxer s’ha pujat correctament:
+
+    ```bash
+    aws s3 ls s3://amsa-<vostre_nom>-notebooks/
+    ```
+
+7. Consulteu la **cheat sheet** al final del laboratori per veure i provar més ordres de l’AWS CLI relacionades amb S3.
+
+### Preguntes de reflexió
+
+* Quins avantatges té utilitzar S3 per emmagatzemar dades en lloc de l’emmagatzematge local de l’EC2?
+* Quin és el risc de tenir les credencials d’AWS configurades directament a l’EC2 i com es podria mitigar?
+* Cerca informació sobre emmagatzematge basat en blocs (EBS) i emmagatzematge d’objectes (S3). Quines són les diferències principals i en quins casos és millor utilitzar cada tipus?
+
+### 2.3 Control de versions i sincronització
+
+El servei S3 permet habilitar el control de versions als buckets per mantenir un historial de canvis dels fitxers. Això és útil per recuperar versions anteriors en cas d’errors o pèrdua de dades.
+
+1. Habiliteu el control de versions al bucket de notebooks:
+
+    ```bash
+    aws s3api put-bucket-versioning --bucket amsa-<vostre_nom>-notebooks --versioning-configuration Status=Enabled
+    ```
+
+2. Pugeu un fitxer i modifiqueu-lo diverses vegades per veure com es creen diferents versions:
+
+    ```bash
+    echo "Versió 1" > versioned_file.txt
+    aws s3 cp versioned_file.txt s3://amsa-<vostre_nom>-notebooks/versioned_file.txt
+
+    echo "Versió 2" > versioned_file.txt
+    aws s3 cp versioned_file.txt s3://amsa-<vostre_nom>-notebooks/versioned_file.txt
+
+    echo "Versió 3" > versioned_file.txt
+    aws s3 cp versioned_file.txt s3://amsa-<vostre_nom>-notebooks/versioned_file.txt
+    ```
+
+3. Llisteu les versions del fitxer:
+
+    ```bash
+    aws s3api list-object-versions --bucket amsa-<vostre_nom>-notebooks --prefix versioned_file.txt
+    ```
+
+4. Recupereu una versió específica del fitxer:
+
+    ```bash
+    aws s3api get-object --bucket amsa-<vostre_nom>-notebooks --key versioned_file.txt --version-id <VERSION_ID> restored_versioned_file.txt
+    ```
+
+### Pregunta de reflexió
+
+* Quins problemes pot solucionar el control de versions en un bucket S3? Pensa un exemple pràctic.
+* Simula una situació on no pots o no vols utilitzar Git per gestionar els teus notebooks de Jupyter (per exemple, en un entorn cloud compartit). Com podries aprofitar el versionament de buckets S3 per mantenir versions dels teus notebooks i recuperar versions anteriors? Quins avantatges i limitacions tindria aquest enfocament comparat amb Git pel que fa a traçabilitat, col·laboració i eficiència d’emmagatzematge?
+
+# ⚙️ Fase 3: Prova de S3 des de Jupyter
+
+1. Inicieu sessió a Jupyter des del navegador.
+2. Creeu un nou notebook de Python3.
+3. Proveu el següent codi per accedir a S3 des de Jupyter
+
+    ```bash
+    sudo -u jupyter /opt/jupyter/env/bin/pip install boto3 pandas matplotlib
+    ```
+
+    ```python
+    import boto3
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from io import StringIO
+
+    s3_client = boto3.client('s3')
+    bucket_results = "amsa-<vostre_nom>-results"
+    bucket_data = "amsa-<vostre_nom>-data"
+
+    # Fitxer CSV d'exemple
+    data_csv = """dia,valor
+    2025-10-21,10
+    2025-10-22,12
+    2025-10-23,9
+    2025-10-24,15
+    """
+    with open("dades.csv", "w") as f:
+        f.write(data_csv)
+    s3_client.upload_file("dades.csv", bucket_data, "dades.csv")
+
+    # Llegir fitxer de S3
+    obj = s3_client.get_object(Bucket=bucket_data, Key="dades.csv")
+    df = pd.read_csv(StringIO(obj['Body'].read().decode('utf-8')))
+    print(df)
+
+    # Crear gràfica
+    plt.figure(figsize=(6,4))
+    plt.plot(pd.to_datetime(df['dia']), df['valor'], marker='o')
+    plt.title("Valor diari")
+    plt.xlabel("Dia")
+    plt.ylabel("Valor")
+    plt.grid(True)
+
+    # Guardar i pujar gràfica
+    plt.savefig("grafica_valor.png")
+    s3_client.upload_file("grafica_valor.png", bucket_results, "grafica_valor.png")
+    ```
+
+4. Quan executeu veureu que jupyter no coneix les credencials d’AWS. Per solucionar-ho, necessiteu copiar les credencials al directori de l’usuari `jupyter`.
+
+    ```bash
+    sudo cp -R .aws /srv/jupyter/
+    sudo chown -R jupyter:jupyter /srv/jupyter/.aws
+    ```
+
+5. Modifiqueu el servei per establir aquest directori:
+
+    ```bash
+    sudo systemctl stop jupyter
+    echo 'Environment="AWS_SHARED_CREDENTIALS_FILE=/srv/jupyter/.aws/credentials"' | sudo tee -a /etc/systemd/system/jupyter.service
+    sudo systemctl daemon-reload
+    sudo systemctl start jupyter
+    ```
+
+6. Torneu a executar el notebook. Ara hauria de funcionar correctament i pujar la gràfica a S3.
+   
+
+7. Descarregueu el fitxer des de S3 i mostreu-lo a Jupyter:
+
+    ```python
+    from IPython.display import Image
+
+    s3_client.download_file(bucket_results, "grafica_valor.png", "descargada_grafica_valor.png")
+    Image(filename="descargada_grafica_valor.png")
+    ```
+
+
+## 🏗️ Fase 4: Sincronització automàtica amb S3
+
+Un dels problemes d'utilitzar 2 serveis diferents com a EC2 i S3 és que les dades poden quedar desincronitzades. Per exemple, si treballem amb notebooks a Jupyter i els guardem localment, aquests canvis no es reflectiran automàticament a S3. Si pujem dades a S3 des d'un altre lloc, aquestes dades no estaran disponibles localment a l'EC2.
+
+Una solució seria abans de treballar a Jupyter sincronitzar les dades des de S3 a l'EC2 i després de treballar, tornar a sincronitzar les dades de l'EC2 a S3. Això es pot fer manualment amb l'AWS CLI, però és millor automatitzar-ho.
+
+```bash
+#!/bin/bash
+
+# Sincronitzar des de S3 a EC2
+aws s3 sync s3://amsa-<vostre_nom>-notebooks /srv/jupyter/notebooks/
+
+# Sincronitzar des de EC2 a S3
+aws s3 sync /srv/jupyter/notebooks/ s3://amsa-<vostre_nom>-notebooks
+```
+
+Un manera d'automatitzar-ho seria crear un **timer** de systemd que executi aquest script cada cert temps (per exemple, cada 5 minuts). Així, les dades es mantindrien sincronitzades sense necessitat d'intervenció manual.
+
+Una altra opció seria configurar una Lambda que s'activi quan hi hagi canvis al bucket S3 i sincronitzi aquests canvis a l'EC2. Aquesta opció és més complexa però permet una sincronització més immediata.
+
+### Configuració de la funció Lambda
+
+En aquest entorn AWS Educate, Lambda no pot executar ordres directament a l’EC2. En un entorn real, podríem utilitzar AWS Systems Manager (SSM) per enviar ordres a l’EC2 des de Lambda. Però com que no tenim permisos per configurar SSM al Learner Lab, no podem implementar aquest model directament.
+
+```python
+import boto3
+
+ ec2 = boto3.client('ec2')
+ ssm = boto3.client('ssm')
+
+ def lambda_handler(event, context):
+     # ID de la instància EC2
+     instance_id = 'i-0fea0f11ae793a212'
+
+     # Comanda a executar a la instància EC2
+     command = "aws s3 sync s3://amsa-<vostre_nom>-notebooks /srv/jupyter/notebooks/"
+
+     # Executa la comanda via AWS Systems Manager
+     response = ssm.send_command(
+         InstanceIds=[instance_id],
+         DocumentName="AWS-RunShellScript",
+         Parameters={'commands': [command]}
+     )
+     return {
+         'statusCode': 200,
+         'body': 'Comanda de sincronització enviada correctament.'
+     }
+```
+
+### Activitats
+
+1. Implementa un timer de systemd que executi un script de sincronització cada 5 minuts.
+2. Implementa una funció lambda que per cada modificació al bucket S3, creei un fitxer de backup al bucket de backup. *Nota*: Aquesta lambda si es pot implementar al Learner Lab, utiltizeu el *LABROLE* per executar el codi que còpia els fitxers al bucket de backup i seleccioneu l'S3 com a trigger. Podeu fer servir **python**.
+
+## 🚀 AWS S3 - Cheat Sheet 
+
+1. **Copiar un document de EC2 a S3:**
+
+    ```bash
+    aws s3 cp <local-path>/file.txt s3://<bucket-name>/file.txt
+    ```
+
+2. **Copiar un document de S3 a EC2:**
+
+    ```bash
+    aws s3 cp s3://<bucket-name>/file.txt <local-path>/file.txt
+    ```
+
+3. **Sincronitzar un directori local amb un bucket de S3:**
+
+    ```bash
+    aws s3 sync <local-directory> s3://<bucket-name>
+    ```
+
+4. **Sincronitzar un bucket de S3 amb un directori local:**
+
+    ```bash
+    aws s3 sync s3://<bucket-name> <local-directory>
+    ```
+
+5. **Crear una carpeta a S3:**
+
+    ```bash
+    aws s3 mb s3://<bucket-name>/folder
+    ```
+
+6. **Eliminar un document de S3:**
+
+    ```bash
+    aws s3 rm s3://<bucket-name>/file.txt
+    ```
+
+7. **Eliminar documents de S3 de manera recursiva:**
+
+    ```bash
+    aws s3 rm s3://<bucket-name>/ --recursive
+    ```
+
+8. **Llistar els documents d'un bucket de S3:**
+
+    ```bash
+    aws s3 ls s3://<bucket-name>
+    ```
+
+9. **Llistar els documents d'un bucket de S3 de forma recursiva:**
+
+    ```bash
+    aws s3 ls s3://<bucket-name> --recursive
+    ```
+
+## Activitats extra
+
+1. Busca informació sobre con instal·la un servidor similar a Dropbox o Drive utilitzant EC2 i S3. Aquest servidor pot utilitzant el programari [Nextcloud](https://nextcloud.com/) o [ownCloud](https://owncloud.com/). Resumeix els passos principals per fer-ho. No pots utiltizar `docker` per aquesta activitat. A més a més, comparar el cost de tenir aquest servidor amb el cost d'utilitzar serveis com Dropbox o Google Drive per a diferents quantitats d'emmagatzematge (per exemple, 100GB, 1TB, 10TB).
+
+## 🧹  Finalització i Neteja
+
+Recorda eliminar tots els recursos creats a AWS per evitar càrrecs innecessaris.
+
+> Happy SysAdmin! 🕵️‍♂️

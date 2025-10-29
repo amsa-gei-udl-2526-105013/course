@@ -96,6 +96,10 @@ website:
             contents:
               - href: ./laboratories/02-network/01-aws-wordpress.qmd
                 text: Laboratori 03 · Desplegament d'una aplicació web amb alta disponibilitat amb AWS
+          - section: Storage and Services
+            contents:
+              - href: ./laboratories/03-jupyter/01-aws-jupyter.qmd
+                text: Laboratori 04 · Servidor de Python al Cloud amb Emmagatzematge S3 Compartit
       - section: Projectes
         contents:
           - href: ./projects/01-project/01-project.qmd

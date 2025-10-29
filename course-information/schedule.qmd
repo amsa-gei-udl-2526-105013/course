@@ -26,3 +26,4 @@ A continuació es presenta un calendari complet dels temes, el contingut del cur
 | 7   | Teoria             |20/10/25    | **Unitat 03**: Sistemes de fitxers (Part 3)            | [📖](../slides/03-filesystem-part3.html#prepare){aria-label="Sistemes de fitxers (Part 3) "}  |    |  |  | [📝](../exercises/03-fs/10-ex-week7.qmd) || 
 | 7 | Laboratori | 22/10/25 | **Unitat 03: Pràctica 02**  |  | | | | |[👩🏻‍💻](../projects/02-project/02-project.html#prepare) |
 | 8    | Teoria             |27/10/25    | **Repàs Parcial**      |  |    |  |  | 
+| 8    | Laboratori |29/10/25 | **AWS: S3**  |  |    | [🧪](/laboratories/03-jupyter/01-aws-jupyter.html#prepare) |
