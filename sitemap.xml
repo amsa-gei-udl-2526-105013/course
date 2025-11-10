@@ -2,118 +2,126 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/05-ex-week3.html</loc>
-    <lastmod>2025-10-29T09:14:53.098Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/02-ex-week2.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/01-ex-week2.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/03-ex-week2.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/03-fs/09-ex-week6.html</loc>
-    <lastmod>2025-10-29T09:14:53.104Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/01-foundations-of-systems-administration/01-ex-week1.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/01-foundations-of-systems-administration.html</loc>
-    <lastmod>2025-10-29T09:14:53.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/03-filesystem-part1.html</loc>
-    <lastmod>2025-10-29T09:14:53.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/03-filesystem-part2.html</loc>
-    <lastmod>2025-10-29T09:14:53.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/02-booting-part2.html</loc>
-    <lastmod>2025-10-29T09:14:53.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/index.html</loc>
-    <lastmod>2025-10-29T09:14:53.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/projects/01-project/01-project.html</loc>
-    <lastmod>2025-10-29T09:14:53.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/03-jupyter/01-aws-jupyter.html</loc>
-    <lastmod>2025-10-29T09:14:53.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/02-network/01-aws-wordpress.html</loc>
-    <lastmod>2025-10-29T09:14:53.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/01-foundations/01-aws-introduction.html</loc>
-    <lastmod>2025-10-29T09:14:53.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/01-foundations/02-aws-wordpress.html</loc>
-    <lastmod>2025-10-29T09:14:53.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/01-introduction.html</loc>
-    <lastmod>2025-10-29T09:14:53.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/projects/02-project/02-project.html</loc>
-    <lastmod>2025-10-29T09:14:53.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/CONTRIBUTING.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/course-information/schedule.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/02-booting-part3.html</loc>
-    <lastmod>2025-10-29T09:14:53.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/02-booting.html</loc>
-    <lastmod>2025-10-29T09:14:53.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/03-filesystem-part3.html</loc>
-    <lastmod>2025-10-29T09:14:53.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/01-foundations-of-systems-administration/02-ex-week1.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/03-fs/08-ex-week5.html</loc>
-    <lastmod>2025-10-29T09:14:53.104Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/03-fs/10-ex-week7.html</loc>
-    <lastmod>2025-10-29T09:14:53.104Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/03-fs/08-ex-week5.html</loc>
+    <lastmod>2025-11-10T07:36:23.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/01-foundations-of-systems-administration/02-ex-week1.html</loc>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/03-filesystem-part3.html</loc>
+    <lastmod>2025-11-10T07:36:23.338Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/03-filesystem-part1.html</loc>
+    <lastmod>2025-11-10T07:36:23.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/03-filesystem-part2.html</loc>
+    <lastmod>2025-11-10T07:36:23.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/02-booting-part2.html</loc>
+    <lastmod>2025-11-10T07:36:23.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/index.html</loc>
+    <lastmod>2025-11-10T07:36:23.335Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/projects/01-project/01-project.html</loc>
+    <lastmod>2025-11-10T07:36:23.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/03-jupyter/01-aws-jupyter.html</loc>
+    <lastmod>2025-11-10T07:36:23.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/02-network/01-aws-wordpress.html</loc>
+    <lastmod>2025-11-10T07:36:23.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/01-foundations/01-aws-introduction.html</loc>
+    <lastmod>2025-11-10T07:36:23.335Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/01-foundations/02-aws-wordpress.html</loc>
+    <lastmod>2025-11-10T07:36:23.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/laboratories/01-introduction.html</loc>
+    <lastmod>2025-11-10T07:36:23.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/projects/02-project/02-project.html</loc>
+    <lastmod>2025-11-10T07:36:23.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/CONTRIBUTING.html</loc>
+    <lastmod>2025-11-10T07:36:23.180Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/course-information/schedule.html</loc>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/02-booting-part3.html</loc>
+    <lastmod>2025-11-10T07:36:23.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/02-booting.html</loc>
+    <lastmod>2025-11-10T07:36:23.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/04-authentication-part1.html</loc>
+    <lastmod>2025-11-10T07:36:23.338Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/slides/01-foundations-of-systems-administration.html</loc>
+    <lastmod>2025-11-10T07:36:23.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/01-foundations-of-systems-administration/01-ex-week1.html</loc>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/03-fs/09-ex-week6.html</loc>
+    <lastmod>2025-11-10T07:36:23.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/04-accounts/01-lord-of-system.html</loc>
+    <lastmod>2025-11-10T07:36:23.188Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/06-ex-week4.html</loc>
-    <lastmod>2025-10-29T09:14:53.098Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/07-ex-week4.html</loc>
-    <lastmod>2025-10-29T09:14:53.098Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
   <url>
     <loc>https://amsa-gei-udl-2526-105013.github.io/course/exercises/02-booting/04-ex-week3.html</loc>
-    <lastmod>2025-10-29T09:14:53.097Z</lastmod>
+    <lastmod>2025-11-10T07:36:23.181Z</lastmod>
   </url>
 </urlset>

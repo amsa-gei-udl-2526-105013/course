@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Jordi Mateo Fornés">
+  <title>AMSA - Fall 2025 – Autenticació i Autorització (Part 1)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Autenticació i Autorització (Part 1)</h1>
+  <p class="subtitle">Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jordi Mateo Fornés 
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<section id="usuaris-grups-i-credencials-a-linux" class="title-slide slide level1 center">
+<h1>Usuaris, grups i credencials a Linux</h1>
+<blockquote>
+<p>We trust you have received the usual lecture from the local System Administrator. It usually boils down to these three things: (1) Respect the privacy of others. (2) Think before you type. (3) With great power comes great responsibility. – Output of sudo(8) upon first invocation.</p>
+</blockquote>
+</section>
+<section id="arquitectura-de-credencials-del-kernel" class="slide level2">
+<h2>Arquitectura de credencials del kernel</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a></a><span class="kw">struct</span> cred <span class="op">{</span></span>
+<span id="cb1-2"><a></a>    <span class="co">// Identitats reals, efectives i de seguretat</span></span>
+<span id="cb1-3"><a></a>    kuid_t uid<span class="op">,</span> euid<span class="op">,</span> suid<span class="op">,</span> fsuid<span class="op">;</span> </span>
+<span id="cb1-4"><a></a>    <span class="co">// Grups associats     </span></span>
+<span id="cb1-5"><a></a>    kgid_t gid<span class="op">,</span> egid<span class="op">,</span> sgid<span class="op">,</span> fsgid<span class="op">;</span></span>
+<span id="cb1-6"><a></a>    <span class="co">// Capabilities heretables      </span></span>
+<span id="cb1-7"><a></a>    kernel_cap_t cap_inheritable<span class="op">;</span> </span>
+<span id="cb1-8"><a></a>    <span class="co">// Capabilities permeses      </span></span>
+<span id="cb1-9"><a></a>    kernel_cap_t cap_permitted<span class="op">;</span></span>
+<span id="cb1-10"><a></a>    <span class="co">// Capabilities actives         </span></span>
+<span id="cb1-11"><a></a>    kernel_cap_t cap_effective<span class="op">;</span>  </span>
+<span id="cb1-12"><a></a>    <span class="co">// Claus de sessió      </span></span>
+<span id="cb1-13"><a></a>    <span class="kw">struct</span> key <span class="op">*</span>session_keyring<span class="op">;</span></span>
+<span id="cb1-14"><a></a>    <span class="co">// Estructura d'usuari global        </span></span>
+<span id="cb1-15"><a></a>    <span class="kw">struct</span> user_struct <span class="op">*</span>user<span class="op">;</span>           </span>
+<span id="cb1-16"><a></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Els attributs <strong>euid/egid</strong> permet als progames operar amb elevació de privilegis.</p>
+</section>
+<section id="usuaris-a-linux" class="slide level2 smaller">
+<h2>Usuaris a Linux</h2>
+<ul>
+<li class="fragment">Cada entitat al sistema té un <strong>Identificador Únic</strong> (UID) i un <strong>Grup Primari</strong> (GID).</li>
+<li class="fragment">Els recursos (fitxers, directoris, processos) són propietat d’un UID i un GID.</li>
+<li class="fragment"><strong>Objectiu de Seguretat</strong>: Implementar el <strong>Principi de Mínims Privilegis (PoLP)</strong>.</li>
+<li class="fragment"><strong>Objectiu d’Auditoria</strong>: Registrar i traçar les accions de cada usuari.</li>
+</ul>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rang</th>
+<th style="text-align: left;">Categoria</th>
+<th style="text-align: left;">Descripció</th>
+<th style="text-align: left;">Política</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>root</strong></td>
+<td style="text-align: left;">Superusuari, privilegis absoluts</td>
+<td style="text-align: left;">Evitar-ne l’ús directe</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>1–999</strong></td>
+<td style="text-align: left;"><strong>Sistema</strong></td>
+<td style="text-align: left;">dimonis, serveis (<code>nginx</code>, <code>mysql</code>)</td>
+<td style="text-align: left;">Sense shell interactiu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>1000+</strong></td>
+<td style="text-align: left;"><strong>Humans</strong></td>
+<td style="text-align: left;">Usuaris interactius, grups secundaris</td>
+<td style="text-align: left;">PAM, auditoria</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>65534</strong></td>
+<td style="text-align: left;"><strong>nobody</strong></td>
+<td style="text-align: left;">Sense privilegis</td>
+<td style="text-align: left;">Aïllament de processos</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="el-superusuari-root" class="slide level2 smaller">
+<h2>El Superusuari (<code>root</code>)</h2>
+<ul>
+<li class="fragment"><strong>UID 0</strong> amb privilegis il·limitats i accés absolut a tots els fitxers i processos.</li>
+<li class="fragment"><strong>Recomanació de Seguretat</strong>: <strong>Evitar l’ús directe</strong> de <code>root</code>.
+<ul>
+<li class="fragment">Un error comès per <code>root</code> pot ser catastròfic.</li>
+<li class="fragment">Augmenta el rastre d’auditoria de l’usuari real.</li>
+</ul></li>
+</ul>
+</section>
+<section id="elevació-de-privilegis" class="slide level2 smaller">
+<h2>Elevació de Privilegis</h2>
+<ul>
+<li class="fragment"><strong><code>sudo</code></strong>: Permet executar comandes com a un altre usuari (per defecte <code>root</code>).
+<ul>
+<li class="fragment">La configuració es fa al fitxer <code>/etc/sudoers</code> mitjançant <strong><code>visudo</code></strong>.</li>
+<li class="fragment">Permet un control <strong>granular</strong>: qui, des d’on, i quines comandes pot executar.</li>
+</ul></li>
+<li class="fragment"><strong><code>su -c comanda</code></strong>: Permet executar una comanda com a un altre usuari incloent <code>root</code>.
+<ul>
+<li class="fragment">Requereix la contrasenya de l’usuari objectiu.</li>
+<li class="fragment">No ofereix control granular ni registre detallat.</li>
+</ul></li>
+</ul>
+</section>
+<section id="grups-dusuaris" class="slide level2 smaller">
+<h2>Grups d’usuaris</h2>
+<ul>
+<li class="fragment">Un grup és una col·lecció d’usuaris que comparteixen permisos comuns en fitxers i directoris.</li>
+<li class="fragment">Cada usuari té un grup primari i pot pertànyer a múltiples grups.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="ex">$</span> id usuari</span>
+<span id="cb2-2"><a></a><span class="va">uid</span><span class="op">=</span>1001<span class="kw">(</span><span class="ex">usuari</span><span class="kw">)</span> <span class="va">gid</span><span class="op">=</span>1001<span class="kw">(</span><span class="ex">usuari</span><span class="kw">)</span> <span class="va">groups</span><span class="op">=</span>1001<span class="kw">(</span><span class="ex">usuari</span><span class="kw">)</span><span class="ex">,27</span><span class="er">(</span><span class="fu">sudo</span><span class="kw">)</span><span class="ex">,1002</span><span class="er">(</span><span class="ex">grup2</span><span class="kw">)</span></span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a><span class="ex">$</span> groups usuari</span>
+<span id="cb2-5"><a></a><span class="ex">usuari</span> : usuari sudo grup2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="bases-de-dades" class="slide level2 smaller">
+<h2>Bases de dades</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fitxer</th>
+<th style="text-align: left;">Propietari</th>
+<th style="text-align: left;">Permisos</th>
+<th style="text-align: left;">Contingut</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>/etc/passwd</code></td>
+<td style="text-align: left;">root</td>
+<td style="text-align: left;">644</td>
+<td style="text-align: left;">uid, gid, comentari, shell (públic)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>/etc/shadow</code></td>
+<td style="text-align: left;">root</td>
+<td style="text-align: left;">600</td>
+<td style="text-align: left;">hashs de contrasenyes (secret)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>/etc/group</code></td>
+<td style="text-align: left;">root</td>
+<td style="text-align: left;">644</td>
+<td style="text-align: left;">definicions de grups</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>/etc/gshadow</code></td>
+<td style="text-align: left;">root</td>
+<td style="text-align: left;">600</td>
+<td style="text-align: left;">contrasenyes de grups (rares)</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Cal comprovar regularment els permissos de:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="fu">stat</span> /etc/passwd /etc/shadow /etc/group</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="etcpasswd" class="slide level2 smaller">
+<h2><code>/etc/passwd</code></h2>
+<p>El fitxer <code>/etc/passwd</code> és un fitxer que conté la base de dades d’usuaris del sistema. Cada línia del fitxer descriu un compte d’usuari.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="ex">$</span> less /etc/passwd</span>
+<span id="cb4-2"><a></a><span class="ex">nom:clau:uid:gid:comentari:directori:shell</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment"><strong>nom</strong>: Algunes versions limiten el nom a 8 caràcters. Es recomana utilitzar míniscules i números.</li>
+<li class="fragment"><strong>clau</strong>: És un camp que ja no s’utilitza. La clau s’emmagatzema en <code>/etc/shadow</code>.</li>
+<li class="fragment"><strong>uid</strong>: Número intern associat al nom d’usuari.</li>
+<li class="fragment"><strong>gid</strong>: Número associat al grup principal de l’usuari. Cada identificador té la seva entrada a <code>/etc/group</code>.</li>
+<li class="fragment"><strong>comentari</strong>: Normalment s’utilitza per al nom complet de l’usuari o altres dades descriptives.</li>
+<li class="fragment"><strong>directori</strong>: Directori d’inici de l’usuari.</li>
+<li class="fragment"><strong>shell</strong>: Intèrpret de comandes per defecte de l’usuari (per exemple, <code>/bin/bash</code>).</li>
+</ul>
+</section>
+<section id="etcpasswd-nom" class="slide level2 smaller">
+<h2><code>/etc/passwd</code>: nom</h2>
+<ul>
+<li class="fragment">Ha de ser únic.</li>
+<li class="fragment">No pot contenir els caràcters <code>:</code>, <code>\n</code></li>
+<li class="fragment">Es permet fins a 32 caràcters. El primer caràcter ha de ser <strong>minúscula</strong> o _.</li>
+<li class="fragment">S’accepten <strong>majúscules</strong>, <strong>minúscules, -, _ i números</strong>.</li>
+<li class="fragment">Es recomana màxim 8 caràcters per tenir compatibilitat amb <em>legacy systems</em>.</li>
+<li class="fragment">Es recomana no utilitzar majúscules.</li>
+<li class="fragment">Es recomana no utilitzar nicknames.</li>
+<li class="fragment">Es recomana mantenir un esquema de noms.</li>
+</ul>
+</section>
+<section id="etcgroup" class="slide level2 smaller">
+<h2><code>/etc/group</code></h2>
+<p>El fitxer <code>/etc/group</code> és un fitxer que conté la base de dades de grups del sistema. Cada línia del fitxer descriu un grup d’usuaris.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="ex">$</span> less /etc/group</span>
+<span id="cb5-2"><a></a><span class="ex">nom:clau:gid:llista_usuaris</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment"><strong>nom</strong>: Nom del grup. Pot ser el mateix que el de l’usuari (si és l’únic membre). S’aconsella minúscules i números.</li>
+<li class="fragment"><strong>clau</strong>: Fa referència a una contrasenya opcional pel grup. Un * com a caràcter invàlid impedeix que els usuaris normals canviïn al grup. Una <strong>x</strong> fa referència al fitxer de contrasenya separat <code>/etc/gshadow</code>. <code>gpasswd</code></li>
+<li class="fragment"><strong>gid</strong>: Número intern associat al grup. Els nombres baixos es reserven pels grups de sistema. Els nombres 200, 500 o 1000 es troben els comptes normals.</li>
+<li class="fragment"><strong>membres</strong>: Una llista de noms d’usuaris separats per comes. Aquesta llista conté tots els usuaris que tenen aquest grup com a grup secundari, és a dir, que són membres d’aquest grup, però tenen un valor diferent del camp GID del seu <code>/etc/passwd</code>.</li>
+</ul>
+</section>
+<section id="etcshadow" class="slide level2 smaller">
+<h2><code>/etc/shadow</code></h2>
+<p>El fitxer <code>/etc/shadow</code> és un fitxer que conté la informació de les contrasenyes dels usuaris del sistema. Aquest fitxer és llegible només per l’usuari root i els processos amb privilegis elevats.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="ex">$</span> less /etc/shadow</span>
+<span id="cb6-2"><a></a><span class="ex">nom:password_hash:change:min:max:warn:grace:lock</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 66%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Camp</th>
+<th>Descripció</th>
+<th>Gestió</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>password_hash</td>
+<td>Hash (xifrat) de la contrasenya + salt.</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>change</td>
+<td>Data de l’últim canvi (dies des de 01-01-1970).</td>
+<td><code>chage -m</code></td>
+</tr>
+<tr class="odd">
+<td>min</td>
+<td>Dies mínims entre canvis de contrasenya.</td>
+<td><code>chage -m</code></td>
+</tr>
+<tr class="even">
+<td>max</td>
+<td>Dies màxims abans de l’expiració.</td>
+<td><code>chage -M</code></td>
+</tr>
+<tr class="odd">
+<td>warn</td>
+<td>Dies d’avís abans de l’expiració.</td>
+<td><code>chage -W</code></td>
+</tr>
+<tr class="even">
+<td>grace</td>
+<td>Dies de gràcia després de l’expiració abans de bloquejar el compte.</td>
+<td><code>chage -I</code></td>
+</tr>
+<tr class="odd">
+<td>lock</td>
+<td>Data d’expiració del compte (Bloqueig).</td>
+<td><code>chage -E</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="xifrat-de-contrasenyes" class="slide level2 smaller">
+<h2>Xifrat de Contrasenyes</h2>
+<p>Els sistemes moderns utilitzen algorismes de hashing forts amb salt.</p>
+<ul>
+<li class="fragment"><strong>SHA-512</strong>: El més segur i actual (per defecte a Debian/RedHat).</li>
+<li class="fragment"><strong>SHA-256</strong>: Encara comú.</li>
+<li class="fragment"><strong>MD5</strong>: Considerat insegur (Legacy).</li>
+</ul>
+<div class="fragment">
+<p>Normalment el xifrat es configura a <code>/etc/login.defs</code> o <code>/etc/pam.d/common-password</code>. Més endavant veurem PAM i els seus mòduls com <code>pam_pwquality.so</code>.</p>
+</div>
+<div class="fragment">
+<p>Fins al moment, els algorismes de xifratge atorguen una seguretat adequada per a la majoria d’aplicacions. Per a entorns amb requisits de seguretat més estrictes, es poden utiltizar mètodes addicionals com l’autenticació de dos factors (2FA) o l’ús de tokens de seguretat. La <strong>computació quàntica</strong> podria afectar els algorismes actuals en el futur, però encara no és una amenaça immediata per a la majoria dels sistemes.</p>
+</div>
+</section></section>
+<section>
+<section id="gestio-dusuaris-i-grups" class="title-slide slide level1 center">
+<h1>Gestio d’usuaris i grups</h1>
+
+</section>
+<section id="useradd" class="slide level2 smaller">
+<h2><code>useradd</code></h2>
+<p>Creació d’un nou compte d’usuari amb <code>useradd [opcions] [nom_usuari]</code>.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Opció</th>
+<th style="text-align: left;">Clau</th>
+<th style="text-align: left;">Descripció</th>
+<th style="text-align: left;">Aplicació</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">-c <em>comentari</em></td>
+<td style="text-align: left;">Comentari</td>
+<td style="text-align: left;">Nom complet o informació addicional.</td>
+<td style="text-align: left;">Identificació d’usuaris.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-e <code>YYYY-MM-DD</code></td>
+<td style="text-align: left;">Expiració</td>
+<td style="text-align: left;">Data de caducitat del compte.</td>
+<td style="text-align: left;">Comptes temporals.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-g grup</td>
+<td style="text-align: left;">Grup Primari</td>
+<td style="text-align: left;">Assigna el grup primari de l’usuari.</td>
+<td style="text-align: left;">Gestió de permisos.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-k <code>/directori/skel</code></td>
+<td style="text-align: left;">Esquelet</td>
+<td style="text-align: left;">Especifica un directori d’esquelet diferent.</td>
+<td style="text-align: left;">Configuració personalitzada.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-m</td>
+<td style="text-align: left;">Crea Home</td>
+<td style="text-align: left;">Crea el directori home si no existeix.</td>
+<td style="text-align: left;">Aïllament d’usuaris.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="usermod-i-userdel" class="slide level2 smaller">
+<h2><code>usermod</code> i <code>userdel</code></h2>
+<ul>
+<li class="fragment"><p>La comanda <code>usermod</code> permet modificar un compte d’usuari existent amb <code>usermod [opcions] [nom_usuari]</code>. Les opcions són similars a les de <code>useradd</code>. Per veure les opcions <code>man usermod</code>.</p></li>
+<li class="fragment"><p>La comanda <code>userdel</code> permet eliminar el compte d’un usuari amb <code>userdel [-r] [nom_usuari]</code> . L’argument <code>r</code> elimina el directori <code>home</code>i la bústia de correu de l’usuari.</p></li>
+<li class="fragment"><p>La comanda <code>userdel</code> no elimina les dades relacionades amb les tasques <strong>cron</strong> (<code>crontabs</code>).</p></li>
+</ul>
+</section>
+<section id="passwd-gestió-de-contrasenyes-i" class="slide level2 smaller">
+<h2><code>passwd</code> (Gestió de Contrasenyes I)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a></a><span class="fu">passwd</span></span>
+<span id="cb7-2"><a></a><span class="ex">$</span> passwd</span>
+<span id="cb7-3"><a></a><span class="ex">Changing</span> password for jmateo.</span>
+<span id="cb7-4"><a></a><span class="kw">(</span><span class="ex">current</span><span class="kw">)</span> <span class="ex">UNIX</span> password:12345678</span>
+<span id="cb7-5"><a></a><span class="ex">Enter</span> new UNIX password:87654321</span>
+<span id="cb7-6"><a></a><span class="ex">Retype</span> new UNIX password:87654321</span>
+<span id="cb7-7"><a></a><span class="ex">passwd:</span> password updated successfull</span>
+<span id="cb7-8"><a></a><span class="co"># Show info</span></span>
+<span id="cb7-9"><a></a><span class="ex">$</span> passwd <span class="at">-S</span> jmateo</span>
+<span id="cb7-10"><a></a><span class="co"># Lock the account</span></span>
+<span id="cb7-11"><a></a><span class="ex">$</span> passwd <span class="at">-l</span> jmateo</span>
+<span id="cb7-12"><a></a><span class="co"># Unlock the account</span></span>
+<span id="cb7-13"><a></a><span class="ex">$</span> passwd <span class="at">-u</span> jmateo</span>
+<span id="cb7-14"><a></a><span class="co"># Password change at most every 7 days</span></span>
+<span id="cb7-15"><a></a><span class="ex">$</span> passwd <span class="at">-n</span> 7 jmateo</span>
+<span id="cb7-16"><a></a><span class="co"># Password change at least every 30 days</span></span>
+<span id="cb7-17"><a></a><span class="ex">$</span> passwd <span class="at">-x</span> 30 jmateo</span>
+<span id="cb7-18"><a></a><span class="co"># 3 days grace period before password expires</span></span>
+<span id="cb7-19"><a></a><span class="ex">$</span> passwd <span class="at">-w</span> 3 jmateo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="chage-gestió-de-contrasenyes-ii" class="slide level2 smaller">
+<h2><code>chage</code> (Gestió de Contrasenyes II)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a></a><span class="co"># Lock account from 1 Dec 2009</span></span>
+<span id="cb8-2"><a></a><span class="ex">$</span> chage <span class="at">-E</span> 2009-12-01 jmateo</span>
+<span id="cb8-3"><a></a><span class="co"># Cancel expiry date</span></span>
+<span id="cb8-4"><a></a><span class="ex">$</span> chage <span class="at">-E</span> <span class="at">-1</span> jmateo</span>
+<span id="cb8-5"><a></a><span class="co"># Grace period 1 week from password expiry</span></span>
+<span id="cb8-6"><a></a><span class="ex">$</span> chage <span class="at">-I</span> 7 jmateo</span>
+<span id="cb8-7"><a></a><span class="co"># Like passwd -n</span></span>
+<span id="cb8-8"><a></a><span class="ex">$</span> chage <span class="at">-m</span> 7 jmateo</span>
+<span id="cb8-9"><a></a><span class="co"># Like passwd -x</span></span>
+<span id="cb8-10"><a></a><span class="ex">$</span> chage <span class="at">-M</span> 7 jmateo</span>
+<span id="cb8-11"><a></a><span class="co"># Like passwd -w</span></span>
+<span id="cb8-12"><a></a><span class="ex">$</span> chage <span class="at">-W</span> 3 jmateo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exemples-de-comandes-usuaris" class="slide level2 smaller">
+<h2>Exemples de comandes (usuaris)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a></a><span class="co"># Crear usuari amb opcions de seguretat avançada</span></span>
+<span id="cb9-2"><a></a><span class="fu">sudo</span> useradd <span class="at">-m</span> <span class="at">-d</span> /home/ana <span class="at">-s</span> /bin/bash <span class="dt">\</span></span>
+<span id="cb9-3"><a></a>    <span class="at">-c</span> <span class="st">"Ana García"</span> <span class="at">-g</span> developers <span class="at">-G</span> sudo,docker <span class="dt">\</span></span>
+<span id="cb9-4"><a></a>    <span class="at">-e</span> 2025-12-31 <span class="at">-f</span> 7 ana</span>
+<span id="cb9-5"><a></a></span>
+<span id="cb9-6"><a></a><span class="co"># Modificar data de caducitat</span></span>
+<span id="cb9-7"><a></a><span class="fu">sudo</span> usermod <span class="at">-e</span> 2025-06-30 ana</span>
+<span id="cb9-8"><a></a></span>
+<span id="cb9-9"><a></a><span class="co"># Bloquejar/desbloquejar compte</span></span>
+<span id="cb9-10"><a></a><span class="fu">sudo</span> passwd <span class="at">-l</span> ana          <span class="co"># Lock</span></span>
+<span id="cb9-11"><a></a><span class="fu">sudo</span> passwd <span class="at">-u</span> ana          <span class="co"># Unlock</span></span>
+<span id="cb9-12"><a></a></span>
+<span id="cb9-13"><a></a><span class="co"># Consultar estat de la contrasenya i polítiques</span></span>
+<span id="cb9-14"><a></a><span class="fu">sudo</span> chage <span class="at">-l</span> ana</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Recomanació:</strong> Manualment, revisar UIDs actius: <code>awk -F: '$3 &gt;= 1000 {print}' /etc/passwd</code></p>
+</section>
+<section id="gestió-de-grups" class="slide level2 smaller">
+<h2>Gestió de Grups</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="ex">$</span> groupadd [-g GID] [group name]</span>
+<span id="cb10-2"><a></a><span class="co"># Modificació del grup: -g modifica el GID,</span></span>
+<span id="cb10-3"><a></a><span class="co"># -n actualitza el nom.</span></span>
+<span id="cb10-4"><a></a><span class="ex">$</span> groupmod [-g GID] [-n nom] [group name]</span>
+<span id="cb10-5"><a></a><span class="co"># Eliminant grups</span></span>
+<span id="cb10-6"><a></a><span class="ex">$</span> grupdel [group name]</span>
+<span id="cb10-7"><a></a><span class="co"># Afegint un usuari a un grup</span></span>
+<span id="cb10-8"><a></a><span class="ex">$</span> gpasswd <span class="at">-a</span> <span class="pp">[</span><span class="ss">user</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">group</span><span class="pp">]</span></span>
+<span id="cb10-9"><a></a><span class="co"># Eliminant l’usuari del grup</span></span>
+<span id="cb10-10"><a></a><span class="ex">$</span> gpasswd <span class="at">-d</span> <span class="pp">[</span><span class="ss">user</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">group</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Un compte d’usuari pot pertànyer a múltiples grups secundaris.</li>
+<li class="fragment">Un compte d’usuari només pot tenir un grup primari.</li>
+<li class="fragment">El grup primari s’especifica al camp GID del fitxer <code>/etc/passwd</code>.</li>
+</ul>
+</section>
+<section id="exemples-de-comandes-grups" class="slide level2 smaller">
+<h2>Exemples de comandes (grups)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a></a><span class="co"># Crear grup amb GID específic</span></span>
+<span id="cb11-2"><a></a><span class="fu">sudo</span> groupadd <span class="at">-g</span> 2001 devops</span>
+<span id="cb11-3"><a></a></span>
+<span id="cb11-4"><a></a><span class="co"># Afegir usuari a grup secundari sense perdre altres</span></span>
+<span id="cb11-5"><a></a><span class="fu">sudo</span> usermod <span class="at">-aG</span> devops,docker,audit ana</span>
+<span id="cb11-6"><a></a></span>
+<span id="cb11-7"><a></a><span class="co"># Consultar grups de l'usuari</span></span>
+<span id="cb11-8"><a></a><span class="fu">id</span> ana</span>
+<span id="cb11-9"><a></a><span class="fu">groups</span> ana</span>
+<span id="cb11-10"><a></a></span>
+<span id="cb11-11"><a></a><span class="co"># Canviar temporalment el grup</span></span>
+<span id="cb11-12"><a></a><span class="ex">newgrp</span> devops</span>
+<span id="cb11-13"><a></a></span>
+<span id="cb11-14"><a></a><span class="co"># Llistar membres d'un grup</span></span>
+<span id="cb11-15"><a></a><span class="fu">getent</span> group devops</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="autorització-a-linux" class="title-slide slide level1 center">
+<h1>Autorització a Linux</h1>
+
+</section>
+<section id="permisos-clàssics-unix" class="slide level2 smaller">
+<h2>Permisos clàssics Unix</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="ex">drwxr-xr-x</span>  3 joan developers 4096 Oct 15 10:20 project/</span>
+<span id="cb12-2"><a></a><span class="ex">││</span>  │ └─ others: r-x <span class="er">(</span><span class="ex">lectura,</span> accés<span class="kw">)</span></span>
+<span id="cb12-3"><a></a><span class="ex">││</span>  └─── group: r-x <span class="er">(</span><span class="ex">lectura,</span> accés<span class="kw">)</span></span>
+<span id="cb12-4"><a></a><span class="ex">│└─────</span> owner: rwx <span class="er">(</span><span class="ex">total</span><span class="kw">)</span></span>
+<span id="cb12-5"><a></a><span class="ex">└──────</span> type: d <span class="er">(</span><span class="ex">directori</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Cada fitxer i directori té associats tres tipus de permisos:
+<ul>
+<li class="fragment"><strong>Read (r)</strong>: Permet llegir el contingut del fitxer o llistar el contingut del directori.</li>
+<li class="fragment"><strong>Write (w)</strong>: Permet modificar el contingut del fitxer o crear/eliminar fitxers dins del directori.</li>
+<li class="fragment"><strong>Execute (x)</strong>: Permet executar el fitxer com un programa o accedir als fitxers dins del directori.</li>
+</ul></li>
+<li class="fragment">Els permisos s’apliquen a tres categories d’usuaris:
+<ul>
+<li class="fragment"><strong>Owner (u)</strong>: L’usuari propietari del fitxer o directori.</li>
+<li class="fragment"><strong>Group (g)</strong>: Els usuaris que pertanyen al grup associat al fitxer o directori.</li>
+<li class="fragment"><strong>Others (o)</strong>: Tots els altres usuaris del sistema.</li>
+</ul></li>
+</ul>
+</section>
+<section id="chmod-canviant-permisos" class="slide level2 smaller">
+<h2><code>chmod</code>: Canviant permisos</h2>
+<ul>
+<li class="fragment">La comanda <code>chmod</code> s’utilitza per canviar els permisos d’un fitxer o directori.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a></a><span class="fu">chmod</span> <span class="pp">[</span><span class="ss">opcions</span><span class="pp">]</span> mode fitxer/directori</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment">El mode es pot especificar de dues maneres:
+<ul>
+<li class="fragment"><strong>Simbolica</strong>: Utilitza lletres per representar usuaris i permisos.
+<ul>
+<li class="fragment">Exemple: <code>chmod u+rwx,g+rx,o-r file.txt</code></li>
+</ul></li>
+<li class="fragment"><strong>Octal</strong>: Utilitza números per representar els permisos.
+<ul>
+<li class="fragment">Exemple: <code>chmod 755 file.txt</code> (rwxr-xr-x)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="exmmples-pràctics-chmod-i" class="slide level2">
+<h2>Exmmples pràctics <code>chmod</code> (I)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="ex">jordi@debianlab:~$</span> chmod +x a.txt</span>
+<span id="cb14-2"><a></a><span class="ex">jordi@debianlab:~$</span> ls <span class="at">-la</span> a.txt</span>
+<span id="cb14-3"><a></a><span class="ex">-rwxr-xr-x</span> 1 jordi jordi 0 11 de jul.  11:26 a.txt</span>
+<span id="cb14-4"><a></a><span class="ex">jordi@debianlab:~$</span> chmod <span class="at">-x</span> a.txt</span>
+<span id="cb14-5"><a></a><span class="ex">jordi@debianlab:~$</span> ls <span class="at">-la</span> a.txt</span>
+<span id="cb14-6"><a></a><span class="ex">-rw-r--r-*</span> 1 jordi jordi 0 11 de jul.  11:26 a.txt</span>
+<span id="cb14-7"><a></a><span class="ex">jordi@debianlab:~$</span> chmod o-r a.txt</span>
+<span id="cb14-8"><a></a><span class="ex">jordi@debianlab:~$</span> ls <span class="at">-la</span> a.txt</span>
+<span id="cb14-9"><a></a><span class="ex">-rw-r----*</span> 1 jordi jordi 0 11 de jul.  11:26 a.txt</span>
+<span id="cb14-10"><a></a><span class="ex">jordi@debianlab:~$</span> chmod g+w a.txt</span>
+<span id="cb14-11"><a></a><span class="ex">jordi@debianlab:~$</span> ls <span class="at">-la</span> a.txt</span>
+<span id="cb14-12"><a></a><span class="ex">-rw-rw---*</span> 1 jordi jordi 0 11 de jul.  11:26 a.txt</span>
+<span id="cb14-13"><a></a><span class="ex">jordi@debianlab:~$</span> chmod o+w a.txt</span>
+<span id="cb14-14"><a></a><span class="ex">jordi@debianlab:~$</span> ls <span class="at">-la</span> a.txt</span>
+<span id="cb14-15"><a></a><span class="ex">-rw-rw--w*</span> 1 jordi jordi 0 11 de jul.  11:26 a.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exmmples-pràctics-chmod-ii" class="slide level2">
+<h2>Exmmples pràctics <code>chmod</code> (II)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="ex">jordi@debianlab:~$</span> chmod a-w a.txt</span>
+<span id="cb15-2"><a></a><span class="ex">jordi@debianlab:~$</span> ls <span class="at">-la</span> a.txt</span>
+<span id="cb15-3"><a></a><span class="ex">-r--r----*</span> 1 jordi jordi 0 11 de jul.  11:26 a.txt</span>
+<span id="cb15-4"><a></a><span class="ex">jordi@debianlab:~$</span> echo <span class="st">"a"</span> <span class="op">&gt;&gt;</span> a.txt</span>
+<span id="cb15-5"><a></a><span class="ex">-bash:</span> a.txt: S’ha denegat el permís</span>
+<span id="cb15-6"><a></a><span class="ex">jordi@debianlab:~$</span> cat a.txt</span>
+<span id="cb15-7"><a></a><span class="ex">jordi@debianlab:~$</span> chmod +w a.txt</span>
+<span id="cb15-8"><a></a><span class="ex">jordi@debianlab:~$</span> echo <span class="st">"a"</span> <span class="op">&gt;&gt;</span> a.txt</span>
+<span id="cb15-9"><a></a><span class="ex">jordi@debianlab:~$</span> cat a.txt</span>
+<span id="cb15-10"><a></a><span class="ex">a</span></span>
+<span id="cb15-11"><a></a><span class="ex">jordi@debianlab:~$</span> chmod <span class="at">-r</span> a.txt</span>
+<span id="cb15-12"><a></a><span class="ex">jordi@debianlab:~$</span> cat a.txt</span>
+<span id="cb15-13"><a></a><span class="ex">cat:</span> a.txt: S’ha denegat el permís</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="chown-i-chgrp-canviant-propietaris-i-grups" class="slide level2 smaller">
+<h2><code>chown</code> i <code>chgrp</code>: Canviant propietaris i grups</h2>
+<ul>
+<li class="fragment">La comanda <code>chown</code> s’utilitza per canviar el propietari d’un fitxer o directori.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a></a><span class="fu">chown</span> <span class="pp">[</span><span class="ss">opcions</span><span class="pp">]</span> nou_propietari fitxer/directori</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment">La comanda <code>chgrp</code> s’utilitza per canviar el grup associat a un fitxer o directori.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a></a><span class="fu">chgrp</span> <span class="pp">[</span><span class="ss">opcions</span><span class="pp">]</span> nou_grup fitxer/directori</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="comandes-bàsiques" class="slide level2 smaller">
+<h2>Comandes Bàsiques</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a></a><span class="co"># Canviar permisos (simbòlic i octal)</span></span>
+<span id="cb18-2"><a></a><span class="fu">chmod</span> u+rwx,g+rx,o-r fitxer        <span class="co"># Simbòlic</span></span>
+<span id="cb18-3"><a></a><span class="fu">chmod</span> 750 fitxer                   <span class="co"># Octal: rwxr-x---</span></span>
+<span id="cb18-4"><a></a></span>
+<span id="cb18-5"><a></a><span class="co"># Canviar propietari i grup</span></span>
+<span id="cb18-6"><a></a><span class="fu">sudo</span> chown joan:developers fitxer</span>
+<span id="cb18-7"><a></a><span class="fu">sudo</span> chgrp developers fitxer</span>
+<span id="cb18-8"><a></a></span>
+<span id="cb18-9"><a></a><span class="co"># Aplicar recursivament </span></span>
+<span id="cb18-10"><a></a><span class="co">## -R per recursiu</span></span>
+<span id="cb18-11"><a></a><span class="co">## --changes per mostrar canvis</span></span>
+<span id="cb18-12"><a></a><span class="fu">sudo</span> chmod <span class="at">-R</span> 750 /home/joan <span class="at">--changes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="umask" class="slide level2 smaller">
+<h2><code>umask</code></h2>
+<ul>
+<li class="fragment">La <code>umask</code> (user file-creation mode mask) és un valor que determina els permisos per defecte dels fitxers i directoris nous creats per un usuari.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a></a><span class="co"># Umask actual (resta de 777/666)</span></span>
+<span id="cb19-2"><a></a><span class="bu">umask</span>                              <span class="co"># Ex: 0022</span></span>
+<span id="cb19-3"><a></a></span>
+<span id="cb19-4"><a></a><span class="co"># Crear fitxer: 666 - 022 = 644 (rw-r--r--)</span></span>
+<span id="cb19-5"><a></a><span class="co"># Crear directori: 777 - 022 = 755 (rwxr-xr-x)</span></span>
+<span id="cb19-6"><a></a></span>
+<span id="cb19-7"><a></a><span class="co"># Canviar umask per sessió (segura)</span></span>
+<span id="cb19-8"><a></a><span class="bu">umask</span> 0077                         <span class="co"># Els nous arxius: -rw------- (600)</span></span>
+<span id="cb19-9"><a></a></span>
+<span id="cb19-10"><a></a><span class="co"># Configurar permanent a ~/.bashrc</span></span>
+<span id="cb19-11"><a></a><span class="bu">echo</span> <span class="st">"umask 0077"</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>S’aconsella utilitzar una umask 0002 en entorns on els usuaris treballen en grups, ja que permet als membres del grup escriure als fitxers creats per altres membres del mateix grup. Això facilita la col·laboració i l’intercanvi de fitxers dins del grup.</p>
+</div>
+</section>
+<section id="permisos-especials" class="slide level2 smaller">
+<h2>Permisos especials</h2>
+<ul>
+<li class="fragment"><strong>Setuid (s)</strong>: Quan s’aplica a un fitxer executable, permet que el programa s’executi amb els privilegis del propietari del fitxer.</li>
+<li class="fragment"><strong>Setgid (s)</strong>: Quan s’aplica a un fitxer executable, permet que el programa s’executi amb els privilegis del grup del fitxer. Quan s’aplica a un directori, els fitxers creats dins d’aquest directori hereten el grup del directori.</li>
+<li class="fragment"><strong>Sticky bit (t)</strong>: Quan s’aplica a un directori, només el propietari del fitxer o el propietari del directori poden eliminar o renombrar fitxers dins d’aquest directori.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a></a><span class="co"># Exemple de permisos especials</span></span>
+<span id="cb20-2"><a></a><span class="fu">chmod</span> u+s programa   <span class="co"># Setuid</span></span>
+<span id="cb20-3"><a></a><span class="fu">chmod</span> g+s directori  <span class="co"># Setgid</span></span>
+<span id="cb20-4"><a></a><span class="fu">chmod</span> +t directori   <span class="co"># Sticky bit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="setuid-s-executar-com-a-propietari" class="slide level2 smaller">
+<h2>Setuid (s): Executar com a propietari</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a></a><span class="co"># El programa 'passwd' s'executa com a root</span></span>
+<span id="cb21-2"><a></a><span class="fu">ls</span> <span class="at">-l</span> /usr/bin/passwd</span>
+<span id="cb21-3"><a></a><span class="ex">-rwsr-xr-x</span>  1 root root 68208 /usr/bin/passwd</span>
+<span id="cb21-4"><a></a></span>
+<span id="cb21-5"><a></a><span class="co"># Permetre a programa específic operar com a root</span></span>
+<span id="cb21-6"><a></a><span class="fu">sudo</span> chmod u+s /usr/local/bin/myscript</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Els programes amb setuid poden ser un vector d’atac si tenen vulnerabilitats. Es important auditar-los periòdicament.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a></a><span class="fu">find</span> / <span class="at">-perm</span> <span class="at">-4000</span> <span class="at">-type</span> f <span class="dv">2</span><span class="op">&gt;</span>/dev/null <span class="kw">|</span> <span class="fu">sort</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="setgid-s-herència-de-grup-en-directoris" class="slide level2 smaller">
+<h2>Setgid (s): Herència de grup en directoris</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a></a><span class="co"># Col·laboració: Els fitxers nous hereten el grup del directori</span></span>
+<span id="cb23-2"><a></a><span class="fu">sudo</span> mkdir /srv/projectX</span>
+<span id="cb23-3"><a></a><span class="fu">sudo</span> chgrp developers /srv/projectX</span>
+<span id="cb23-4"><a></a><span class="fu">sudo</span> chmod g+s /srv/projectX           <span class="co"># setgid activat</span></span>
+<span id="cb23-5"><a></a><span class="fu">sudo</span> chmod g+w /srv/projectX</span>
+<span id="cb23-6"><a></a></span>
+<span id="cb23-7"><a></a><span class="co"># Tots els fitxers creats dins seran del grup developers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sticky-bit-t-protecció-en-tmp" class="slide level2 smaller">
+<h2>Sticky bit (t): Protecció en <code>/tmp</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a></a><span class="co"># Només el propietari pot eliminar el seu fitxer</span></span>
+<span id="cb24-2"><a></a><span class="fu">ls</span> <span class="at">-ld</span> /tmp</span>
+<span id="cb24-3"><a></a><span class="ex">drwxrwxrwt</span> 12 root root 4096 /tmp</span>
+<span id="cb24-4"><a></a></span>
+<span id="cb24-5"><a></a><span class="co"># Aplicar sticky a directori compartit</span></span>
+<span id="cb24-6"><a></a><span class="fu">sudo</span> chmod +t /srv/shared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="limitacions-del-model-tradicional" class="slide level2 smaller">
+<h2>Limitacions del model tradicional</h2>
+<p><strong>Problema:</strong> Tres usuaris (alice, bob, charlie) necessiten permisos diferents sobre un fitxer, però el model tradicional només permet propietari, grup, altres.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a></a><span class="ex">alice</span> → R <span class="er">(</span><span class="bu">read</span><span class="kw">)</span></span>
+<span id="cb25-2"><a></a><span class="ex">bob</span>   → RW <span class="er">(</span><span class="bu">read</span>, write<span class="kw">)</span></span>
+<span id="cb25-3"><a></a><span class="ex">charlie</span> → <span class="er">(</span><span class="ex">cap</span> accés<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment center">
+<p><strong>Solució:</strong> ACL (Access Control Lists)</p>
+</div>
+</section>
+<section id="acls-permissos-granulars" class="slide level2 smaller">
+<h2>ACLs: Permissos granulars</h2>
+<ul>
+<li class="fragment">Les <strong>Access Control Lists (ACLs)</strong> permeten definir permisos més detallats per a usuaris i grups específics.</li>
+<li class="fragment">El problema dels permisos tradicionals és que només permeten definir permisos per a l’usuari propietari, el grup i els altres usuaris.</li>
+<li class="fragment">Les ACLs permeten assignar permisos a múltiples usuaris i grups per a un mateix fitxer o directori.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a></a><span class="co"># Comandes bàsiques per gestionar ACLs</span></span>
+<span id="cb26-2"><a></a><span class="ex">setfacl</span> <span class="at">-m</span> u:usuari:rwx fitxer      <span class="co"># Assigna permisos rwx a un usuari específic</span></span>
+<span id="cb26-3"><a></a><span class="ex">getfacl</span> fitxer                      <span class="co"># Mostra les ACLs</span></span>
+<span id="cb26-4"><a></a><span class="ex">setfacl</span> <span class="at">-x</span> u:usuari fitxer          <span class="co"># Elimina les ACLs d'un usuari específic</span></span>
+<span id="cb26-5"><a></a><span class="ex">setfacl</span> <span class="at">-d</span> <span class="at">-m</span> g:grup:rwx directori  <span class="co"># Assigna permisos per defecte a un grup en un directori per als fitxers nous</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="introducció-a-les-acl" class="slide level2 smaller">
+<h2>Introducció a les ACL</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a></a><span class="co"># Veure ACL actual</span></span>
+<span id="cb27-2"><a></a><span class="ex">getfacl</span> /srv/dades.txt</span>
+<span id="cb27-3"><a></a></span>
+<span id="cb27-4"><a></a><span class="co"># file: /srv/dades.txt</span></span>
+<span id="cb27-5"><a></a><span class="co"># owner: root</span></span>
+<span id="cb27-6"><a></a><span class="co"># group: developers</span></span>
+<span id="cb27-7"><a></a><span class="ex">user::rw-</span></span>
+<span id="cb27-8"><a></a><span class="ex">user:alice:r--</span></span>
+<span id="cb27-9"><a></a><span class="ex">user:bob:rw-</span></span>
+<span id="cb27-10"><a></a><span class="ex">group::r--</span></span>
+<span id="cb27-11"><a></a><span class="ex">mask::rw-</span></span>
+<span id="cb27-12"><a></a><span class="ex">other::---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="assignació-granular-dacl" class="slide level2 smaller">
+<h2>Assignació granular d’ACL</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a></a><span class="co"># Donar lectura a usuari específic</span></span>
+<span id="cb28-2"><a></a><span class="ex">setfacl</span> <span class="at">-m</span> u:alice:r /srv/dades.txt</span>
+<span id="cb28-3"><a></a></span>
+<span id="cb28-4"><a></a><span class="co"># Donar lectura i escriptura a grup</span></span>
+<span id="cb28-5"><a></a><span class="ex">setfacl</span> <span class="at">-m</span> g:teamX:rw /srv/dades.txt</span>
+<span id="cb28-6"><a></a></span>
+<span id="cb28-7"><a></a><span class="co"># Permetre execució a un usuari</span></span>
+<span id="cb28-8"><a></a><span class="ex">setfacl</span> <span class="at">-m</span> u:bob:rwx /srv/script.sh</span>
+<span id="cb28-9"><a></a></span>
+<span id="cb28-10"><a></a><span class="co"># Eliminar ACL d'usuari</span></span>
+<span id="cb28-11"><a></a><span class="ex">setfacl</span> <span class="at">-x</span> u:alice /srv/dades.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="acl-per-defecte-en-directoris" class="slide level2 smaller">
+<h2>ACL per defecte en directoris</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a></a><span class="co"># ACL per defecte: nous fitxers hereten permisos</span></span>
+<span id="cb29-2"><a></a><span class="fu">sudo</span> mkdir /srv/shared</span>
+<span id="cb29-3"><a></a><span class="fu">sudo</span> setfacl <span class="at">-d</span> <span class="at">-m</span> u:alice:rx /srv/shared</span>
+<span id="cb29-4"><a></a><span class="fu">sudo</span> setfacl <span class="at">-d</span> <span class="at">-m</span> g:devops:rwx /srv/shared</span>
+<span id="cb29-5"><a></a></span>
+<span id="cb29-6"><a></a><span class="co"># Verificar herència</span></span>
+<span id="cb29-7"><a></a><span class="fu">touch</span> /srv/shared/testfile.txt</span>
+<span id="cb29-8"><a></a><span class="ex">getfacl</span> /srv/shared/testfile.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La herencia d’ACL és especialment útil en entorns col·laboratius on diversos usuaris necessiten accedir i modificar fitxers dins d’un directori compartit. Permet establir polítiques de permisos coherents i assegurar que els nous fitxers i directoris creats dins del directori heretin els permisos adequats.</p>
+</section>
+<section id="màscara-i-precedència-dacl" class="slide level2 smaller">
+<h2>Màscara i precedència d’ACL</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a></a><span class="co"># La màscara limita permisos màxims efectius</span></span>
+<span id="cb30-2"><a></a><span class="ex">setfacl</span> <span class="at">-m</span> m::rx /srv/dades.txt     <span class="co"># Limita ACL a r-x</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>L’ordre de precedència:</p>
+<ol type="1">
+<li class="fragment">ACL de l’usuari propietari</li>
+<li class="fragment">ACL específic de l’usuari</li>
+<li class="fragment">Màscara</li>
+<li class="fragment">ACL del grup propietari</li>
+<li class="fragment">ACL de grup específic</li>
+<li class="fragment">Altres</li>
+</ol>
+<p>Aquesta jerarquia assegura que els permisos més específics tinguin prioritat sobre els més generals.</p>
+</section>
+<section id="auditoría-i-migracions-dacl" class="slide level2 smaller">
+<h2>Auditoría i migracions d’ACL</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a></a><span class="co"># Exportar ACL per backup</span></span>
+<span id="cb31-2"><a></a><span class="ex">getfacl</span> <span class="at">-R</span> /srv/dades <span class="op">&gt;</span> acl_backup.txt</span>
+<span id="cb31-3"><a></a></span>
+<span id="cb31-4"><a></a><span class="co"># Restaurar ACL</span></span>
+<span id="cb31-5"><a></a><span class="ex">setfacl</span> <span class="at">--restore</span><span class="op">=</span>acl_backup.txt</span>
+<span id="cb31-6"><a></a></span>
+<span id="cb31-7"><a></a><span class="co"># Identificar fitxers amb ACL no estàndar</span></span>
+<span id="cb31-8"><a></a><span class="fu">find</span> /home <span class="at">-type</span> f <span class="at">-exec</span> sh <span class="at">-c</span> <span class="st">'getfacl {} | grep -q "^user:" &amp;&amp; echo {}'</span> <span class="dt">\;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="elevació-de-privilegis-sudo-setuid-i-capabilities" class="title-slide slide level1 center">
+<h1>Elevació de privilegis: sudo, setuid i capabilities</h1>
+
+</section>
+<section id="sudo" class="slide level2 smaller">
+<h2><code>sudo</code></h2>
+<ul>
+<li class="fragment"><code>sudo</code> permet executar comandes amb els privilegis d’un altre usuari (per defecte <code>root</code>).</li>
+<li class="fragment">La configuració es fa al fitxer <code>/etc/sudoers</code> mitjançant l’eina <code>visudo</code>.</li>
+<li class="fragment">Permet un control <strong>granular</strong>: qui, des d’on, i quines comandes pot executar.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a></a><span class="co"># Configuració a /etc/sudoers (editar amb 'visudo')</span></span>
+<span id="cb32-2"><a></a><span class="ex">joan</span> ALL=<span class="er">(</span><span class="ex">ALL</span><span class="kw">)</span> <span class="ex">NOPASSWD:</span> /usr/bin/systemctl restart apache2</span>
+<span id="cb32-3"><a></a></span>
+<span id="cb32-4"><a></a><span class="co"># Sintaxi: user host=(runasuser) [NOPASSWD:] command</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>L’usuari <code>joan</code> pot reiniciar el servei <code>apache2</code> sense necessitat de proporcionar la contrasenya.</p>
+</div>
+</section>
+<section id="control-granular-de-permisos" class="slide level2 smaller">
+<h2>Control granular de permisos</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a></a><span class="co"># Definir alias per a reutilització</span></span>
+<span id="cb33-2"><a></a><span class="ex">Cmnd_Alias</span> RESTART = /usr/bin/systemctl restart <span class="pp">*</span>, /usr/bin/systemctl reload <span class="pp">*</span></span>
+<span id="cb33-3"><a></a><span class="ex">User_Alias</span> SYSADMINS = joan, anna, pere</span>
+<span id="cb33-4"><a></a><span class="ex">Host_Alias</span> SERVERS = web01, web02</span>
+<span id="cb33-5"><a></a></span>
+<span id="cb33-6"><a></a><span class="co"># Política: els sysadmins poden reiniciar serveis sense password</span></span>
+<span id="cb33-7"><a></a><span class="ex">SYSADMINS</span> SERVERS = NOPASSWD: RESTART</span>
+<span id="cb33-8"><a></a></span>
+<span id="cb33-9"><a></a><span class="co"># Restricció per hora (integrada amb PAM)</span></span>
+<span id="cb33-10"><a></a><span class="ex">joan</span> web01 = <span class="er">(</span><span class="ex">root</span><span class="kw">)</span> <span class="va">Cmnd</span><span class="op">=</span>/usr/sbin/reboot <span class="ex">[1-5/09:00-18:00]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="auditoría-dús-de-sudo" class="slide level2 smaller">
+<h2>Auditoría d’ús de <code>sudo</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a></a><span class="co"># Configurar log detallat a /etc/sudoers</span></span>
+<span id="cb34-2"><a></a><span class="ex">Defaults</span> logfile=<span class="st">"/var/log/sudo.log"</span></span>
+<span id="cb34-3"><a></a><span class="ex">Defaults</span> log_output</span>
+<span id="cb34-4"><a></a></span>
+<span id="cb34-5"><a></a><span class="co"># Visualitzar comandos executades</span></span>
+<span id="cb34-6"><a></a><span class="fu">sudo</span> journalctl SYSLOG_IDENTIFIER=sudo <span class="kw">|</span> <span class="fu">head</span> <span class="at">-20</span></span>
+<span id="cb34-7"><a></a></span>
+<span id="cb34-8"><a></a><span class="co"># Script per auditar ús sospitós</span></span>
+<span id="cb34-9"><a></a><span class="fu">grep</span> COMMAND /var/log/sudo.log <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">"(rm|dd|chmod|chown)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="capabilities-alternatives-a-setuid" class="slide level2 smaller">
+<h2>Capabilities: alternatives a setuid</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a></a><span class="co"># En lloc de setuid root, es pot utilitzar capabilities</span></span>
+<span id="cb35-2"><a></a><span class="co"># Exemple: ping no necessita root complet</span></span>
+<span id="cb35-3"><a></a><span class="ex">getcap</span> /usr/bin/ping</span>
+<span id="cb35-4"><a></a></span>
+<span id="cb35-5"><a></a><span class="co"># Si es necessita, assignar capability específica</span></span>
+<span id="cb35-6"><a></a><span class="fu">sudo</span> setcap cap_net_raw+p /usr/bin/ping</span>
+<span id="cb35-7"><a></a></span>
+<span id="cb35-8"><a></a><span class="co"># Capabilities comunes</span></span>
+<span id="cb35-9"><a></a><span class="co"># CAP_NET_BIND_SERVICE: obrir ports &lt; 1024</span></span>
+<span id="cb35-10"><a></a><span class="co"># CAP_SYS_ADMIN: admin del sistema (omnibus)</span></span>
+<span id="cb35-11"><a></a><span class="co"># CAP_SETUID: canviar UID</span></span>
+<span id="cb35-12"><a></a><span class="co"># CAP_DAC_OVERRIDE: ignorar DAC</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Avantatge:</strong> Menor superfície d’atac que setuid.</p>
+</section>
+<section id="namespaces-dusuari-i-contenidors" class="slide level2">
+<h2>Namespaces d’usuari i contenidors</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a></a><span class="co"># Crear namespace d'usuari per aïllament</span></span>
+<span id="cb36-2"><a></a><span class="ex">unshare</span> <span class="at">--user</span> <span class="at">--map-root-user</span> <span class="at">--mount-proc</span> bash</span>
+<span id="cb36-3"><a></a></span>
+<span id="cb36-4"><a></a><span class="co"># Dins del namespace: sou root (UID 0 local)</span></span>
+<span id="cb36-5"><a></a><span class="co"># Però sense privilegis globals del sistema</span></span>
+<span id="cb36-6"><a></a></span>
+<span id="cb36-7"><a></a><span class="co"># Fonament de contenidors: processos aïllats per UID</span></span>
+<span id="cb36-8"><a></a><span class="ex">docker</span> run <span class="at">--user</span><span class="op">=</span>nobody:nogroup ubuntu id</span>
+<span id="cb36-9"><a></a><span class="co"># uid=65534(nobody) gid=65534(nogroup)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Cas d’ús:</strong> Aïllament de microserveis i entorns CI/CD.</p>
+</section>
+<section id="exercicis-propostas" class="slide level2">
+<h2>Exercicis Propostas</h2>
+<ul>
+<li class="fragment"><a href="../exercises/04-accounts/01-lord-of-system.html">Lord of the system</a></li>
+</ul>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../figs/corporative/institute.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) <a href="../index.html">🏠</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/amsa-gei-udl-2526-105013\.github\.io\/course\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
