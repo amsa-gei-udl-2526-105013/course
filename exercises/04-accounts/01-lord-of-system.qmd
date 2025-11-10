@@ -22,7 +22,7 @@ En aquesta pràctica, es demana que es creïn comptes d'usuari en un sistema Lin
 
 ## Preparant el servidor
 
-Instancieu un servidor **RedHat** a la plataforma **AWS**. Aquest servidor serà el vostre **Middlearth**.
+Instancieu un servidor **AMI Linux** a la plataforma **AWS**. Aquest servidor serà el vostre **Middlearth**.
 
 1. Actualitzar totes les llibreries amb ```sudo dnf update -y```.
 2. Instal·lar un editor de text (vim o nano) amb ```sudo dnf install vim -y```.
