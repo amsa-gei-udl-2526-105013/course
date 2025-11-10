@@ -221,7 +221,7 @@ On: PV pot ser un disc dur, una partició, un dispositiu RAID, etc.
 
 ## Organització interna dels PVs {.smaller}
 
-::: {.center-container}
+::: center-container
 ![](../figs/slides/03-lvm/PV-org-int.png)
 :::
 
@@ -229,7 +229,7 @@ On: PV pot ser un disc dur, una partició, un dispositiu RAID, etc.
 
 -   Inicialització a partir d'un disc dur amb alineació de dades de 1MB començant des del sector 7.
 
-::: {.fragment}
+::: fragment
 ``` bash
 pvcreate --dataalignment 1M --dataalignmentoffset 7s /dev/sdb
 ```
@@ -237,7 +237,7 @@ pvcreate --dataalignment 1M --dataalignmentoffset 7s /dev/sdb
 
 -   Inicialització a partir d'una partició amb un UUID específic.
 
-::: {.fragment}
+::: fragment
 ``` bash
 pvcreate --uuid "my-pv-uuid" /dev/sdb1
 ```
@@ -245,7 +245,7 @@ pvcreate --uuid "my-pv-uuid" /dev/sdb1
 
 -   Inicialització a partir d'un raid amb mida de metadades 128MB i 8MB per PE (enlloc de 4MB).
 
-::: {.fragment}
+::: fragment
 ``` bash
 pvcreate --setphysicalvolumesize 8M --metadatasize 128M /dev/md0
 ```
@@ -270,10 +270,11 @@ pvchange [opcions] PV
 ``` bash
 pvresize [opcions] PV
 ```
+
 -   **--setphysicalvolumesize mida\[Unitat\]**: Redimensiona el PV.
 -   **--longhelp**: Mostra totes les opcions (semblant a `man pvresize`).
 
-::: {.fragment}
+::: fragment
 #### Consideracions pràctiques
 
 1.  `pvresize` redimensiona el PV, però no redimensiona les particions o els sistemes de fitxers que conté. Hauràs de fer això manualment si és necessari.
@@ -287,7 +288,7 @@ pvresize [opcions] PV
 
 -   Expandir un PV després d'ampliar la partició per utilitzar tot el nou espai disponible.
 
-::: {.fragment}
+::: fragment
 ``` bash
 pvresize /dev/sdb1
 ```
@@ -295,7 +296,7 @@ pvresize /dev/sdb1
 
 -   Reduir un PV abans de reduir la partició (assegurar-se que la mida del PV és adequada per a la nova mida de la partició).
 
-::: {.fragment}
+::: fragment
 ``` bash
 pvresize --setphysicalvolumesize 40G /dev/sdb1
 ```
@@ -330,7 +331,7 @@ pvs [opcions]
 -   **--options String**: Permet seleccionar les columnes a mostrar. Per a més informació, consulteu `pvs -o help`.
 -   **--longhelp**: Mostra totes les opcions (semblant a `man pvs`).
 
-::: {.fragment}
+::: fragment
 Altres opcions per a visualitzar información són: `pvdisplay` i `pvscan`. La principal diferència és que `pvdisplay` mostra la informació de tots els PVs, mentre que `pvscan` escaneja tots els dispositius per trobar PVs.
 :::
 
@@ -539,7 +540,7 @@ En aquest cas, es necessitarà [afegir més espai d'emmagatzematge al grup de vo
 
 En la situació anterior, heu decidit utilitzar el **thin provisioning de LVM** per donar suport a l'aplicació en creixement. Però, com a administrador de sistemes, us preocupa que l'aplicació pugui aturar-se o produir errors d'E/S si l'espai d'emmagatzematge s'omple ràpidament. *Què faríeu per reduir el risc d'aturades i errors d'E/S en aquest escenari?*
 
-:::{.fragment}
+::: fragment
 Una opció seria **implementar un sistema de monitoreig i alertes** que supervisi l'ús de l'espai d'emmagatzematge del grup de volums. Quan l'ús d'emmagatzematge superi un determinat llindar, el sistema generaria una alerta per **afegir més espai d'emmagatzematge al grup de volums** i **ampliar el volum lògic thin provisioned** per donar suport a l'aplicació en creixement.
 :::
 
@@ -678,8 +679,7 @@ lvreduce -L 6GB /dev/datavg/home
 
 ## Exercicis
 
-- [Deplegament d'un servidor web amb LVM](../exercises/03-fs/10-ex-week7.qmd)
-
+-   [Deplegament d'un servidor web amb LVM](../exercises/03-fs/10-ex-week7.qmd)
 
 ## That's all
 

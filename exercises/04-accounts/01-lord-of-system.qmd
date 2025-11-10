@@ -1,0 +1,267 @@
+---
+title: "Laboratori: Gestió de comptes en un servidor Linux"
+lang: ca
+---
+
+## Objectius
+
+* Aprendre a gestionar comptes en servidors UNIX/Linux.
+* Familiaritzar-se amb els mecanismes de protecció i control d'usuaris.
+
+## Requisits
+
+En aquesta pràctica, es demana que es creïn comptes d'usuari en un sistema Linux. Aquests comptes hauran de ser creats amb diferents permisos i restriccions, i s'hauran de configurar els grups i els permisos de fitxers i directoris per a cada usuari. Per tant, reviseu les comandes i els conceptes següents abans de començar:
+
+* **useradd**: Aquesta comanda s'utilitza per crear nous usuaris en un sistema Linux. Cada usuari té un identificador únic (**UID**) i pot ser assignat a un o més grups. Aquesta comanda també pot crear els directoris inicials (home directories) pels usuaris.
+* **groupadd**: Aquesta comanda s'utilitza per crear nous grups en un sistema Linux. Els grups són una manera de gestionar col·leccions d'usuaris, permetent una administració eficaç de permisos i accés als recursos del sistema. Els grups ajuden a organitzar i controlar els usuaris amb un mateix conjunt de permisos.
+* **usermod**: Aquesta comanda s'utilitza per modificar els atributs d'un usuari en un sistema Linux. Aquests atributs poden incloure el nom de l'usuari, el directori home, el grup principal, el shell, el UID, el GID, etc.
+* **passwd**: Aquesta comanda s'utilitza per canviar la contrasenya d'un usuari en un sistema Linux. Aquesta comanda permet als usuaris canviar la seva pròpia contrasenya o als administradors canviar la contrasenya d'altres usuaris.
+* **chown**: Aquesta comanda s'utilitza per canviar el propietari i el grup d'un fitxer o directori en un sistema Linux. Aquesta comanda permet als usuaris canviar el propietari i el grup d'un fitxer o directori, sempre que tinguin els permisos necessaris.
+* **chmod**: Aquesta comanda s'utilitza per canviar els permisos d'un fitxer o directori en un sistema Linux. Aquesta comanda permet als usuaris canviar els permisos d'un fitxer o directori, especificant els permisos per a propietaris, grups i altres usuaris.
+* **setfacl/getfacl**: Aquestes comandes s'utilitzen per establir i obtenir llistes de control d'accés (ACL) en un sistema Linux. Les ACL són una manera de controlar l'accés als fitxers i directoris, permetent als usuaris especificar permisos més detallats que els permisos tradicionals de propietari, grup i altres usuaris.
+
+## Preparant el servidor
+
+Instancieu un servidor **RedHat** a la plataforma **AWS**. Aquest servidor serà el vostre **Middlearth**.
+
+1. Actualitzar totes les llibreries amb ```sudo dnf update -y```.
+2. Instal·lar un editor de text (vim o nano) amb ```sudo dnf install vim -y```.
+3. Instal·lar la shell tcsh amb ```sudo dnf install tcsh -y```.
+4. Actualitzar el nom de l'amfitrió amb: ```sudo hostnamectl set-hostname middlearth```.
+
+## Mostrant informació de benvinguda
+
+El fitxer **/etc/motd** és l'arxiu on es guarda un missatge de benvinguda; normalment és un arxiu de text senzill que es mostra als usuaris quan inicien sessió. Pot contenir informació com la benvinguda al sistema, informació d'actualitat, polítiques de l'empresa, enllaços a recursos importants o qualsevol altra cosa que es consideri útil per als usuaris en el moment d'iniciar sessió.
+
+Copieu el text següent al fitxer **/etc/motd**:
+
+```txt
+#                Bienvenido a la tierra media!                  #
+#                            *  *  *                            #
+#                         *  *  *  *  *                         #
+#                      *  *  *  *  *  *  *                      #
+#                      *  *  *  *  *  *  *                      #
+#                      *  *  *  *  *  *  *                      #
+#                         *  *  *  *  *                         #
+#                            *  *  *                            #
+# El hogar está atrás, el mundo por delante, y ha               #
+# y muchos caminos que recorrer a través de la                  #
+# sombras hasta el borde de la noche, hasta que                 #
+# las estrellas estén encendidas                                #
+#################################################################
+```
+
+```sh
+ sudo vim /etc/motd 
+# Afegiu la informació a l'arxiu.
+ exit
+```
+
+Tornem a iniciar sessió **SSH**. Per veure el nostre banner, després de fer *login*.
+
+## Mostrant informació: Connexions remotes
+
+L'arxiu **/etc/issue.net** és similar al missatge del dia (**/etc/motd**), però aquest s'utilitza per mostrar un missatge als usuaris abans que aquests s'autentiquin en un servidor mitjançant protocols com *SSH*. Aquest missatge normalment conté informació bàsica o una benvinguda als usuaris quan intenten connectar-se al servidor.
+
+Per activar-ho:
+
+1. Copieu el contingut del fitxer */etc/issue.net* a */etc/issue.net.default*. D'aquesta manera sempre mantindrem una còpia del fitxer original sense editar.
+2. Copieu el següent text al fitxer */etc/issue.net*:
+
+```txt
+#################################################################
+#                   _    _           _   _                      #
+#                  / \  | | ___ _ __| |_| |                     #
+#                 / _ \ | |/ _ \ '__| __| |                     #
+#                / ___ \| |  __/ |  | |_|_|                     #
+#               /_/   \_\_|\___|_|   \__(_)                     #
+#                                                               #
+#               You are entering into Mordor!                   #
+#   Username has been noted and has been sent to the server     #
+#                       administrator!                          #
+#################################################################
+```
+
+Finalment, tornem a iniciar sessió **SSH**. Per veure el nostre banner.
+
+```sh
+ sudo cp /etc/issue.net /etc/issue.net.default
+ sudo vim /etc/issue.net
+# Copieu el text
+# Guardar i sortir
+```
+
+Per podeu veure el banner, s'ha d'editar la configuració del servei SSH:
+
+```sh
+sudo vim /etc/ssh/sshd_config
+# Descomentar 
+Banner /etc/issue.net
+# Guardar i sortir
+sudo systemctl restart sshd
+exit
+```
+
+## Creació de grups
+
+La comanda **groupadd** s'utilitza per crear nous grups en un sistema Linux. Els grups són una manera de gestionar col·leccions d'usuaris, permetent una administració eficaç de permisos i accés als recursos del sistema. Els grups ajuden a organitzar i controlar els usuaris amb un mateix conjunt de permisos.
+
+```sh
+groupadd [opcions] nom_del_grup
+```
+
+### Crea 4 grups amb els següents GIDs
+
+|**nom**|**GID**|
+|---|---|
+|hobbits| 6000|
+|elfs| 7000|
+|nans| 8000|
+|mags| 9000|
+
+* Utilitza la comanda *groupadd* per crear els grups amb els GIDs especificats.
+* Prepara un script bash que creï els grups automàticament.
+
+## Creant els usuaris
+
+La comanda *useradd* s'utilitza per crear nous usuaris en un sistema Linux. Cada usuari té un identificador únic (**UID**) i pot ser assignat a un o més grups. Aquesta comanda també pot crear els directoris inicials (home directories) pels usuaris.
+
+### Crea els següents comptes
+
+|**usuari**  |**UID**|**GID**|**nom**    |
+|--------|---|---|-------|
+|frodo   |6001|6000|Frodo  |
+|gollum  |6002|6000|Smeagol|
+|samwise |6003|6000|Samwise|
+|legolas |7001|7000|Legolas|
+|gimli   |8001|8000|Gimli  |
+|gandalf |9001|9000|Gandalf|
+
+* Utilitza la comanda *useradd* per crear els usuaris amb els UIDs i GIDs especificats.
+* Prepara un script bash que creï els usuaris automàticament.
+
+## Protegint els comptes
+
+S'ha de requerir contrasenyes robustes per als comptes d'usuari. De manera predeterminada, tots els comptes d'usuari tenen assignada la contrasenya *Tolkien2LOR*. Un cop l'usuari es connecti per primera vegada, haurà de canviar la contrasenya. A més, s'ha de configurar el sistema perquè bloquegi els comptes d'usuari després de 3 intents fallits.
+
+1. Assigna la contrasenya *Tolkien2LOR* a tots els usuaris.
+
+2. Configura el sistema per bloquejar els comptes d'usuari després de 3 intents fallits durant 120 segons. D'aquesta manera, prevenim els atacs de força bruta i protegim els comptes d'usuari. Per fer-ho, podem utilitzar **faillock** en versions més recents de **RHEL**. En versions anteriors, es podia utilitzar **pam_tally2**.
+
+3. Configura polítiques de contrasenyes més fortes, heu de requerir que les contrasenyes tinguin almenys 12 caràcters, incloguin majúscules, minúscules, números i caràcters especials.
+
+4. Requereix el canvi de contrasenya en el primer inici de sessió.
+
+
+## Accés a la comarca (SSH)
+
+Configura el servidor SSH per permetre l'accés als usuaris Frodo, Samwise, Legolas i Gimli utilitzant contrasenya. L'usuari Gandalf ha de poder accedir al sistema utilitzant una clau SSH. No s'ha de permetre l'accés a l'usuari Gollum o a l'usuari root.
+
+1. Configura el servidor SSH per permetre l'accés als usuaris Frodo, Samwise, Legolas i Gimli utilitzant contrasenya. Per fer-ho, edita el fitxer de configuració del servei SSH **/etc/ssh/sshd_config** i les seves opcions.
+
+    > Nota: La instancia EC2 de RedHat utilitza el fitxer de configuració **/etc/ssh/sshd_config/50-cloud-init.conf** per configurar el servei SSH. Aquest fitxer s'inclou en el fitxer de configuració principal **/etc/ssh/sshd_config**.
+
+2. Genera un parell de claus SSH per a l'usuari Gandalf i afegeix la clau pública al fitxer **~/.ssh/authorized_keys** de l'usuari Gandalf, guarda la seva clau pública i privada a `/home/gandalf/.ssh/`. Assegura't que els permisos del directori `.ssh` i del fitxer `authorized_keys` siguin correctes. Permet l'accés SSH sense contrasenya per a l'usuari Gandalf utilitzant la clau SSH.
+
+3. Bloqueja l'accés a l'usuari Gollum.
+
+## Gandalf, el mag
+
+1. Descriu quins passos heu seguit per permetre que l'usuari Gandalf tingui permisos de **root**. Assuemix que existeix al sistema un grup anomenat **wheel** que té permisos de **root**.
+
+2. En les instancies EC2 d'Amazon Linux, el grup **wheel** no està habilitat per defecte. Cerca a EC2 el fitxer on es defineixen els usuaris amb permisos de **sudo**, com l'usuari **ec2-user**.
+
+3. Utilitza l'eina **visudo** per editar el fitxer **/etc/sudoers** i afegeix les línies necessàries per permetre que l'usuari **gandalf** utilitzi la comanda **sudo**.
+
+## Actualitzant Usuaris
+
+* L'usuari **gollum** vol tenir el seu *home* amb el nom **smeagol**.
+* L'usuari **legolas** vol tenir per defecte la *shell tcsh*.
+* L'usuari **gimli** no vol tenir *contrasenya*.
+
+## El poder de l'anell
+
+* Crearem un directori **/anell**.
+* Crearem un grup portadors.
+* Assignarem a frodo com a propietari del directori **/anell**.
+* Modificarem els permisos del directori: Els fitxers d’aquest directori únicament podran ser **executats/editats** per l’usuari **Frodo**, la resta d’usuaris no ha de tenir cap permís ni de lectura, a excepció del grup d'usuari del grup **portadors** que *han de poder llegir el directori*.
+* En **Frodo** ha de poder executar tots els fitxers del director **/anell/bin** sense haver d'afegir tota la ruta, únicament indicant el nom de l'executable.
+
+## Final del viatge
+
+* Gimli es confon amb tots els missatges que apareixen a la pantalla quan inicia sessió. Configureu el seu compte perquè no es mostri cap missatge a la pantalla quan comenci la sessió.
+
+* No s’ha de permetre que en Gimli executi programes des del seu propi directori **/home**. Per fer-ho heu d'utilitzar (**setfacl**):
+
+* L’usuari Samwise s’ha perdut i ha acabat a Narnia, elimineu-lo de l’univers.
+
+## Notificació de la comarca
+
+Un cop s'han creat els usuaris entrarem al sistema com a **frodo** i enviarem un *mail* a la resta amb el següent missatge: **Benvinguts a la companyia, anem direcció mordor**.
+
+```sh
+sudo dnf -y install postfix
+sudo dnf -y install s-nail
+```
+
+Postfix és un programari de servidor de correu electrònic que té com a objectiu principal gestionar l'enviament, recepció i l'encaminament de correus electrònics en un entorn de servidor. És conegut per la seva eficiència, seguretat i flexibilitat, i és àmpliament utilitzat en servidors de correu electrònic en tot el món.
+
+### Configuració del postfix
+
+Editeu el fitxer */etc/postfix/main.cf*:
+
+* **myhostname** = mail.middlearth.udl.cat
+* **mydomain** = udl.cat
+* **myorigin** = \$mydomain
+* **inet_interfaces** = all
+* **inet_protocols** = ipv4
+* **mydestination** = \$myhostname, localhost.$mydomain, localhost, \$mydomain
+* **mynetworks** = 127.0.0.0/8
+* **home_mailbox** = Maildir/
+
+Afegiu al final del fitxer */etc/postfix/main.cf*:
+
+```conf
+# Amaga el tipus o la versió del programari SMTP
+smtpd_banner = $myhostname ESMTP
+
+# Afegeix el següent al final
+# Desactiva la comanda SMTP VRFY
+disable_vrfy_command = yes
+
+# Requereix la comanda HELO als amfitrions emissors
+smtpd_helo_required = yes
+
+# Límit de mida d'un correu electrònic
+# Exemple a continuació significa límit de 10M bytes
+message_size_limit = 10240000
+
+# Configuracions SMTP-Auth
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $myhostname
+smtpd_recipient_restrictions = permit_mynetworks, permit_auth_destination, permit_sasl_authenticated, reject
+```
+
+### Configurant el dimoni
+
+* Arrancant el dimoni
+  
+```sh
+sudo systemctl enable --now postfix
+```
+
+### Prova
+
+```sh
+su - ganfalf
+echo "Benvinguts a la companyia, anem direcció mordor." | mail -s "Notificació de la comarca" frodo@localhost
+su - frodo
+mail
+```
+
+## Entregable
+
+* Cal un document on s'expliquin tots els passos seguits per completar l'exercici amb les comandes utilitzades i captures de pantalla quan sigui necessari.

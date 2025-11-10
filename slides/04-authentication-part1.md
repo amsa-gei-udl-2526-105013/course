@@ -1,0 +1,726 @@
+---
+title: "Autenticació i Autorització (Part 1)"
+subtitle: "Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)"
+author: "Jordi Mateo Fornés"
+logo: "/figs/corporative/institute.png"
+format: 
+  revealjs:
+    transition: fade
+    slide-number: true
+    incremental: true 
+    chalkboard: false
+    css: styles.css
+    footer: "Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) [🏠](/index.html)</a>"
+editor: visual
+
+execute:
+  freeze: auto
+  echo: false
+---
+
+# Usuaris, grups i credencials a Linux
+
+> We trust you have received the usual lecture from the local System Administrator. It usually boils down to these three things:
+> (1) Respect the privacy of others.
+> (2) Think before you type.
+> (3) With great power comes great responsibility.
+> – Output of sudo(8) upon first invocation.
+
+## Arquitectura de credencials del kernel
+
+```c
+struct cred {
+    // Identitats reals, efectives i de seguretat
+    kuid_t uid, euid, suid, fsuid; 
+    // Grups associats     
+    kgid_t gid, egid, sgid, fsgid;
+    // Capabilities heretables      
+    kernel_cap_t cap_inheritable; 
+    // Capabilities permeses      
+    kernel_cap_t cap_permitted;
+    // Capabilities actives         
+    kernel_cap_t cap_effective;  
+    // Claus de sessió      
+    struct key *session_keyring;
+    // Estructura d'usuari global        
+    struct user_struct *user;           
+};
+```
+
+Els attributs **euid/egid** permet als progames operar amb elevació de privilegis.
+
+## Usuaris a Linux {.smaller}
+
+* Cada entitat al sistema té un **Identificador Únic** (UID) i un **Grup Primari** (GID).
+* Els recursos (fitxers, directoris, processos) són propietat d'un UID i un GID.
+* **Objectiu de Seguretat**: Implementar el **Principi de Mínims Privilegis (PoLP)**.
+* **Objectiu d'Auditoria**: Registrar i traçar les accions de cada usuari.
+
+::: {.fragment}
+
+| Rang | Categoria | Descripció | Política |
+|:---|:---|:---|:---|
+| **0** | **root** | Superusuari, privilegis absoluts | Evitar-ne l'ús directe |
+| **1–999** | **Sistema** | dimonis, serveis (`nginx`, `mysql`) | Sense shell interactiu |
+| **1000+** | **Humans** | Usuaris interactius, grups secundaris | PAM, auditoria |
+| **65534** | **nobody** | Sense privilegis | Aïllament de processos |
+
+:::
+
+## El Superusuari (`root`) {.smaller}
+
+* **UID 0** amb privilegis il·limitats i accés absolut a tots els fitxers i processos.
+* **Recomanació de Seguretat**: **Evitar l'ús directe** de `root`.
+  * Un error comès per `root` pot ser catastròfic.
+  * Augmenta el rastre d'auditoria de l'usuari real.
+
+## Elevació de Privilegis {.smaller}
+
+* **`sudo`**: Permet executar comandes com a un altre usuari (per defecte `root`).
+  * La configuració es fa al fitxer `/etc/sudoers` mitjançant **`visudo`**.
+  * Permet un control **granular**: qui, des d'on, i quines comandes pot executar.
+* **`su -c comanda`**: Permet executar una comanda com a un altre usuari incloent `root`.
+  * Requereix la contrasenya de l'usuari objectiu.
+  * No ofereix control granular ni registre detallat.
+
+## Grups d'usuaris {.smaller}
+
+* Un grup és una col·lecció d'usuaris que comparteixen permisos comuns en fitxers i directoris.
+* Cada usuari té un grup primari i pot pertànyer a múltiples grups.
+
+::: {.fragment}
+
+```bash
+$ id usuari
+uid=1001(usuari) gid=1001(usuari) groups=1001(usuari),27(sudo),1002(grup2)
+
+$ groups usuari
+usuari : usuari sudo grup2
+```
+
+:::
+
+## Bases de dades {.smaller}
+
+| Fitxer | Propietari | Permisos | Contingut |
+|:---|:--|:--|:--------------------------|
+| `/etc/passwd` | root | 644 | uid, gid, comentari, shell (públic) |
+| `/etc/shadow` | root | 600 | hashs de contrasenyes (secret) |
+| `/etc/group` | root | 644 | definicions de grups |
+| `/etc/gshadow` | root | 600 | contrasenyes de grups (rares) |
+
+::: {.fragment}
+
+Cal comprovar regularment els permissos de:
+
+```bash
+stat /etc/passwd /etc/shadow /etc/group
+```
+
+:::
+
+## `/etc/passwd` {.smaller}
+
+El fitxer `/etc/passwd` és un fitxer que conté la base de dades d’usuaris del sistema. Cada línia del fitxer descriu un compte d’usuari.
+
+```bash
+$ less /etc/passwd
+nom:clau:uid:gid:comentari:directori:shell
+```
+
+* **nom**: Algunes versions limiten el nom a 8 caràcters. Es recomana utilitzar míniscules i números.
+* **clau**: És un camp que ja no s’utilitza. La clau s’emmagatzema en `/etc/shadow`.
+* **uid**: Número intern associat al nom d’usuari.
+* **gid**: Número associat al grup principal de l’usuari. Cada identificador té la seva entrada a `/etc/group`.
+* **comentari**: Normalment s’utilitza per al nom complet de l’usuari o altres dades descriptives.
+* **directori**: Directori d’inici de l’usuari.
+* **shell**: Intèrpret de comandes per defecte de l’usuari (per exemple, `/bin/bash`).
+
+## `/etc/passwd`: nom {.smaller}
+
+* Ha de ser únic.
+* No pot contenir els caràcters `:`, `\n`
+* Es permet fins a 32 caràcters. El primer caràcter ha de ser **minúscula** o _.
+* S’accepten **majúscules**, **minúscules, -, _ i números**.
+* Es recomana màxim 8 caràcters per tenir compatibilitat amb *legacy systems*.
+* Es recomana no utilitzar majúscules.
+* Es recomana no utilitzar nicknames.
+* Es recomana mantenir un esquema de noms.
+
+## `/etc/group` {.smaller}
+
+El fitxer `/etc/group` és un fitxer que conté la base de dades de grups del sistema. Cada línia del fitxer descriu un grup d’usuaris.
+
+```bash
+$ less /etc/group
+nom:clau:gid:llista_usuaris
+```
+
+* **nom**: Nom del grup. Pot ser el mateix que el de l’usuari (si és l’únic membre). S’aconsella minúscules i números.
+* **clau**: Fa referència a una contrasenya opcional pel grup. Un * com a caràcter invàlid impedeix que els usuaris normals canviïn al grup. Una **x** fa referència al fitxer de contrasenya separat `/etc/gshadow`. `gpasswd`
+* **gid**: Número intern associat al grup. Els nombres baixos es reserven pels grups de sistema. Els nombres 200, 500 o 1000 es troben els comptes normals.
+* **membres**: Una llista de noms d’usuaris separats per comes. Aquesta llista conté tots els usuaris que tenen aquest grup com a grup secundari, és a dir, que són membres d’aquest grup, però tenen un valor diferent del camp GID del seu `/etc/passwd`.
+
+## `/etc/shadow` {.smaller}
+
+El fitxer `/etc/shadow` és un fitxer que conté la informació de les contrasenyes dels usuaris del sistema. Aquest fitxer és llegible només per l’usuari root i els processos amb privilegis elevats.
+
+```bash
+$ less /etc/shadow
+nom:password_hash:change:min:max:warn:grace:lock
+```
+
+| Camp          | Descripció                                                                 | Gestió               |
+|---------------|---------------------------------------------------------------------------|----------------------|
+| password_hash | Hash (xifrat) de la contrasenya + salt.                                  |   |
+| change        | Data de l'últim canvi (dies des de 01-01-1970).                          | `chage -m`            |
+| min           | Dies mínims entre canvis de contrasenya.                                 | `chage -m`             |
+| max           | Dies màxims abans de l'expiració.                                        | `chage -M`             |
+| warn          | Dies d'avís abans de l'expiració.                                        | `chage -W`             |
+| grace         | Dies de gràcia després de l'expiració abans de bloquejar el compte.       | `chage -I`             |
+| lock          | Data d'expiració del compte (Bloqueig).                                  | `chage -E`             |
+
+## Xifrat de Contrasenyes {.smaller}
+
+Els sistemes moderns utilitzen algorismes de hashing forts amb salt.
+
+* **SHA-512**: El més segur i actual (per defecte a Debian/RedHat).
+* **SHA-256**: Encara comú.
+* **MD5**: Considerat insegur (Legacy).
+
+::: {.fragment}
+
+Normalment el xifrat es configura a `/etc/login.defs` o `/etc/pam.d/common-password`. Més endavant veurem PAM i els seus mòduls com `pam_pwquality.so`.
+
+:::
+
+::: {.fragment}
+Fins al moment, els algorismes de xifratge atorguen una seguretat adequada per a la majoria d’aplicacions. Per a entorns amb requisits de seguretat més estrictes, es poden utiltizar mètodes addicionals com l’autenticació de dos factors (2FA) o l’ús de tokens de seguretat. La **computació quàntica** podria afectar els algorismes actuals en el futur, però encara no és una amenaça immediata per a la majoria dels sistemes.
+:::
+
+# Gestio d'usuaris i grups
+
+## `useradd` {.smaller}
+
+Creació d’un nou compte d’usuari amb `useradd [opcions] [nom_usuari]`.
+
+| Opció | Clau | Descripció | Aplicació |
+| :--|:-- |:--| :-- |
+| -c *comentari* | Comentari | Nom complet o informació addicional. | Identificació d’usuaris. |
+| -e `YYYY-MM-DD` | Expiració | Data de caducitat del compte. | Comptes temporals. |
+| -g grup | Grup Primari | Assigna el grup primari de l’usuari. | Gestió de permisos. |
+| -k `/directori/skel` | Esquelet | Especifica un directori d’esquelet diferent. | Configuració personalitzada. |
+| -m | Crea Home | Crea el directori home si no existeix. | Aïllament d’usuaris. |
+
+## `usermod` i `userdel` {.smaller}
+
+* La comanda `usermod` permet modificar un compte d’usuari existent amb `usermod [opcions] [nom_usuari]`. Les opcions són similars a les de `useradd`. Per veure les opcions `man usermod`.
+
+* La comanda `userdel` permet eliminar el compte d'un usuari amb `userdel [-r] [nom_usuari]` . L'argument `r` elimina el directori `home`i la bústia de correu de l'usuari.
+
+* La comanda `userdel` no elimina les dades relacionades amb les tasques **cron** (`crontabs`).
+
+## `passwd` (Gestió de Contrasenyes I) {.smaller}
+
+```bash
+passwd
+$ passwd
+Changing password for jmateo.
+(current) UNIX password:12345678
+Enter new UNIX password:87654321
+Retype new UNIX password:87654321
+passwd: password updated successfull
+# Show info
+$ passwd -S jmateo
+# Lock the account
+$ passwd -l jmateo
+# Unlock the account
+$ passwd -u jmateo
+# Password change at most every 7 days
+$ passwd -n 7 jmateo
+# Password change at least every 30 days
+$ passwd -x 30 jmateo
+# 3 days grace period before password expires
+$ passwd -w 3 jmateo
+```
+
+## `chage` (Gestió de Contrasenyes II) {.smaller}
+
+```bash
+# Lock account from 1 Dec 2009
+$ chage -E 2009-12-01 jmateo
+# Cancel expiry date
+$ chage -E -1 jmateo
+# Grace period 1 week from password expiry
+$ chage -I 7 jmateo
+# Like passwd -n
+$ chage -m 7 jmateo
+# Like passwd -x
+$ chage -M 7 jmateo
+# Like passwd -w
+$ chage -W 3 jmateo
+```
+
+## Exemples de comandes (usuaris) {.smaller}
+
+```bash
+# Crear usuari amb opcions de seguretat avançada
+sudo useradd -m -d /home/ana -s /bin/bash \
+    -c "Ana García" -g developers -G sudo,docker \
+    -e 2025-12-31 -f 7 ana
+
+# Modificar data de caducitat
+sudo usermod -e 2025-06-30 ana
+
+# Bloquejar/desbloquejar compte
+sudo passwd -l ana          # Lock
+sudo passwd -u ana          # Unlock
+
+# Consultar estat de la contrasenya i polítiques
+sudo chage -l ana
+```
+
+**Recomanació:** Manualment, revisar UIDs actius: `awk -F: '$3 >= 1000 {print}' /etc/passwd`
+
+## Gestió de Grups {.smaller}
+
+```bash
+$ groupadd [-g GID] [group name]
+# Modificació del grup: -g modifica el GID,
+# -n actualitza el nom.
+$ groupmod [-g GID] [-n nom] [group name]
+# Eliminant grups
+$ grupdel [group name]
+# Afegint un usuari a un grup
+$ gpasswd -a [user] [group]
+# Eliminant l’usuari del grup
+$ gpasswd -d [user] [group]
+```
+
+* Un compte d'usuari pot pertànyer a múltiples grups secundaris.
+* Un compte d'usuari només pot tenir un grup primari.
+* El grup primari s'especifica al camp GID del fitxer `/etc/passwd`.
+
+## Exemples de comandes (grups) {.smaller}
+
+```bash
+# Crear grup amb GID específic
+sudo groupadd -g 2001 devops
+
+# Afegir usuari a grup secundari sense perdre altres
+sudo usermod -aG devops,docker,audit ana
+
+# Consultar grups de l'usuari
+id ana
+groups ana
+
+# Canviar temporalment el grup
+newgrp devops
+
+# Llistar membres d'un grup
+getent group devops
+```
+
+# Autorització a Linux
+
+## Permisos clàssics Unix {.smaller}
+
+```bash
+drwxr-xr-x  3 joan developers 4096 Oct 15 10:20 project/
+││  │ └─ others: r-x (lectura, accés)
+││  └─── group: r-x (lectura, accés)
+│└───── owner: rwx (total)
+└────── type: d (directori)
+```
+
+* Cada fitxer i directori té associats tres tipus de permisos:
+  * **Read (r)**: Permet llegir el contingut del fitxer o llistar el contingut del directori.
+  * **Write (w)**: Permet modificar el contingut del fitxer o crear/eliminar fitxers dins del directori.
+  * **Execute (x)**: Permet executar el fitxer com un programa o accedir als fitxers dins del directori.
+
+* Els permisos s'apliquen a tres categories d'usuaris:
+  * **Owner (u)**: L'usuari propietari del fitxer o directori.
+  * **Group (g)**: Els usuaris que pertanyen al grup associat al fitxer o directori.
+  * **Others (o)**: Tots els altres usuaris del sistema.
+
+## `chmod`: Canviant permisos {.smaller}
+
+* La comanda `chmod` s'utilitza per canviar els permisos d'un fitxer o directori.
+
+::: {.fragment}
+
+``` bash
+chmod [opcions] mode fitxer/directori
+```
+
+:::
+
+* El mode es pot especificar de dues maneres:
+  * **Simbolica**: Utilitza lletres per representar usuaris i permisos.
+    * Exemple: `chmod u+rwx,g+rx,o-r file.txt`
+  * **Octal**: Utilitza números per representar els permisos.
+    * Exemple: `chmod 755 file.txt` (rwxr-xr-x)
+
+## Exmmples pràctics `chmod` (I)
+
+```bash
+jordi@debianlab:~$ chmod +x a.txt
+jordi@debianlab:~$ ls -la a.txt
+-rwxr-xr-x 1 jordi jordi 0 11 de jul.  11:26 a.txt
+jordi@debianlab:~$ chmod -x a.txt
+jordi@debianlab:~$ ls -la a.txt
+-rw-r--r-* 1 jordi jordi 0 11 de jul.  11:26 a.txt
+jordi@debianlab:~$ chmod o-r a.txt
+jordi@debianlab:~$ ls -la a.txt
+-rw-r----* 1 jordi jordi 0 11 de jul.  11:26 a.txt
+jordi@debianlab:~$ chmod g+w a.txt
+jordi@debianlab:~$ ls -la a.txt
+-rw-rw---* 1 jordi jordi 0 11 de jul.  11:26 a.txt
+jordi@debianlab:~$ chmod o+w a.txt
+jordi@debianlab:~$ ls -la a.txt
+-rw-rw--w* 1 jordi jordi 0 11 de jul.  11:26 a.txt
+```
+
+## Exmmples pràctics `chmod` (II)
+
+```bash
+jordi@debianlab:~$ chmod a-w a.txt
+jordi@debianlab:~$ ls -la a.txt
+-r--r----* 1 jordi jordi 0 11 de jul.  11:26 a.txt
+jordi@debianlab:~$ echo "a" >> a.txt
+-bash: a.txt: S’ha denegat el permís
+jordi@debianlab:~$ cat a.txt
+jordi@debianlab:~$ chmod +w a.txt
+jordi@debianlab:~$ echo "a" >> a.txt
+jordi@debianlab:~$ cat a.txt
+a
+jordi@debianlab:~$ chmod -r a.txt
+jordi@debianlab:~$ cat a.txt
+cat: a.txt: S’ha denegat el permís
+```
+  
+## `chown` i `chgrp`: Canviant propietaris i grups {.smaller}
+
+* La comanda `chown` s'utilitza per canviar el propietari d'un fitxer o directori.
+
+:::{.fragment}
+
+```bash
+chown [opcions] nou_propietari fitxer/directori
+```
+
+:::
+
+* La comanda `chgrp` s'utilitza per canviar el grup associat a un fitxer o directori.
+
+::: {.fragment}
+
+```bash
+chgrp [opcions] nou_grup fitxer/directori
+```
+
+:::
+
+## Comandes Bàsiques {.smaller}
+
+```bash
+# Canviar permisos (simbòlic i octal)
+chmod u+rwx,g+rx,o-r fitxer        # Simbòlic
+chmod 750 fitxer                   # Octal: rwxr-x---
+
+# Canviar propietari i grup
+sudo chown joan:developers fitxer
+sudo chgrp developers fitxer
+
+# Aplicar recursivament 
+## -R per recursiu
+## --changes per mostrar canvis
+sudo chmod -R 750 /home/joan --changes
+```
+
+## `umask` {.smaller}
+
+* La `umask` (user file-creation mode mask) és un valor que determina els permisos per defecte dels fitxers i directoris nous creats per un usuari.
+
+::: {.fragment}
+
+```bash
+# Umask actual (resta de 777/666)
+umask                              # Ex: 0022
+
+# Crear fitxer: 666 - 022 = 644 (rw-r--r--)
+# Crear directori: 777 - 022 = 755 (rwxr-xr-x)
+
+# Canviar umask per sessió (segura)
+umask 0077                         # Els nous arxius: -rw------- (600)
+
+# Configurar permanent a ~/.bashrc
+echo "umask 0077" >> ~/.bashrc
+```
+
+:::
+
+::: {.fragment}
+S'aconsella utilitzar una umask 0002 en entorns on els usuaris treballen en grups, ja que permet als membres del grup escriure als fitxers creats per altres membres del mateix grup. Això facilita la col·laboració i l'intercanvi de fitxers dins del grup.
+:::
+
+## Permisos especials {.smaller}
+
+* **Setuid (s)**: Quan s'aplica a un fitxer executable, permet que el programa s'executi amb els privilegis del propietari del fitxer.
+* **Setgid (s)**: Quan s'aplica a un fitxer executable, permet que el programa s'executi amb els privilegis del grup del fitxer. Quan s'aplica a un directori, els fitxers creats dins d'aquest directori hereten el grup del directori.
+* **Sticky bit (t)**: Quan s'aplica a un directori, només el propietari del fitxer o el propietari del directori poden eliminar o renombrar fitxers dins d'aquest directori.
+
+::: {.fragment}
+
+```bash
+# Exemple de permisos especials
+chmod u+s programa   # Setuid
+chmod g+s directori  # Setgid
+chmod +t directori   # Sticky bit
+```
+
+:::
+
+## Setuid (s): Executar com a propietari {.smaller}
+
+```bash
+# El programa 'passwd' s'executa com a root
+ls -l /usr/bin/passwd
+-rwsr-xr-x  1 root root 68208 /usr/bin/passwd
+
+# Permetre a programa específic operar com a root
+sudo chmod u+s /usr/local/bin/myscript
+```
+
+Els programes amb setuid poden ser un vector d'atac si tenen vulnerabilitats. Es important auditar-los periòdicament.
+
+```bash
+find / -perm -4000 -type f 2>/dev/null | sort
+```
+
+## Setgid (s): Herència de grup en directoris {.smaller}
+
+```bash
+# Col·laboració: Els fitxers nous hereten el grup del directori
+sudo mkdir /srv/projectX
+sudo chgrp developers /srv/projectX
+sudo chmod g+s /srv/projectX           # setgid activat
+sudo chmod g+w /srv/projectX
+
+# Tots els fitxers creats dins seran del grup developers
+```
+
+## Sticky bit (t): Protecció en `/tmp` {.smaller}
+
+```bash
+# Només el propietari pot eliminar el seu fitxer
+ls -ld /tmp
+drwxrwxrwt 12 root root 4096 /tmp
+
+# Aplicar sticky a directori compartit
+sudo chmod +t /srv/shared
+```
+
+## Limitacions del model tradicional {.smaller}
+
+**Problema:** Tres usuaris (alice, bob, charlie) necessiten permisos diferents sobre un fitxer, però el model tradicional només permet propietari, grup, altres.
+
+```bash
+alice → R (read)
+bob   → RW (read, write)
+charlie → (cap accés)
+```
+
+::: {.fragment .center}
+**Solució:** ACL (Access Control Lists)
+:::
+
+## ACLs: Permissos granulars {.smaller}
+
+* Les **Access Control Lists (ACLs)** permeten definir permisos més detallats per a usuaris i grups específics.
+* El problema dels permisos tradicionals és que només permeten definir permisos per a l'usuari propietari, el grup i els altres usuaris.
+* Les ACLs permeten assignar permisos a múltiples usuaris i grups per a un mateix fitxer o directori.
+
+::: {.fragment}
+
+```bash
+# Comandes bàsiques per gestionar ACLs
+setfacl -m u:usuari:rwx fitxer      # Assigna permisos rwx a un usuari específic
+getfacl fitxer                      # Mostra les ACLs
+setfacl -x u:usuari fitxer          # Elimina les ACLs d'un usuari específic
+setfacl -d -m g:grup:rwx directori  # Assigna permisos per defecte a un grup en un directori per als fitxers nous
+```
+
+:::
+
+## Introducció a les ACL {.smaller}
+
+```bash
+# Veure ACL actual
+getfacl /srv/dades.txt
+
+# file: /srv/dades.txt
+# owner: root
+# group: developers
+user::rw-
+user:alice:r--
+user:bob:rw-
+group::r--
+mask::rw-
+other::---
+```
+
+## Assignació granular d'ACL {.smaller}
+
+```bash
+# Donar lectura a usuari específic
+setfacl -m u:alice:r /srv/dades.txt
+
+# Donar lectura i escriptura a grup
+setfacl -m g:teamX:rw /srv/dades.txt
+
+# Permetre execució a un usuari
+setfacl -m u:bob:rwx /srv/script.sh
+
+# Eliminar ACL d'usuari
+setfacl -x u:alice /srv/dades.txt
+```
+
+## ACL per defecte en directoris {.smaller}
+
+```bash
+# ACL per defecte: nous fitxers hereten permisos
+sudo mkdir /srv/shared
+sudo setfacl -d -m u:alice:rx /srv/shared
+sudo setfacl -d -m g:devops:rwx /srv/shared
+
+# Verificar herència
+touch /srv/shared/testfile.txt
+getfacl /srv/shared/testfile.txt
+```
+
+La herencia d'ACL és especialment útil en entorns col·laboratius on diversos usuaris necessiten accedir i modificar fitxers dins d'un directori compartit. Permet establir polítiques de permisos coherents i assegurar que els nous fitxers i directoris creats dins del directori heretin els permisos adequats.
+
+---
+
+## Màscara i precedència d'ACL {.smaller}
+
+```bash
+# La màscara limita permisos màxims efectius
+setfacl -m m::rx /srv/dades.txt     # Limita ACL a r-x
+```
+
+L'ordre de precedència:
+
+1. ACL de l'usuari propietari
+2. ACL específic de l'usuari
+3. Màscara
+4. ACL del grup propietari
+5. ACL de grup específic
+6. Altres
+
+Aquesta jerarquia assegura que els permisos més específics tinguin prioritat sobre els més generals.
+
+## Auditoría i migracions d'ACL {.smaller}
+
+```bash
+# Exportar ACL per backup
+getfacl -R /srv/dades > acl_backup.txt
+
+# Restaurar ACL
+setfacl --restore=acl_backup.txt
+
+# Identificar fitxers amb ACL no estàndar
+find /home -type f -exec sh -c 'getfacl {} | grep -q "^user:" && echo {}' \;
+```
+
+# Elevació de privilegis: sudo, setuid i capabilities
+
+## `sudo` {.smaller}
+
+* `sudo` permet executar comandes amb els privilegis d'un altre usuari (per defecte `root`).
+* La configuració es fa al fitxer `/etc/sudoers` mitjançant l'eina `visudo`.
+* Permet un control **granular**: qui, des d'on, i quines comandes pot executar.
+
+::: {.fragment}
+
+```bash
+# Configuració a /etc/sudoers (editar amb 'visudo')
+joan ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart apache2
+
+# Sintaxi: user host=(runasuser) [NOPASSWD:] command
+```
+
+:::
+
+::: {.fragment}
+L'usuari `joan` pot reiniciar el servei `apache2` sense necessitat de proporcionar la contrasenya.
+:::
+
+## Control granular de permisos {.smaller}
+
+```bash
+# Definir alias per a reutilització
+Cmnd_Alias RESTART = /usr/bin/systemctl restart *, /usr/bin/systemctl reload *
+User_Alias SYSADMINS = joan, anna, pere
+Host_Alias SERVERS = web01, web02
+
+# Política: els sysadmins poden reiniciar serveis sense password
+SYSADMINS SERVERS = NOPASSWD: RESTART
+
+# Restricció per hora (integrada amb PAM)
+joan web01 = (root) Cmnd=/usr/sbin/reboot [1-5/09:00-18:00]
+```
+
+## Auditoría d'ús de `sudo` {.smaller}
+
+```bash
+# Configurar log detallat a /etc/sudoers
+Defaults logfile="/var/log/sudo.log"
+Defaults log_output
+
+# Visualitzar comandos executades
+sudo journalctl SYSLOG_IDENTIFIER=sudo | head -20
+
+# Script per auditar ús sospitós
+grep COMMAND /var/log/sudo.log | grep -E "(rm|dd|chmod|chown)"
+```
+
+## Capabilities: alternatives a setuid {.smaller}
+
+```bash
+# En lloc de setuid root, es pot utilitzar capabilities
+# Exemple: ping no necessita root complet
+getcap /usr/bin/ping
+
+# Si es necessita, assignar capability específica
+sudo setcap cap_net_raw+p /usr/bin/ping
+
+# Capabilities comunes
+# CAP_NET_BIND_SERVICE: obrir ports < 1024
+# CAP_SYS_ADMIN: admin del sistema (omnibus)
+# CAP_SETUID: canviar UID
+# CAP_DAC_OVERRIDE: ignorar DAC
+```
+
+**Avantatge:** Menor superfície d'atac que setuid.
+
+## Namespaces d'usuari i contenidors
+
+```bash
+# Crear namespace d'usuari per aïllament
+unshare --user --map-root-user --mount-proc bash
+
+# Dins del namespace: sou root (UID 0 local)
+# Però sense privilegis globals del sistema
+
+# Fonament de contenidors: processos aïllats per UID
+docker run --user=nobody:nogroup ubuntu id
+# uid=65534(nobody) gid=65534(nogroup)
+```
+
+**Cas d'ús:** Aïllament de microserveis i entorns CI/CD.
+
+## Exercicis Propostas
+
+- [Lord of the system](../exercises/04-accounts/01-lord-of-system.qmd)

@@ -27,3 +27,5 @@ A continuació es presenta un calendari complet dels temes, el contingut del cur
 | 7 | Laboratori | 22/10/25 | **Unitat 03: Pràctica 02**  |  | | | | |[👩🏻‍💻](../projects/02-project/02-project.html#prepare) |
 | 8    | Teoria             |27/10/25    | **Repàs Parcial**      |  |    |  |  | 
 | 8    | Laboratori |29/10/25 | **AWS: S3**  |  |    | [🧪](/laboratories/03-jupyter/01-aws-jupyter.html#prepare) |
+| 9    | PARCIALS | | |   |    |  |  |
+| 10    | Teoria             |03/11/25    | **Unitat 04**: Autenticació i Autorització (Part 1)      | [📖](../slides/04-authentication-part1.html#prepare){aria-label="Autenticació i Autorització (Part 1) "}  |    |  |  | [📝](../exercises/04-accounts/01-lord-of-system.html#prepare)

@@ -49,6 +49,8 @@ website:
             text: Unitat 03 · Sistemes de fitxers (Part 2)
           - href: ./slides/03-filesystem-part3.qmd
             text: Unitat 03 · Sistemes de fitxers (Part 3)
+          - href: ./slides/04-authentication-part1.qmd
+            text: Unitat 04 · Autenticació i Autorització (Part 1)
       - section: Activitats
         contents:
           - section: Unitat 01 · Fonaments de l'Administració de Sistemes
@@ -81,6 +83,10 @@ website:
                 text: Activitat 9 · Configuració de RAIDs amb mdadm
               - href: ./exercises/03-fs/10-ex-week7.qmd
                 text: Activitat 10 · Administració de volums lògics amb LVM
+          - section: Unitat 04 · Autenticació i Autorització
+            contents:
+              - href: ./exercises/04-accounts/01-lord-of-system.qmd
+                text: Activitat 11 · Gestió de comptes en un servidor Linux
 
       - section: Laboratoris
         contents:

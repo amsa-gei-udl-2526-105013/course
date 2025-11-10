@@ -79,7 +79,7 @@ Cadascun muntat en un punt d'accés lògic diferent.
 Tot i les diferències estructurals a nivell de disc, el **VFS (Virtual Filesystem Switch)** del *kernel* utilitza abstraccions uniformes per oferir una interfície consistent als processos.
 
 | Abstracció | Ubicació | Funció Tècnica | Persistència |
-|:----------------|:----------------|:---------------------|:----------------|
+|:----------------|:----------------|:--------------------|:----------------|
 | **Superbloc** | Disc + Memòria | Conté **metadata global** del FS: tipus, mida, estat, punters clau | Persistent |
 | **Inode** | Disc + Memòria | **Metadata del fitxer**: permisos, timestamps, punters a blocs de dades | Persistent |
 | **Dentry** | Només Memòria | **Entrada de Directori**: cacheja nom del fitxer ↔ inode | Temporal |
@@ -425,7 +425,7 @@ Aquesta *cache* emmagatzema les metadades del fitxer a memòria (l'estructura de
 La Dcache és l'eina més important per a la resolució ràpida de camins (*path lookup*). **Cacheja la relació Nom** $\rightarrow$ Inode.
 
 | Estat de la Dentry | Implicació Tècnica |
-|:------------------------|:---------------------------------------------|
+|:-------------------------|:---------------------------------------------|
 | **`Used`** | L'objecte està en ús (p. ex., associat a un `FILE Objecte`). El seu `d_inode` és vàlid. |
 | **`Unused`** | El `d_inode` és vàlid, però l'objecte Dentry no està sent utilitzat activament per cap procés. |
 | **`Negative`** | L'`d_inode` no és vàlid. S'utilitza per recordar que un fitxer **no existeix** o ha estat eliminat, evitant cerques futures innecessàries al disc. |
