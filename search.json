@@ -4653,7 +4653,7 @@
     "href": "exercises/04-accounts/01-lord-of-system.html#preparant-el-servidor",
     "title": "Laboratori: Gestió de comptes en un servidor Linux",
     "section": "Preparant el servidor",
-    "text": "Preparant el servidor\nInstancieu un servidor RedHat a la plataforma AWS. Aquest servidor serà el vostre Middlearth.\n\nActualitzar totes les llibreries amb sudo dnf update -y.\nInstal·lar un editor de text (vim o nano) amb sudo dnf install vim -y.\nInstal·lar la shell tcsh amb sudo dnf install tcsh -y.\nActualitzar el nom de l’amfitrió amb: sudo hostnamectl set-hostname middlearth.",
+    "text": "Preparant el servidor\nInstancieu un servidor AMI Linux a la plataforma AWS. Aquest servidor serà el vostre Middlearth.\n\nActualitzar totes les llibreries amb sudo dnf update -y.\nInstal·lar un editor de text (vim o nano) amb sudo dnf install vim -y.\nInstal·lar la shell tcsh amb sudo dnf install tcsh -y.\nActualitzar el nom de l’amfitrió amb: sudo hostnamectl set-hostname middlearth.",
     "crumbs": [
       "Activitats",
       "Unitat 04 · Autenticació i Autorització",
