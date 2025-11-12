@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Gestió centralitzada d’usuaris utiltizant LDAP – AMSA - Fall 2025</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Gestió centralitzada d’usuaris utiltizant LDAP</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="../../index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
+    <a href="https://github.com/amsa-gei-udl-2526-105013/course/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://cv.udl.cat/" title="Sakai" class="quarto-navigation-tool px-1" aria-label="Sakai"><i class="bi bi-person-fill"></i></a>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Informació del curs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../.././course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Planificació</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Diapositives</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/04-authentication-part1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització (Part 1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/04-authentication-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització (Part 2)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Activitats</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 1 · Booting amb MBR i BIOS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 2 · Booting amb UEFI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 3 · Dual Boot amb UEFI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 8 · Administració bàsica de Sistemes de Fitxers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/03-fs/09-ex-week6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 9 · Configuració de RAIDs amb mdadm</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/03-fs/10-ex-week7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 10 · Administració de volums lògics amb LVM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/04-accounts/01-lord-of-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 11 · Gestió de comptes en un servidor Linux</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/04-accounts/01-pam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 12 · Autenticació de doble factor (2FA) amb PAM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">Laboratoris</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori · Fonaments de l’Administració de Sistemes amb AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 01 · Introducció a AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 02 · Desplegament d’una aplicació web amb AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">Networking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 03 · Desplegament d’una aplicació web amb alta disponibilitat amb AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">Storage and Services</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/03-jupyter/01-aws-jupyter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 04 · Servidor de Python al Cloud amb Emmagatzematge S3 Compartit</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../.././laboratories/04-ldap/01-aws-ldap.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 05 · Servei d’Autenticació Centralitzada amb LDAP a AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">Projectes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 1 · Snapshots i Backups amb systemd i initramfs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/02-project/02-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 2 · Diagnòstic i Resolució d’Incidències</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#requisits" id="toc-requisits" class="nav-link active" data-scroll-target="#requisits">Requisits</a></li>
+  <li><a href="#servidor-ldap" id="toc-servidor-ldap" class="nav-link" data-scroll-target="#servidor-ldap">Servidor LDAP</a>
+  <ul class="collapse">
+  <li><a href="#installació-deines-i-dependències" id="toc-installació-deines-i-dependències" class="nav-link" data-scroll-target="#installació-deines-i-dependències">Instal·lació d’eines i dependències</a></li>
+  <li><a href="#descarregant-el-paquet-dinstallació" id="toc-descarregant-el-paquet-dinstallació" class="nav-link" data-scroll-target="#descarregant-el-paquet-dinstallació">Descarregant el paquet d’instal·lació</a></li>
+  <li><a href="#configuració-i-installació" id="toc-configuració-i-installació" class="nav-link" data-scroll-target="#configuració-i-installació">Configuració i instal·lació</a></li>
+  <li><a href="#creació-dun-usuarigrup-per-gestionar-el-dimoni" id="toc-creació-dun-usuarigrup-per-gestionar-el-dimoni" class="nav-link" data-scroll-target="#creació-dun-usuarigrup-per-gestionar-el-dimoni">Creació d’un usuari/grup per gestionar el dimoni</a></li>
+  <li><a href="#configuració-del-servei" id="toc-configuració-del-servei" class="nav-link" data-scroll-target="#configuració-del-servei">Configuració del servei</a></li>
+  <li><a href="#genració-de-contrasenyes-amb-sha-512" id="toc-genració-de-contrasenyes-amb-sha-512" class="nav-link" data-scroll-target="#genració-de-contrasenyes-amb-sha-512">Genració de contrasenyes amb SHA-512</a></li>
+  </ul></li>
+  <li><a href="#crent-la-base-de-dades" id="toc-crent-la-base-de-dades" class="nav-link" data-scroll-target="#crent-la-base-de-dades">Crent la base de dades</a>
+  <ul class="collapse">
+  <li><a href="#configurant-la-estructura-de-la-base-de-dades" id="toc-configurant-la-estructura-de-la-base-de-dades" class="nav-link" data-scroll-target="#configurant-la-estructura-de-la-base-de-dades">Configurant la estructura de la base de dades</a></li>
+  <li><a href="#afegint-usuaris-i-grups" id="toc-afegint-usuaris-i-grups" class="nav-link" data-scroll-target="#afegint-usuaris-i-grups">Afegint usuaris i grups</a></li>
+  <li><a href="#configuració-de-certificats-tls" id="toc-configuració-de-certificats-tls" class="nav-link" data-scroll-target="#configuració-de-certificats-tls">Configuració de certificats TLS</a></li>
+  <li><a href="#testeig-de-la-installació" id="toc-testeig-de-la-installació" class="nav-link" data-scroll-target="#testeig-de-la-installació">Testeig de la instal·lació</a></li>
+  <li><a href="#comandes-útils-de-ldap" id="toc-comandes-útils-de-ldap" class="nav-link" data-scroll-target="#comandes-útils-de-ldap">Comandes útils de LDAP</a></li>
+  </ul></li>
+  <li><a href="#exercicis" id="toc-exercicis" class="nav-link" data-scroll-target="#exercicis">Exercicis</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Gestió centralitzada d’usuaris utiltizant LDAP</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="requisits" class="level2">
+<h2 class="anchored" data-anchor-id="requisits">Requisits</h2>
+<ul>
+<li><p>Instància EC2 amb una distribució Linux que actuara com a servidor LDAP. En el nostre cas, utilitzarem una instància Amazon Linux 2023 amb les següents característiques:</p>
+<ul>
+<li>Nom: <code>OpenLDAP-AMSA-Server</code></li>
+<li>Tipus: <code>t2.micro</code></li>
+<li>Arquitectura: <code>x86_64</code></li>
+<li>IP pública: Activada</li>
+<li>Seguretat: <code>OpenLDAP-AMSA-Server-SG</code>
+<ul>
+<li>Regles d’entrada:
+<ul>
+<li>SSH: Port 22</li>
+<li>LDAP: Port 389</li>
+<li>LDAPS: Port 636</li>
+</ul></li>
+<li>Regles de sortida:
+<ul>
+<li>Totes les connexions</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="servidor-ldap" class="level2">
+<h2 class="anchored" data-anchor-id="servidor-ldap">Servidor LDAP</h2>
+<section id="installació-deines-i-dependències" class="level3">
+<h3 class="anchored" data-anchor-id="installació-deines-i-dependències">Instal·lació d’eines i dependències</h3>
+<p>Segons el <a href="https://www.openldap.org/doc/admin26/install.html">manual d’instal·lació</a> necessitem instal·lar un conjunt d’eines:</p>
+<pre class="config"><code>REQUIRED SOFTWARE
+    OpenLDAP Software 2.6.3 requires the following software:
+    Base system (libraries and tools):
+        Standard C compiler (required)
+        Cyrus SASL 2.1.27+ (recommended)
+        OpenSSL 1.1.1+ (recommended)
+        libevent 2.1.8+ (recommended)
+        libargon2 or libsodium (recommended)
+        Reentrant POSIX REGEX software (required)
+    SLAPD:
+        The ARGON2 password hashing module requires either libargon2
+        or libsodium
+    LLOADD:
+        The LLOADD daemon or integrated slapd module requires
+        libevent 2.1.8 or later.
+    CLIENTS/CONTRIB ware:
+        Depends on package.  See per package README.</code></pre>
+<p>Per tant, instal·lem les eines necessàries:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cyrus-sasl-devel make libtool autoconf libtool-ltdl-devel <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>openssl-devel libdb-devel tar gcc perl perl-devel wget vim <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="descarregant-el-paquet-dinstallació" class="level3">
+<h3 class="anchored" data-anchor-id="descarregant-el-paquet-dinstallació">Descarregant el paquet d’instal·lació</h3>
+<p>Descarreguem el paquet d’instal·lació de la pàgina oficial:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">VER</span><span class="op">=</span><span class="st">"2.6.3"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-<span class="va">$VER</span>.tgz</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xzf openldap-<span class="va">$VER</span>.tgz</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> openldap-<span class="va">$VER</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuració-i-installació" class="level3">
+<h3 class="anchored" data-anchor-id="configuració-i-installació">Configuració i instal·lació</h3>
+<ol type="1">
+<li><p>Configurem el paquet amb les opcions que necessitem:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./configure</span> <span class="at">--prefix</span><span class="op">=</span>/usr <span class="at">--sysconfdir</span><span class="op">=</span>/etc <span class="at">--disable-static</span> <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--enable-debug <span class="at">--with-tls</span><span class="op">=</span>openssl <span class="at">--with-cyrus-sasl</span> <span class="at">--enable-dynamic</span> <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--enable-crypt <span class="at">--enable-spasswd</span> <span class="at">--enable-slapd</span> <span class="at">--enable-modules</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--enable-rlookups  <span class="at">--disable-sql</span>  <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--enable-ppolicy <span class="at">--enable-syslog</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Compilem i instal·lem el paquet:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> depend</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Nota</strong>: S’hauria de fer un make test per assegurar la correcta compilació, però requereix temps i ometrem el pas.</p>
+</blockquote></li>
+<li><p>Habilitant paquets addicionals <strong>SHA-2</strong>: Per defecte, OpenLDAP utilitza l’algorisme de hash SHA-1 per emmagatzemar les contrasenyes. Aquesta configuració es pot trobar al fitxer de configuració d’OpenLDAP, generalment a la secció de configuració del mòdul de contrasenyes. Aquest modul és considerat poc segur pel que fa a la seguretat de les contrasenyes, ja que s’han descobert vulnerabilitats que permeten atacs amb èxit. Es recomana utilitzar algorismes més forts com SHA-256, SHA-384 o SHA-512, que ofereixen una millor seguretat.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contrib/slapd-modules/passwd/sha2</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Instal·lem els mòduls:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../../../.. <span class="co"># Tornem a la carpeta inicial</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Instal·lem els mòduls addicionals:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contrib/slapd-modules/passwd/sha2</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p>En aquest punt, si tot ha anat bé, ja tindrem el servidor LDAP instal·lat al nostre servidor. Podeu comprovar:</p>
+<ul>
+<li><p>Els fitxers de configuració a <code>/etc/openldap/</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /etc/openldap/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Les llibreries instal·lades a <code>/usr/libexec/openldap</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /usr/libexec/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul>
+</section>
+<section id="creació-dun-usuarigrup-per-gestionar-el-dimoni" class="level3">
+<h3 class="anchored" data-anchor-id="creació-dun-usuarigrup-per-gestionar-el-dimoni">Creació d’un usuari/grup per gestionar el dimoni</h3>
+<p>Es una bona pràctica quan configurem serveis tenir un usuari dedicat i un grup amb permisos restringits per executar aplicacions del sistema. Per tant, anem a fer-ho pel servei LDAP.</p>
+<p>En primer lloc crearem el grup amb gid 55 anomenat ldap.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">groupadd</span> <span class="at">-g</span> 55 ldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>L’usuari ldap no necessita directori al sistema i el seu directori personal el podem assignar a <em>/var/lib/openldap</em>. El grup serà l’anterior amb gid 55 i podem assignar el uid 55 a l’usuari ldap. Finalment, podem impedir que aquest usuari inici sessió amb una shell <em>nologin</em>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">useradd</span> <span class="at">-r</span> <span class="at">-M</span> <span class="at">-d</span> /var/lib/openldap <span class="at">-u</span> 55 <span class="at">-g</span> 55 <span class="at">-s</span> /usr/sbin/nologin ldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuració-del-servei" class="level3">
+<h3 class="anchored" data-anchor-id="configuració-del-servei">Configuració del servei</h3>
+<ul>
+<li><p>Crearem un directori per guardar les dades <strong>/var/lib/openldap</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /var/lib/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Crearem un directori per guardar la base de dades <strong>/etc/openldap/slapd.d</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /etc/openldap/slapd.d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Atorguem els permisos necessaris:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> ldap:ldap /var/lib/openldap</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> root:ldap /etc/openldap/slapd.conf</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 640 /etc/openldap/slapd.conf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Crearem un fitxer de configuració per el servei LDAP:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> /etc/systemd/system/slapd.service <span class="op">&lt;&lt; 'EOL'</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">[Unit]</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">Description=OpenLDAP Server Daemon</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">After=syslog.target network-online.target</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">Documentation=man:slapd</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">Documentation=man:slapd-mdb</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">[Service]</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">Type=forking</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="st">PIDFile=/var/lib/openldap/slapd.pid</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="st">Environment="SLAPD_URLS=ldap:/// ldapi:/// ldaps:///"</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="st">Environment="SLAPD_OPTIONS=-F /etc/openldap/slapd.d"</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="st">ExecStart=/usr/libexec/slapd -u ldap -g ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="st">[Install]</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="st">WantedBy=multi-user.target</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p>En la primera secció <strong>Unit</strong> indicarem el dimoni del servidor OpenLDAP (<em>Description=OpenLDAP Server Daemon</em>) i que ha de ser iniciat després de <strong>syslog.target</strong> i <strong>network-online.target</strong>.</p></li>
+<li><p>En la segona secció <strong>Service</strong> s’estableix que el servei és de tipus <strong>forking</strong> (és a dir, es farà un <code>fork()</code> com a procés fill en segon pla), es defineix el fitxer de <strong>PID</strong> (<em>PIDFile=/var/lib/openldap/slapd.pid</em>) i es configuren les variables d’entorn per a les URL d’OpenLDAP i les opcions d’OpenLDAP. Finalment, s’especifica la comanda d’inici (<strong>ExecStart</strong>) per a iniciar el dimoni amb les opcions adequades.</p></li>
+<li><p>En la tercera secció <strong>Install</strong> s’indica que el servei ha de ser iniciat en el moment que s’inicia el sistema.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="genració-de-contrasenyes-amb-sha-512" class="level3">
+<h3 class="anchored" data-anchor-id="genració-de-contrasenyes-amb-sha-512">Genració de contrasenyes amb SHA-512</h3>
+<p>Per generar contrasenyes amb l’algorisme de hash SHA-512 (també conegut com a SSHA-512) utilitzant la comanda slappasswd, pots seguir aquests passos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">slappasswd</span> <span class="at">-h</span> <span class="st">"{SSHA512}"</span> <span class="at">-o</span> module-load=pw-sha2.la <span class="at">-o</span> module-path=/usr/local/libexec/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A continuació, la comanda demanarà la nova contrasenya:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new password: 1234</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-enter new password: 1234</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un cop introdueixis la contrasenya, es generarà el hash corresponent amb l’algorisme SHA-512. El resultat hauria de ser similar a això:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquest és el hash de la contrasenya “1234” generat amb l’algorisme SHA-512.</p>
+<p><strong>Nota</strong>: D’ara en endavant…Si voleu modificar contrasenyes i utiltizar aquesta encriptació heu de seguir aquests passos.</p>
+</section>
+</section>
+<section id="crent-la-base-de-dades" class="level2">
+<h2 class="anchored" data-anchor-id="crent-la-base-de-dades">Crent la base de dades</h2>
+<p>Notació important: LDAP utilitza una configuració basada en objectes. Cada objecte té una sèrie d’atributs que defineixen les seves característiques.</p>
+<ul>
+<li><p>Configuració global: Aquesta configuració es troba a la base de dades de configuració, que es troba a la branca <code>cn=config</code>. Aquesta base de dades conté la configuració del servidor LDAP, com ara els mòduls carregats, els esquemes, els índexs, etc.</p>
+<ul>
+<li><strong>dn</strong>: Distinguished Name: El nom distintiu de l’objecte. És com una adreça única que identifica l’objecte dins de l’estructura de l’arbre LDAP.</li>
+<li><strong>objectClass</strong>: Classe d’objecte: Defineix el tipus d’objecte que és.</li>
+<li><strong>cn</strong>: Common Name: Nom comú de l’objecte.</li>
+<li><strong>olcArgsFile</strong>: Fitxer d’arguments: On es guarden els arguments usats per slapd al iniciar-se.</li>
+<li><strong>olcPidFile</strong>: Fitxer PID: On es guarda el PID del procés slapd.</li>
+<li><strong>olcTLSCipherSuite</strong>: Llista de xifrats TLS/SSL permesos per a les connexions segures.</li>
+<li><strong>olcTLSProtocolMin</strong>: Versió mínima de TLS permesa.</li>
+</ul></li>
+<li><p>Configuració de mòduls: Aquesta base de dades conté els mòduls carregats pel servidor LDAP. En el nostre cas, carregarem el mòdul <code>pw-sha2.la</code> per a poder utilitzar l’algorisme de hash SHA-512 i el backend <code>back_mdb.la</code> per a emmagatzemar les dades en una base de dades de tipus MDB.</p></li>
+<li><p>Configuració d’esquemes: Aquesta configuració es troba a la base de dades de configuració, que es troba a la branca <code>cn=schema,cn=config</code>. Aquesta base de dades conté els esquemes que defineixen els objectes i atributs que es poden utilitzar a la base de dades.</p></li>
+<li><p>Configuració del frontend: Aquesta configuració es troba a la base de dades de configuració, que es troba a la branca <code>olcDatabase=frontend,cn=config</code>. Aquesta configuració defineix com s’accedeix a la base de dades. Crearem dos regles:</p>
+<ul>
+<li>Lectura de l’esquema: Permet a qualsevol usuari llegir l’esquema de la base de dades.</li>
+<li>Atorgar permisos d’administrador: Permet a l’usuari <code>gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth</code> gestionar la base de dades.</li>
+</ul></li>
+</ul>
+<p>Per fer-ho, crearem un fitxer de configuració <code>slapd.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /etc/openldap/slapd.ldif /etc/openldap/slapd.ldif.default</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> /etc/openldap/slapd.ldif <span class="op">&lt;&lt; 'EOL'</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=config</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcGlobal</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">cn: config</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="st">olcArgsFile: /var/lib/openldap/slapd.args</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcPidFile: /var/lib/openldap/slapd.pid</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCipherSuite: TLSv1.2:HIGH:!aNULL:!eNULL</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSProtocolMin: 3.3</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=schema,cn=config</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcSchemaConfig</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="st">cn: schema</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=module,cn=config</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcModuleList</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="st">cn: module</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="st">olcModulepath: /usr/libexec/openldap</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="st">olcModuleload: back_mdb.la</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=module,cn=config</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcModuleList</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="st">cn: module</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="st">olcModulepath: /usr/local/libexec/openldap</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="st">olcModuleload: pw-sha2.la</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/core.ldif</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/cosine.ldif</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/nis.ldif</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/inetorgperson.ldif</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=frontend,cn=config</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcFrontendConfig</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: frontend</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="st">olcPasswordHash: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.base="cn=Subschema" by * read</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to *</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="st">by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="st">by * none</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=config,cn=config</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: config</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootDN: cn=config</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to *</span></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a><span class="st">by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="st">by * none</span></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En aquest fitxer, definim la configuració del servidor LDAP, com ara la base de dades, el mòdul de contrasenyes, els esquemes i els permisos d’accés.</p>
+<p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /etc/openldap/</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">slapadd</span> <span class="at">-n</span> 0 <span class="at">-F</span> /etc/openldap/slapd.d <span class="at">-l</span> /etc/openldap/slapd.ldif</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> ldap:ldap /etc/openldap/slapd.d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Nota</strong>: Si es produeix un error, podeu eliminar la base de dades i tornar a carregar la configuració.</p>
+</blockquote>
+<p>Finalment, iniciem el servei LDAP:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> daemon-reload</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> slapd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="configurant-la-estructura-de-la-base-de-dades" class="level3">
+<h3 class="anchored" data-anchor-id="configurant-la-estructura-de-la-base-de-dades">Configurant la estructura de la base de dades</h3>
+<p>Per configurar la base de dades, crearem un fitxer <code>rootdn.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"...Generating rootdn file"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> rootdn.ldif</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=mdb,cn=config</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcMdbConfig</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: mdb</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbMaxSize: 42949672960</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbDirectory: /var/lib/openldap</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">olcSuffix: </span><span class="va">$BASE</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootDN: cn=admin,</span><span class="va">$BASE</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootPW: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: uid pres,eq</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: cn,sn pres,eq,approx,sub</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: mail pres,eq,sub</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: objectClass pres,eq</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: loginShell pres,eq</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to attrs=userPassword,shadowLastChange,shadowExpire</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="st">  by self write</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="st">  by anonymous auth</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="ou=system,</span><span class="va">$BASE</span><span class="st">" read</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.subtree="ou=system </span><span class="va">$BASE</span><span class="st">"</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.subtree="</span><span class="va">$BASE</span><span class="st">"</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="st">  by users read</span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En aquest fitxer estem configurant un usuari admin. Aquest usuari té privilegis elevats i pot realitzar diverses operacions d’administració en el servidor LDAP. Observeu les regles (<em>oclAcces</em>). Per defecte, s’utilitza <em>1234</em> com a contrasenya, per modificar-la actualitzeu el hash.</p>
+<p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> rootdn.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un cop carregada la configuració, ja tindrem la base de dades configurada i l’usuari admin creat. Ara crearem la estructura per guardar usuaris i grups que s’assembli a la que utilitza el sistema Linux per emmagatzemar usuaris i grups.</p>
+<ul>
+<li><strong>dc=amsa,dc=udl,dc=cat</strong>: Node principal de la jerarquia LDAP.</li>
+<li><strong>ou=groups,dc=amsa,dc=udl,dc=cat</strong>. Aquesta entrada representa una organització per als grups.</li>
+<li><strong>ou=users,dc=amsa,dc=udl,dc=cat</strong>. Aquesta entrada representa una organització per als usuaris.</li>
+<li><strong>ou=system,dc=amsa,dc=udl,dc=cat</strong>: Aquesta entrada representa una organització per al sistema. És comuna en moltes configuracions LDAP.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="va">DC</span><span class="op">=</span><span class="st">"amsa"</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> basedn.ldif</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">dn: </span><span class="va">$BASE</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: dcObject</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organization</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">o: AMSA</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">dc: </span><span class="va">$DC</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="st">ou: groups</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="st">ou: users</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=system,</span><span class="va">$BASE</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="st">ou: system</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> basedn.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="afegint-usuaris-i-grups" class="level3">
+<h3 class="anchored" data-anchor-id="afegint-usuaris-i-grups">Afegint usuaris i grups</h3>
+<p>Per crear un usuari dins la jerarquia que has definit, necessitaràs crear una nova entrada d’usuari amb les propietats adequades. Aquí tens un exemple de com fer-ho en format LDIF:</p>
+<pre class="ldif"><code>dn: uid=johndoe,ou=users,dc=amsa,dc=udl,dc=cat
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: top
+cn: John Doe
+sn: Doe
+uid: johndoe
+uidNumber: 1000
+gidNumber: 1000
+homeDirectory: /home/johndoe
+loginShell: /bin/bash
+userPassword: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</code></pre>
+<p>on:</p>
+<ul>
+<li><strong>dn</strong>: Distinquished Name (DN) de l’usuari, que indica la seva ubicació dins de la jerarquia. En aquest cas, està dins de la branca “ou=users,dc=curs,dc=asv,dc=udl,dc=cat”.</li>
+<li><strong>objectClass</strong>: Indica les classes d’objectes a les quals pertany aquesta entrada. En aquest cas, pertany a les classes inetOrgPerson, posixAccount, shadowAccount i top, que defineixen les propietats i característiques de l’usuari.</li>
+<li><strong>cn</strong>: El nom complert de l’usuari, en aquest cas “John Doe”.</li>
+<li><strong>sn</strong>: El cognom de l’usuari, en aquest cas “Doe”.</li>
+<li><strong>uid</strong>: L’identificador únic de l’usuari.</li>
+<li><strong>uidNumber</strong>: L’identificador únic de l’usuari en termes numèrics.</li>
+<li><strong>gidNumber</strong>: L’identificador únic del grup al qual pertany l’usuari en termes numèrics.</li>
+<li><strong>homeDirectory</strong>: La carpeta d’inici de l’usuari.</li>
+<li><strong>loginShell</strong>: L’intèrpret de comandes que utilitzarà l’usuari en iniciar sessió.</li>
+<li><strong>userPassword</strong>: El hash de la contrasenya de l’usuari (en aquest cas, utilitzant l’algorisme SHA-512). Recordeu que aquesta és una versió encriptada de la contrasenya “1234” generada prèviament amb l’algorisme SHA-512. En la pràctica, caldria utilitzar un hash de la contrasenya de l’usuari que estigui segur.</li>
+</ul>
+<p>Una pràctica comuna es la cració d’un usuari <strong>OSProxy</strong>. Aquest usuari té funcions específiques per a la resolució d’UIDs i GIDs. Aquesta separació de privilegis és una pràctica de seguretat que redueix l’abast de les possibles vulnerabilitats. Això millora la seguretat de la base de dades LDAP restringint l’accés només al que és necessari.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=osproxy,ou=system,</span><span class="va">$BASE</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalRole</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: simpleSecurityObject</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">cn: osproxy</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">userPassword:{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">description: OS proxy for resolving UIDs/GIDs</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"programadors"</span> <span class="st">"dissenyadors"</span><span class="va">)</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"5000"</span> <span class="st">"5001"</span><span class="va">)</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="va">users</span><span class="op">=</span><span class="va">(</span><span class="st">"jordi"</span> <span class="st">"manel"</span><span class="va">)</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="va">sn</span><span class="op">=</span><span class="va">(</span><span class="st">"mateo"</span> <span class="st">"lopez"</span><span class="va">)</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="va">uids</span><span class="op">=</span><span class="va">(</span><span class="st">"4000"</span> <span class="st">"4001"</span><span class="va">)</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="va">programadors</span><span class="op">=</span><span class="va">(</span><span class="st">"jordi"</span><span class="va">)</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="va">dissenyadors</span><span class="op">=</span><span class="va">(</span><span class="st">"manel"</span><span class="va">)</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">groups</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=</span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixGroup</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${gids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">users</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="st">dn: uid=</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixAccount</span></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: shadowAccount</span></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: inetOrgPerson</span></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="st">sn: </span><span class="va">${sn</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="st">uidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="st">homeDirectory: /home/</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="st">loginShell: /bin/sh</span></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> users.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuració-de-certificats-tls" class="level3">
+<h3 class="anchored" data-anchor-id="configuració-de-certificats-tls">Configuració de certificats TLS</h3>
+<p>Els certificats TLS són una part important de la configuració de seguretat d’un servidor LDAP. Aquests certificats s’utilitzen per xifrar les comunicacions entre el client i el servidor, protegint les dades de ser interceptades per tercers.</p>
+<p>Per configurar els certificats TLS en el servidor LDAP, necessitaràs generar un parell de claus privades i certificats públics, i configurar el servidor per utilitzar-los.</p>
+<p>En primer lloc, genera un parell de claus privades i certificats públics amb la comanda <code>openssl</code>. A continuació, crea un fitxer <code>ldapcert.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="va">HOSTNAME</span><span class="op">=</span><span class="st">"amsa.udl.cat"</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="va">commonname</span><span class="op">=</span><span class="va">$HOSTNAME</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="va">country</span><span class="op">=</span>ES</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="va">state</span><span class="op">=</span>Spain</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="va">locality</span><span class="op">=</span>Igualada</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="va">organization</span><span class="op">=</span>UdL</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="va">organizationalunit</span><span class="op">=</span>IT</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="va">email</span><span class="op">=</span>admin@udl.cat</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Generating key request for </span><span class="va">$commonname</span><span class="st">"</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> req <span class="at">-days</span> 500 <span class="at">-newkey</span> rsa:4096 <span class="dt">\</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-keyout</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span> <span class="at">-nodes</span> <span class="dt">\</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">-sha256</span> <span class="at">-x509</span> <span class="at">-out</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span> <span class="dt">\</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">-subj</span> <span class="st">"/C=</span><span class="va">$country</span><span class="st">/ST=</span><span class="va">$state</span><span class="st">/L=</span><span class="va">$locality</span><span class="st">/O=</span><span class="va">$organization</span><span class="st">/OU=</span><span class="va">$organizationalunit</span><span class="st">/CN=</span><span class="va">$commonname</span><span class="st">/emailAddress=</span><span class="va">$email</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En segon lloc, atorga els permisos adequats als fitxers de claus privades i certificats públics:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> ldap:ldap <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/cacerts.pem"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En tercer lloc, crea un fitxer <code>add-tls.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> add-tls.ldif</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=config</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">changetype: modify</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCACertificateFile</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCACertificateFile: "</span><span class="va">$PATH_PKI</span><span class="st">/cacerts.pem"</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="st">-</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCertificateKeyFile</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCertificateKeyFile: "</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="st">-</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCertificateFile</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCertificateFile: "</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Finalment, carrega la configuració a la base de dades:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> add-tls.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un cop carregada la configuració, ja tindrem els certificats TLS configurats en el servidor LDAP.</p>
+</section>
+<section id="testeig-de-la-installació" class="level3">
+<h3 class="anchored" data-anchor-id="testeig-de-la-installació">Testeig de la instal·lació</h3>
+<p>Per comprovar que la instal·lació ha estat correcta, pots utilitzar la comanda <code>ldapsearch</code> per buscar les entrades de la base de dades. Per exemple, pots buscar l’usuari que has creat amb la comanda següent:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapsearch</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-H</span> ldapi:///  <span class="at">-D</span> <span class="st">"cn=admin,dc=amsa,dc=udl,dc=cat"</span>  <span class="at">-b</span> <span class="st">"ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquesta comanda utilitza l’usuari admin que has creat per connectar-se al servidor LDAP i buscar les entrades de la branca “ou=users,dc=amsa,dc=udl,dc=cat”. Si tot ha anat bé, hauries de veure les dades dels usuaris que has creat.</p>
+</section>
+<section id="comandes-útils-de-ldap" class="level3">
+<h3 class="anchored" data-anchor-id="comandes-útils-de-ldap">Comandes útils de LDAP</h3>
+<ul>
+<li><strong>ldapsearch</strong>: Per buscar entrades a la base de dades LDAP.</li>
+<li><strong>ldapadd</strong>: Per afegir noves entrades a la base de dades LDAP.</li>
+<li><strong>ldapmodify</strong>: Per modificar les entrades de la base de dades LDAP.</li>
+<li><strong>ldapdelete</strong>: Per eliminar les entrades de la base de dades LDAP.</li>
+<li><strong>ldappasswd</strong>: Per canviar la contrasenya d’un usuari a la base de dades LDAP.</li>
+</ul>
+<p>Per exemple:</p>
+<ul>
+<li><p>Per modificar la contrasenya d’un usuari:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldappasswd</span> <span class="at">-H</span> ldapi:/// <span class="at">-D</span> <span class="st">"cn=admin,dc=amsa,dc=udl,dc=cat"</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-S</span> <span class="st">"uid=jordi,ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Nota: Heu d’introduir la contrasenya xifrant amb SHA-512 com hem vist anteriorment.</p>
+</blockquote></li>
+<li><p>Podem comprovar que la contrasenya s’ha modificat correctament amb la comanda <code>ldapsearch</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapsearch</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-H</span> ldapi:///  <span class="at">-D</span> <span class="st">"uid=jordi,ou=users,dc=amsa,dc=udl,dc=cat"</span>  <span class="at">-b</span> <span class="st">"ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul>
+</section>
+</section>
+<section id="exercicis" class="level2">
+<h2 class="anchored" data-anchor-id="exercicis">Exercicis</h2>
+<ul>
+<li><p>Configura la base de dades <strong>middlearth</strong> amb els usuaris i grups creats a l’exercici anterior.</p>
+<ul>
+<li>Crea un fitxer anomenat <em>middleearth.ldif</em> que contingui la configuració necessària per a la base de dades.</li>
+<li>Carrega aquesta configuració al servidor LDAP mitjançant eines com ldapadd o ldapmodify.</li>
+</ul></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span> <span class="st">"elfs"</span> <span class="st">"nans"</span> <span class="st">"mags"</span><span class="va">)</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"6000"</span> <span class="st">"7000"</span> <span class="st">"8000"</span> <span class="st">"9000"</span><span class="va">)</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">groups</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">));</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> middleearth.ldif</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=</span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixGroup</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${gids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span> <span class="st">"elfs"</span> <span class="st">"nans"</span> <span class="st">"mags"</span><span class="va">)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"6000"</span> <span class="st">"7000"</span> <span class="st">"8000"</span> <span class="st">"9000"</span><span class="va">)</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="va">users</span><span class="op">=</span><span class="va">(</span><span class="st">"frodo"</span> <span class="st">"gollum"</span> <span class="st">"samwise"</span> <span class="st">"legolas"</span> <span class="st">"gimli"</span> <span class="st">"gandalf"</span><span class="va">)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="va">b2g</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span>,<span class="st">"hobbits"</span>,<span class="st">"hobbits"</span>,<span class="st">"elfs"</span>,<span class="st">"nans"</span>,<span class="st">"mags"</span><span class="va">)</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="va">sn</span><span class="op">=</span><span class="va">(</span><span class="st">"baggins"</span> <span class="st">"smeagol"</span> <span class="st">"gamgee"</span> <span class="st">"greenleaf"</span> <span class="st">"sonofgloin"</span> <span class="st">"thegrey"</span><span class="va">)</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="va">uids</span><span class="op">=</span><span class="va">(</span><span class="st">"6001"</span> <span class="st">"6002"</span> <span class="st">"6003"</span> <span class="st">"7001"</span> <span class="st">"8001"</span> <span class="st">"9001"</span><span class="va">)</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">users</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="st">dn: uid=</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixAccount</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: shadowAccount</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: inetOrgPerson</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="st">sn: </span><span class="va">${sn</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="st">uidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${b2g</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="st">homeDirectory: /home/</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="st">loginShell: /bin/sh</span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p>Configura una altra instància EC2 com a client LDAP.</p>
+<ul>
+<li><p>Assegura’t que aquesta màquina autentiqui els usuaris i grups de Linux mitjançant el servidor LDAP configurat prèviament.</p>
+<p>Per configurar els nostres clients podem utilitzar un script que ens faciliti la tasca. Aquest script ens permetrà configurar el client LDAP amb les dades del servidor LDAP.</p>
+<p>Únicament caldrà modificar les variables <code>LDAP_SERVER</code> i <code>BASE</code> amb les dades del servidor LDAP. En el nostre cas, LDAP_SERVER ha de coincidir amb el DNS públic de la instància del servidor LDAP i BASE amb el nom de la base de dades que hem creat en el nostre cas <code>dc=amsa,dc=udl,dc=cat</code>. A més, caldrà copiar el fitxer <code>cacert.crt</code> del servidor LDAP al client.</p>
+<p>Per fer-ho, copieu el contingut del fitxer <code>/etc/pki/tls/cacerts.pem</code> del servidor LDAP al client i deseu-lo com a <code>/etc/pki/tls/cacert.crt</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Al servidor</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cat /etc/pki/tls/cacerts.pem</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Al client</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> vi <span class="st">"/etc/pki/tls/cacert.crt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"This script will configure the client to connect to the LDAP server"</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Did you copy the cacert.crt from the server to the client? (y/n)?"</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="at">-r</span> <span class="va">response</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$response</span><span class="st">"</span> <span class="ot">!=</span> <span class="st">"y"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Exiting..."</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="va">LDAP_SERVER</span><span class="op">=</span><span class="st">"ec2-44-206-252-61.compute-1.amazonaws.com"</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_PKI</span><span class="op">=</span><span class="st">"/etc/pki/tls"</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the hostname to </span><span class="va">$LDAP_SERVER</span><span class="st">"</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the base to </span><span class="va">$BASE</span><span class="st">"</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the path to </span><span class="va">$PATH_PKI</span><span class="st">"</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Are you sure you want to continue? (y/n), are this values correct?"</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="at">-r</span> <span class="va">response</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$response</span><span class="st">"</span> <span class="ot">!=</span> <span class="st">"y"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Exiting..."</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Install deps and tools"</span></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a><span class="ex">dnf</span> install openldap-clients sssd sssd-tools oddjob-mkhomedir <span class="at">-y</span></span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring sssd"</span></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> /etc/sssd/sssd.conf</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a><span class="st">[sssd]</span></span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="st">services = nss, pam, sudo</span></span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a><span class="st">config_file_version = 2</span></span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a><span class="st">domains = default</span></span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a><span class="st">[sudo]</span></span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="st">[nss]</span></span>
+<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="st">[pam]</span></span>
+<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a><span class="st">offline_credentials_expiration = 60</span></span>
+<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a><span class="st">[domain/default]</span></span>
+<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_id_use_start_tls = True</span></span>
+<span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a><span class="st">cache_credentials = True</span></span>
+<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_search_base = </span><span class="va">$BASE</span></span>
+<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a><span class="st">id_provider = ldap</span></span>
+<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a><span class="st">auth_provider = ldap</span></span>
+<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a><span class="st">chpass_provider = ldap</span></span>
+<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a><span class="st">access_provider = ldap</span></span>
+<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a><span class="st">sudo_provider = ldap</span></span>
+<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_uri = ldaps://</span><span class="va">$LDAP_SERVER</span></span>
+<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_default_bind_dn = cn=osproxy,ou=system,</span><span class="va">$BASE</span></span>
+<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_group_search_base = ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_user_search_base = ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_default_authtok = 1234</span></span>
+<span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_reqcert = demand</span></span>
+<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_cacert = </span><span class="va">$PATH_PKI</span><span class="st">/cacert.crt</span></span>
+<span id="cb40-66"><a href="#cb40-66" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_cacertdir = </span><span class="va">$PATH_PKI</span></span>
+<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_search_timeout = 50</span></span>
+<span id="cb40-68"><a href="#cb40-68" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_network_timeout = 60</span></span>
+<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_access_order = filter</span></span>
+<span id="cb40-70"><a href="#cb40-70" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_access_filter = (objectClass=posixAccount)</span></span>
+<span id="cb40-71"><a href="#cb40-71" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb40-72"><a href="#cb40-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-73"><a href="#cb40-73" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring ldap.conf"</span></span>
+<span id="cb40-74"><a href="#cb40-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-75"><a href="#cb40-75" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"BASE </span><span class="va">$BASE</span><span class="st">"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
+<span id="cb40-76"><a href="#cb40-76" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"URI ldaps://</span><span class="va">$LDAP_SERVER</span><span class="st">"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
+<span id="cb40-77"><a href="#cb40-77" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"TLS_CACERT      </span><span class="va">$PATH_PKI</span><span class="st">/cacert.crt"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
+<span id="cb40-78"><a href="#cb40-78" aria-hidden="true" tabindex="-1"></a><span class="ex">authselect</span> select sssd <span class="at">--force</span></span>
+<span id="cb40-79"><a href="#cb40-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-80"><a href="#cb40-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Oddjob is a helper service that creates home directories for users the first time they log in</span></span>
+<span id="cb40-81"><a href="#cb40-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-82"><a href="#cb40-82" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring oddjob"</span></span>
+<span id="cb40-83"><a href="#cb40-83" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> oddjobd</span>
+<span id="cb40-84"><a href="#cb40-84" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"session optional pam_oddjob_mkhomedir.so skel=/etc/skel/ umask=0022"</span> <span class="op">&gt;&gt;</span> /etc/pam.d/system-auth </span>
+<span id="cb40-85"><a href="#cb40-85" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> restart oddjobd</span>
+<span id="cb40-86"><a href="#cb40-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-87"><a href="#cb40-87" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting permissions"</span></span>
+<span id="cb40-88"><a href="#cb40-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-89"><a href="#cb40-89" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> root: /etc/sssd</span>
+<span id="cb40-90"><a href="#cb40-90" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 <span class="at">-R</span> /etc/sssd</span>
+<span id="cb40-91"><a href="#cb40-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-92"><a href="#cb40-92" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Starting sssd"</span></span>
+<span id="cb40-93"><a href="#cb40-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-94"><a href="#cb40-94" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> sssd</span>
+<span id="cb40-95"><a href="#cb40-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-96"><a href="#cb40-96" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Done"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquest script configura el client LDAP per connectar-se al servidor LDAP. Per fer-ho, instal·la les eines necessàries, com ara <code>openldap-clients</code>, <code>sssd</code>, <code>sssd-tools</code> i <code>oddjob-mkhomedir</code>. A continuació, configura el fitxer <code>sssd.conf</code> amb les dades del servidor LDAP i el fitxer <code>ldap.conf</code> amb les dades de connexió al servidor LDAP. Finalment, configura el servei <code>oddjobd</code> per crear els directoris d’inici dels usuaris la primera vegada que inicien sessió. Podeu trobar el script a <a href="src/ldapclient">ldapclient</a>.</p>
+<p>Per testar la configuració del client crearem un directori <strong>/home/jordi</strong> i l’assignarem a un usuari i a un grup inicialitzat a LDAP.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /home/jordi</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown 4000:5000 /home/jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Nota: L’usuari jordi no és un usuari local, sinó un usuari definit a LDAP. Per tant, si LDAP no està configurat correctament, veurem el valors numèrics 4000 i 5000 en lloc del nom de l’usuari i el grup.</p>
+</blockquote>
+<p>En canvi, si tot està configurat correctament, veurem el nom de l’usuari i el grup corresponents a aquests valors numèrics definits a LDAP.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ls <span class="at">-l</span> /home</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x.</span>  2 jordi programadors   6 Sep 26 18:36 jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+<li><p>Instal·la i configura un client web per gestionar LDAP. Pots utilitzar l’eina <a href="https://ldap-account-manager.org/lamcms/">LAM</a>.</p>
+<ul>
+<li><p>Instal·la LDAP Account Manager (LAM) a la instància del servidor LDAP.</p></li>
+<li><p>Configura l’eina perquè es connecti al servidor LDAP i permeti la gestió dels usuaris i grups de manera visual utilitzant una interfície web.</p>
+<p>Per instal·lar LAM, primer cal instal·lar les dependències necessàries:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install <span class="at">-y</span> httpd php php-ldap php-mbstring php-gd php-gmp php-zip</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> httpd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A continuació, descarrega i descomprimeix el paquet de LAM:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> wget https://github.com/LDAPAccountManager/lam/releases/download/9.0.RC1/ldap-account-manager-9.0.RC1-0.fedora.1.noarch.rpm</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install ldap-account-manager-9.0.RC1-0.fedora.1.noarch.rpm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Finalment, navega a la pàgina web de LAM a <code>http://&lt;IP_SERVER&gt;/lam</code> i segueix les instruccions per configurar la connexió al servidor LDAP. En el meu cas, he configurat la connexió al servidor LDAP amb les dades següents: <code>http://ec2-34-207-89-93.compute-1.amazonaws.com/lam</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/05-aws-ldap/lam-01.png" class="img-fluid figure-img"></p>
+<figcaption>LAM</figcaption>
+</figure>
+</div>
+<p>Per configurar l’usuari per accedir a LAM, utilitzarem l’usuari <code>osproxy</code> que hem creat anteriorment. Aquest usuari té permisos per gestionar la base de dades LDAP. Per fer-ho, anem a <strong>LAM Configuration</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/05-aws-ldap/lam-02.png" class="img-fluid figure-img"></p>
+<figcaption>LAM</figcaption>
+</figure>
+</div>
+<p>Editeu <strong>General Settings</strong> i us identifiqueu amb l’usuari per defecte, i la contrasenya <code>lam</code>. En aquest punt, modifiqueu la contrasenya per una més segura, per exemple, <code>@ms@22o4G3i</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/05-aws-ldap/lam-03.png" class="img-fluid figure-img"></p>
+<figcaption>LAM</figcaption>
+</figure>
+</div>
+<p>Editeu <strong>Server Profiles</strong> dins de <strong>LAM Configuration</strong> i modifiqueu el perfil perquè s’identifiqui amb l’usuari <code>osproxy</code> i la contrasenya que heu definit anteriorment. La contrasenya per defecte és <code>lam</code>. Us recomano que la modifiqueu per una més segura com per exemple <code>@ms@22o4G3i-s3rv3rPr0f1l3</code>.</p>
+<ul>
+<li>General Settings:
+<ul>
+<li>Server Address: <code>ldaps://ec2-44-206-252-61.compute-1.amazonaws.com:636</code> o bé si esteu utilitzant el vostre servidor LDAP, <code>ldap://localhost:389</code>.</li>
+<li>List of Valid Users: <code>cn=osproxy,ou=system,dc=amsa,dc=udl,dc=cat</code>.</li>
+<li>Tree suffix: <code>dc=amsa,dc=udl,dc=cat</code>.</li>
+</ul></li>
+<li>Account Types:
+<ul>
+<li>Users: <code>ou=users,dc=amsa,dc=udl,dc=cat</code>.</li>
+<li>Groups: <code>ou=groups,dc=amsa,dc=udl,dc=cat</code>.</li>
+</ul></li>
+</ul>
+<p>Si tot ha anat bé, hauríeu de poder accedir a LAM amb l’usuari <code>osproxy</code> i gestionar els usuaris i grups de la base de dades LDAP.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../figs/laboratories/05-aws-ldap/lam-04.png" class="img-fluid figure-img"></p>
+<figcaption>LAM</figcaption>
+</figure>
+</div></li>
+</ul></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/amsa-gei-udl-2526-105013\.github\.io\/course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

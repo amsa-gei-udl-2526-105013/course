@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AMSA 105013: Administració de Sistemes – AMSA - Fall 2025</title>
+<title>Doble factor d’autenticació (2FA) amb PAM – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -71,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -80,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">AMSA 105013: Administració de Sistemes</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/04-accounts/01-lord-of-system.html">Unitat 04 · Autenticació i Autorització</a></li><li class="breadcrumb-item"><a href="../../exercises/04-accounts/01-pam.html">Activitat 12 · Autenticació de doble factor (2FA) amb PAM</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -91,12 +126,12 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="./index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
+    <a href="../../index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
     <a href="https://github.com/amsa-gei-udl-2526-105013/course/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
     <a href="https://cv.udl.cat/" title="Sakai" class="quarto-navigation-tool px-1" aria-label="Sakai"><i class="bi bi-person-fill"></i></a>
 </div>
@@ -114,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="././course-information/schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../.././course-information/schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Planificació</span></a>
   </div>
 </li>
@@ -131,55 +166,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/02-booting.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/02-booting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 2)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 3)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 1)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/03-filesystem-part2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/03-filesystem-part2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 2)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/03-filesystem-part3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/03-filesystem-part3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 3)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/04-authentication-part1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/04-authentication-part1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 04 · Autenticació i Autorització (Part 1)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/04-authentication-part2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../slides/04-authentication-part2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Unitat 04 · Autenticació i Autorització (Part 2)</span></a>
   </div>
 </li>
@@ -187,13 +222,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Activitats</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
@@ -205,13 +240,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
   </div>
 </li>
@@ -228,43 +263,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 1 · Booting amb MBR i BIOS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 2 · Booting amb UEFI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 3 · Dual Boot amb UEFI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</span></a>
   </div>
 </li>
@@ -281,19 +316,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 8 · Administració bàsica de Sistemes de Fitxers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/03-fs/09-ex-week6.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/03-fs/09-ex-week6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 9 · Configuració de RAIDs amb mdadm</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/03-fs/10-ex-week7.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/03-fs/10-ex-week7.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 10 · Administració de volums lògics amb LVM</span></a>
   </div>
 </li>
@@ -301,22 +336,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
  <span class="menu-text">Unitat 04 · Autenticació i Autorització</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/04-accounts/01-lord-of-system.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/04-accounts/01-lord-of-system.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 11 · Gestió de comptes en un servidor Linux</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/04-accounts/01-pam.html" class="sidebar-item-text sidebar-link">
+  <a href="../../exercises/04-accounts/01-pam.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activitat 12 · Autenticació de doble factor (2FA) amb PAM</span></a>
   </div>
 </li>
@@ -344,19 +379,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori · Fonaments de l’Administració de Sistemes amb AWS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 01 · Introducció a AWS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 02 · Desplegament d’una aplicació web amb AWS</span></a>
   </div>
 </li>
@@ -373,7 +408,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 03 · Desplegament d’una aplicació web amb alta disponibilitat amb AWS</span></a>
   </div>
 </li>
@@ -390,7 +425,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./laboratories/03-jupyter/01-aws-jupyter.html" class="sidebar-item-text sidebar-link">
+  <a href="../../laboratories/03-jupyter/01-aws-jupyter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 04 · Servidor de Python al Cloud amb Emmagatzematge S3 Compartit</span></a>
   </div>
 </li>
@@ -407,7 +442,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="././laboratories/04-ldap/01-aws-ldap.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../.././laboratories/04-ldap/01-aws-ldap.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Laboratori 05 · Servei d’Autenticació Centralitzada amb LDAP a AWS</span></a>
   </div>
 </li>
@@ -426,13 +461,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projecte 1 · Snapshots i Backups amb systemd i initramfs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/02-project/02-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../projects/02-project/02-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projecte 2 · Diagnòstic i Resolució d’Incidències</span></a>
   </div>
 </li>
@@ -443,13 +478,28 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#requeriments" id="toc-requeriments" class="nav-link active" data-scroll-target="#requeriments">Requeriments</a></li>
+  <li><a href="#objectiu" id="toc-objectiu" class="nav-link" data-scroll-target="#objectiu">Objectiu</a></li>
+  <li><a href="#preparació-del-programari" id="toc-preparació-del-programari" class="nav-link" data-scroll-target="#preparació-del-programari">Preparació del programari</a></li>
+  <li><a href="#configuració-dusuaris" id="toc-configuració-dusuaris" class="nav-link" data-scroll-target="#configuració-dusuaris">Configuració d’usuaris</a></li>
+  <li><a href="#configuració-de-google-authenticator" id="toc-configuració-de-google-authenticator" class="nav-link" data-scroll-target="#configuració-de-google-authenticator">Configuració de Google Authenticator</a></li>
+  <li><a href="#configuració-de-pam-per-ssh" id="toc-configuració-de-pam-per-ssh" class="nav-link" data-scroll-target="#configuració-de-pam-per-ssh">Configuració de PAM per SSH</a></li>
+  <li><a href="#trobleshooting" id="toc-trobleshooting" class="nav-link" data-scroll-target="#trobleshooting">Trobleshooting</a></li>
+  <li><a href="#exercicis-adicionals" id="toc-exercicis-adicionals" class="nav-link" data-scroll-target="#exercicis-adicionals">Exercicis adicionals</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/04-accounts/01-lord-of-system.html">Unitat 04 · Autenticació i Autorització</a></li><li class="breadcrumb-item"><a href="../../exercises/04-accounts/01-pam.html">Activitat 12 · Autenticació de doble factor (2FA) amb PAM</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">AMSA 105013: Administració de Sistemes</h1>
+<h1 class="title">Doble factor d’autenticació (2FA) amb PAM</h1>
 </div>
 
 
@@ -466,50 +516,141 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Benvinguts al curs d’Administració de sistemes i aplicacions (AMSA). Aquest curs està dissenyat per proporcionar als estudiants els coneixements i habilitats necessaris per gestionar i mantenir sistemes informàtics en entorns professionals.</p>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td><strong>Course Title</strong></td>
-<td>Systems and Applications Administration and Management</td>
-</tr>
-<tr class="even">
-<td><strong>Semester</strong></td>
-<td>1st Semester of the Bachelor’s Degree in Computer Engineering</td>
-</tr>
-<tr class="odd">
-<td><strong>Course Year</strong></td>
-<td>Third Year</td>
-</tr>
-<tr class="even">
-<td><strong>Professor</strong></td>
-<td><a href="mailto:jordi.mateo@udl.cat">Jordi Mateo</a></td>
-</tr>
-<tr class="odd">
-<td><strong>Schedule</strong></td>
-<td><a href="course-information/schedule.html">📅</a></td>
-</tr>
-<tr class="even">
-<td><strong>Course Guide</strong></td>
-<td><a href="https://guiadocent.udl.cat/en/html/2025-26_105013">📚</a></td>
-</tr>
-<tr class="odd">
-<td><strong>School</strong></td>
-<td><a href="https://www.eps.udl.cat"><img src="figs/corporative/institute.png" class="img-fluid" width="200"></a></td>
-</tr>
-<tr class="even">
-<td><strong>University</strong></td>
-<td><a href="https://www.udl.cat"><img src="figs/corporative/university.png" class="img-fluid" width="200"></a></td>
-</tr>
-<tr class="odd">
-<td><strong>Department</strong></td>
-<td><a href="https://deidd.udl.cat/"><img src="figs/corporative/department.png" class="img-fluid" width="200"></a></td>
-</tr>
-</tbody>
-</table>
-<p><img src="figs/humor/system_admin_crisis.png" class="img-fluid" style="display: block; margin-left: auto; margin-right: auto;" width="400"></p>
+<section id="requeriments" class="level3">
+<h3 class="anchored" data-anchor-id="requeriments">Requeriments</h3>
+<ul>
+<li>Accés a una màquina virtual Linux (EC2 amb Amazon Linux 2023).</li>
+<li>Accés SSH a la màquina virtual (clau publica/privada).</li>
+<li>Instal·lar l’aplicació Google Authenticator al vostre dispositiu mòbil (Android o iOS).</li>
+</ul>
+</section>
+<section id="objectiu" class="level3">
+<h3 class="anchored" data-anchor-id="objectiu">Objectiu</h3>
+<p>Configurar l’autenticació de doble factor (2FA) utilitzant PAM i Google Authenticator per a connexions SSH. Per accedir al sistema, els usuaris hauran de proporcionar la seva contrasenya i un codi generat per l’aplicació Google Authenticator.</p>
+</section>
+<section id="preparació-del-programari" class="level3">
+<h3 class="anchored" data-anchor-id="preparació-del-programari">Preparació del programari</h3>
+<ol type="1">
+<li><p>Connecteu-vos a la vostra màquina virtual mitjançant SSH.</p></li>
+<li><p>Instal·leu el paquet <code>google-authenticator</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install google-authenticator <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Instal·la el paquet qrencode, aquest paquet ens permetrà generar codis QR:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install qrencode <span class="at">-y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="configuració-dusuaris" class="level3">
+<h3 class="anchored" data-anchor-id="configuració-dusuaris">Configuració d’usuaris</h3>
+<p>Les instancies EC2 amb Amazon Linux 2023 creen un usuari per defecte anomenat <code>ec2-user</code>, aquest usuari té configurat l’accés SSH mitjançant claus públiques/privades. Per tal de provar l’autenticació amb PAM i Google Authenticator, cal crear un nou usuari anomenat <code>amsauser</code>.</p>
+<ol type="1">
+<li><p>Creeu un nou usuari:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> adduser amsauser</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Establiu una contrasenya per a l’usuari:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> passwd amsauser</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">e.g.:</span> <span class="co">#@ms@2o25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Configureu Google Authenticator per a l’usuari <code>amsauser</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span> amsauser</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">google-authenticator</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="configuració-de-google-authenticator" class="level3">
+<h3 class="anchored" data-anchor-id="configuració-de-google-authenticator">Configuració de Google Authenticator</h3>
+<p>A continuació es mostra el procés de configuració pas a pas:</p>
+<section id="tipus-de-token" class="level4">
+<h4 class="anchored" data-anchor-id="tipus-de-token">Tipus de token</h4>
+<p>Do you want authentication tokens to be time-based (y/n) <strong>y</strong></p>
+<ul>
+<li><p>Aquesta pregunta determina si els tokens seran basats en el temps (TOTP) o en comptadors (HOTP). Es recomana TOTP per major seguretat. Un cop seleccionat, no es pot canviar.</p></li>
+<li><p>Això generarà un codi QR que podeu escanejar amb l’aplicació Google Authenticator del vostre dispositiu mòbil.</p></li>
+</ul>
+</section>
+<section id="associació-del-token" class="level4">
+<h4 class="anchored" data-anchor-id="associació-del-token">Associació del token</h4>
+<p>Un cop escanejat el codi QR, l’aplicació generarà un codi de 6 dígits.</p>
+<p>Haureu d’introduir aquest codi a la terminal per completar l’associació:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Your</span> new secret key is: XXXXXXXXXXXXXX</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Enter</span> code from app <span class="er">(</span><span class="ex">-1</span> to skip<span class="kw">)</span><span class="bu">:</span> XYZFGR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Substituiu <code>XYZFGR</code> pel codi generat per l’aplicació.</li>
+<li>També es generaran codis de recuperació per utilitzar en cas de perdre l’accés a l’aplicació.</li>
+</ul>
+</section>
+<section id="actualització-del-fitxer-de-configuració" class="level4">
+<h4 class="anchored" data-anchor-id="actualització-del-fitxer-de-configuració">Actualització del fitxer de configuració</h4>
+<p>Do you want me to update your “/home/amsauser/.google_authenticator” file? (y/n) <strong>y</strong></p>
+<p>Aquesta acció permet que Google Authenticator actualitzi automàticament el fitxer .google_authenticator amb la clau secreta i les opcions seleccionades.</p>
+</section>
+<section id="tokens-de-ús-únic" class="level4">
+<h4 class="anchored" data-anchor-id="tokens-de-ús-únic">Tokens de ús únic</h4>
+<p>Do you want to disallow multiple uses of the same authentication token? (y/n) <strong>y</strong></p>
+<ul>
+<li>Aquesta opció restringeix un login per cada 30 segons amb el mateix token.</li>
+<li>Augmenta la seguretat contra atacs man-in-the-middle.</li>
+</ul>
+</section>
+<section id="compensació-de-desajust-horari" class="level4">
+<h4 class="anchored" data-anchor-id="compensació-de-desajust-horari">Compensació de desajust horari</h4>
+<p>Do you want to increase the allowed window? (y/n) <strong>y</strong></p>
+<ul>
+<li>L’aplicació genera un nou token cada 30 segons.</li>
+<li>Per compensar possibles desajustos horaris entre client i servidor, es permeten codis addicionals abans i després del codi actual.</li>
+<li>La opció per defecte: 3 codis permesos (un anterior, el corrent i un següent).</li>
+</ul>
+</section>
+<section id="limitació-dintents" class="level4">
+<h4 class="anchored" data-anchor-id="limitació-dintents">Limitació d’intents</h4>
+<p>Do you want to enable rate-limiting? (y/n) <strong>y</strong></p>
+<p>Aquest paràmetre permet limitar el nombre d’intents d’autenticació fallits per protegir contra atacs de força bruta. El nombre per defecte és: 3 intents cada 30 segons. Millora la seguretat del servidor davant intents brute-force.</p>
+</section>
+</section>
+<section id="configuració-de-pam-per-ssh" class="level3">
+<h3 class="anchored" data-anchor-id="configuració-de-pam-per-ssh">Configuració de PAM per SSH</h3>
+<p>Per configurar SSH a les instancies EC2 amb Amazon Linux 2023 cal tenir en compte:</p>
+<ul>
+<li>La configuració per defecte d’Amazon Linux 2023 deshabilita l’autenticació per contrasenya a SSH (<code>PasswordAuthentication no</code>).</li>
+<li>La configuració particular de SSH amb PAM es troba a <code>/etc/pam.d/sshd_config.d/50-redhat.conf</code>.</li>
+</ul>
+<p>Per realitzar aquest pas, cal tenir permisos d’administrador (sudo), l’usuari <code>amsauser</code> no té aquests permisos, per tant, cal tornar a l’usuari <code>ec2-user</code>: <code>exit</code>.</p>
+<p>Els moduls disponibles es poden consultar a <a href="https://github.com/google/google-authenticator-libpam/">https://github.com/google/google-authenticator-libpam/</a>. També podeu utilitzar la comanda <code>man pam_google_authenticator</code> per obtenir més informació sobre les opcions de configuració.</p>
+<ol type="1">
+<li><p>Editeu el fitxer de configuració PAM per SSH:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> vi /etc/pam.d/sshd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Afegiu la següent línia al final del fitxer:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">auth</span>  [success=done new_authtok_reqd=done default=ignore] pam_google_authenticator.so nullok forward_pass [authtok_prompt=Your secret token: ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>nullok</code>: Permet als usuaris sense configurar Google Authenticator iniciar sessió només amb la contrasenya.</li>
+<li><code>forward_pass</code>: Permet passar la contrasenya a altres mòduls PAM.</li>
+<li><code>authtok_prompt</code>: Personalitza el missatge que es mostra quan es demana el codi de verificació.</li>
+</ul></li>
+<li><p>Editeu el fitxer de configuració d’OpenSSH:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> vi /etc/ssh/sshd_config.d/50-redhat.conf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p>Habiliteu el mòdul PAM. Per fer-ho, assegureu-vos que la línia <code>UsePAM yes</code> no està comentada (sense <code>#</code> al principi).</p></li>
+<li><p>Afegiu <code>ChallengeResponseAuthentication yes</code> per permetre respostes interactives on es demana el codi de Google Authenticator.</p></li>
+<li><p>Afegiu <code>PasswordAuthentication yes</code> per permetre l’autenticació mitjançant contrasenya.</p></li>
+<li><p>Creeu una regla específica per a l’usuari <code>amsauser</code> que requereixi tant la contrasenya com el codi de Google Authenticator.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Match</span> User amsauser</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">AuthenticationMethods</span> password,keyboard-interactive</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+<li><p>Reinicieu el servei SSH per aplicar els canvis:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart sshd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Proveu la connexió SSH des d’una altra terminal. Hauríeu de ser sol·licitat per la vostra contrasenya i després pel codi de verificació de Google Authenticator.</p></li>
+</ol>
+</section>
+<section id="trobleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="trobleshooting">Trobleshooting</h2>
+<ul>
+<li>Si no podeu iniciar sessió, reviseu els logs del servei sshd amb <code>sudo journalctl -u sshd</code> per identificar possibles errors de configuració.</li>
+</ul>
+</section>
+<section id="exercicis-adicionals" class="level2">
+<h2 class="anchored" data-anchor-id="exercicis-adicionals">Exercicis adicionals</h2>
+<ol type="1">
+<li><p>Configura l’usuari <code>ec2-user</code> per utilitzar també l’autenticació de doble factor amb Google Authenticator. Amb clau pública/privada i google authenticator.</p></li>
+<li><p>Preparar un script de creació d’usuaris que automatitzi la creació d’usuaris amb Google Authenticator preconfigurat amb <strong>public key authentication</strong> i <strong>2FA</strong>.</p></li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
