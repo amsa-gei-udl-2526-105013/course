@@ -161,7 +161,7 @@ nom:password_hash:change:min:max:warn:grace:lock
 ```
 
 | Camp | Descripció | Gestió |
-|---------------|-------------------------------------------|---------------|
+|----------------|---------------------------------------|----------------|
 | password_hash | Hash (xifrat) de la contrasenya + salt. |  |
 | change | Data de l'últim canvi (dies des de 01-01-1970). | `chage -m` |
 | min | Dies mínims entre canvis de contrasenya. | `chage -m` |

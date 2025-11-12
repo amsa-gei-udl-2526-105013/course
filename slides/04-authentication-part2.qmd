@@ -1,0 +1,407 @@
+---
+title: "Autenticació i Autorització (Part 2)"
+subtitle: "Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)"
+author: "Jordi Mateo Fornés"
+logo: "/figs/corporative/institute.png"
+format: 
+  revealjs:
+    transition: fade
+    slide-number: true
+    incremental: true 
+    chalkboard: false
+    css: styles.css
+    footer: "Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) [🏠](/index.html)</a>"
+editor: visual
+
+execute:
+  freeze: auto
+  echo: false
+
+mermaid:
+  theme: forest
+---
+
+# PAM: Pluggable Authentication Modules
+
+## Necessitat d’autenticació {.smaller}
+
+- Els sistemes i serveis moderns requereixen mètodes d’autenticació **flexibles**, **segurs** i **integrats**.
+- Cal gestionar diversos mecanismes d’autenticació (*contrasenyes, claus SSH, biometria, targetes intel·ligents, etc.*) de manera **centralitzada** i coherent.
+- Cada aplicació **no hauria de gestionar per separat** la seva pròpia autenticació.
+- Es necessita un **sistema comú i modular** que permeti a les aplicacions reutilitzar mecanismes d’autenticació compartits.
+
+::: {.fragment .center-container}
+**Centralitzar** i **unificar la gestió de l’autenticació**: simplifica el manteniment i millora la seguretat.
+:::
+
+
+## Què és PAM? {.smaller}
+
+- **Framework modular d’autenticació** utilitzat en sistemes Unix/Linux.
+- Permet **integrar múltiples esquemes d’autenticació** (Unix, LDAP, biometria, targetes, etc.) a través d’una API comuna que les aplicacions poden utilitzar.
+- Els **administradors** poden modificar o afegir mètodes d’autenticació **sense canviar el codi** de les aplicacions.
+- Els **programadors** només han de confiar en la interfície PAM; el sistema s’encarrega de gestionar els mòduls subjacents.
+
+::: {.fragment .center-container}
+```bash
+man pam.d 
+```
+:::
+
+## Esquema de funcionament de PAM
+
+```{mermaid}
+%%| echo: false
+%%| column: screen-inset
+flowchart TD
+    subgraph A[Aplicacions]
+        A1[sshd]
+        A2[login]
+        A3[sudo]
+    end
+
+    A --> B[libpam · interfície PAM]
+
+    B --> C["/etc/pam.d/sshd"]
+    B --> D["/etc/pam.d/login"]
+    B --> E["/etc/pam.d/sudo"]
+
+    subgraph M[ Mòduls d'autenticació PAM ]
+        M1["pam_unix.so 
+            contrasenyes locals"]
+        M2["pam_ldap.so
+            autenticació LDAP"]
+        M3["pam_tally2.so 
+            control d’intents fallits"]
+        M4["pam_limits.so 
+            límits de recursos"]
+    end
+
+    C --> M
+    D --> M
+    E --> M
+```
+
+## Tipus de mòduls PAM {.smaller}
+
+Cada mòdul de PAM té un rol específic dins del procés d’autenticació i gestió de sessions:
+
+1. **Autenticació (auth)**: Verifica la identitat de l’usuari mitjançant contrasenyes, claus, biometria, etc.
+2. **Gestió de comptes (account)**: Controla l’accés als recursos segons polítiques establertes (horaris, permisos, etc.).
+3. **Gestió de contrasenyes (password)**: S’encarrega de la modificació i actualització de les contrasenyes dels usuaris.
+4. **Gestió de sessions (session)**: Gestiona tasques relacionades amb l’inici i tancament de sessions, com el registre d’activitat o el muntatge de directoris.
+
+# Stack de mòduls PAM (I) {.smaller}
+
+Els mòduls PAM es combinen en stacks que defineixen com es gestiona l’autenticació i les tasques relacionades per cada servei.
+
+- Cada mòdul té una **funció específica** i una **lògica de control** que determina com afecta el resultat global de l’autenticació.
+- Els mòduls s’organitzen en piles (*stacks*) per cada servei i tipus de tasca.
+- Cada servei (com `sshd`, `login`, `sudo`, etc.) té una pila de mòduls per a cada tipus de tasca: *autenticació, compte, contrasenya i sessió*.
+
+# Stack de mòduls PAM (I) {.smaller}
+
+- Ordre de processament:
+    - Els tipus de mòdul s’executen en aquest ordre: auth → account → password → session.
+    - Dins de cada tipus, els mòduls es processen de dalt a baix tal com apareixen al fitxer de configuració.
+    - L’efecte global depèn de les flags de cada mòdul (*required, requisite, sufficient, optional*).
+- Cada pila pot contenir **un o més mòduls**, processats **en ordre**, amb el resultat final de l’autenticació determinat per les flags.
+
+
+## Llistat de mòduls PAM comuns {.smaller}
+
+Per veure tots els mòduls disponibles al vostre sistema, consulteu: `/lib/security/` o `/lib64/security/` segons l’arquitectura.
+
+| Mòdul              | Funció                                       |
+| ------------------ | -------------------------------------------- |
+| `pam_unix.so`      | Integració amb autenticació clàssica d’UNIX. |
+| `pam_ldap.so`      | Integració amb LDAP.                         |
+| `pam_krb5.so`      | Integració amb Kerberos5.                    |
+| `pam_cracklib.so`  | Verificació de la força de les contrasenyes. |
+| `pam_env.so`       | Inicialització de variables d’entorn.        |
+| `pam_limits.so`    | Gestió dels límits de recursos del sistema.  |
+| `pam_tally2.so`    | Control d’intents fallits d’autenticació.    |
+| `pam_mkhomedir.so` | Creació automàtica del directori home.       |
+| `pam_access.so`    | Control d’accés basat en host.               |
+
+
+
+
+## Lògica de les flags dels mòduls PAM {.smaller}
+
+Les flags determinen com cada mòdul afecta el resultat global de l’autenticació dins d’un stack PAM.
+
+| Flag           | Comportament                                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------------------------------- |
+| **required**   | Ha de passar; si falla, la pila continua processant els altres mòduls, però **finalment l’autenticació falla**. |
+| **requisite**  | Ha de passar; si falla, PAM retorna **error immediatament** (evita delays o *timing attacks*).                  |
+| **sufficient** | Si passa, PAM **omite la resta** de la pila (millora eficiència); si falla, es continua amb els altres mòduls.  |
+| **optional**   | Ignorat tret que sigui l’únic mòdul de la pila; rara vegada és crític.                                          |
+| **include**    | Inclou un altre fitxer de configuració PAM, útil per **reutilitzar configuracions comunes**.                    |
+| **substack**   | Permet agrupar mòduls dins d’una pila per aplicar **lògiques més complexes**.                                   |
+
+::: notes
+Un timing attack és un tipus d’atac on l’atacant intenta deduir informació sensible (com contrasenyes) mesurant el temps que triga el sistema a respondre a diferents entrades.
+:::
+
+# Exemple d'stack PAM {.smaller}
+
+```bash
+auth    required    pam_unix.so
+auth    optional    pam_cap.so
+account required    pam_unix.so
+```
+
+```{mermaid}
+flowchart LR
+A[Usuari inicia sessió] --> B[pam_unix.so · auth, required]
+B --> C[pam_cap.so · auth, optional]
+C --> D[pam_unix.so · account, required]
+D --> E{Accés permès?}
+E -->|Sí| F[Servei concedit]
+E -->|No| G[Accés denegat]
+```
+
+- Els flags (`required`, `optional`) determinen l’**impacte de cada mòdul** sobre l’autenticació.
+- L’ordre dels mòduls és **estricte**:
+  - Els obligatoris han de passar per permetre l’accés.
+  - Els opcionals afegeixen funcionalitat extra sense bloquejar l’autenticació.
+
+
+## Configuració de PAM {.smaller}
+
+- Els fitxers de configuració defineixen com s’aplica PAM per a cada servei i tipus de tasca.
+- Es troben a `/etc/pam.d/` i cada servei té el seu fitxer propi, per exemple:
+  - `/etc/pam.d/sshd`
+  - `/etc/pam.d/login`
+  - `/etc/pam.d/sudo`
+- En aquests fitxers s’especifica:
+  - Quins mòduls s’utilitzen per a cada tipus de tasca (*auth, account, password, session*).
+  - Les **flags** corresponents per a cada mòdul (*required, optional, etc.*).
+
+
+## Estructura d’un fitxer de config {.smaller}
+
+Cada línia té la següent estructura:
+
+```bash
+<tipus>   <flag>   <mòdul>   [opcions]
+```
+- **tipus**: Tipus de tasca (*auth, account, password, session*).
+- **flag**: Comportament del mòdul (*required, requisite, sufficient, optional*).
+- **mòdul**: Nom del mòdul PAM (per exemple, `pam_unix.so`).
+- **[opcions]**: Paràmetres addicionals per al mòdul.
+
+## Opcions comunes dels mòduls PAM {.smaller}
+
+Per consultar totes les opcions disponibles per a un mòdul específic, utilitzeu: `man pam_modulename`.
+
+| Opció            | Descripció breu                                                                        |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| `nullok`         | Permet usuaris sense contrasenya.                                                      |
+| `try_first_pass` | Intenta utilitzar la contrasenya ja proporcionada abans d’entrar una nova.             |
+| `use_first_pass` | Utilitza la contrasenya anterior; si falla, no demana una nova.                        |
+| `minlen=N`       | (pam_cracklib) Longitud mínima de la contrasenya.                                      |
+| `retry=N`        | Nombre de intents per introduir la contrasenya abans de fallar.                        |
+| `difok=N`        | (pam_cracklib) Nombre mínim de caràcters diferents respecte a la contrasenya anterior. |
+| `sha512`         | (pam_unix) Encriptació de la contrasenya amb SHA-512.                                  |
+| `remember=N`     | Número de contrasenyes recordades pel canvi de password.                               |
+
+
+## Exemples de configuracions {.smaller}
+
+### `/etc/pam.d/ssh`
+
+```bash
+# Autenticació amb contrasenyes locals; permet usuaris sense contrasenya
+auth     required   pam_unix.so nullok    
+# Gestió de comptes; comprova permisos i restriccions
+account  required   pam_unix.so      
+ # Gestió de sessions; registra inici i tancament de sessió     
+session  required   pam_unix.so    
+```      
+
+### `/etc/pam.d/sudo` 
+
+```bash
+# Autenticació amb contrasenya; prova primer la contrasenya de l'usuari
+auth     required   pam_unix.so try_first_pass
+# Denega immediatament en determinades condicions
+auth     requisite  pam_deny.so
+# Permet sempre l'accés (només si altres no fallen)
+auth     required   pam_permit.so
+
+```
+
+::: notes
+- requisite: si el mòdul falla, PAM retorna error immediatament i no processa més mòduls de la pila.
+- required: si el mòdul falla, PAM continua processant la resta de la pila, però finalment l’autenticació global falla.
+- sufficient: si passa, PAM omet la resta de la pila; si falla, es continua.  
+- optional: només és rellevant si és l’únic mòdul de la pila; rarament crític.
+Exemple pràctic: pam_deny.so sol usar-se amb requisite per bloquejar l’accés immediatament.
+:::
+
+## Configuració avançada de PAM (types) {.smaller}
+
+PAM permet definir condicions complexes per a cada mòdul mitjançant **valors-accions** basats en el codi de retorn del mòdul.
+
+- El camp `type` pot incloure una llista de **valors-accions** separats per comes per controlar com s’interpreta cada resultat.
+
+::: {.fragment}
+```bash
+type[success=ok new_authtok_reqd=ok default=die] module.so options
+```
+:::
+
+::: {.fragment}
+Aquesta configuració permet:
+
+- Interpretar codis de retorn específics de cada mòdul.
+- Aplicar regles diferents segons l’èxit, error o necessitat de canvi de token.
+:::
+
+## Accions comuns en PAM {.smaller}
+
+| Acció              | Descripció                                                                     |
+| ------------------ | ------------------------------------------------------------------------------ |
+| `ignore`           | Ignorar el resultat del mòdul.                                                 |
+| `ok`               | Considerar el mòdul com a passat.                                              |
+| `die`              | Considerar el mòdul com a fallit.                                              |
+| `reset`            | Reiniciar el comptador d’intents fallits o l’estat de la pila.                 |
+| `bad`              | Considerar el mòdul com a fallit i incrementar el comptador d’intents fallits. |
+| `done`             | Finalitzar el processament de la pila.                                         |
+| `N`                | Com `ok`, però pot saltar sobre els propers N mòduls.                          |
+
+
+
+## Fitxers de configuració PAM (defaults) {.smaller}
+
+Els fitxers `common-*` defineixen configuracions estàndard que poden ser reutilitzades per múltiples serveis, evitant duplicació de codi.
+
+- `/etc/pam.d/common-auth`: Configuració comuna per a l’autenticació.
+- `/etc/pam.d/common-account`: Configuració comuna per a la gestió de comptes.
+- `/etc/pam.d/common-password`: Configuració comuna per a la gestió de contrasenyes.
+- `/etc/pam.d/common-session`: Configuració comuna per a la gestió de sessions.
+
+::: {.fragment .center-container}
+Els fitxers específics de servei (`/etc/pam.d/sshd`) solen incloure aquests fitxers comuns amb la directiva **include**, permetent aplicar la mateixa política a tots els serveis de manera centralitzada.
+:::
+
+## Depuració de PAM {.smaller}
+
+PAM ofereix diverses opcions per obtenir informació detallada del procés d’autenticació.
+
+- Afegir l’opció debug als mòduls PAM dins dels fitxers de configuració, per exemple:
+
+::: {.fragment}
+```bash
+auth required pam_unix.so debug
+```
+:::
+
+- Executar aplicacions amb PAM en mode depuració utilitzant les opcions:
+
+::: {.fragment}
+```bash
+ssh -vvv usuari@host       # SSH amb depuració 
+login -d                   # Login amb depuració 
+```
+:::
+
+## Logs de PAM i autenticació {.smaller}
+
+Els logs són essencials per monitoritzar i depurar l’autenticació gestionada per PAM.
+
+1. `/var/log/auth.log`
+   - Distribucions basades en Debian (Ubuntu).
+   - Conté registres d’autenticació i autorització d’usuaris, incloent els generats per PAM.
+
+2. `/var/log/secure`
+
+   - Distribucions basades en Red Hat (CentOS, Fedora).
+   - Registres relacionats amb seguretat i autenticació, incloent PAM.
+
+3. `/var/log/syslog`
+
+   - Algunes distribucions utilitzen el syslog general per registrar els esdeveniments de PAM.
+   - Especialment útil si no hi ha `auth.log` o `secure` configurats.
+
+
+## Bones pràctiques amb PAM {.smaller}
+
+1. Fer còpies de seguretat abans de modificar fitxers de configuració.
+2. Provar els canvis amb cura per evitar bloquejos d’accés al sistema.
+3. Minimitzar l’ús de **sufficient**, ja que pot permetre l’accés encara que altres mòduls fallin.
+4. Aplicar el nivell de restricció més estricte per a cada servei.
+5. Mantenir PAM i el sistema operatiu actualitzats per evitar vulnerabilitats conegudes.
+6. Configurar auditoria i monitorització dels intents d’autenticació per detectar anomalies.
+7. Evitar modificar els fitxers de PAM per ningú altre que no sigui l’administrador del sistema (ús `sudo`). Permisos 600 són recomanables.
+
+
+## Compatibilitat amb PAM {.smaller}
+
+- PAM és ampliament suportat en la majoria de distribucions Linux i sistemes Unix.
+- Per comprovar si una aplicació utilitza PAM:
+  - Revisar la documentació de l’aplicació.
+  - Inspeccionar els fitxers de configuració a `/etc/pam.d/`.
+  - Verificar si un programa està lligat a PAM amb `ldd`:
+
+:::{.fragment}
+```bash
+sudo ldd /usr/sbin/sshd | grep libpam.so
+```
+Si apareix `libpam.so`, el programa utilitza PAM per a l’autenticació.
+:::
+
+## `/etc/pam.d/sshd`  {.smaller}
+
+```bash
+# Usuari es valida primer amb els mòduls de password-auth i postlogin
+auth       substack     password-auth
+auth       include      postlogin
+# Es verifica que l'usuari compleix les condicions d'accés
+account    required     pam_sepermit.so
+account    required     pam_nologin.so
+account    include      password-auth
+# Gestió de contrasenyes amb els mòduls de password-auth
+password   include      password-auth
+# Es configura i registra la sessió de l'usuari
+session    required     pam_selinux.so close
+session    required     pam_loginuid.so
+session    required     pam_selinux.so open env_params
+session    required     pam_namespace.so
+session    optional     pam_keyinit.so force revoke
+session    optional     pam_motd.so
+session    include      password-auth
+session    include      postlogin
+```
+
+::: notes 
+
+1. Auth (autenticació)
+    - substack password-auth → reutilitza un conjunt comú de mòduls d’autenticació (usuari/contrasenya).
+    - include postlogin → afegeix passos addicionals després del login, com missatges o hooks específics.
+
+2. Account (gestió de comptes)
+
+    - pam_sepermit.so → controla permisos SELinux abans de concedir accés.
+    - pam_nologin.so → denega accés si el fitxer /etc/nologin existeix (per manteniment o restriccions temporals).
+    - include password-auth → aplica regles comunes de control d’accés i restriccions d’usuari.
+
+3. Password (gestió de contrasenyes)
+
+    - include password-auth → centralitza la política de contrasenyes (força mínima, historial, encriptació).
+
+4. Session (gestió de sessió)
+
+    - pam_selinux.so close → tanca contextos SELinux antics abans d’iniciar una nova sessió.
+    - pam_loginuid.so → registra l’UID de l’usuari per a control d’auditoria.
+    - pam_selinux.so open env_params → obre el context SELinux per a la sessió de l’usuari.
+    - pam_namespace.so → crea entorns de namespace (aïllament de recursos).
+    - pam_keyinit.so force revoke → inicialitza/gestiona claus d’usuari.
+    - pam_motd.so → mostra missatges del dia.
+:::
+
+## Exercicis proposats {.smaller}
+
+- [Configuració de PAM per SSH amb 2FA utilitzant Google Authenticator](../exercises/04-accounts/01-pam.qmd)

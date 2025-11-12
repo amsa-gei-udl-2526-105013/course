@@ -1,0 +1,167 @@
+---
+title: "Doble factor d'autenticació (2FA) amb PAM"
+---
+
+### Requeriments
+
+- Accés a una màquina virtual Linux (EC2 amb Amazon Linux 2023).
+- Accés SSH a la màquina virtual (clau publica/privada).
+- Instal·lar l'aplicació Google Authenticator al vostre dispositiu mòbil (Android o iOS).
+
+### Objectiu
+
+Configurar l'autenticació de doble factor (2FA) utilitzant PAM i Google Authenticator per a connexions SSH. Per accedir al sistema, els usuaris hauran de proporcionar la seva contrasenya i un codi generat per l'aplicació Google Authenticator.
+
+### Preparació del programari
+
+1. Connecteu-vos a la vostra màquina virtual mitjançant SSH.
+2. Instal·leu el paquet `google-authenticator`:
+
+    ```bash
+    sudo dnf install google-authenticator -y
+    ```
+3. Instal·la el paquet qrencode, aquest paquet ens permetrà generar codis QR:
+
+    ```bash
+    sudo dnf install qrencode -y
+    ```
+
+### Configuració d'usuaris
+
+Les instancies EC2 amb Amazon Linux 2023 creen un usuari per defecte anomenat `ec2-user`, aquest usuari té configurat l'accés SSH mitjançant claus públiques/privades. Per tal de provar l'autenticació amb PAM i Google Authenticator, cal crear un nou usuari anomenat  `amsauser`.
+
+1. Creeu un nou usuari:
+
+    ```bash
+    sudo adduser amsauser
+    ```
+
+2. Establiu una contrasenya per a l'usuari:
+
+    ```bash
+    sudo passwd amsauser
+    e.g.: #@ms@2o25
+    ```
+
+3. Configureu Google Authenticator per a l'usuari `amsauser`:
+
+    ```bash
+    sudo su - amsauser
+    google-authenticator
+    ```
+
+### Configuració de Google Authenticator
+
+A continuació es mostra el procés de configuració pas a pas:
+
+#### Tipus de token
+
+Do you want authentication tokens to be time-based (y/n) **y**
+
+- Aquesta pregunta determina si els tokens seran basats en el temps (TOTP) o en comptadors (HOTP). Es recomana TOTP per major seguretat. Un cop seleccionat, no es pot canviar.
+
+- Això generarà un codi QR que podeu escanejar amb l’aplicació Google Authenticator del vostre dispositiu mòbil.
+
+#### Associació del token
+
+Un cop escanejat el codi QR, l’aplicació generarà un codi de 6 dígits.
+
+Haureu d’introduir aquest codi a la terminal per completar l’associació:
+
+```bash
+Your new secret key is: XXXXXXXXXXXXXX
+Enter code from app (-1 to skip): XYZFGR
+```
+
+- Substituiu `XYZFGR` pel codi generat per l’aplicació.
+- També es generaran codis de recuperació per utilitzar en cas de perdre l’accés a l’aplicació.
+
+#### Actualització del fitxer de configuració
+
+Do you want me to update your "/home/amsauser/.google_authenticator" file? (y/n) **y**
+
+Aquesta acció permet que Google Authenticator actualitzi automàticament el fitxer .google_authenticator amb la clau secreta i les opcions seleccionades. 
+
+#### Tokens de ús únic
+
+Do you want to disallow multiple uses of the same authentication token? (y/n) **y**
+
+- Aquesta opció restringeix un login per cada 30 segons amb el mateix token. 
+- Augmenta la seguretat contra atacs man-in-the-middle.
+
+#### Compensació de desajust horari
+
+Do you want to increase the allowed window? (y/n) **y**
+
+- L’aplicació genera un nou token cada 30 segons.
+- Per compensar possibles desajustos horaris entre client i servidor, es permeten codis addicionals abans i després del codi actual.
+- La opció per defecte: 3 codis permesos (un anterior, el corrent i un següent).
+
+#### Limitació d’intents
+
+Do you want to enable rate-limiting? (y/n) **y**
+
+Aquest paràmetre permet limitar el nombre d’intents d’autenticació fallits per protegir contra atacs de força bruta. El nombre per defecte és: 3 intents cada 30 segons. Millora la seguretat del servidor davant intents brute-force.
+
+### Configuració de PAM per SSH
+
+Per configurar SSH a les instancies EC2 amb Amazon Linux 2023 cal tenir en compte:
+
+- La configuració per defecte d'Amazon Linux 2023 deshabilita l'autenticació per contrasenya a SSH (`PasswordAuthentication no`).
+- La configuració particular de SSH amb PAM es troba a `/etc/pam.d/sshd_config.d/50-redhat.conf`. 
+
+Per realitzar aquest pas, cal tenir permisos d'administrador (sudo), l'usuari `amsauser` no té aquests permisos, per tant, cal tornar a l'usuari `ec2-user`: `exit`.
+
+Els moduls disponibles es poden consultar a [https://github.com/google/google-authenticator-libpam/](https://github.com/google/google-authenticator-libpam/). També podeu utilitzar la comanda `man pam_google_authenticator` per obtenir més informació sobre les opcions de configuració.
+
+1. Editeu el fitxer de configuració PAM per SSH:
+
+    ```bash
+    sudo vi /etc/pam.d/sshd
+    ```
+
+2. Afegiu la següent línia al final del fitxer:
+
+    ```bash
+    auth  [success=done new_authtok_reqd=done default=ignore] pam_google_authenticator.so nullok forward_pass [authtok_prompt=Your secret token: ]
+    ```
+
+    - `nullok`: Permet als usuaris sense configurar Google Authenticator iniciar sessió només amb la contrasenya.
+    - `forward_pass`: Permet passar la contrasenya a altres mòduls PAM.
+    - `authtok_prompt`: Personalitza el missatge que es mostra quan es demana el codi de verificació.
+
+3. Editeu el fitxer de configuració d'OpenSSH:
+
+    ```bash
+    sudo vi /etc/ssh/sshd_config.d/50-redhat.conf
+    ```
+
+    - Habiliteu el mòdul PAM. Per fer-ho, assegureu-vos que la línia `UsePAM yes` no està comentada (sense `#` al principi).
+    - Afegiu `ChallengeResponseAuthentication yes` per permetre respostes interactives on es demana el codi de Google Authenticator.
+    - Afegiu `PasswordAuthentication yes` per permetre l'autenticació mitjançant contrasenya.
+    - Creeu una regla específica per a l'usuari `amsauser` que requereixi tant la contrasenya com el codi de Google Authenticator.
+
+        ```bash
+        Match User amsauser
+            AuthenticationMethods password,keyboard-interactive
+        ```
+
+4.  Reinicieu el servei SSH per aplicar els canvis:
+
+    ```bash
+    sudo systemctl restart sshd
+    ```
+
+5.  Proveu la connexió SSH des d'una altra terminal. Hauríeu de ser sol·licitat per la vostra contrasenya i després pel codi de verificació de Google Authenticator.
+
+## Trobleshooting
+
+- Si no podeu iniciar sessió, reviseu els logs del servei sshd amb `sudo journalctl -u sshd` per identificar possibles errors de configuració.
+
+## Exercicis adicionals
+
+1. Configura l'usuari `ec2-user` per utilitzar també l'autenticació de doble factor amb Google Authenticator. Amb clau pública/privada i google authenticator.
+
+2. Preparar un script de creació d'usuaris que automatitzi la creació d'usuaris amb Google Authenticator preconfigurat amb **public key authentication** i **2FA**.
+
+

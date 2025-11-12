@@ -270,7 +270,7 @@ Aquesta assignatura té com a objectiu introduir-vos al món de l'administració
 ## Criteris d'Avaluació
 
 | **Activitat**            | **Pes** | **Recuperable?** | **Nota Mínima?** | **Grup?** |
-|:-------------|:-------------|:-------------|:-------------|:-------------|
+|:--------------|:--------------|:--------------|:--------------|:--------------|
 | Examen 1                 | 35%     | Sí               | No               | No        |
 | Examen 2                 | 35%     | Sí               | No               | No        |
 | Laboratori               | 20%     | No               | Sí               | Sí        |

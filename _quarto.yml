@@ -51,6 +51,8 @@ website:
             text: Unitat 03 · Sistemes de fitxers (Part 3)
           - href: ./slides/04-authentication-part1.qmd
             text: Unitat 04 · Autenticació i Autorització (Part 1)
+          - href: ./slides/04-authentication-part2.qmd
+            text: Unitat 04 · Autenticació i Autorització (Part 2)
       - section: Activitats
         contents:
           - section: Unitat 01 · Fonaments de l'Administració de Sistemes
@@ -87,6 +89,8 @@ website:
             contents:
               - href: ./exercises/04-accounts/01-lord-of-system.qmd
                 text: Activitat 11 · Gestió de comptes en un servidor Linux
+              - href: ./exercises/04-accounts/01-pam.qmd
+                text: Activitat 12 · Autenticació de doble factor (2FA) amb PAM
 
       - section: Laboratoris
         contents:
@@ -106,6 +110,10 @@ website:
             contents:
               - href: ./laboratories/03-jupyter/01-aws-jupyter.qmd
                 text: Laboratori 04 · Servidor de Python al Cloud amb Emmagatzematge S3 Compartit
+          - section: Unitat 04 · Autenticació i Autorització
+            contents:
+              - href: ./laboratories/04-ldap/01-aws-ldap.qmd
+                text: Laboratori 05 · Servei d'Autenticació Centralitzada amb LDAP a AWS
       - section: Projectes
         contents:
           - href: ./projects/01-project/01-project.qmd
