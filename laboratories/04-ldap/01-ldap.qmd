@@ -807,3 +807,11 @@ done
     Si tot ha anat bé, hauríeu de poder accedir a LAM amb l'usuari `osproxy` i gestionar els usuaris i grups de la base de dades LDAP.
 
     ![LAM](../../figs/laboratories/05-aws-ldap/lam-04.png)
+
+    ## Entrega
+
+    - Nova base de dades LDAP anomenada `amsa.udl.cat`. Aquesta base de dades ha de contenir els rols: **alumne**, **professor** i **admin** amb els usuaris i grups corresponents. 
+    - Com a mínim, heu de donar d'alta 6 usuaris alumnes, 2 professors i 1 admin. Podeu utilitzar els noms que vulgueu.
+    - Automatitzeu la instal·lació i configuració del servidor LDAP, el client LDAP i LAM mitjançant scripts bash i el seu desplegament automatitzat amb **ansible** o **cloudformation**.
+    - Els tres serveis han d'estar instal·lats en instàncies EC2 diferents.
+    - L'accés als clients per SSH ha de ser mitjançant clau pública.

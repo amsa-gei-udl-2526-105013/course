@@ -112,7 +112,7 @@ website:
                 text: Laboratori 04 · Servidor de Python al Cloud amb Emmagatzematge S3 Compartit
           - section: Unitat 04 · Autenticació i Autorització
             contents:
-              - href: ./laboratories/04-ldap/01-aws-ldap.qmd
+              - href: ./laboratories/04-ldap/01-ldap.qmd
                 text: Laboratori 05 · Servei d'Autenticació Centralitzada amb LDAP a AWS
       - section: Projectes
         contents:

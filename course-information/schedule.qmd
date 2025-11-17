@@ -28,5 +28,6 @@ A continuació es presenta un calendari complet dels temes, el contingut del cur
 | 8    | Teoria             |27/10/25    | **Repàs Parcial**      |  |    |  |  | 
 | 8    | Laboratori |29/10/25 | **AWS: S3**  |  |    | [🧪](/laboratories/03-jupyter/01-aws-jupyter.html#prepare) |
 | 9    | PARCIALS | | |   |    |  |  |
-| 10    | Teoria             |03/11/25    | **Unitat 04**: Autenticació i Autorització (Part 1)      | [📖](../slides/04-authentication-part1.qmd){aria-label="Autenticació i Autorització (Part 1) "}  |    |  |  | [📝](../exercises/04-accounts/01-lord-of-system.qmd)
-| 10 | Laboratori |05/11/25 | **Unitat 04**: Autenticació i Autorització (Part 2)  |  [📖](../slides/04-authentication-part2.qmd) |    | [🧪](/laboratories/04-ldap/01-aws-ldap.qmd) |     | [📝](../exercises/04-accounts/01-pam.qmd)
+| 10    | Teoria             |10/11/25    | **Unitat 04**: Autenticació i Autorització (Part 1)      | [📖](../slides/04-authentication-part1.qmd){aria-label="Autenticació i Autorització (Part 1) "}  |    |  |  | [📝](../exercises/04-accounts/01-lord-of-system.qmd)
+| 10 | Laboratori |12/11/25 | **Unitat 04**: Autenticació i Autorització (Part 2)  |  [📖](../slides/04-authentication-part2.qmd) |    |  |     | [📝](../exercises/04-accounts/01-pam.qmd)
+| 11 | Laboratori  | 17/11/25   | **Unitat 04**: Autenticació i Autorització    | | | [🧪](/laboratories/04-ldap/01-ldap.qmd) |     | 
