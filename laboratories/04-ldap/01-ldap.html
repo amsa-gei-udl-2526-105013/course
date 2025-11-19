@@ -613,51 +613,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contrib/slapd-modules/passwd/sha2</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ol>
+<p>Per fer-ho simple:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> install-ldap.sh <span class="op">&lt;&lt; 'EOL'</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">#!/bin/bash</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">VER="2.6.3"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">cd /tmp</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$VER.tgz</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">tar xzf openldap-$VER.tgz</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">cd openldap-$VER</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">    ./configure --prefix=/usr --sysconfdir=/etc --disable-static \</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="st">    --enable-debug --with-tls=openssl --with-cyrus-sasl --enable-dynamic \</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="st">    --enable-crypt --enable-spasswd --enable-slapd --enable-modules \</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="st">    --enable-rlookups  --disable-sql  \</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="st">    --enable-ppolicy --enable-syslog</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="st">make depend</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">make</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st">cd contrib/slapd-modules/passwd/sha2</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">make</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="st">cd ../../../..</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="st">make install</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="st">cd contrib/slapd-modules/passwd/sha2</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="st">make install</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash install-ldap.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En aquest punt, si tot ha anat bé, ja tindrem el servidor LDAP instal·lat al nostre servidor. Podeu comprovar:</p>
 <ul>
 <li><p>Els fitxers de configuració a <code>/etc/openldap/</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /etc/openldap/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Les llibreries instal·lades a <code>/usr/libexec/openldap</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /usr/libexec/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ls <span class="at">-la</span> /etc/openldap/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Els mòduls instal·lats a <code>/usr/local/libexec/openldap/</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ls <span class="at">-la</span> /usr/local/libexec/openldap/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ul>
 </section>
 <section id="creació-dun-usuarigrup-per-gestionar-el-dimoni" class="level3">
 <h3 class="anchored" data-anchor-id="creació-dun-usuarigrup-per-gestionar-el-dimoni">Creació d’un usuari/grup per gestionar el dimoni</h3>
 <p>Es una bona pràctica quan configurem serveis tenir un usuari dedicat i un grup amb permisos restringits per executar aplicacions del sistema. Per tant, anem a fer-ho pel servei LDAP.</p>
 <p>En primer lloc crearem el grup amb gid 55 anomenat ldap.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">groupadd</span> <span class="at">-g</span> 55 ldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> groupadd <span class="at">-g</span> 55 ldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>L’usuari ldap no necessita directori al sistema i el seu directori personal el podem assignar a <em>/var/lib/openldap</em>. El grup serà l’anterior amb gid 55 i podem assignar el uid 55 a l’usuari ldap. Finalment, podem impedir que aquest usuari inici sessió amb una shell <em>nologin</em>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">useradd</span> <span class="at">-r</span> <span class="at">-M</span> <span class="at">-d</span> /var/lib/openldap <span class="at">-u</span> 55 <span class="at">-g</span> 55 <span class="at">-s</span> /usr/sbin/nologin ldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> useradd <span class="at">-r</span> <span class="at">-M</span> <span class="at">-d</span> /var/lib/openldap <span class="at">-u</span> 55 <span class="at">-g</span> 55 <span class="at">-s</span> /usr/sbin/nologin ldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="configuració-del-servei" class="level3">
 <h3 class="anchored" data-anchor-id="configuració-del-servei">Configuració del servei</h3>
 <ul>
 <li><p>Crearem un directori per guardar les dades <strong>/var/lib/openldap</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /var/lib/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /var/lib/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Crearem un directori per guardar la base de dades <strong>/etc/openldap/slapd.d</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /etc/openldap/slapd.d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /etc/openldap/slapd.d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Atorguem els permisos necessaris:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> ldap:ldap /var/lib/openldap</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> root:ldap /etc/openldap/slapd.conf</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 640 /etc/openldap/slapd.conf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown <span class="at">-R</span> ldap:ldap /var/lib/openldap</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown root:ldap /etc/openldap/slapd.conf</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod 640 /etc/openldap/slapd.conf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Crearem un fitxer de configuració per el servei LDAP:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> /etc/systemd/system/slapd.service <span class="op">&lt;&lt; 'EOL'</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">[Unit]</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">Description=OpenLDAP Server Daemon</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">After=syslog.target network-online.target</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">Documentation=man:slapd</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">Documentation=man:slapd-mdb</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">[Service]</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">Type=forking</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="st">PIDFile=/var/lib/openldap/slapd.pid</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="st">Environment="SLAPD_URLS=ldap:/// ldapi:/// ldaps:///"</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="st">Environment="SLAPD_OPTIONS=-F /etc/openldap/slapd.d"</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="st">ExecStart=/usr/libexec/slapd -u ldap -g ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="st">[Install]</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="st">WantedBy=multi-user.target</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">"cat &gt; /etc/systemd/system/slapd.service &lt;&lt; 'EOL'</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">[Unit]</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">Description=OpenLDAP Server Daemon</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">After=syslog.target network-online.target</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">Documentation=man:slapd</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">Documentation=man:slapd-mdb</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="st">[Service]</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="st">Type=forking</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">PIDFile=/var/lib/openldap/slapd.pid</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">Environment=</span><span class="dt">\"</span><span class="st">SLAPD_URLS=ldap:/// ldapi:/// ldaps:///</span><span class="dt">\"</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="st">Environment=</span><span class="dt">\"</span><span class="st">SLAPD_OPTIONS=-F /etc/openldap/slapd.d</span><span class="dt">\"</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="st">ExecStart=/usr/libexec/slapd -u ldap -g ldap -h </span><span class="dt">\$</span><span class="st">{SLAPD_URLS} </span><span class="dt">\$</span><span class="st">SLAPD_OPTIONS</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="st">[Install]</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="st">WantedBy=multi-user.target</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="st">EOL</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><p>En la primera secció <strong>Unit</strong> indicarem el dimoni del servidor OpenLDAP (<em>Description=OpenLDAP Server Daemon</em>) i que ha de ser iniciat després de <strong>syslog.target</strong> i <strong>network-online.target</strong>.</p></li>
 <li><p>En la segona secció <strong>Service</strong> s’estableix que el servei és de tipus <strong>forking</strong> (és a dir, es farà un <code>fork()</code> com a procés fill en segon pla), es defineix el fitxer de <strong>PID</strong> (<em>PIDFile=/var/lib/openldap/slapd.pid</em>) i es configuren les variables d’entorn per a les URL d’OpenLDAP i les opcions d’OpenLDAP. Finalment, s’especifica la comanda d’inici (<strong>ExecStart</strong>) per a iniciar el dimoni amb les opcions adequades.</p></li>
@@ -668,12 +693,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="genració-de-contrasenyes-amb-sha-512" class="level3">
 <h3 class="anchored" data-anchor-id="genració-de-contrasenyes-amb-sha-512">Genració de contrasenyes amb SHA-512</h3>
 <p>Per generar contrasenyes amb l’algorisme de hash SHA-512 (també conegut com a SSHA-512) utilitzant la comanda slappasswd, pots seguir aquests passos:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">slappasswd</span> <span class="at">-h</span> <span class="st">"{SSHA512}"</span> <span class="at">-o</span> module-load=pw-sha2.la <span class="at">-o</span> module-path=/usr/local/libexec/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">slappasswd</span> <span class="at">-h</span> <span class="st">"{SSHA512}"</span> <span class="at">-o</span> module-load=pw-sha2.la <span class="at">-o</span> module-path=/usr/local/libexec/openldap</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A continuació, la comanda demanarà la nova contrasenya:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new password: 1234</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-enter new password: 1234</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new password: 1234</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-enter new password: 1234</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Un cop introdueixis la contrasenya, es generarà el hash corresponent amb l’algorisme SHA-512. El resultat hauria de ser similar a això:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Aquest és el hash de la contrasenya “1234” generat amb l’algorisme SHA-512.</p>
 <p><strong>Nota</strong>: D’ara en endavant…Si voleu modificar contrasenyes i utiltizar aquesta encriptació heu de seguir aquests passos.</p>
 </section>
@@ -701,105 +726,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <p>Per fer-ho, crearem un fitxer de configuració <code>slapd.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /etc/openldap/slapd.ldif /etc/openldap/slapd.ldif.default</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> /etc/openldap/slapd.ldif <span class="op">&lt;&lt; 'EOL'</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=config</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcGlobal</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">cn: config</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="st">olcArgsFile: /var/lib/openldap/slapd.args</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcPidFile: /var/lib/openldap/slapd.pid</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCipherSuite: TLSv1.2:HIGH:!aNULL:!eNULL</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSProtocolMin: 3.3</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=schema,cn=config</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcSchemaConfig</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="st">cn: schema</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=module,cn=config</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcModuleList</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="st">cn: module</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="st">olcModulepath: /usr/libexec/openldap</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="st">olcModuleload: back_mdb.la</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=module,cn=config</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcModuleList</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="st">cn: module</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="st">olcModulepath: /usr/local/libexec/openldap</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="st">olcModuleload: pw-sha2.la</span></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/core.ldif</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/cosine.ldif</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/nis.ldif</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/inetorgperson.ldif</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=frontend,cn=config</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcFrontendConfig</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: frontend</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="st">olcPasswordHash: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.base="cn=Subschema" by * read</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to *</span></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="st">by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="st">by * none</span></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=config,cn=config</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: config</span></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootDN: cn=config</span></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to *</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a><span class="st">by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="st">by * none</span></span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">"cat &gt; /etc/openldap/slapd.ldif &lt;&lt; 'EOL'</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=config</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcGlobal</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="st">cn: config</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="st">olcArgsFile: /var/lib/openldap/slapd.args</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="st">olcPidFile: /var/lib/openldap/slapd.pid</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCipherSuite: TLSv1.2:HIGH:\!aNULL:\!eNULL</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSProtocolMin: 3.3</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=schema,cn=config</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcSchemaConfig</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="st">cn: schema</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=module,cn=config</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcModuleList</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="st">cn: module</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="st">olcModulepath: /usr/libexec/openldap</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="st">olcModuleload: back_mdb.la</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=module,cn=config</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcModuleList</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="st">cn: module</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="st">olcModulepath: /usr/local/libexec/openldap</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="st">olcModuleload: pw-sha2.la</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/core.ldif</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/cosine.ldif</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/nis.ldif</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="st">include: file:///etc/openldap/schema/inetorgperson.ldif</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=frontend,cn=config</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcFrontendConfig</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: frontend</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="st">olcPasswordHash: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.base=</span><span class="dt">\"</span><span class="st">cn=Subschema</span><span class="dt">\"</span><span class="st"> by * read</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to *</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.base=</span><span class="dt">\"</span><span class="st">gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth</span><span class="dt">\"</span><span class="st"> manage</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=config,cn=config</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: config</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootDN: cn=config</span></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to *</span></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.base=</span><span class="dt">\"</span><span class="st">gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth</span><span class="dt">\"</span><span class="st"> manage</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="st">EOL"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En aquest fitxer, definim la configuració del servidor LDAP, com ara la base de dades, el mòdul de contrasenyes, els esquemes i els permisos d’accés.</p>
 <p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /etc/openldap/</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">slapadd</span> <span class="at">-n</span> 0 <span class="at">-F</span> /etc/openldap/slapd.d <span class="at">-l</span> /etc/openldap/slapd.ldif</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> ldap:ldap /etc/openldap/slapd.d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /etc/openldap/</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> slapadd <span class="at">-n</span> 0 <span class="at">-F</span> /etc/openldap/slapd.d <span class="at">-l</span> /etc/openldap/slapd.ldif</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown <span class="at">-R</span> ldap:ldap /etc/openldap/slapd.d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
-<p><strong>Nota</strong>: Si es produeix un error, podeu eliminar la base de dades i tornar a carregar la configuració.</p>
+<p><strong>Nota</strong>: Si es produeix un error, podeu eliminar la base de dades i tornar a carregar la configuració. Per fer-ho, <code>sudo rm -rf /etc/openldap/slapd.d/*</code> i torneu a executar la comanda <code>slapadd</code>.</p>
 </blockquote>
 <p>Finalment, iniciem el servei LDAP:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> daemon-reload</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> slapd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl daemon-reload</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> slapd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="configurant-la-estructura-de-la-base-de-dades" class="level3">
 <h3 class="anchored" data-anchor-id="configurant-la-estructura-de-la-base-de-dades">Configurant la estructura de la base de dades</h3>
 <p>Per configurar la base de dades, crearem un fitxer <code>rootdn.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"...Generating rootdn file"</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> rootdn.ldif</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=mdb,cn=config</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcMdbConfig</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: mdb</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbMaxSize: 42949672960</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbDirectory: /var/lib/openldap</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">olcSuffix: </span><span class="va">$BASE</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootDN: cn=admin,</span><span class="va">$BASE</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootPW: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: uid pres,eq</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: cn,sn pres,eq,approx,sub</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: mail pres,eq,sub</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: objectClass pres,eq</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: loginShell pres,eq</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to attrs=userPassword,shadowLastChange,shadowExpire</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="st">  by self write</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="st">  by anonymous auth</span></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="ou=system,</span><span class="va">$BASE</span><span class="st">" read</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.subtree="ou=system </span><span class="va">$BASE</span><span class="st">"</span></span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.subtree="</span><span class="va">$BASE</span><span class="st">"</span></span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage</span></span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="st">  by users read</span></span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">"cat &lt;&lt; EOL &gt;&gt; rootdn.ldif</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">dn: olcDatabase=mdb,cn=config</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcDatabaseConfig</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: olcMdbConfig</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">olcDatabase: mdb</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbMaxSize: 42949672960</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbDirectory: /var/lib/openldap</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">olcSuffix: </span><span class="va">$BASE</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootDN: cn=admin,</span><span class="va">$BASE</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">olcRootPW: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: uid pres,eq</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: cn,sn pres,eq,approx,sub</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: mail pres,eq,sub</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: objectClass pres,eq</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="st">olcDbIndex: loginShell pres,eq</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to attrs=userPassword,shadowLastChange,shadowExpire</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="st">  by self write</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="st">  by anonymous auth</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree=</span><span class="dt">\"</span><span class="st">gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth</span><span class="dt">\"</span><span class="st"> manage</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree=</span><span class="dt">\"</span><span class="st">ou=system,</span><span class="va">$BASE</span><span class="dt">\"</span><span class="st"> read</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.subtree=</span><span class="dt">\"</span><span class="st">ou=system,</span><span class="va">$BASE</span><span class="dt">\"</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree=</span><span class="dt">\"</span><span class="st">gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth</span><span class="dt">\"</span><span class="st"> manage</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="st">olcAccess: to dn.subtree=</span><span class="dt">\"</span><span class="va">$BASE</span><span class="dt">\"</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="st">  by dn.subtree=</span><span class="dt">\"</span><span class="st">gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth</span><span class="dt">\"</span><span class="st"> manage</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="st">  by users read</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="st">  by * none</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="st">EOL"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En aquest fitxer estem configurant un usuari admin. Aquest usuari té privilegis elevats i pot realitzar diverses operacions d’administració en el servidor LDAP. Observeu les regles (<em>oclAcces</em>). Per defecte, s’utilitza <em>1234</em> com a contrasenya, per modificar-la actualitzeu el hash.</p>
 <p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> rootdn.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ldapadd <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> rootdn.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Un cop carregada la configuració, ja tindrem la base de dades configurada i l’usuari admin creat. Ara crearem la estructura per guardar usuaris i grups que s’assembli a la que utilitza el sistema Linux per emmagatzemar usuaris i grups.</p>
 <ul>
 <li><strong>dc=amsa,dc=udl,dc=cat</strong>: Node principal de la jerarquia LDAP.</li>
@@ -807,34 +828,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>ou=users,dc=amsa,dc=udl,dc=cat</strong>. Aquesta entrada representa una organització per als usuaris.</li>
 <li><strong>ou=system,dc=amsa,dc=udl,dc=cat</strong>: Aquesta entrada representa una organització per al sistema. És comuna en moltes configuracions LDAP.</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="va">DC</span><span class="op">=</span><span class="st">"amsa"</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> basedn.ldif</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">dn: </span><span class="va">$BASE</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: dcObject</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organization</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">o: AMSA</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">dc: </span><span class="va">$DC</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=groups,</span><span class="va">$BASE</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="st">ou: groups</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=users,</span><span class="va">$BASE</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="st">ou: users</span></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=system,</span><span class="va">$BASE</span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="st">ou: system</span></span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="va">DC</span><span class="op">=</span><span class="st">"amsa"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">"cat &lt;&lt; EOL &gt;&gt; basedn.ldif</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">dn: </span><span class="va">$BASE</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: dcObject</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organization</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="st">o: AMSA</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="st">dc: </span><span class="va">$DC</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="st">ou: groups</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="st">ou: users</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=system,</span><span class="va">$BASE</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: top</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="st">ou: system</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="st">EOL"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> basedn.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ldapadd <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> basedn.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="afegint-usuaris-i-grups" class="level3">
 <h3 class="anchored" data-anchor-id="afegint-usuaris-i-grups">Afegint usuaris i grups</h3>
@@ -866,98 +887,103 @@ userPassword: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSs
 <li><strong>userPassword</strong>: El hash de la contrasenya de l’usuari (en aquest cas, utilitzant l’algorisme SHA-512). Recordeu que aquesta és una versió encriptada de la contrasenya “1234” generada prèviament amb l’algorisme SHA-512. En la pràctica, caldria utilitzar un hash de la contrasenya de l’usuari que estigui segur.</li>
 </ul>
 <p>Una pràctica comuna es la cració d’un usuari <strong>OSProxy</strong>. Aquest usuari té funcions específiques per a la resolució d’UIDs i GIDs. Aquesta separació de privilegis és una pràctica de seguretat que redueix l’abast de les possibles vulnerabilitats. Això millora la seguretat de la base de dades LDAP restringint l’accés només al que és necessari.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=osproxy,ou=system,</span><span class="va">$BASE</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalRole</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: simpleSecurityObject</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">cn: osproxy</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">userPassword:{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">description: OS proxy for resolving UIDs/GIDs</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"programadors"</span> <span class="st">"dissenyadors"</span><span class="va">)</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"5000"</span> <span class="st">"5001"</span><span class="va">)</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="va">users</span><span class="op">=</span><span class="va">(</span><span class="st">"jordi"</span> <span class="st">"manel"</span><span class="va">)</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="va">sn</span><span class="op">=</span><span class="va">(</span><span class="st">"mateo"</span> <span class="st">"lopez"</span><span class="va">)</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="va">uids</span><span class="op">=</span><span class="va">(</span><span class="st">"4000"</span> <span class="st">"4001"</span><span class="va">)</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="va">programadors</span><span class="op">=</span><span class="va">(</span><span class="st">"jordi"</span><span class="va">)</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="va">dissenyadors</span><span class="op">=</span><span class="va">(</span><span class="st">"manel"</span><span class="va">)</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">groups</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=</span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=groups,</span><span class="va">$BASE</span></span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixGroup</span></span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${gids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">users</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="st">dn: uid=</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=users,</span><span class="va">$BASE</span></span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixAccount</span></span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: shadowAccount</span></span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: inetOrgPerson</span></span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="st">sn: </span><span class="va">${sn</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="st">uidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="st">homeDirectory: /home/</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="st">loginShell: /bin/sh</span></span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
-<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">'</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">BASE="dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">groups=("programadors" "dissenyadors")</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">gids=("6000" "5001")</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">users=("ramon" "manel")</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">sns=("mateo" "lopez")</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="st">uids=("8000" "4001")</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="st">cat &gt; users.ldif &lt;&lt; EOL1</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=osproxy,ou=system,${BASE}</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalRole</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: simpleSecurityObject</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="st">cn: osproxy</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="st">userPassword:{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="st">description: OS proxy for resolving UIDs/GIDs</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=groups,${BASE}</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="st">ou: groups</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="st">dn: ou=users,${BASE}</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: organizationalUnit</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="st">ou: users</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="st">EOL1</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="st">for (( j=0; j&lt;${#groups[@]}; j++ )); do</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="st">cat &gt;&gt; users.ldif &lt;&lt; EOL2</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=${groups[$j]},ou=groups,${BASE}</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixGroup</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="st">cn: ${groups[$j]}</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: ${gids[$j]}</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="st">EOL2</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="st">done</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="st">for (( j=0; j&lt;${#users[@]}; j++ )); do</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="st">cat &gt;&gt; users.ldif &lt;&lt; EOL3</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="st">dn: uid=${users[$j]},ou=users,${BASE}</span></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixAccount</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: shadowAccount</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: inetOrgPerson</span></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a><span class="st">cn: ${users[$j]}</span></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a><span class="st">sn: ${sns[$j]}</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a><span class="st">uidNumber: ${uids[$j]}</span></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: ${uids[$j]}</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a><span class="st">homeDirectory: /home/${users[$j]}</span></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a><span class="st">loginShell: /bin/sh</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a><span class="st">EOL3</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a><span class="st">done</span></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Un cop creat el fitxer, carreguem la configuració a la base de dades:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> users.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ldapadd <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> users.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="configuració-de-certificats-tls" class="level3">
 <h3 class="anchored" data-anchor-id="configuració-de-certificats-tls">Configuració de certificats TLS</h3>
 <p>Els certificats TLS són una part important de la configuració de seguretat d’un servidor LDAP. Aquests certificats s’utilitzen per xifrar les comunicacions entre el client i el servidor, protegint les dades de ser interceptades per tercers.</p>
 <p>Per configurar els certificats TLS en el servidor LDAP, necessitaràs generar un parell de claus privades i certificats públics, i configurar el servidor per utilitzar-los.</p>
 <p>En primer lloc, genera un parell de claus privades i certificats públics amb la comanda <code>openssl</code>. A continuació, crea un fitxer <code>ldapcert.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="va">HOSTNAME</span><span class="op">=</span><span class="st">"amsa.udl.cat"</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="va">commonname</span><span class="op">=</span><span class="va">$HOSTNAME</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="va">country</span><span class="op">=</span>ES</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="va">state</span><span class="op">=</span>Spain</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="va">locality</span><span class="op">=</span>Igualada</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="va">organization</span><span class="op">=</span>UdL</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="va">organizationalunit</span><span class="op">=</span>IT</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="va">email</span><span class="op">=</span>admin@udl.cat</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Generating key request for </span><span class="va">$commonname</span><span class="st">"</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> req <span class="at">-days</span> 500 <span class="at">-newkey</span> rsa:4096 <span class="dt">\</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-keyout</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span> <span class="at">-nodes</span> <span class="dt">\</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">-sha256</span> <span class="at">-x509</span> <span class="at">-out</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span> <span class="dt">\</span></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">-subj</span> <span class="st">"/C=</span><span class="va">$country</span><span class="st">/ST=</span><span class="va">$state</span><span class="st">/L=</span><span class="va">$locality</span><span class="st">/O=</span><span class="va">$organization</span><span class="st">/OU=</span><span class="va">$organizationalunit</span><span class="st">/CN=</span><span class="va">$commonname</span><span class="st">/emailAddress=</span><span class="va">$email</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_PKI</span><span class="op">=</span><span class="st">"/etc/pki/tls"</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="va">HOSTNAME</span><span class="op">=</span><span class="st">"ec2-13-223-233-203.compute-1.amazonaws.com"</span> <span class="co"># Canvia-ho pel nom del teu servidor</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="va">commonname</span><span class="op">=</span><span class="va">$HOSTNAME</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="va">country</span><span class="op">=</span>ES</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="va">state</span><span class="op">=</span>Spain</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="va">locality</span><span class="op">=</span>Igualada</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="va">organization</span><span class="op">=</span>UdL</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="va">organizationalunit</span><span class="op">=</span>IT</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="va">email</span><span class="op">=</span>admin@udl.cat</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> openssl req <span class="at">-days</span> 500 <span class="at">-newkey</span> rsa:4096 <span class="dt">\</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-keyout</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span> <span class="at">-nodes</span> <span class="dt">\</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">-sha256</span> <span class="at">-x509</span> <span class="at">-out</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span> <span class="dt">\</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">-subj</span> <span class="st">"/C=</span><span class="va">$country</span><span class="st">/ST=</span><span class="va">$state</span><span class="st">/L=</span><span class="va">$locality</span><span class="st">/O=</span><span class="va">$organization</span><span class="st">/OU=</span><span class="va">$organizationalunit</span><span class="st">/CN=</span><span class="va">$commonname</span><span class="st">/emailAddress=</span><span class="va">$email</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En segon lloc, atorga els permisos adequats als fitxers de claus privades i certificats públics:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> ldap:ldap <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/cacerts.pem"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown ldap:ldap <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod 400 <span class="st">"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">"cat </span><span class="dt">\"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem</span><span class="dt">\"</span><span class="st"> &gt; </span><span class="dt">\"</span><span class="va">$PATH_PKI</span><span class="st">/cacerts.pem</span><span class="dt">\"</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En tercer lloc, crea un fitxer <code>add-tls.ldif</code> a <code>/etc/openldap/</code> amb el següent contingut:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> add-tls.ldif</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=config</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">changetype: modify</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCACertificateFile</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCACertificateFile: "</span><span class="va">$PATH_PKI</span><span class="st">/cacerts.pem"</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="st">-</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCertificateKeyFile</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCertificateKeyFile: "</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem"</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="st">-</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCertificateFile</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCertificateFile: "</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem"</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> bash <span class="at">-c</span> <span class="st">" cat &lt;&lt; EOL &gt;&gt; add-tls.ldif</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=config</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="st">changetype: modify</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCACertificateFile</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCACertificateFile: </span><span class="dt">\"</span><span class="va">$PATH_PKI</span><span class="st">/cacerts.pem</span><span class="dt">\"</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="st">-</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCertificateKeyFile</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCertificateKeyFile: </span><span class="dt">\"</span><span class="va">$PATH_PKI</span><span class="st">/ldapkey.pem</span><span class="dt">\"</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="st">-</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="st">add: olcTLSCertificateFile</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="st">olcTLSCertificateFile: </span><span class="dt">\"</span><span class="va">$PATH_PKI</span><span class="st">/ldapcert.pem</span><span class="dt">\"</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="st">EOL"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Finalment, carrega la configuració a la base de dades:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapadd</span> <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> add-tls.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ldapadd <span class="at">-Y</span> EXTERNAL <span class="at">-H</span> ldapi:/// <span class="at">-f</span> add-tls.ldif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Un cop carregada la configuració, ja tindrem els certificats TLS configurats en el servidor LDAP.</p>
 </section>
 <section id="testeig-de-la-installació" class="level3">
 <h3 class="anchored" data-anchor-id="testeig-de-la-installació">Testeig de la instal·lació</h3>
 <p>Per comprovar que la instal·lació ha estat correcta, pots utilitzar la comanda <code>ldapsearch</code> per buscar les entrades de la base de dades. Per exemple, pots buscar l’usuari que has creat amb la comanda següent:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapsearch</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-H</span> ldapi:///  <span class="at">-D</span> <span class="st">"cn=admin,dc=amsa,dc=udl,dc=cat"</span>  <span class="at">-b</span> <span class="st">"ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapsearch</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-H</span> ldapi:///  <span class="at">-D</span> <span class="st">"cn=admin,dc=amsa,dc=udl,dc=cat"</span>  <span class="at">-b</span> <span class="st">"ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Aquesta comanda utilitza l’usuari admin que has creat per connectar-se al servidor LDAP i buscar les entrades de la branca “ou=users,dc=amsa,dc=udl,dc=cat”. Si tot ha anat bé, hauries de veure les dades dels usuaris que has creat.</p>
 </section>
 <section id="comandes-útils-de-ldap" class="level3">
@@ -972,12 +998,12 @@ userPassword: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSs
 <p>Per exemple:</p>
 <ul>
 <li><p>Per modificar la contrasenya d’un usuari:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldappasswd</span> <span class="at">-H</span> ldapi:/// <span class="at">-D</span> <span class="st">"cn=admin,dc=amsa,dc=udl,dc=cat"</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-S</span> <span class="st">"uid=jordi,ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldappasswd</span> <span class="at">-H</span> ldapi:/// <span class="at">-D</span> <span class="st">"cn=admin,dc=amsa,dc=udl,dc=cat"</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-S</span> <span class="st">"uid=jordi,ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
 <p>Nota: Heu d’introduir la contrasenya xifrant amb SHA-512 com hem vist anteriorment.</p>
 </blockquote></li>
 <li><p>Podem comprovar que la contrasenya s’ha modificat correctament amb la comanda <code>ldapsearch</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapsearch</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-H</span> ldapi:///  <span class="at">-D</span> <span class="st">"uid=jordi,ou=users,dc=amsa,dc=udl,dc=cat"</span>  <span class="at">-b</span> <span class="st">"ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldapsearch</span> <span class="at">-x</span> <span class="at">-W</span> <span class="at">-H</span> ldapi:///  <span class="at">-D</span> <span class="st">"uid=jordi,ou=users,dc=amsa,dc=udl,dc=cat"</span>  <span class="at">-b</span> <span class="st">"ou=users,dc=amsa,dc=udl,dc=cat"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ul>
 </section>
 </section>
@@ -990,42 +1016,42 @@ userPassword: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSs
 <li>Carrega aquesta configuració al servidor LDAP mitjançant eines com ldapadd o ldapmodify.</li>
 </ul></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span> <span class="st">"elfs"</span> <span class="st">"nans"</span> <span class="st">"mags"</span><span class="va">)</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"6000"</span> <span class="st">"7000"</span> <span class="st">"8000"</span> <span class="st">"9000"</span><span class="va">)</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">groups</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">));</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> middleearth.ldif</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=</span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=groups,</span><span class="va">$BASE</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixGroup</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${gids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span> <span class="st">"elfs"</span> <span class="st">"nans"</span> <span class="st">"mags"</span><span class="va">)</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"6000"</span> <span class="st">"7000"</span> <span class="st">"8000"</span> <span class="st">"9000"</span><span class="va">)</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="va">users</span><span class="op">=</span><span class="va">(</span><span class="st">"frodo"</span> <span class="st">"gollum"</span> <span class="st">"samwise"</span> <span class="st">"legolas"</span> <span class="st">"gimli"</span> <span class="st">"gandalf"</span><span class="va">)</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="va">b2g</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span>,<span class="st">"hobbits"</span>,<span class="st">"hobbits"</span>,<span class="st">"elfs"</span>,<span class="st">"nans"</span>,<span class="st">"mags"</span><span class="va">)</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="va">sn</span><span class="op">=</span><span class="va">(</span><span class="st">"baggins"</span> <span class="st">"smeagol"</span> <span class="st">"gamgee"</span> <span class="st">"greenleaf"</span> <span class="st">"sonofgloin"</span> <span class="st">"thegrey"</span><span class="va">)</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="va">uids</span><span class="op">=</span><span class="va">(</span><span class="st">"6001"</span> <span class="st">"6002"</span> <span class="st">"6003"</span> <span class="st">"7001"</span> <span class="st">"8001"</span> <span class="st">"9001"</span><span class="va">)</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">users</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="st">dn: uid=</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=users,</span><span class="va">$BASE</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixAccount</span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: shadowAccount</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: inetOrgPerson</span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="st">sn: </span><span class="va">${sn</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="st">uidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${b2g</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="st">homeDirectory: /home/</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="st">loginShell: /bin/sh</span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span> <span class="st">"elfs"</span> <span class="st">"nans"</span> <span class="st">"mags"</span><span class="va">)</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"6000"</span> <span class="st">"7000"</span> <span class="st">"8000"</span> <span class="st">"9000"</span><span class="va">)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">groups</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">));</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> middleearth.ldif</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="st">dn: cn=</span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixGroup</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${groups</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${gids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="va">groups</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span> <span class="st">"elfs"</span> <span class="st">"nans"</span> <span class="st">"mags"</span><span class="va">)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="va">gids</span><span class="op">=</span><span class="va">(</span><span class="st">"6000"</span> <span class="st">"7000"</span> <span class="st">"8000"</span> <span class="st">"9000"</span><span class="va">)</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="va">users</span><span class="op">=</span><span class="va">(</span><span class="st">"frodo"</span> <span class="st">"gollum"</span> <span class="st">"samwise"</span> <span class="st">"legolas"</span> <span class="st">"gimli"</span> <span class="st">"gandalf"</span><span class="va">)</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="va">b2g</span><span class="op">=</span><span class="va">(</span><span class="st">"hobbits"</span>,<span class="st">"hobbits"</span>,<span class="st">"hobbits"</span>,<span class="st">"elfs"</span>,<span class="st">"nans"</span>,<span class="st">"mags"</span><span class="va">)</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="va">sn</span><span class="op">=</span><span class="va">(</span><span class="st">"baggins"</span> <span class="st">"smeagol"</span> <span class="st">"gamgee"</span> <span class="st">"greenleaf"</span> <span class="st">"sonofgloin"</span> <span class="st">"thegrey"</span><span class="va">)</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="va">uids</span><span class="op">=</span><span class="va">(</span><span class="st">"6001"</span> <span class="st">"6002"</span> <span class="st">"6003"</span> <span class="st">"7001"</span> <span class="st">"8001"</span> <span class="st">"9001"</span><span class="va">)</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">((</span> <span class="va">j</span><span class="op">=</span><span class="dv">0</span><span class="kw">;</span> <span class="va">j</span><span class="op">&lt;</span><span class="va">${</span><span class="op">#</span><span class="va">users</span><span class="op">[@]</span><span class="va">}</span><span class="kw">;</span> <span class="va">j</span><span class="op">++</span> <span class="kw">))</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> users.ldif</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="st">dn: uid=</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span><span class="st">,ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: posixAccount</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: shadowAccount</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="st">objectClass: inetOrgPerson</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="st">cn: </span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="st">sn: </span><span class="va">${sn</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="st">uidNumber: </span><span class="va">${uids</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="st">gidNumber: </span><span class="va">${b2g</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="st">homeDirectory: /home/</span><span class="va">${users</span><span class="op">[</span><span class="va">$j</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="st">loginShell: /bin/sh</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><p>Configura una altra instància EC2 com a client LDAP.</p>
 <ul>
@@ -1033,128 +1059,128 @@ userPassword: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSs
 <p>Per configurar els nostres clients podem utilitzar un script que ens faciliti la tasca. Aquest script ens permetrà configurar el client LDAP amb les dades del servidor LDAP.</p>
 <p>Únicament caldrà modificar les variables <code>LDAP_SERVER</code> i <code>BASE</code> amb les dades del servidor LDAP. En el nostre cas, LDAP_SERVER ha de coincidir amb el DNS públic de la instància del servidor LDAP i BASE amb el nom de la base de dades que hem creat en el nostre cas <code>dc=amsa,dc=udl,dc=cat</code>. A més, caldrà copiar el fitxer <code>cacert.crt</code> del servidor LDAP al client.</p>
 <p>Per fer-ho, copieu el contingut del fitxer <code>/etc/pki/tls/cacerts.pem</code> del servidor LDAP al client i deseu-lo com a <code>/etc/pki/tls/cacert.crt</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Al servidor</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cat /etc/pki/tls/cacerts.pem</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Al client</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> vi <span class="st">"/etc/pki/tls/cacert.crt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"This script will configure the client to connect to the LDAP server"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Al servidor</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cat /etc/pki/tls/cacerts.pem</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Did you copy the cacert.crt from the server to the client? (y/n)?"</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="at">-r</span> <span class="va">response</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$response</span><span class="st">"</span> <span class="ot">!=</span> <span class="st">"y"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Exiting..."</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="va">LDAP_SERVER</span><span class="op">=</span><span class="st">"ec2-44-206-252-61.compute-1.amazonaws.com"</span></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_PKI</span><span class="op">=</span><span class="st">"/etc/pki/tls"</span></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the hostname to </span><span class="va">$LDAP_SERVER</span><span class="st">"</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the base to </span><span class="va">$BASE</span><span class="st">"</span></span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the path to </span><span class="va">$PATH_PKI</span><span class="st">"</span></span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Are you sure you want to continue? (y/n), are this values correct?"</span></span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="at">-r</span> <span class="va">response</span></span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$response</span><span class="st">"</span> <span class="ot">!=</span> <span class="st">"y"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Exiting..."</span></span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Install deps and tools"</span></span>
-<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a><span class="ex">dnf</span> install openldap-clients sssd sssd-tools oddjob-mkhomedir <span class="at">-y</span></span>
-<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring sssd"</span></span>
-<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> /etc/sssd/sssd.conf</span>
-<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a><span class="st">[sssd]</span></span>
-<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="st">services = nss, pam, sudo</span></span>
-<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a><span class="st">config_file_version = 2</span></span>
-<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a><span class="st">domains = default</span></span>
-<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a><span class="st">[sudo]</span></span>
-<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="st">[nss]</span></span>
-<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="st">[pam]</span></span>
-<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a><span class="st">offline_credentials_expiration = 60</span></span>
-<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a><span class="st">[domain/default]</span></span>
-<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_id_use_start_tls = True</span></span>
-<span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a><span class="st">cache_credentials = True</span></span>
-<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_search_base = </span><span class="va">$BASE</span></span>
-<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a><span class="st">id_provider = ldap</span></span>
-<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a><span class="st">auth_provider = ldap</span></span>
-<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a><span class="st">chpass_provider = ldap</span></span>
-<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a><span class="st">access_provider = ldap</span></span>
-<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a><span class="st">sudo_provider = ldap</span></span>
-<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_uri = ldaps://</span><span class="va">$LDAP_SERVER</span></span>
-<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_default_bind_dn = cn=osproxy,ou=system,</span><span class="va">$BASE</span></span>
-<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_group_search_base = ou=groups,</span><span class="va">$BASE</span></span>
-<span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_user_search_base = ou=users,</span><span class="va">$BASE</span></span>
-<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_default_authtok = 1234</span></span>
-<span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_reqcert = demand</span></span>
-<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_cacert = </span><span class="va">$PATH_PKI</span><span class="st">/cacert.crt</span></span>
-<span id="cb40-66"><a href="#cb40-66" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_cacertdir = </span><span class="va">$PATH_PKI</span></span>
-<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_search_timeout = 50</span></span>
-<span id="cb40-68"><a href="#cb40-68" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_network_timeout = 60</span></span>
-<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_access_order = filter</span></span>
-<span id="cb40-70"><a href="#cb40-70" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_access_filter = (objectClass=posixAccount)</span></span>
-<span id="cb40-71"><a href="#cb40-71" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
-<span id="cb40-72"><a href="#cb40-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-73"><a href="#cb40-73" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring ldap.conf"</span></span>
-<span id="cb40-74"><a href="#cb40-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-75"><a href="#cb40-75" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"BASE </span><span class="va">$BASE</span><span class="st">"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
-<span id="cb40-76"><a href="#cb40-76" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"URI ldaps://</span><span class="va">$LDAP_SERVER</span><span class="st">"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
-<span id="cb40-77"><a href="#cb40-77" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"TLS_CACERT      </span><span class="va">$PATH_PKI</span><span class="st">/cacert.crt"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
-<span id="cb40-78"><a href="#cb40-78" aria-hidden="true" tabindex="-1"></a><span class="ex">authselect</span> select sssd <span class="at">--force</span></span>
-<span id="cb40-79"><a href="#cb40-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-80"><a href="#cb40-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Oddjob is a helper service that creates home directories for users the first time they log in</span></span>
-<span id="cb40-81"><a href="#cb40-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-82"><a href="#cb40-82" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring oddjob"</span></span>
-<span id="cb40-83"><a href="#cb40-83" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> oddjobd</span>
-<span id="cb40-84"><a href="#cb40-84" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"session optional pam_oddjob_mkhomedir.so skel=/etc/skel/ umask=0022"</span> <span class="op">&gt;&gt;</span> /etc/pam.d/system-auth </span>
-<span id="cb40-85"><a href="#cb40-85" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> restart oddjobd</span>
-<span id="cb40-86"><a href="#cb40-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-87"><a href="#cb40-87" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting permissions"</span></span>
-<span id="cb40-88"><a href="#cb40-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-89"><a href="#cb40-89" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> root: /etc/sssd</span>
-<span id="cb40-90"><a href="#cb40-90" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 <span class="at">-R</span> /etc/sssd</span>
-<span id="cb40-91"><a href="#cb40-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-92"><a href="#cb40-92" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Starting sssd"</span></span>
-<span id="cb40-93"><a href="#cb40-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-94"><a href="#cb40-94" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> sssd</span>
-<span id="cb40-95"><a href="#cb40-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-96"><a href="#cb40-96" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Done"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Aquest script configura el client LDAP per connectar-se al servidor LDAP. Per fer-ho, instal·la les eines necessàries, com ara <code>openldap-clients</code>, <code>sssd</code>, <code>sssd-tools</code> i <code>oddjob-mkhomedir</code>. A continuació, configura el fitxer <code>sssd.conf</code> amb les dades del servidor LDAP i el fitxer <code>ldap.conf</code> amb les dades de connexió al servidor LDAP. Finalment, configura el servei <code>oddjobd</code> per crear els directoris d’inici dels usuaris la primera vegada que inicien sessió. Podeu trobar el script a <a href="src/ldapclient">ldapclient</a>.</p>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Al client</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> vi <span class="st">"/etc/pki/tls/cacert.crt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"This script will configure the client to connect to the LDAP server"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Did you copy the cacert.crt from the server to the client? (y/n)?"</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="at">-r</span> <span class="va">response</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$response</span><span class="st">"</span> <span class="ot">!=</span> <span class="st">"y"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Exiting..."</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="va">LDAP_SERVER</span><span class="op">=</span><span class="st">"ec2-13-223-233-203.compute-1.amazonaws.com"</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="va">BASE</span><span class="op">=</span><span class="st">"dc=amsa,dc=udl,dc=cat"</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_PKI</span><span class="op">=</span><span class="st">"/etc/pki/tls"</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the hostname to </span><span class="va">$LDAP_SERVER</span><span class="st">"</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the base to </span><span class="va">$BASE</span><span class="st">"</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting the path to </span><span class="va">$PATH_PKI</span><span class="st">"</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Are you sure you want to continue? (y/n), are this values correct?"</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="at">-r</span> <span class="va">response</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$response</span><span class="st">"</span> <span class="ot">!=</span> <span class="st">"y"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Exiting..."</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Install deps and tools"</span></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a><span class="ex">dnf</span> install openldap-clients authselect sssd sssd-tools oddjob-mkhomedir <span class="at">-y</span></span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring sssd"</span></span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; EOL</span> <span class="op">&gt;&gt;</span> /etc/sssd/sssd.conf</span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a><span class="st">[sssd]</span></span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a><span class="st">services = nss, pam, sudo</span></span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a><span class="st">config_file_version = 2</span></span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a><span class="st">domains = default</span></span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a><span class="st">[sudo]</span></span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a><span class="st">[nss]</span></span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a><span class="st">[pam]</span></span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a><span class="st">offline_credentials_expiration = 60</span></span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a><span class="st">[domain/default]</span></span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_id_use_start_tls = True</span></span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a><span class="st">cache_credentials = True</span></span>
+<span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_search_base = </span><span class="va">$BASE</span></span>
+<span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a><span class="st">id_provider = ldap</span></span>
+<span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a><span class="st">auth_provider = ldap</span></span>
+<span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a><span class="st">chpass_provider = ldap</span></span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a><span class="st">access_provider = ldap</span></span>
+<span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a><span class="st">sudo_provider = ldap</span></span>
+<span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_uri = ldaps://</span><span class="va">$LDAP_SERVER</span></span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_default_bind_dn = cn=osproxy,ou=system,</span><span class="va">$BASE</span></span>
+<span id="cb41-61"><a href="#cb41-61" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_group_search_base = ou=groups,</span><span class="va">$BASE</span></span>
+<span id="cb41-62"><a href="#cb41-62" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_user_search_base = ou=users,</span><span class="va">$BASE</span></span>
+<span id="cb41-63"><a href="#cb41-63" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_default_authtok = 1234</span></span>
+<span id="cb41-64"><a href="#cb41-64" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_reqcert = demand</span></span>
+<span id="cb41-65"><a href="#cb41-65" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_cacert = </span><span class="va">$PATH_PKI</span><span class="st">/cacert.crt</span></span>
+<span id="cb41-66"><a href="#cb41-66" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_tls_cacertdir = </span><span class="va">$PATH_PKI</span></span>
+<span id="cb41-67"><a href="#cb41-67" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_search_timeout = 50</span></span>
+<span id="cb41-68"><a href="#cb41-68" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_network_timeout = 60</span></span>
+<span id="cb41-69"><a href="#cb41-69" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_access_order = filter</span></span>
+<span id="cb41-70"><a href="#cb41-70" aria-hidden="true" tabindex="-1"></a><span class="st">ldap_access_filter = (objectClass=posixAccount)</span></span>
+<span id="cb41-71"><a href="#cb41-71" aria-hidden="true" tabindex="-1"></a><span class="op">EOL</span></span>
+<span id="cb41-72"><a href="#cb41-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-73"><a href="#cb41-73" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring ldap.conf"</span></span>
+<span id="cb41-74"><a href="#cb41-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-75"><a href="#cb41-75" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"BASE </span><span class="va">$BASE</span><span class="st">"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
+<span id="cb41-76"><a href="#cb41-76" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"URI ldaps://</span><span class="va">$LDAP_SERVER</span><span class="st">"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
+<span id="cb41-77"><a href="#cb41-77" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"TLS_CACERT      </span><span class="va">$PATH_PKI</span><span class="st">/cacert.crt"</span> <span class="op">&gt;&gt;</span> /etc/openldap/ldap.conf</span>
+<span id="cb41-78"><a href="#cb41-78" aria-hidden="true" tabindex="-1"></a><span class="ex">authselect</span> select sssd <span class="at">--force</span></span>
+<span id="cb41-79"><a href="#cb41-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-80"><a href="#cb41-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Oddjob is a helper service that creates home directories for users the first time they log in</span></span>
+<span id="cb41-81"><a href="#cb41-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-82"><a href="#cb41-82" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Configuring oddjob"</span></span>
+<span id="cb41-83"><a href="#cb41-83" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> oddjobd</span>
+<span id="cb41-84"><a href="#cb41-84" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"session optional pam_oddjob_mkhomedir.so skel=/etc/skel/ umask=0022"</span> <span class="op">&gt;&gt;</span> /etc/pam.d/system-auth </span>
+<span id="cb41-85"><a href="#cb41-85" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> restart oddjobd</span>
+<span id="cb41-86"><a href="#cb41-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-87"><a href="#cb41-87" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Setting permissions"</span></span>
+<span id="cb41-88"><a href="#cb41-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-89"><a href="#cb41-89" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> root: /etc/sssd</span>
+<span id="cb41-90"><a href="#cb41-90" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 <span class="at">-R</span> /etc/sssd</span>
+<span id="cb41-91"><a href="#cb41-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-92"><a href="#cb41-92" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Starting sssd"</span></span>
+<span id="cb41-93"><a href="#cb41-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-94"><a href="#cb41-94" aria-hidden="true" tabindex="-1"></a><span class="ex">systemctl</span> enable <span class="at">--now</span> sssd</span>
+<span id="cb41-95"><a href="#cb41-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-96"><a href="#cb41-96" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"... Done"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aquest script configura el client LDAP per connectar-se al servidor LDAP. Per fer-ho, instal·la les eines necessàries, com ara <code>openldap-clients</code>, <code>sssd</code>, <code>sssd-tools</code> i <code>oddjob-mkhomedir</code>. A continuació, configura el fitxer <code>sssd.conf</code> amb les dades del servidor LDAP i el fitxer <code>ldap.conf</code> amb les dades de connexió al servidor LDAP. Finalment, configura el servei <code>oddjobd</code> per crear els directoris d’inici dels usuaris la primera vegada que inicien sessió.</p>
 <p>Per testar la configuració del client crearem un directori <strong>/home/jordi</strong> i l’assignarem a un usuari i a un grup inicialitzat a LDAP.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /home/jordi</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown 4000:5000 /home/jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir /home/jordi</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown 4000:5000 /home/jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
 <p>Nota: L’usuari jordi no és un usuari local, sinó un usuari definit a LDAP. Per tant, si LDAP no està configurat correctament, veurem el valors numèrics 4000 i 5000 en lloc del nom de l’usuari i el grup.</p>
 </blockquote>
 <p>En canvi, si tot està configurat correctament, veurem el nom de l’usuari i el grup corresponents a aquests valors numèrics definits a LDAP.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ls <span class="at">-l</span> /home</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x.</span>  2 jordi programadors   6 Sep 26 18:36 jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ls <span class="at">-l</span> /home</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x.</span>  2 jordi programadors   6 Sep 26 18:36 jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ul></li>
 <li><p>Instal·la i configura un client web per gestionar LDAP. Pots utilitzar l’eina <a href="https://ldap-account-manager.org/lamcms/">LAM</a>.</p>
 <ul>
 <li><p>Instal·la LDAP Account Manager (LAM) a la instància del servidor LDAP.</p></li>
 <li><p>Configura l’eina perquè es connecti al servidor LDAP i permeti la gestió dels usuaris i grups de manera visual utilitzant una interfície web.</p>
 <p>Per instal·lar LAM, primer cal instal·lar les dependències necessàries:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install <span class="at">-y</span> httpd php php-ldap php-mbstring php-gd php-gmp php-zip</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> httpd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install <span class="at">-y</span> httpd php php-ldap php-mbstring php-gd php-gmp php-zip</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable <span class="at">--now</span> httpd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A continuació, descarrega i descomprimeix el paquet de LAM:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> wget https://github.com/LDAPAccountManager/lam/releases/download/9.0.RC1/ldap-account-manager-9.0.RC1-0.fedora.1.noarch.rpm</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install ldap-account-manager-9.0.RC1-0.fedora.1.noarch.rpm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> wget https://github.com/LDAPAccountManager/lam/releases/download/9.0.RC1/ldap-account-manager-9.0.RC1-0.fedora.1.noarch.rpm</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install ldap-account-manager-9.0.RC1-0.fedora.1.noarch.rpm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Finalment, navega a la pàgina web de LAM a <code>http://&lt;IP_SERVER&gt;/lam</code> i segueix les instruccions per configurar la connexió al servidor LDAP. En el meu cas, he configurat la connexió al servidor LDAP amb les dades següents: <code>http://ec2-34-207-89-93.compute-1.amazonaws.com/lam</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
