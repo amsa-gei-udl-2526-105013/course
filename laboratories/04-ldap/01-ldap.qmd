@@ -477,11 +477,11 @@ userPassword:{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY
 description: OS proxy for resolving UIDs/GIDs
 
 dn: ou=groups,${BASE}
-objectClass: organizationalUnit
+objectClass: posixGroup
 ou: groups
 
 dn: ou=users,${BASE}
-objectClass: organizationalUnit
+objectClass: posixGroup
 ou: users
 EOL1
 
@@ -510,6 +510,8 @@ EOL3
 done
 '
 ```
+
+Si teniu problemes us podeu descarregar el fitxer [users.sh](./users.sh). Elimineu el `sudo rm -r users.ldif` i executeu `sudo bash users.sh`.
 
 Un cop creat el fitxer, carreguem la configuració a la base de dades:
 
