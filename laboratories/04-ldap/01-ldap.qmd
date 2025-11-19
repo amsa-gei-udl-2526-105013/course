@@ -463,10 +463,10 @@ sudo bash -c '
 BASE="dc=amsa,dc=udl,dc=cat"
 
 groups=("programadors" "dissenyadors")
-gids=("6000" "5001")
+gids=("5000" "5001")
 users=("ramon" "manel")
 sns=("mateo" "lopez")
-uids=("8000" "4001")
+uids=("4000" "4001")
 
 cat > users.ldif << EOL1
 dn: cn=osproxy,ou=system,${BASE}
