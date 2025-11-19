@@ -106,18 +106,46 @@ cd openldap-$VER
     make install
     ```
 
+Per fer-ho simple:
+
+```bash
+cd /tmp
+cat > install-ldap.sh << 'EOL'
+#!/bin/bash
+VER="2.6.3"
+cd /tmp
+wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$VER.tgz
+tar xzf openldap-$VER.tgz
+cd openldap-$VER
+    ./configure --prefix=/usr --sysconfdir=/etc --disable-static \
+    --enable-debug --with-tls=openssl --with-cyrus-sasl --enable-dynamic \
+    --enable-crypt --enable-spasswd --enable-slapd --enable-modules \
+    --enable-rlookups  --disable-sql  \
+    --enable-ppolicy --enable-syslog
+make depend
+make
+cd contrib/slapd-modules/passwd/sha2
+make
+cd ../../../..
+make install
+cd contrib/slapd-modules/passwd/sha2
+make install
+EOL
+sudo bash install-ldap.sh
+```
+
 En aquest punt, si tot ha anat bé, ja tindrem el servidor LDAP instal·lat  al nostre servidor. Podeu comprovar:
 
 - Els fitxers de configuració a `/etc/openldap/`:
   
     ```bash
-    ls -la /etc/openldap/
+    sudo ls -la /etc/openldap/
     ```
 
-- Les llibreries instal·lades a `/usr/libexec/openldap`:
+- Els mòduls instal·lats a `/usr/local/libexec/openldap/`:
 
     ```bash
-    ls -la /usr/libexec/openldap
+    sudo ls -la /usr/local/libexec/openldap/
     ```
 
 ### Creació d'un usuari/grup per gestionar el dimoni
@@ -127,13 +155,13 @@ Es una bona pràctica quan configurem serveis tenir un usuari dedicat i un grup 
 En primer lloc crearem el grup amb gid 55 anomenat ldap.
 
 ```sh
-groupadd -g 55 ldap
+sudo groupadd -g 55 ldap
 ```
 
 L'usuari ldap no necessita directori al sistema i el seu directori personal el podem assignar a */var/lib/openldap*. El grup serà l'anterior amb gid 55 i podem assignar el uid 55 a l'usuari ldap. Finalment, podem impedir que aquest usuari inici sessió amb una shell *nologin*.
 
 ```sh
-useradd -r -M -d /var/lib/openldap -u 55 -g 55 -s /usr/sbin/nologin ldap
+sudo useradd -r -M -d /var/lib/openldap -u 55 -g 55 -s /usr/sbin/nologin ldap
 ```
 
 ### Configuració del servei
@@ -141,27 +169,27 @@ useradd -r -M -d /var/lib/openldap -u 55 -g 55 -s /usr/sbin/nologin ldap
 - Crearem un directori per guardar les dades **/var/lib/openldap**:
   
     ```bash
-    mkdir /var/lib/openldap
+    sudo mkdir /var/lib/openldap
     ```
 
 - Crearem un directori per guardar la base de dades **/etc/openldap/slapd.d**:
 
     ```bash
-    mkdir /etc/openldap/slapd.d
+    sudo mkdir /etc/openldap/slapd.d
     ```
 
 - Atorguem els permisos necessaris:
 
     ```bash
-    chown -R ldap:ldap /var/lib/openldap
-    chown root:ldap /etc/openldap/slapd.conf
-    chmod 640 /etc/openldap/slapd.conf
+    sudo chown -R ldap:ldap /var/lib/openldap
+    sudo chown root:ldap /etc/openldap/slapd.conf
+    sudo chmod 640 /etc/openldap/slapd.conf
     ```
 
 - Crearem un fitxer de configuració per el servei LDAP:
 
     ```bash
-    cat > /etc/systemd/system/slapd.service << 'EOL'
+    sudo bash -c "cat > /etc/systemd/system/slapd.service << 'EOL'
     [Unit]
     Description=OpenLDAP Server Daemon
     After=syslog.target network-online.target
@@ -171,13 +199,14 @@ useradd -r -M -d /var/lib/openldap -u 55 -g 55 -s /usr/sbin/nologin ldap
     [Service]
     Type=forking
     PIDFile=/var/lib/openldap/slapd.pid
-    Environment="SLAPD_URLS=ldap:/// ldapi:/// ldaps:///"
-    Environment="SLAPD_OPTIONS=-F /etc/openldap/slapd.d"
-    ExecStart=/usr/libexec/slapd -u ldap -g ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS
+    Environment=\"SLAPD_URLS=ldap:/// ldapi:/// ldaps:///\"
+    Environment=\"SLAPD_OPTIONS=-F /etc/openldap/slapd.d\"
+    ExecStart=/usr/libexec/slapd -u ldap -g ldap -h \${SLAPD_URLS} \$SLAPD_OPTIONS
 
     [Install]
     WantedBy=multi-user.target
     EOL
+    "
     ```
 
   - En la primera secció **Unit** indicarem el dimoni del servidor OpenLDAP (*Description=OpenLDAP Server Daemon*) i que ha de ser iniciat després de **syslog.target** i **network-online.target**. 
@@ -236,15 +265,13 @@ Notació important: LDAP utilitza una configuració basada en objectes. Cada obj
 Per fer-ho, crearem un fitxer de configuració `slapd.ldif` a `/etc/openldap/` amb el següent contingut:
 
 ```bash
-mv /etc/openldap/slapd.ldif /etc/openldap/slapd.ldif.default
-
-cat > /etc/openldap/slapd.ldif << 'EOL'
+sudo bash -c "cat > /etc/openldap/slapd.ldif << 'EOL'
 dn: cn=config
 objectClass: olcGlobal
 cn: config
 olcArgsFile: /var/lib/openldap/slapd.args
 olcPidFile: /var/lib/openldap/slapd.pid
-olcTLSCipherSuite: TLSv1.2:HIGH:!aNULL:!eNULL
+olcTLSCipherSuite: TLSv1.2:HIGH:\!aNULL:\!eNULL
 olcTLSProtocolMin: 3.3
 
 dn: cn=schema,cn=config
@@ -273,20 +300,21 @@ objectClass: olcDatabaseConfig
 objectClass: olcFrontendConfig
 olcDatabase: frontend
 olcPasswordHash: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu
-olcAccess: to dn.base="cn=Subschema" by * read
+olcAccess: to dn.base=\"cn=Subschema\" by * read
 olcAccess: to *
-by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
-by * none
+  by dn.base=\"gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth\" manage
+  by * none
 
 dn: olcDatabase=config,cn=config
 objectClass: olcDatabaseConfig
 olcDatabase: config
 olcRootDN: cn=config
 olcAccess: to *
-by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
-by * none
-EOL
+  by dn.base=\"gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth\" manage
+  by * none
+EOL"
 ```
+
 
 En aquest fitxer, definim la configuració del servidor LDAP, com ara la base de dades, el mòdul de contrasenyes, els esquemes i els permisos d'accés.
 
@@ -295,17 +323,17 @@ Un cop creat el fitxer, carreguem la configuració a la base de dades:
 
 ```bash
 cd /etc/openldap/
-slapadd -n 0 -F /etc/openldap/slapd.d -l /etc/openldap/slapd.ldif
-chown -R ldap:ldap /etc/openldap/slapd.d
+sudo slapadd -n 0 -F /etc/openldap/slapd.d -l /etc/openldap/slapd.ldif
+sudo chown -R ldap:ldap /etc/openldap/slapd.d
 ```
 
-> **Nota**: Si es produeix un error, podeu eliminar la base de dades i tornar a carregar la configuració.
+> **Nota**: Si es produeix un error, podeu eliminar la base de dades i tornar a carregar la configuració. Per fer-ho, `sudo rm -rf /etc/openldap/slapd.d/*` i torneu a executar la comanda `slapadd`.
 
 Finalment, iniciem el servei LDAP:
 
 ```bash
-systemctl daemon-reload
-systemctl enable --now slapd
+sudo systemctl daemon-reload
+sudo systemctl enable --now slapd
 ```
 
 ### Configurant la estructura de la base de dades
@@ -314,9 +342,7 @@ Per configurar la base de dades, crearem un fitxer `rootdn.ldif` a `/etc/openlda
 
 ```bash
 BASE="dc=amsa,dc=udl,dc=cat"
-
-echo "...Generating rootdn file"
-cat << EOL >> rootdn.ldif
+sudo bash -c "cat << EOL >> rootdn.ldif
 dn: olcDatabase=mdb,cn=config
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
@@ -334,17 +360,17 @@ olcDbIndex: loginShell pres,eq
 olcAccess: to attrs=userPassword,shadowLastChange,shadowExpire
   by self write
   by anonymous auth
-  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
-  by dn.subtree="ou=system,$BASE" read
+  by dn.subtree=\"gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth\" manage
+  by dn.subtree=\"ou=system,$BASE\" read
   by * none
-olcAccess: to dn.subtree="ou=system $BASE"
-  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
+olcAccess: to dn.subtree=\"ou=system,$BASE\"
+  by dn.subtree=\"gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth\" manage
   by * none
-olcAccess: to dn.subtree="$BASE"
-  by dn.subtree="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
+olcAccess: to dn.subtree=\"$BASE\"
+  by dn.subtree=\"gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth\" manage
   by users read
   by * none
-EOL
+EOL"
 ```
 
 En aquest fitxer estem configurant un usuari admin. Aquest usuari té privilegis elevats i pot realitzar diverses operacions d'administració en el servidor LDAP. Observeu les regles (*oclAcces*). Per defecte, s'utilitza *1234* com a contrasenya, per modificar-la actualitzeu el hash.
@@ -352,7 +378,7 @@ En aquest fitxer estem configurant un usuari admin. Aquest usuari té privilegis
 Un cop creat el fitxer, carreguem la configuració a la base de dades:
 
 ```bash
-ldapadd -Y EXTERNAL -H ldapi:/// -f rootdn.ldif
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f rootdn.ldif
 ```
 
 Un cop carregada la configuració, ja tindrem la base de dades configurada i l'usuari admin creat. Ara crearem la estructura per guardar usuaris i grups que s'assembli a la que utilitza el sistema Linux per emmagatzemar usuaris i grups.
@@ -366,7 +392,7 @@ Un cop carregada la configuració, ja tindrem la base de dades configurada i l'u
 BASE="dc=amsa,dc=udl,dc=cat"
 DC="amsa"
 
-cat << EOL >> basedn.ldif
+sudo bash -c "cat << EOL >> basedn.ldif
 dn: $BASE
 objectClass: dcObject
 objectClass: organization
@@ -388,13 +414,13 @@ dn: ou=system,$BASE
 objectClass: organizationalUnit
 objectClass: top
 ou: system
-EOL
+EOL"
 ```
 
 Un cop creat el fitxer, carreguem la configuració a la base de dades:
 
 ```bash
-ldapadd -Y EXTERNAL -H ldapi:/// -f basedn.ldif
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f basedn.ldif
 ```
 
 ### Afegint usuaris i grups
@@ -433,57 +459,62 @@ on:
 Una pràctica comuna es la cració d'un usuari **OSProxy**. Aquest usuari té funcions específiques per a la resolució d'UIDs i GIDs. Aquesta separació de privilegis és una pràctica de seguretat que redueix l'abast de les possibles vulnerabilitats. Això millora la seguretat de la base de dades LDAP restringint l'accés només al que és necessari.
 
 ```bash
-cat << EOL >> users.ldif
-dn: cn=osproxy,ou=system,$BASE
+sudo bash -c '
+BASE="dc=amsa,dc=udl,dc=cat"
+
+groups=("programadors" "dissenyadors")
+gids=("6000" "5001")
+users=("ramon" "manel")
+sns=("mateo" "lopez")
+uids=("8000" "4001")
+
+cat > users.ldif << EOL1
+dn: cn=osproxy,ou=system,${BASE}
 objectClass: organizationalRole
 objectClass: simpleSecurityObject
 cn: osproxy
 userPassword:{SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSsY8PQwW1UKuuCGO2+160HotnfjXIaRKlryVekLnu
 description: OS proxy for resolving UIDs/GIDs
 
-EOL
+dn: ou=groups,${BASE}
+objectClass: organizationalUnit
+ou: groups
 
-groups=("programadors" "dissenyadors")
-gids=("5000" "5001")
-users=("jordi" "manel")
-sn=("mateo" "lopez")
-uids=("4000" "4001")
-programadors=("jordi")
-dissenyadors=("manel")
+dn: ou=users,${BASE}
+objectClass: organizationalUnit
+ou: users
+EOL1
 
-for (( j=0; j<${#groups[@]}; j++ ))
-do
-cat << EOL >> users.ldif
-dn: cn=${groups[$j]},ou=groups,$BASE
+for (( j=0; j<${#groups[@]}; j++ )); do
+cat >> users.ldif << EOL2
+dn: cn=${groups[$j]},ou=groups,${BASE}
 objectClass: posixGroup
 cn: ${groups[$j]}
 gidNumber: ${gids[$j]}
-
-EOL
+EOL2
 done
 
-for (( j=0; j<${#users[@]}; j++ ))
-do
-cat << EOL >> users.ldif
-dn: uid=${users[$j]},ou=users,$BASE
+for (( j=0; j<${#users[@]}; j++ )); do
+cat >> users.ldif << EOL3
+dn: uid=${users[$j]},ou=users,${BASE}
 objectClass: posixAccount
 objectClass: shadowAccount
 objectClass: inetOrgPerson
 cn: ${users[$j]}
-sn: ${sn[$j]}
+sn: ${sns[$j]}
 uidNumber: ${uids[$j]}
 gidNumber: ${uids[$j]}
 homeDirectory: /home/${users[$j]}
 loginShell: /bin/sh
-
-EOL
+EOL3
 done
+'
 ```
 
 Un cop creat el fitxer, carreguem la configuració a la base de dades:
 
 ```bash
-ldapadd -Y EXTERNAL -H ldapi:/// -f users.ldif
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f users.ldif
 ```
 
 ### Configuració de certificats TLS
@@ -495,7 +526,8 @@ Per configurar els certificats TLS en el servidor LDAP, necessitaràs generar un
 En primer lloc, genera un parell de claus privades i certificats públics amb la comanda `openssl`. A continuació, crea un fitxer `ldapcert.ldif` a `/etc/openldap/` amb el següent contingut:
 
 ```bash
-HOSTNAME="amsa.udl.cat"
+PATH_PKI="/etc/pki/tls"
+HOSTNAME="ec2-13-223-233-203.compute-1.amazonaws.com" # Canvia-ho pel nom del teu servidor
 commonname=$HOSTNAME
 country=ES
 state=Spain
@@ -504,8 +536,7 @@ organization=UdL
 organizationalunit=IT
 email=admin@udl.cat
 
-echo "Generating key request for $commonname"
-openssl req -days 500 -newkey rsa:4096 \
+sudo openssl req -days 500 -newkey rsa:4096 \
     -keyout "$PATH_PKI/ldapkey.pem" -nodes \
     -sha256 -x509 -out "$PATH_PKI/ldapcert.pem" \
     -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
@@ -514,32 +545,32 @@ openssl req -days 500 -newkey rsa:4096 \
 En segon lloc, atorga els permisos adequats als fitxers de claus privades i certificats públics:
 
 ```bash
-chown ldap:ldap "$PATH_PKI/ldapkey.pem"
-chmod 400 "$PATH_PKI/ldapkey.pem"
-cat "$PATH_PKI/ldapcert.pem" > "$PATH_PKI/cacerts.pem"
+sudo chown ldap:ldap "$PATH_PKI/ldapkey.pem"
+sudo chmod 400 "$PATH_PKI/ldapkey.pem"
+sudo bash -c "cat \"$PATH_PKI/ldapcert.pem\" > \"$PATH_PKI/cacerts.pem\""
 ```
 
 En tercer lloc, crea un fitxer `add-tls.ldif` a `/etc/openldap/` amb el següent contingut:
 
 ```bash
-cat << EOL >> add-tls.ldif
+sudo bash -c " cat << EOL >> add-tls.ldif
 dn: cn=config
 changetype: modify
 add: olcTLSCACertificateFile
-olcTLSCACertificateFile: "$PATH_PKI/cacerts.pem"
+olcTLSCACertificateFile: \"$PATH_PKI/cacerts.pem\"
 -
 add: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: "$PATH_PKI/ldapkey.pem"
+olcTLSCertificateKeyFile: \"$PATH_PKI/ldapkey.pem\"
 -
 add: olcTLSCertificateFile
-olcTLSCertificateFile: "$PATH_PKI/ldapcert.pem"
-EOL
+olcTLSCertificateFile: \"$PATH_PKI/ldapcert.pem\"
+EOL"
 ```
 
 Finalment, carrega la configuració a la base de dades:
 
 ```bash
-ldapadd -Y EXTERNAL -H ldapi:/// -f add-tls.ldif
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f add-tls.ldif
 ```
 
 Un cop carregada la configuració, ja tindrem els certificats TLS configurats en el servidor LDAP.
@@ -660,7 +691,7 @@ done
     fi
 
     # Variables
-    LDAP_SERVER="ec2-44-206-252-61.compute-1.amazonaws.com"
+    LDAP_SERVER="ec2-13-223-233-203.compute-1.amazonaws.com"
     BASE="dc=amsa,dc=udl,dc=cat"
     PATH_PKI="/etc/pki/tls"
 
@@ -679,7 +710,7 @@ done
 
     echo "... Install deps and tools"
 
-    dnf install openldap-clients sssd sssd-tools oddjob-mkhomedir -y
+    dnf install openldap-clients authselect sssd sssd-tools oddjob-mkhomedir -y
 
     echo "... Configuring sssd"
 
@@ -745,7 +776,7 @@ done
     echo "... Done"
     ```
 
-    Aquest script configura el client LDAP per connectar-se al servidor LDAP. Per fer-ho, instal·la les eines necessàries, com ara `openldap-clients`, `sssd`, `sssd-tools` i `oddjob-mkhomedir`. A continuació, configura el fitxer `sssd.conf` amb les dades del servidor LDAP i el fitxer `ldap.conf` amb les dades de connexió al servidor LDAP. Finalment, configura el servei `oddjobd` per crear els directoris d'inici dels usuaris la primera vegada que inicien sessió. Podeu trobar el script a [ldapclient](src/ldapclient).
+    Aquest script configura el client LDAP per connectar-se al servidor LDAP. Per fer-ho, instal·la les eines necessàries, com ara `openldap-clients`, `sssd`, `sssd-tools` i `oddjob-mkhomedir`. A continuació, configura el fitxer `sssd.conf` amb les dades del servidor LDAP i el fitxer `ldap.conf` amb les dades de connexió al servidor LDAP. Finalment, configura el servei `oddjobd` per crear els directoris d'inici dels usuaris la primera vegada que inicien sessió.
 
     Per testar la configuració del client crearem un directori **/home/jordi** i l'assignarem a un usuari i a un grup inicialitzat a LDAP.
 
