@@ -32,3 +32,4 @@ A continuació es presenta un calendari complet dels temes, el contingut del cur
 | 10 | Laboratori |12/11/25 | **Unitat 04**: Autenticació i Autorització (Part 2)  |  [📖](../slides/04-authentication-part2.qmd) |    |  |     | [📝](../exercises/04-accounts/01-pam.qmd)
 | 11 | Laboratori  | 17/11/25   | **Unitat 04**: Autenticació i Autorització    | | | [🧪](/laboratories/04-ldap/01-ldap.qmd) |     | 
 | 11 | Laboratori  | 19/11/25   | **Unitat 04**: Autenticació i Autorització    | | | [🧪](/laboratories/04-ldap/01-ldap.qmd) |     | 
+| 12    | Teoria             |24/11/25    | **Unitat 05**: Virtualització i Contenidors (Part 1)      | [📖](../slides/05-virtualization-part1.qmd){aria-label="Virtualització i Contenidors (Part 1) "}  |    |  |  | [📝](../exercises/05-virtualitzation/01-docker.qmd)

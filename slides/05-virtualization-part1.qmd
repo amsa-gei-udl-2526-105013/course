@@ -1,0 +1,1155 @@
+---
+title: "Virtualització i Contenidors"
+subtitle: "Unitat 5 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)"
+author: "Jordi Mateo Fornés"
+format: 
+  revealjs:
+    theme: simple
+    transition: fade
+    slide-number: true
+    incremental: true
+    css: styles.css
+    footer: "Unitat 5 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) [🏠](/index.html)</a>"
+---
+
+## Què és la virtualització? {.smaller}
+
+La virtualització és una tecnologia que permet executar múltiples sistemes complets (SO, aplicacions i maquinari virtualitzat) sobre un únic host físic.
+
+:::{.fragment}
+
+### Per a què serveix?
+
+- **Aïllament**: cada màquina virtual s’executa de manera independent, sense interferir amb les altres.
+- **Flexibilitat**: permet crear, modificar i eliminar entorns ràpidament.
+- **Eficiència de recursos**: aprofita millor el hardware compartint CPU, memòria i emmagatzematge.
+- **Facilitat de desplegament i manteniment**: simplifica proves, rèpliques, desastres i actualitzacions.
+:::
+
+## Emulació i virtualització {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+### Emulació  
+
+- Reprodueix una arquitectura diferent de la del host (p. ex. executar programari ARM en un host x86).
+- Més lenta, perquè s’han de traduir instruccions.
+- Útil per a **compatibilitat**, proves o sistemes antics.
+
+::: {.center-container .fragment}
+Exemple: QEMU en mode full emulation.
+:::
+
+::: {.fragment}
+
+```text
+Host (x86)
+   ↓ traducció
+Guest (ARM)  --> Lenta
+```
+
+:::
+
+:::
+::: {.column width="50%"}
+
+### Virtualització
+
+- Guest i host **comparteixen** la mateixa arquitectura.
+- El hypervisor aprofita instruccions de hardware → rendiment molt proper al natiu.
+- Útil per executar diversos SO al mateix temps en un host.
+
+::: {.center-container .fragment}
+Exemples: KVM, VMware, Hyper-V.
+:::
+
+::: {.fragment}
+
+```text
+Host (x86)
+   ↓ execució directa
+Guest (x86) --> Proper al natiu
+```
+
+:::
+
+:::
+:::
+
+## Hypervisor {.smaller}
+
+Un hypervisor és el programari que crea, executa i gestiona màquines virtuals (VMs). Permet compartir el maquinari físic entre diversos sistemes operatius.
+
+::: columns
+::: {.column width="50%"}
+### Type 1 (bare metal)
+
+- S’executa directament sobre el hardware (no hi ha un SO host).
+- Més rendiment, menys latència i millor seguretat.
+- Utilitzat en servidors i centres de dades.
+- Exemples: VMware ESXi, Microsoft Hyper-V Server, Xen.
+
+:::
+::: {.column width="50%"}
+
+### Type 2 (hosted)
+
+- S’executa a sobre d’un sistema operatiu host.
+- Més senzill d’instal·lar i ideal per a entorns de desenvolupament o escriptori.
+- Lleugerament menys eficient.
+- Exemples: VirtualBox, VMware Workstation, Parallels.
+
+:::
+:::
+
+
+## Arquitectura típiques
+
+::: {.center-container}
+![](../figs/slides/01-foundations-of-systems-administration/virtualitzacio.png)
+:::
+
+## Paravirtualització {.smaller}
+
+El sistema operatiu guest es modifica per cooperar amb el VMM:
+
+-   **CPU paravirtualitzada**: ús de hypercalls en lloc d’instruccions privilegiades.
+-   **MMU paravirtualitzada**: gestió compartida de les taules de pàgines.
+-   **I/O paravirtualitzada**: dispositius virtuals optimitzats (Virtio).
+
+:::{.fragment}
+El VMM exposa **hypercalls** per:
+
+-   Activar/desactivar interrupcions
+-   Canviar taules de pàgines
+-   Accedir a perifèrics virtualitzats
+:::
+
+:::{.fragment .center-container}
+El VMM pot injectar **interrupcions virtuals** a través d’esdeveniments.
+:::
+
+## Intel VT- {.smaller}
+
+-   Extensió que transforma x86 en una arquitectura virtualitzable.
+    -   **Root mode**: s’executa el VMM
+    -   **Non-root mode**: s’executen els guests
+-   Cada instància en non-root mode manté un VMCS (Virtual Machine Control Structure) amb:
+    -   Estat del guest (registres, CR3, IDTR, etc.)
+    -   Estat intern invisible
+-   Transicions:
+    -   **VM Entry**: càrrega l’estat del guest des del VMCS
+    -   **VM Exit**: guarda l’estat del guest i restaura el del host
+
+## Com guardar/restaurar una VM? {.smaller}
+
+Una màquina virtual es pot guardar, copiar o restaurar perquè està formada per un conjunt d’arxius que descriuen:
+
+- L’estat de la VM (configuració)
+- El disc dur virtual
+- (Opcional) Snapshots o estats suspesos
+
+:::{.fragment }
+Cada hypervisor utilitza formats propis:
+
+- VMware: .vmx (configuració), .vmdk (disc virtual)
+- VirtualBox: .vbox (configuració), .vdi (disc virtual)
+- KVM/QEMU: .qcow2, .img (disc virtual)
+:::
+
+::: {.fragment .center-container}
+Per exemple, quan vau realitar la pràctica 2, us vaig facilitar una imatge .vmdk de VMware.
+:::
+
+## Característiques
+
+| **Avantatges**                                      | **Inconvenients**                                                    |
+| --------------------------------------------------- | -------------------------------------------------------------------- |
+| Permeten executar **arquitectures i SO diferents**  | **Més pesants**: cal un SO complet → **mida de la imatge elevada**   |
+| **Aïllament i seguretat** molt alts                 | **Temps d’arrencada** més lent que contenidors                       |
+| Es poden **compartir i importar imatges** fàcilment | **Interoperabilitat limitada** entre hypervisors (formats diferents) |
+
+::: notes
+
+- Recorda-los que una VM ocupa “com un ordinador real” → per això les imatges poden ser de diversos GB.
+- Subratlla que compartir una imatge d’una VM vol dir reproduir exactament el mateix entorn (molt útil en docència i DevOps).
+- Compara amb contenidors: VM = PC complet, contenidor = procés aïllat.
+- Explica que la interoperabilitat no està garantida: un .vmdk no sempre funciona en VirtualBox o QEMU sense conversió.
+
+:::
+
+## Com podem millorar una màquina virtual?
+
+- Imaginem que volem executar un programa senzill, com un petit servidor web.
+- Amb una VM, necessitem instal·lar un sistema operatiu complet (Linux, Windows…).
+- Això vol dir:
+  - Molt més espai en disc (GB de la imatge)
+  - Més memòria RAM per al SO
+  - Temps d’arrencada força més elevat
+
+## Però… és realment necessari un SO complet? {.smaller}
+
+- Un servidor web no necessita totes les funcions del kernel.
+- Ens agradaria dir-li al sistema:
+  - **Executa aquest procés, però aïllat de la resta del sistema.**
+- Un servidor web no necessita:
+  - funcions d’inici de sessió,
+  - gestió d’usuaris complexa,
+  - serveis de fons innecessaris,
+  - processos del sistema que no tenen res a veure amb l’aplicació
+
+::: {.fragment .center-container}
+un paquet mínim que inclou biblioteques + configuració + aplicació,
+executat de manera aïllada però sense un SO complet per cada instància.
+:::
+
+## Quantes vegades hem sentit això? {.smaller}
+
+:::{.fragment .center-container}
+**Works on my machine**
+:::
+
+::: columns
+::: {.column width="50%"}
+
+- Al meu PC funciona… però al teu no.
+- A l’entorn de tests va perfecte, però en producció peta.
+- La versió de la llibreria X és diferent.
+- Aquest programa necessita permisos que aquí no té.
+- Funciona a la meva màquina virtual… però al servidor no.
+:::
+::: {.column width="50%"}
+
+- Dependències diferents
+- Versions de llibreries inconsistents
+- Configuracions de sistema no iguals
+- Permisos, usuaris o paths que no coincideixen
+- Serveis que al teu entorn estan actius, però en un altre no
+:::
+:::
+
+## Contenidors {.smaller}
+
+:::{.center-container}
+La característica que estem buscant rep el nom de contenidors.
+:::
+
+:::{.fragment}
+Els contenidors no aparareixen com a tals al kernel de Linux. Són una combinació de diverses funcionalitats del nucli:
+
+- **Namespaces** → Aïllen processos
+- **cgroups v2** → Limiten i controlen recursos (CPU, memòria, E/S…)
+- **Overlay filesystems** → Proporcionen sistemes d’arxius lleugers i capaços d’apilar capes
+:::
+
+::: {.fragment .center-container}
+La combinació d’aquests tres elements crea l’efecte que nosaltres anomenem contenidors.
+:::
+
+## cgroups - Control de recursos {.smaller}
+
+Els cgroups són una funcionalitat del kernel que permet limitar i controlar els recursos que utilitza un grup de processos (o un contenidor).
+
+::: {.fragment}
+Aquests límits poden ser:
+
+- CPU: quant temps de processador poden consumir
+- Memòria: límit de RAM i swap
+- Disc (I/O): velocitat de lectura/escriptura
+- Xarxa: ample de banda
+:::
+
+:::{.fragment .center-container}
+**Per què són importants?** Eviten que un procés o contenidor monopolitzi el sistema.
+:::
+
+## Namespaces - Aïllament {.smaller}
+
+Els namespaces permeten que cada contenidor tingui la seva pròpia visió del sistema, com si fos un entorn independent
+
+- PID → processos propis
+- UTS → hostname propi
+- NET → interfícies de xarxa i rutes separades
+- MNT → sistema de fitxers aïllat
+- USER → UIDs/GIDs independents
+- IPC → recursos IPC separats
+- CGROUP namespaces → cgroups propis
+
+:::{.center-container .fragment}
+Efecte de màquina virtualitzada, però compartint el mateix nucli real.
+:::
+
+## Overlay Filesystems {.smaller}
+
+Els contenidors utilitzen OverlayFS (o variants) per gestionar un sistema d’arxius:
+
+- Les capes inferiors són de només lectura (base de la imatge).
+- La capa superior és d’escriptura, on viu el que modifica el contenidor.
+- Diversos contenidors poden compartir les capes inferiors → estalvi d’espai i eficiència.
+
+:::{.fragment}
+Això fa que les imatges siguin:
+
+- Lleugeres
+- Ràpides de desplegar
+- Facils de distribuir i versionar
+:::
+
+## Arquitectura simplificada {.smaller}
+
+::: columns
+::: {.column width="60%"}
+
+Aquesta figura mostra com un contenidor és, en realitat, un conjunt de processos normals del sistema Linux:
+
+- El kernel és compartit per tots els processos.
+- systemd (o un altre init) gestiona processos de l’amfitrió.
+- Els programes normals (A, B, C…) conviuen en el mateix sistema.
+- Els processos del contenidor també són processos normals, però:
+  - Estan aïllats per namespaces,
+  - Tenen límits de recursos amb cgroups,
+  - Veuen un sistema de fitxers propi (OverlayFS).
+:::
+::: {.column width="40%"}
+
+![](../figs/slides/04-virt/container_simple.png){width="80%"}
+
+:::{.center-container .fragment}
+Tot i estar dins del contenidor, segueixen sent processos Linux del host.
+:::
+
+:::
+:::
+
+
+
+## Motors o Llibreries de Contenidors {.smaller}
+
+### LXC (Linux Containers)
+
+- Sistema de contenidors de baix nivell integrat al kernel.
+- Contenidors de sistema complet (semblants a mini-màquines lleugeres).
+- Ideal per entorns que necessiten un sistema d’inici complet (init, serveis…).
+- És la base tècnica sobre la qual Docker es va inspirar als inicis.
+
+## Motors o Llibreries de Contenidors {.smaller}
+
+### containerd
+- Motor de contenidors de baix nivell.
+- Gestiona el cicle de vida dels contenidors (crear, executar, aturar, eliminar).
+- Utilitza **runc** per crear els contenidors reals.
+
+## Motors o Llibreries de Contenidors {.smaller}
+
+### Docker
+
+- Plataforma molt estesa per crear, distribuir i executar contenidors.
+- Enfocada en contenidors d’aplicacions, no de sistema.
+- Funcionalitats integrades:
+    - imatges en capes
+    - xarxes virtuals
+    - volums
+    - API, logs, build…
+    - Buildkit sistema principal de construcció
+
+## Motors o Llibreries de Contenidors {.smaller}
+
+### Podman
+
+- Alternativa moderna i compatible amb Docker.
+- No necessita daemon: cada contenidor és un procés del propi usuari.
+- Permet executar contenidors com usuari normal (rootless).
+- Compatible amb:
+    - imatges Docker
+    - comandes Docker (alias docker=podman)
+    - Kubernetes (podman generate kube)
+    - Permet executar `pods` (grups de contenidors) sense `kubelet`
+
+## Passos per executar un contenidor (I)  {.smaller}
+
+1. **Escriure un Containerfile** → Descriu com ha de ser el contenidor:
+   - sistema base
+   - dependències
+   - fitxers a copiar
+   - com s’executa l’aplicació
+
+2. **Construir la imatge** → A partir del Containerfile, el *Engine* crea una imatge. Pots pensar en la imatge com un .ova o .vmdk de VirtualBox:
+   - conté el sistema d’arxius 
+   - és immutable (*entre cometes*)
+   - es pot copiar o distribuir (*portable*)
+
+## Passos per executar un contenidor (II)  {.smaller}
+
+3. **Executar un contenidor**: Amb una imatge, el motor ( Engine / containerd + runc):
+   - crea un sistema d’arxius aïllat (OverlayFS)
+   - aplica namespaces i cgroups
+   - arrenca el procés principal del contenidor
+
+:::: {.fragment .center-container}
+Els passos 1 i 2 només es fan un cop per crear la imatge. Per executar el contenidor, només cal el pas 3.
+::::
+
+## Què és una imatge de contenidor? {.smaller}
+
+Un contenidor s’executa a partir d’una **imatge OCI** (Open Container Initiative).
+Una imatge conté:
+
+   - Root filesystem: El sistema d’arxius que el contenidor veu com a **arrel (/)**:
+     - binaris
+     - llibreries
+     - fitxers de configuració
+
+   - Metadades que indiquen com s’ha d’executar el contenidor:
+     - variables d’entorn
+     - comanda o entrypoint
+     - ports exposats
+     - usuaris
+     - configuració de xarxa
+     - punts de muntatge (volums)
+
+## `manifest.json` {.smaller}
+
+És el mapa general de la imatge.
+
+Conté:
+
+- identificador de les capes (layers)
+- el fitxer de configuració a utilitzar
+- el tipus de sistema d’arxius
+- checksums (sha256) per assegurar integritat
+
+:::{.center-container .fragment}
+Pensa en el manifest com l’índex de tot el que forma la imatge.
+:::
+
+## `config.json` {.smaller}
+
+Defineix el comportament del contenidor quan s’executi.
+
+Conté:
+
+- Entrypoint i Cmd
+- Variables d’entorn
+- Usuari d’execució
+- Volums
+- Directori de treball (WORKDIR)
+- Autor, timestamps, historial de construcció
+- Informació d’arquitectura (amd64, arm64…)
+
+:::{.center-container .fragment}
+El config és la **recepta** que diu com s’ha d’executar la imatge.
+:::
+
+## Capes d’una imatge de contenidor
+
+- El filesystem d’una imatge està format per diverses capes apilades (OverlayFS).
+- Cada capa representa un conjunt de canvis respecte la capa anterior (instal·lar paquets, afegir fitxers…).
+- Les capes són de només lectura i es poden reutilitzar entre imatges diferents → estalvi d’espai i eficiència.
+
+:::{.center-container .fragment}
+Les capes són com **commits**: cada una és un increment sobre l’anterior.
+:::
+
+
+## Característiques dels contenidors {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+### Avantatges
+
+- **Alt rendiment**: Els contenidors s’executen gairebé a velocitat nativa perquè són processos d’usuari que comparteixen el kernel del host.
+
+- **Desplegament molt ràpid**: Arranquen instantàniament, ja que no cal inicialitzar un sistema operatiu complet.
+
+- **Interoperabilitat d’execució**: Poden funcionar amb diferents engines i runtimes (Docker, containerd, CRI-O, Podman, runc…).
+
+:::
+::: {.column width="50%"}
+
+### Desavantatges
+
+- Només per a Linux
+- Depenen de funcionalitats del kernel de Linux (namespaces, cgroups, OverlayFS).
+- Per això les imatges sempre són Linux encara que executis Docker a Windows/Mac.
+- Aïllament reduït
+- Comparteixen el kernel del host → menor seguretat que la virtualització completa (VMs), on cada màquina té el seu kernel.
+
+:::
+:::
+
+## Immutable però modificable {.smaller}
+
+- Les imatges de contenidors són **immutables**: La imatge original no canvia mai.
+- Però quan un contenidor s’executa, sí que es pot modificar.
+- Com és possible?
+
+::: {.center-container .fragment}
+**Perquè NO és una còpia bit a bit**
+:::
+
+- Els contenidors utilitzen un filesystem en capes (OverlayFS):
+- Les capes inferiors (base image) són només lectura.
+- El contenidor té una capa superior (writable layer) on fa els canvis.
+- Totes les modificacions (fitxers nous, modificats o eliminats) van només a la capa superior.
+- El commit d’un contenidor crea una nova imatge amb els canvis de la capa superior.
+
+::: {.center-container .fragment}
+La imatge no canvia. El contenidor sí.
+:::
+
+## Portable si ... però no totalment {.smaller}
+
+- Les imatges de contenidors són **portables**: es poden copiar i executar en qualsevol sistema amb el mateix motor (Docker, Podman, containerd…).
+- Però hi ha algunes limitacions:
+    - **Arquitectura**: una imatge x86 no funcionarà en un host ARM. (Tot i que existeix multi-arch amb manifest i buildx.)
+    - **Dependències del kernel**: els contenidors depenen de funcionalitats específiques del kernel (namespaces, cgroups, OverlayFS). Si el host no les suporta, el contenidor no funcionarà.
+    - **Recursos del host**: si el host no té suficients recursos (CPU, memòria, disc), el contenidor pot no funcionar correctament
+    - Els contenidors no encapsulen el kernel ABI, per tant, si una aplicació depèn d’una versió específica del kernel, pot no funcionar en un host amb un kernel diferent.
+
+## VMs vs Contenidors {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+**Quan utilitzar màquines virtuals (VMs)**
+
+- Control complet del sistema operatiu (kernel propi, drivers, init, serveis…)
+- Aïllament molt fort: Ideal per seguretat estricta o entorns multi-tenant desconfiats.
+- Compatibilitat d’arquitectura
+- Necessitat  d'emular o executar altres arquitectures i sistemes.
+
+:::
+::: {.column width="50%"}
+
+**Quan utilitzar contenidors**
+
+- Desplegament molt ràpid: S’aixequen gairebé instantàniament.
+- Consum reduït de recursos: Comparteixen el kernel → menys RAM i CPU.
+- Ideals per aplicacions i serveis.
+
+:::
+:::
+
+## Arquitectura Docker
+
+:::{.center-container}
+![](../figs/slides/04-virt/docker-on-linux.png){width="70%"}
+:::
+
+## Components principals Docker {.smaller}
+
+- **Docker client**: interfície d’usuari (CLI, GUI, API)
+- **Docker Engine**: motor de contenidors
+  - **containerd**: Gestiona el cicle de vida dels contenidors (crear, aturar, eliminar).
+  - **runc**: Crea el contenidor real utilitzant namespaces i cgroups. (És l’única part que parla directament amb el kernel.)
+  - **libnetwork**: Gestió de xarxes virtuals (bridges, NAT, interfaces virtuals).
+  - **graphdriver**: Gestió d’imatges i del sistema de capes (OverlayFS, btrfs, zfs…). Recentment anomenat **snapshotter**.
+  - **plugins**: Extensions per storage, logging i networking.
+- **Kernel de Linux**: El kernel és on realment s’executa el contenidor.
+  - Network stack, system calls, VFS…
+  - Namespaces, cgroups v2, OverlayFS
+
+:::{.center-container .fragment}
+Docker és només una capa d’orquestració. Els contenidors els crea el kernel.
+:::
+
+
+## Instal·lació de Docker a EC2 (I)
+
+- Instal·lar el paquet amb `dnf` a Amazon Linux 2:
+
+:::{.fragment}  
+```bash
+sudo dnf install docker -y
+```
+:::
+
+- Iniciar el servei de Docker:
+
+:::{.fragment}
+```bash
+sudo systemctl enable --now docker
+```
+:::
+
+- Comprovar la instal·lació:
+
+:::{.fragment}
+```bash
+docker --version
+```
+:::
+
+## Instal·lació de Docker a EC2 (II)
+
+- Per a poder executar comandes de Docker sense necessitat de ser un usuari root, afegirem el nostre usuari al grup docker:
+
+::: {.fragment}
+
+```bash
+sudo usermod -a -G docker ec2-user
+newgrp docker # Per a aplicar els canvis
+```
+
+:::
+
+- Actualitzarem els permissos del socket de Docker per permetre als usuaris del grup docker llegir i escriure el fitxer: `/var/run/docker.sock`
+
+:::{.fragment}
+
+```bash
+sudo chmod g+rw /var/run/docker.sock
+```
+
+:::
+
+
+## Experiment 1: Temps d’arrencada {.smaller}
+
+En aquest experiment compararem la velocitat d’arrencada d’una màquina virtual (VM) amb la d’un contenidor Docker.
+
+1. **Màquina Virtual (VM)**:
+   - Utilitzeu VirtualBox per crear una màquina virtual amb Debian.
+   - Mesureu el temps d’arrencada des de l’inici fins que el sistema està llest per a l’ús. `systemd-analyze` és una eina útil per això.
+
+2. **Contenidor Docker**:
+   - Creeu un contenidor Docker utilitzant la imatge oficial de Debian.
+   - Mesureu el temps d’arrencada del contenidor des de la comanda `docker run` fins que el procés principal està en execució. Podeu utilitzar la comanda `time` per mesurar-ho.   
+   - Per exemple: `time docker run --rm debian sleep 1`
+
+
+## Exemple 1 (I)
+
+### Imagineu un servidor amb molts recursos
+
+:::{.center-container}
+![](../figs/slides/04-virt/server-0.png){width="60%"}
+:::
+
+## Exemple 1 (II)
+### Despleguem primer una aplicació amb JAVA
+
+:::{.center-container}
+![](../figs/slides/04-virt/server-1.png){width="60%"}
+:::
+
+## Exemple 1 (III)
+### Despleguem després una amb Python
+
+:::{.center-container}
+![](../figs/slides/04-virt/server-2.png){width="60%"}
+:::
+
+## Exemple 1 (IV)
+### Una web amb react
+:::{.center-container}
+![](../figs/slides/04-virt/server-3.png){width="60%"}
+:::
+
+## Exemple 1 (V) {.smaller}
+
+### això no escalarà gairebé bé
+
+- Cal definir usuaris i permisos per a cada aplicació. 
+- Cal evitar conflictes de versions de llibreries.
+- I si Java necessita OpenSSL 1.1.x i Python OpenSSL 3.x?
+- Cal evitar que una aplicació pugui accedir a fitxers d’una altra aplicació.
+- Necessitem aïllament:
+  - Una màquina virtual per aplicació seria massa costosa en recursos.
+  - Necessitem un contenidor per aplicació!
+
+## Exemple 1 (VI) {.smaller}
+
+- Contruïm un contenidor per a cada aplicació:
+  - Un contenidor amb Java + app Java
+  - Un contenidor amb Python + app Python
+  - Un contenidor amb Node.js + app React
+- Cada contenidor té el seu propi sistema d’arxius, llibreries i configuració.
+- Compartim el mateix kernel del host, però cada aplicació està aïllada.
+
+## Exemple 1 (VII)
+
+### I ara sí que escala bé!
+:::{.center-container}
+![](../figs/slides/04-virt/server-4.png){width="60%"}
+:::
+
+
+## Imatge `ubuntu`
+
+- La imatge d'`ubuntu` és una imatge oficial lleugera de Ubuntu.
+- Conté una sola capa.
+- Podeu utiltizar `docker inspect <image_name>` per veure els detalls com les capes, el sistema d'arxius i la configuració.
+
+## Mida de les imatges {.smaller}
+
+Si utiltizeu la comanda `docker pull ubuntu && docker image ls ubuntu`, veureu que la imatge ocupa només 139 MB. 
+
+:::{.fragment}
+Aquest imatge únicament conté el **userspace filesystem** i els paquets bàsics de Ubuntu. No conté:
+
+- Kernel
+- Drivers
+- Serveis de `systemd`
+- Entorn gràfic
+- bootloader
+:::
+
+:::{.center-container .fragment}
+Un contenidor no és una VM, és un procés aïllat que comparteix el kernel del host.
+:::
+
+## Dockerfile bàsic {.smaller}
+
+- Crear un fitxer anomenat `Dockerfile`.
+- Afegeix al fitxer, la imatge per on vols començar:
+
+::: {.fragment}
+
+```dockerfile
+FROM ubuntu
+```
+:::
+
+- Per construir la imatge, utilitza la comanda:
+
+:::{.fragment}
+```bash
+docker build . -t amsa
+```
+:::
+
+- Aquesta imatge **amsa** té una sola capa, basada en `ubuntu`.
+
+## Dockerfile amb més instruccions {.smaller}
+
+```bash
+FROM ubuntu
+RUN apt update && apt install figlet
+CMD figlet "amsa"
+```
+
+- `RUN` executa comandes a la imatge base.
+- `CMD` defineix la comanda per defecte quan s’executa el contenidor.
+
+- La imatge resultatn tindrà 2 capes:
+  - Capa base: `ubuntu`
+  - Capa RUN: amb `figlet` instal·lat i les dependències actualitzades.
+
+:::{.center-container .fragment}
+**Ouch! Com és que estic instal·lant sense `sudo`?**
+:::
+
+::: notes
+- Explica que dins del contenidor, el procés s’executa com a root per defecte.
+- Això no afecta el sistema host, ja que el contenidor està aïllat.
+- Però cal tenir cura amb els permisos quan es munten volums o es comparteixen recursos.
+:::
+
+## Executant la imatge
+
+1. Reconstruïm la imatge: `docker build . -t amsa`
+2. Executem el contenidor: `docker run amsa`
+
+:::{.fragment}
+```bash
+$ docker run amsa
+
+  __ _ _ __ ___  ___  __ _
+ / _` | '_ ` _ \/ __|/ _` |
+| (_| | | | | | \__ \ (_| |
+ \__,_|_| |_| |_|___/\__,_|
+```
+:::
+
+- Veurem que s’executa la comanda `figlet "amsa"` i es mostra el text ASCII.
+
+## Execució interactiva
+
+Per executar el contenidor de manera interactiva, utilitzeu: `docker run -it amsa bash`. 
+
+- Aquesta comanda dona al contenidor una terminal interactiva mantenint  STDIN obert (-i) i assignant una terminal TTY (-t).
+
+:::{.fragment}
+`docker run -it ubuntu` us permetrà explorar el sistema de fitxers d’Ubuntu dins del contenidor amb una shell bash, mentre que `docker run ubuntu` només executa la comanda per defecte i surt.
+:::
+
+## Compartint fitxers {.smaller}
+
+Anem a modificar `figlet` per mostrar un missatge personalitzat, a partir d’un fitxer local `message.txt`.
+
+:::{.fragment}
+```bash
+echo "Hello from amsa!" > message.txt
+```
+:::
+
+- COPY <origen> <destí> copia fitxers/directoris del host al sistema de fitxers del contenidor.
+
+:::{.fragment}
+```dockerfile
+FROM ubuntu
+COPY message.txt my-message.txt
+RUN apt update && apt install -y figlet
+CMD cat my-message.txt | figlet
+```
+:::
+
+:::{.center-container .fragment}
+Cada cop que modifiqueu el fitxer `message.txt`, haureu de reconstruir la imatge per veure els canvis.
+:::
+
+## Pregunta 1 {.smaller}
+
+Quina és la diferència entre aquests dos Dockerfiles?
+
+::: columns
+::: {.column width="50%"}
+
+### A
+
+```dockerfile
+FROM ubuntu
+COPY message.txt my-message.txt
+RUN apt update && apt install -y figlet
+CMD cat my-message.txt | figlet
+```
+
+:::
+::: {.column width="50%"}
+
+### B
+
+```dockerfile
+FROM ubuntu
+RUN apt update && apt install -y figlet
+COPY message.txt my-message.txt
+CMD cat my-message.txt | figlet
+```
+
+:::
+:::
+
+:::{.fragment}
+Les capes es construeixen en ordre. Si el fitxer `message.txt` canvia, només la capa que el copia (COPY) es tornarà a construir en el Dockerfile **A**. En el Dockerfile **B**, si `message.txt` canvia, tota la capa RUN (instal·lació de figlet) també es tornarà a construir, fent el procés més lent.
+:::
+
+## Treballant amb python {.smaller}
+
+Imagine que teniu un projecte amb python amb els fitxers següents:
+
+```
+├── main.py
+├── message.txt      # The message we want pfiglet to print
+├── requirements.txt # pyfiglet declared as a dependency
+└── .venv            # The python virtual env
+```
+
+on el `main.py` conté:
+
+```python
+from pyfiglet import Figlet
+
+with open("message.txt") as file:
+  print(Figlet().renderText(file.read()))
+```
+
+## Dockerfile per a l’aplicació Python {.smaller}
+
+- Normalment, per executar-ho sense contenidors, faríem:
+
+:::{.fragment}
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python main.py
+```
+:::
+
+- Però amb Docker, podem crear un Dockerfile així:
+
+:::{.fragment}
+
+```dockerfile
+FROM python
+COPY main.py main.py
+COPY message.txt message.txt
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+CMD python main.py
+```
+:::
+
+:::{.center-container .fragment}
+Com és que no estem utilitzant un entorn virtual `.venv` dins del contenidor?
+:::
+
+::: notes
+- Explica que dins del contenidor, el sistema està aïllat.
+- No hi ha conflictes amb altres aplicacions o versions de Python.
+- Per això, no és necessari utilitzar un entorn virtual dins del contenidor.
+:::
+
+## `COPY . .` {.smaller}
+
+- En lloc de copiar fitxer per fitxer, podem copiar tot el directori de treball amb:
+
+```dockerfile
+FROM python
+COPY . .
+RUN pip install -r requirements.txt
+CMD python main.py
+```
+
+## Optimitzant la imatge
+
+- Quan es treballa amb contenidors, és important mantenir les imatge tant petites com sigui possible.
+- El contenidor únicament necessita (`message.txt`, `main.py`, `requirements.txt`).
+- Com estem fent `COPY . .`, també estem copiant el directori `.venv`, que pot ser molt gran i innecessari dins del contenidor.
+
+## Dockerignore
+
+- Per evitar copiar fitxers/directoris innecessaris, podem utilitzar un fitxer `.dockerignore`.
+- Sembla un `.gitignore`, però per a Docker.
+
+:::{.fragment}
+```bash
+echo ".venv" >> .dockerignore
+echo "Dockerfile" >> .dockerignore
+echo .dockerignore >> .dockerignore
+```
+:::
+
+- Això evitarà que el directori `.venv`, el `Dockerfile` i el propi `.dockerignore` es copiïn a la imatge.
+
+## Optimització final del Dockerfile
+
+```dockerfile
+FROM python
+COPY . .
+RUN pip install -r requirements.txt
+CMD python main.py
+```
+
+- **Què més es pot optimitzar?**
+- Què passa si únicament modifico el fitxer `message.txt`?
+
+
+## Caché de capes
+
+- Els projectes reals tenen moltes dependències, i haver de reinstal·lar-les cada cop que un fitxer canvia seria molt lent.
+- És bona pràctica primer copiar només els fitxers necessaris per instal·lar les dependències, i després copiar la resta del projecte:
+
+:::{.fragment}
+```dockerfile
+FROM python
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+CMD python main.py
+```
+:::
+
+:::notes
+- Explica que així, si només canvia `message.txt` o `main.py`, només es tornarà a construir la capa que copia aquests fitxers.
+- La capa que instal·la les dependències es mantindrà en caché, fent el procés de construcció molt més ràpid.
+:::
+
+## Dockerfile `ubuntu`  {.smaller}
+
+Si mireu el contingut de la imatge oficial d'`ubuntu`, veureu que el Dockerfile és així:
+
+```Dockerfile
+FROM scratch
+ADD rootfs-22.04-amd64.tar /
+CMD ["/bin/bash"]
+```
+
+- `FROM scratch` indica que aquesta imatge no té cap capa base (és buida).
+- `ADD rootfs-22.04-amd64.tar /` semblant a `COPY`, però amb més funcionalitats, per exemple, pot descomprimir arxius.
+- `CMD ["/bin/bash"]` estableix la comanda per defecte quan s’executa el contenidor.
+
+:::{.center-container .fragment}
+Quina diferència hi ha entre  `CMD["/bin/bash"]` i `CMD /bin/bash`? És el mateix?
+:::
+
+::: notes
+- Explica que la primera forma és la forma exec (recomanada), on s'executa directament el binari sense passar per un shell.
+- La segona forma és la forma shell, on s'executa a través d'un shell (com `/bin/sh -c`).
+- La forma exec és més eficient i evita problemes amb senyals i processos fills.
+:::
+
+
+## Exercici 1: Contenidor amb dependències
+
+Imagineu que executeu la comanda següent:
+
+```bash
+docker run python:3.9 python -c "import numpy as np; print(np.random.rand())"
+```
+
+Explica què passa?
+
+## Exercici 1: Contenidor amb dependències (solució)
+
+La imatge oficial de `python:3.9` no inclou la llibreria NumPy per defecte. Per tant, quan s'intenta executar el codi Python que importa NumPy, es produeix un error perquè la llibreria no està instal·lada dins del contenidor.
+
+```Dockerfile
+FROM python:3.9
+RUN pip install numpy
+```
+
+## Exercici 2: Compartint dades
+
+Imagina que tens un script de Python anomenat `hola.py` al teu sistema host amb el següent contingut:
+
+```python
+print("Hola món!")
+```
+
+Vols executar aquest script dins d'un contenidor Docker basat en la imatge oficial de Python 3.9. Com ho faries?
+
+## Exercici 2: Compartint dades (solució 1)
+
+Creariam un dockerfile per a la nostra aplicació Python:
+
+```Dockerfile
+FROM python:3.9
+COPY hola.py hola.py
+CMD python hola.py
+```
+
+## Exercici 3: Compartint dades de sortida
+
+Però, i si volem que el script `hola.py` escrigui un fitxer de sortida anomenat `sortida.txt` dins del sistema host? Com ho faríem?
+
+## Compartint dades amb un contenidor Docker
+
+Per compartir dades estàtiques estem utiltizant la instrucció `COPY` al Dockerfile. Però, i si volem compartir dades dinàmiques entre el sistema host i el contenidor, com els fitxers de sortida generats pel contenidor?
+
+Cal compartir un directori o fitxer entre el sistema host i el contenidor. Per això, utilitzarem l'opció `-v` de la comanda `docker run`.
+
+```bash
+docker run -v <directori_host>:<directori_contenidor> <imatge> <comanda>
+```
+
+## Quins són els directoris del contenidor? {.smaller}
+
+- Podem utilitzar la comanda `docker run -it <imatge> bash` per accedir a la consola del contenidor i explorar el sistema de fitxers. 
+- Un cop dins, podem utilitzar comandes com `ls`, `pwd` i `cd` per navegar pels directoris.
+- Alguns directoris comuns són:
+  - `/app`: sovint utilitzat com a directori de treball per a aplicacions.
+  - `/data`: sovint utilitzat per emmagatzemar dades persistents.
+  - `/tmp`: directori temporal.
+
+## `WORKDIR` {.smaller}
+
+- La instrucció `WORKDIR` al Dockerfile estableix el directori de treball per a qualsevol comanda següent (`RUN`, `CMD`, `ENTRYPOINT`, `COPY`, `ADD`).
+- Si el directori no existeix, Docker el crearà automàticament.
+- Per exemple:
+  
+```dockerfile
+FROM python:3.9
+WORKDIR /app
+COPY hola.py .
+CMD python hola.py
+```
+
+## Exericici 3: Compartint dades de sortida (solució)
+
+Primer, crearem un script `hola2.py` que escriu un fitxer de sortida:  
+```python
+output = open("sortida.txt", "w")
+output.write("Hola món!")
+output.close()
+```
+
+Després, executarem el contenidor Docker amb l'opció `-v` per compartir el directori actual del sistema host amb el directori `/app` del contenidor:
+
+```bash
+docker run -v $(pwd):/app python:3.9 python /app/hola2.py
+```
+
+## Taula de comandes útils de Docker {.smaller}
+
+| Comanda                        | Descripció                                      |
+|-------------------------------|------------------------------------------------|
+| `docker build -t <nom> .`     | Construir una imatge des del Dockerfile actual.  |
+| `docker run <imatge>`         | Executar un contenidor des d'una imatge.      |
+| `docker run -it <imatge> bash` | Executar un contenidor en mode interactiu amb una shell. |
+| `docker ps`                    | Llistar els contenidors en execució.           |  
+| `docker stop <contenidor>`    | Aturar un contenidor en execució.              |
+| `docker rm <contenidor>`      | Eliminar un contenidor aturat.                     |
+| `docker rmi <imatge>`         | Eliminar una imatge.                           |
+| `docker images`               | Llistar les imatges disponibles.                |
+| `docker logs <contenidor>`    | Veure els logs d'un contenidor.                |
+| `docker inspect <imatge/contenidor>` | Veure els detalls d'una imatge o contenidor.   |
+
+
+
+## Xarxes i Contenidors
+
+Imagineu que tenim un servidor web molt simple:
+
+```python
+python -m http.server <port>
+```
+
+Si executem aquesta comanda exposarem els fitxers a una interfície de xarxa del host.
+
+![](../figs/slides/04-virt/python-webserver.png)
+
+
+## Contenidor amb servidor web
+
+1. Creem un Dockerfile per al servidor web:
+
+:::{.fragment}
+```dockerfile
+FROM python
+CMD ["python", "-m", "http.server", "8080"]
+```
+:::
+
+2. Construïm la imatge i executem el contenidor:
+
+:::{.fragment}
+```bash
+docker build . -t amsa
+docker run AMSA
+Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
+```
+:::
+
+:::{.center-container .fragment}
+Si accedim a `http://localhost:8080` des del host, no veurem res!
+:::
+
+
+## Per què no funciona?
+
+- Els contenidors per defecte estan aïllats.
+- A part del seu sistema de fitxers propri, també tenen la seva pròpia pila de xarxa.
+- El port 8080 del contenidor no és el port 8080 de la màquina host.
+
+## Mapeig de ports
+
+- Per accedir als serveis d’un contenidor des del host, cal fer un **mapeig de ports**.
+- Utilitzem l’opció `-p` de `docker run` per mapar un port del host a un port del contenidor:
+
+:::{.fragment}
+```bash
+docker run -p 8085:8080 amsa
+Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
+```
+:::
+
+- La sintaxi és `-p <port_host>:<port_contenidor>`, on ara podem accedir al servidor web a `http://localhost:8085`.
+
+
+## Exercicis
+
+- [Exercicis de Contenidors Docker](../exercises/05-virtualitzation/01-docker.qmd)

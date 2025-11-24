@@ -3,3 +3,4 @@ docs
 .DS_Store
 **/*.quarto_ipynb
 slides/0X-*.qmd
+exercises/05-virtualitzation/01-docker-sol.qmd

@@ -1,0 +1,116 @@
+---
+title: "Exerccisis amb Docker"
+---
+
+## Exercici 1: Docker bàsic amb un script Python
+
+Donada la següent aplicació en Python:
+
+    ```python
+    import falcon
+
+    class Item:
+        def __init__(self, id, name):
+            self.id = id
+            self.name = name
+
+    items = [
+        Item(1, "Item 1"),
+        Item(2, "Item 2"),
+        Item(3, "Item 3"),
+    ]
+
+    class ItemListResource:
+        def on_get(self, req, resp):
+            resp.media = [{"id": item.id, "name": item.name} for item in items]
+
+    class ItemResource:
+        def on_get(self, req, resp, item_id):
+            item = next((i for i in items if i.id == int(item_id)), None)
+            if item:
+                resp.media = {"id": item.id, "name": item.name}
+            else:
+                resp.status = falcon.HTTP_404
+                resp.media = {"error": "Item not found"}
+
+
+    app = falcon.App()
+
+    app.add_route('/items', ItemListResource())
+    app.add_route('/items/{item_id}', ItemResource())
+    ```
+
+    Per executar l'aplicació, es pot fer servir el següent script:
+
+    ```bash
+    gunicorn -b 0.0.0.0:8000 app:app
+    ```
+
+    On `app` és el nom del fitxer on es troba l'aplicació.
+
+    A més, sabem que l'aplicació necessita les següents llibreries: `falcon` i `gunicorn` en les versions 3.0.0 i 20.1.0 respectivament.
+
+    La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.
+
+## Exercici 2: Compartint fitxers entre host i contenidor
+
+Tens el següent script Python:
+
+```python
+with open("data.txt") as f:
+    print(f.read())
+```
+
+- Crea una imatge Docker mínima que executi aquest script.
+- No copiïs data.txt dins de la imatge.
+- Executa el contenidor de manera que l’arxiu `data.txt` del host es vegi dins del contenidor.
+- El contingut de `data.txt` és: "Hola, Docker!" i s'ha de mostrar a la terminal quan s'executa el contenidor.
+
+  1. Quina és la comanda per construir la imatge Docker? I per executar el contenidor amb l'arxiu `data.txt` del host muntat dins del contenidor?
+  2. Cal recontruir la imatge Docker si es modifica el contingut de `data.txt` al host? Justifica la teva resposta.
+  3. Quina diferència té incloure l'arxiu `data.txt` dins de la imatge Docker o en la execució del contenidor? Quin impacte té això en el temps de construcció i la mida de la imatge Docker?
+
+## Exercici 3: Optimització de Dockerfile
+
+A partir d'una imatge de Dockerfile, heu d'analitzar capes i mida d’una imatge:
+
+```Dockerfile
+FROM python:3.11-slim
+RUN apt-get update
+RUN apt-get install -y curl
+RUN pip install flask
+COPY app.py .
+CMD ["python", "app.py"]
+```
+
+- Construeix la imatge Docker i identifica les capes creades per cada instrucció del Dockerfile.
+- Proposa una versió millorada del Dockerfile que redueixi la mida de la imatge final combinant capes i eliminant redundàncies.
+- Calcula la diferència de mida entre la imatge original i la imatge millorada.
+
+## Exercici 4: Optimització d'imatges Docker
+
+Donada la següent api amb python i flask:
+
+```python
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello world!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+```
+
+- Crea un Dockerfile per a aquesta aplicació utilitzant una imatge base oficial de Python (per exemple, `python:3.11-slim`).
+- Crea un Dockerfile ara amb la imatge base `alpine` (per exemple, `python:3.11-alpine`).
+- Compara les mides i els temps d'arrrencada de les dues imatges Docker creades.
+
+## Exercici 5: Multi-stage builds amb Docker
+
+Tens una app de React en un directori `frontend/`.
+
+- Fes una imatge sense multi-stage build, instal·lant Node.js i servint l’app amb npm run build.
+- Fes una imatge amb multi-stage build, on en la primera etapa es construeix l’app i en la segona etapa es serveix amb un servidor web lleuger (com nginx).
+- Compara les mides de les dues imatges i explica els avantatges de l’enfoc multi-stage build.
