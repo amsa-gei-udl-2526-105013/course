@@ -103,7 +103,7 @@ cd openldap-$VER
 
     ```bash
     cd contrib/slapd-modules/passwd/sha2
-    make install
+    sudo make install
     ```
 
 Per fer-ho simple:
