@@ -96,7 +96,7 @@ cd openldap-$VER
 
     ```bash
     cd ../../../.. # Tornem a la carpeta inicial
-    make install
+    sudo make install
     ```
 
 5. Instal·lem els mòduls addicionals:
