@@ -1166,3 +1166,7 @@ Un cop configurat correctament, hauríeu de poder iniciar sessió a LAM amb l'us
 
   ![](../../figs/laboratories/05-aws-ldap/lam-04.png)
 
+
+## Project 03: Automatització amb AWS i Ansible
+
+- [Pràctica 03 - Enunciat](../../projects/03-project/03-project.qmd)

@@ -71,8 +71,12 @@ Hi ha altres opcions possibles. C
 
 ## Entrega
 
+En totes les entregues cal indicar els membres de l'equip al README.md o bé al campus virtual en el moment de la pujada.
+
 ## Opció 1. CV
 Cal lliurar al campus virtual un fitxer `practica03-amsa-<nom1_cognom1,nom2_cognom2,...>.zip` amb tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura. 
 
 ## Opció 2. Repositori GitHub
-Cal pujar tot el contingut a un repositori privat/públic de GitHub i compartir l'accés amb l'adreça de correu del professor. El repositori ha de contenir tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura.
+Cal pujar tot el contingut a un repositori privat/públic de GitHub i compartir l'accés amb l'adreça de correu del professor. L'enllaç al repo l'heu d'indicar al campus virtual. El repositori ha de contenir tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura.
+
+
