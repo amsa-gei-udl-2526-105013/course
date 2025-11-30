@@ -1,0 +1,78 @@
+---
+title: "Pràctica 03: Automatitzant LDAP a AWS amb CloudFormation i Ansible"
+subtitle: "Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)"
+author: "Jordi Mateo Fornés <jordi.mateo@udl.cat>"
+format: html
+lang: ca
+---
+
+## Objectius
+
+- Desplegar un servidor LDAP segur a AWS utilitzant instàncies EC2.
+- Automatitzar la instal·lació i configuració del servidor LDAP, client LDAP i LAM.
+- Utilitzar Ansible o CloudFormation per a la gestió d'infraestructura com a codi.
+
+## Requisits previs
+
+- El tres nodes (servidor LDAP, client LDAP i LAM) han d'estar desplegats en instàncies EC2 a AWS.
+- El servidor LDAP ha de tenir TLS configurat per a connexions segures.
+- El client LDAP ha de poder autenticar usuaris contra el servidor LDAP.
+- LAM ha de ser accessible via web i permetre la gestió dels usuaris i grups LDAP. No cal que LAM utilitzi certificats SSL per al servidor web, però si que cal que el servidor LDAP utilitzi TLS.
+
+## Requisits obligatoris
+
+- Les màquines han de ser instàncies EC2 a AWS amb Amazon Linux 2023 i t3.micro o t2.micro.
+
+## Tasques
+
+Aquest projecte consisteix en desplegar una infraestructura LDAP completa a AWS utilitzant instàncies EC2. 
+
+- Creu un servidor LDAP amb una base de dades pròpia que contingui usuaris i grups.
+  - La base de dades LDAP ha de ser `dc=amsa,dc=udl,dc=cat`.
+  - Creeu tres rols principals: alumne, professor i admin.
+  - Aquests rols s’han de representar en LDAP com a grups i usuaris.
+  - Creeu un mínim de 6 alumnes, 2 professors i 1 admin.
+
+- Automatitzeu la instal·lació i configuració del servidor LDAP, client LDAP i LAM mitjançant scripts Bash.
+
+### Opcions d'automatització
+
+### Opció A: CloudFormation + Ansible + Bash
+
+- Creeu 3 scripts de Bash separats per a la instal·lació i configuració del servidor LDAP, client LDAP i LAM.
+- Creeu una plantilla de CloudFormation per desplegar les instàncies EC2 necessàries.
+- Copieu els DNS manualment a l'inventari d'Ansible.
+- Utiltizeu Ansible per executar els scripts Bash a les instàncies desplegades i per moure els certificats TLS.
+
+### Opció B: CloudFormation + Ansible
+
+- Automatizeu tot el procés utilitzant Ansible per a la instal·lació i configuració del servidor LDAP, client LDAP i LAM. Sense scripts Bash. Amb la lògica de ansible.
+- Creeu una plantilla de CloudFormation per desplegar les instàncies EC2 necessàries.
+- Creeu un script que primer desplegui la infraestructura amb CloudFormation i després executi els playbooks d'Ansible, utilitzeu el AWS CLI per obtenir els DNS de les instàncies i generar l'inventari d'Ansible automàticament.
+
+### Opció C: CloudFormation
+
+- Automatitzeu tot el procés utilitzant només CloudFormation i scripts d'inicialització (UserData) per a la instal·lació i configuració del servidor LDAP, client LDAP i LAM.
+- Creeu una plantilla de CloudFormation per desplegar les instàncies EC2 necessàries
+
+:::{.callout-tip title="Consell"}
+Aquesta és una opció avançada i pot resultar **no operativa** per limitacions amb AWS Educate. Es pot evitar l'ús de IAM Roles, però complicarà la pràctica.
+:::
+
+### Altres opcions
+
+Hi ha altres opcions possibles. C
+
+## Tasques finals
+  
+- Modifiqueu el script per poder aixecar 1 o N clients LDAP.
+- Permeteu que tots els parametres siguin configurables des de la línia de comandes o fitxer de configuració.
+- Els usuaris dels clients LDAP han de poder accedir únicament per SSH amb clau pública.
+
+## Entrega
+
+## Opció 1. CV
+Cal lliurar al campus virtual un fitxer `practica03-amsa-<nom1_cognom1,nom2_cognom2,...>.zip` amb tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura. 
+
+## Opció 2. Repositori GitHub
+Cal pujar tot el contingut a un repositori privat/públic de GitHub i compartir l'accés amb l'adreça de correu del professor. El repositori ha de contenir tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura.
