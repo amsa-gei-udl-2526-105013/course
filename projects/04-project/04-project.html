@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jordi Mateo Fornés jordi.mateo@udl.cat">
 
-<title>Modificant la contrasenya de l’usuari root a través del GRUB – AMSA - Fall 2025</title>
+<title>Pràctica 04: Dockerització i Orquestració d’una API a AWS – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/04-ex-week3.html">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projectes</a></li><li class="breadcrumb-item"><a href="../../projects/04-project/04-project.html">Projecte 4 · Dockerització i Orquestració d’una API a AWS</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -228,13 +229,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Activitats</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
@@ -260,13 +261,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -287,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
   </div>
 </li>
@@ -475,13 +476,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
  <span class="menu-text">Projectes</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
@@ -502,7 +503,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../projects/04-project/04-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../projects/04-project/04-project.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Projecte 4 · Dockerització i Orquestració d’una API a AWS</span></a>
   </div>
 </li>
@@ -518,27 +519,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#objectiu" id="toc-objectiu" class="nav-link active" data-scroll-target="#objectiu">Objectiu</a></li>
-  <li><a href="#escenari" id="toc-escenari" class="nav-link" data-scroll-target="#escenari">Escenari</a></li>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#procediment" id="toc-procediment" class="nav-link" data-scroll-target="#procediment">Procediment</a></li>
-  <li><a href="#protecció-del-grub" id="toc-protecció-del-grub" class="nav-link" data-scroll-target="#protecció-del-grub">Protecció del GRUB</a></li>
-  <li><a href="#reflexions" id="toc-reflexions" class="nav-link" data-scroll-target="#reflexions">Reflexions</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a></li>
+  <li><a href="#delivery" id="toc-delivery" class="nav-link" data-scroll-target="#delivery">2. Delivery</a></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">3. Outline</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">4. Resources</a>
+  <ul class="collapse">
+  <li><a href="#repository-template" id="toc-repository-template" class="nav-link" data-scroll-target="#repository-template">Repository template</a></li>
+  <li><a href="#understanding-the-api" id="toc-understanding-the-api" class="nav-link" data-scroll-target="#understanding-the-api">Understanding the API</a></li>
+  <li><a href="#the-database" id="toc-the-database" class="nav-link" data-scroll-target="#the-database">The database</a></li>
+  <li><a href="#brief-summary" id="toc-brief-summary" class="nav-link" data-scroll-target="#brief-summary">Brief summary</a></li>
+  </ul></li>
+  <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks">5. Tasks</a>
+  <ul class="collapse">
+  <li><a href="#prac-4.1-dockerizing-the-api" id="toc-prac-4.1-dockerizing-the-api" class="nav-link" data-scroll-target="#prac-4.1-dockerizing-the-api">Prac-4.1: “Dockerizing” the API</a></li>
+  <li><a href="#prac-4.2-moving-to-docker-compose" id="toc-prac-4.2-moving-to-docker-compose" class="nav-link" data-scroll-target="#prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose 🚧⛏️👷</a></li>
+  <li><a href="#prac-4.3-using-aws-ecr-and-ecs" id="toc-prac-4.3-using-aws-ecr-and-ecs" class="nav-link" data-scroll-target="#prac-4.3-using-aws-ecr-and-ecs">Prac-4.3: Using AWS ECR and ECS</a></li>
+  <li><a href="#prac-4.4-merging-it-with-aws-rds" id="toc-prac-4.4-merging-it-with-aws-rds" class="nav-link" data-scroll-target="#prac-4.4-merging-it-with-aws-rds">Prac-4.4: Merging it with AWS RDS!</a></li>
+  </ul></li>
+  <li><a href="#sec-setup" id="toc-sec-setup" class="nav-link" data-scroll-target="#sec-setup">6. Setting up the server!</a>
+  <ul class="collapse">
+  <li><a href="#cloning-the-repository-and-set-it-up" id="toc-cloning-the-repository-and-set-it-up" class="nav-link" data-scroll-target="#cloning-the-repository-and-set-it-up">Cloning the repository and set it up:</a></li>
+  </ul></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">7. Evaluation</a></li>
+  <li><a href="#rules" id="toc-rules" class="nav-link" data-scroll-target="#rules">8. Rules</a></li>
+  <li><a href="#resources-1" id="toc-resources-1" class="nav-link" data-scroll-target="#resources-1">9. Resources</a></li>
+  <li><a href="#doubts" id="toc-doubts" class="nav-link" data-scroll-target="#doubts">10. Doubts</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/04-ex-week3.html">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projectes</a></li><li class="breadcrumb-item"><a href="../../projects/04-project/04-project.html">Projecte 4 · Dockerització i Orquestració d’una API a AWS</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Modificant la contrasenya de l’usuari root a través del GRUB</h1>
+<h1 class="title">Pràctica 04: Dockerització i Orquestració d’una API a AWS</h1>
+<p class="subtitle lead">Unitat 5 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordi Mateo Fornés <a href="mailto:jordi.mateo@udl.cat" class="email">jordi.mateo@udl.cat</a> </p>
+          </div>
+  </div>
     
   
     
@@ -549,181 +576,235 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objectiu" class="level2">
-<h2 class="anchored" data-anchor-id="objectiu">Objectiu</h2>
+<p>Aquesta pràctica ha estat desenvolupada pels professors de Lleida, i enguany la fareu als dos campus:</p>
 <ul>
-<li>Entendre com funciona la edició temporal del GRUB.</li>
-<li>Entendre com protegir el GRUB amb una contrasenya.</li>
-<li>Entendre com GRUB pot ser un vector d’accés físic al sistema.</li>
+<li>Ferran Aran Domingo</li>
+<li>Oriol Agost Batalla</li>
+<li>Pablo Fraile Alonso</li>
+</ul>
+<p>En part es tracta d’una competició amistosa entre els dos campus per veure qui ho fa millor!</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>The objective for this assignment is to <strong>dockerize and orchestrate a provided API.</strong></p>
+<p>We’ve created an <a href="https://www.postman.com/what-is-an-api/#how-do-apis-work">HTTP Server API</a>, a program that communicate between different applications by defining clear rules for how data is requested, sent, and received.</p>
+<p>There are lots of different behaviours for APIs (and we’ll explain how ours works in the sections bellow), but they will typically have:</p>
+<ul>
+<li>Endpoints: An API endpoint is a dedicated URL that provides access to a specific resource. For instance, the <em>/articles</em> endpoint in a blogging app would return all the articles of the server.</li>
+<li>Method: The request’s method indicates the type of operation the client would like to perform on a given resource. REST APIs are accessible through standard HTTP methods, which perform common actions like retrieving, creating, updating, and deleting data.</li>
+<li>Parameters: Parameters are the variables that are passed to an API endpoint to provide specific instructions for the API to process. These parameters can be included in the API request as part of the URL, in the query string, or in the request body. For example, the /articles endpoint of a blogging API might accept a “topic” parameter, which it would use to access and return articles on a specific topic.</li>
+<li>Request body: The body is the main part of the request, and it includes the actual data that is required to create, update, or delete a resource. For instance, if you were creating a new article in a blogging app, the request body would likely include the article’s content, title, and author.</li>
+</ul>
+<p><strong>The objective of this activity is to <em>dockerize</em> and deploy to AWS our API, while also learning about databases in the way.</strong></p>
+</section>
+<section id="delivery" class="level2">
+<h2 class="anchored" data-anchor-id="delivery">2. Delivery</h2>
+<p><em>Accept the assignment in Github Classroom, <a href="https://classroom.github.com/a/3DHX45S9">following the link</a></em></p>
+<p>To complete this activity, you must do the following for each sub-delivery (PRAC-4.1, PRAC-4.2, PRAC-4.3 and PRAC-4.4):</p>
+<ol type="1">
+<li><p>Deliver <strong>a link to your Github repository</strong> on the virtual campus activity.</p></li>
+<li><p>Push the code you’ve written (<strong>before the final deadline</strong>) to your Github repo so we can evaluate it.</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Consell
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that we’re only going to evaluate your assignment after the final deadline, but following the recommended tempos and pushing each part of the activity accordingly can grant you extra points.</p>
+</div>
+</div>
+</section>
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">3. Outline</h2>
+<p>This activity is split onto 4 incremental parts, which are going to be related to the contents explained during the different classes.</p>
+<ol type="1">
+<li>On the first week, your job will be to <strong>“dockerize” the API</strong>.</li>
+<li>On the second week, your job will be to communicate the API with a postgresql database using docker-compose on your local PC.</li>
+<li>Then, we’ll want you to deploy the API to AWS.</li>
+<li>Finally, after having explained the <strong>AWS Relational Database Service (RDS)</strong>, you’ll connect the ECS service to your newly created RDS database.</li>
+</ol>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">4. Resources</h2>
+<p>Since building the users API yourself is outside the scope of this subject, the teachers have prepared some helpful resources to make the activity quicker and more enjoyable. This way, you can focus on the fun parts: containers and AWS services!</p>
+<section id="repository-template" class="level3">
+<h3 class="anchored" data-anchor-id="repository-template">Repository template</h3>
+<p>When you join the Github Classroom activity with the link provided on Step 2, a remote repository is automatically created for you to work on this assignment. This repository will already contain all the python code of the API, below are the details of what comes with the repo:</p>
+<ol type="1">
+<li><p>It has everything needed to serve the API.</p></li>
+<li><p>A <code>README.md</code> file where you’ll have instructions on how to set up the python environment.</p></li>
+</ol>
+</section>
+<section id="understanding-the-api" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-api">Understanding the API</h3>
+<p>How does our API work? First, <a href="../../projects/04-project/04-project.html#sec-setup">you have to setup your environment and start the server, see section 6</a>.</p>
+<p>By default, the server listens for HTTP connections on port <code>8000</code>. Be aware that, this means that if you’re running it on your pc (without any container), you can access it via <code>http://localhost:8000</code> on your browser. If you’re running it on a conainer, you’ll need to map the port of the container to your host so you can access it on your browser (see <a href="https://amsa.lol/resources/docker.html#run-a-container-given-an-image-advanced">how to map it on our reference cheatsheet</a>).</p>
+<p>The API, exposes three “endpoints”, let’s see them:</p>
+<ul>
+<li><p>(<code>GET /docs</code>) Documentation: Returns an html file (the type of files that your browser knows how to show/paint on the screen), that allows us to easily call the other two endpoints of the API. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+<li><p>(<code>POST /users</code>) Create a user given:</p>
+<ul>
+<li>A username</li>
+<li>A name</li>
+<li>A role (“user” or “admin”)</li>
+<li>A password</li>
+</ul></li>
+<li><p>(<code>GET /users</code>) List all existing users</p></li>
+</ul>
+<p>If you want to see the documentation and “play” with the <code>/users</code> endpoints, you can access <a href="http://localhost:8000/docs" class="uri">http://localhost:8000/docs</a> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> This will allow you to create users with <code>POST http://localhost:8000/users</code>, and then retrieve the information with <code>GET http://localhost:8000/users</code>, nice!</p>
+<p>If it still didn’t make clear what an API really is <a href="https://www.youtube.com/watch?v=PUPDGbnpSjw">watch the hardvard cs50 http class</a>, and then think that:</p>
+<ul>
+<li>The <code>/docs</code> endpoint is just the same as the “facebook” example they show, it returns text in <code>html</code> format.</li>
+<li>The other two endpoints, (<code>POST users</code> and <code>GET users</code>) receive and return text in the <a href="https://stackoverflow.blog/2022/06/02/a-beginners-guide-to-json-the-data-format-for-the-internet/">json</a> format, not <code>html</code>.</li>
 </ul>
 </section>
-<section id="escenari" class="level2">
-<h2 class="anchored" data-anchor-id="escenari">Escenari</h2>
-<p>Un atacant amb <strong>accés físic</strong> al servidor podria modificar la contrasenya de l’usuari root iniciant el sistema des del GRUB. En aquesta pràctica assumirem aquest escenari de manera controlada.</p>
-</section>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
+<section id="the-database" class="level3">
+<h3 class="anchored" data-anchor-id="the-database">The database</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Don't worry too much">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Don’t worry too much
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’ll switch and explore the databases on PRAC-4.2! Although it is recommended that you try to understand them now, so you can “more or less” see, how our service works!</p>
+</div>
+</div>
+<p>Our app needs a way to save the users information! We save it on a database, and we want to choose between different databases <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> :</p>
 <ul>
-<li>Una màquina virtual amb Debian 12 amb GRUB com a gestor d’arrencada.</li>
+<li><p>By default, it uses an internal <a href="https://sqlite.org/index.html">sqlite</a>, which just uses a “raw” file as the database. This means that it doesn’t connect to anything, it just saves the information to an “optimized” file, and that’s really it.</p></li>
+<li><p>If the <code>PROD</code> environment variable is set <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> , then it will attempt to connect to a <a href="https://www.postgresql.org">postgresql</a> database. This database is another “service” on his own, that exposes a port (by default 5432), where you can connect and send values to be saved. Of course, not everyone should connect to this database, only the people with a valid username and password, that’s the reason behind that, when you create a postgresql database, you need to tell it the user and password that you want!</p></li>
+</ul>
+<p>Once we have an instance of postgresql running, we can tell the users api to use this instance instead of the sqlite one (This will be a requirement on Prac-4.2!). So, we’ll have to tell him the following information via environment variables:</p>
+<ul>
+<li><code>PROD</code>: Set it to true if you want to use a postgresql instance.</li>
+<li><code>DB_USER</code>: The user who will connect to the database</li>
+<li><code>DB_PASSWORD</code>: The password to connect to the database</li>
+<li><code>DB_HOST</code>: The IP address of the host of the database</li>
+<li><code>DB_PORT</code>: The port of the host of the database</li>
+<li><code>DB_NAME</code>: The name of the database inside postgresql</li>
 </ul>
 </section>
-<section id="procediment" class="level2">
-<h2 class="anchored" data-anchor-id="procediment">Procediment</h2>
-<ol type="1">
-<li><strong>Accés al GRUB</strong>
-<ul>
-<li>Reinicia el sistema i accedeix al menú del <strong>bootloader GRUB</strong>.</li>
-<li>Selecciona la entrada del sistema operatiu i prem <code>e</code> per editar-la.</li>
-</ul></li>
-<li><strong>Modificació de la línia del kernel</strong>
-<ul>
-<li>Localitza la línia que comença amb <code>linux</code> i acaba amb <code>ro</code>.</li>
-<li>Afageix <code>init=/bin/bash</code> al final.</li>
-<li>Aquesta opció indica al kernel iniciar directament un <strong>shell</strong> sense passar pel procés d’inicialització normal.</li>
-</ul></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="`init=/bin/bash`">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span><code>init=/bin/bash</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Aquesta opció fa que el sistema arranqui directament en un shell de bash com a root, evitant els processos d’inicialització habituals. Tots els serveis <em>systemd</em> i altres processos no s’inicien, i el sistema es troba en un estat mínim, amb només el shell disponible.</p>
-</div>
-</div>
-<ol start="3" type="1">
-<li><p><strong>Inici amb les opcions modificades</strong></p>
-<ul>
-<li>Prem <code>Ctrl + X</code> per iniciar el sistema amb aquesta configuració.</li>
-<li>Accediràs a un <strong>prompt de bash</strong> amb permisos de root.</li>
-</ul></li>
-<li><p><strong>Muntar el sistema de fitxers en mode escriptura</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="at">-o</span> remount,rw /</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="`mount -o remount,rw /`">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span><code>mount -o remount,rw /</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Com alternativa, es pot editar la línia del kernel per canviar <code>ro</code> (read-only) a <code>rw</code> (read-write). Això permetrà que el sistema de fitxers es monti en mode escriptura des del principi, evitant la necessitat de remuntar-lo més tard.</p>
-</div>
-</div>
-<ol start="5" type="1">
-<li><p><strong>Accedir a l’arrel amb chroot</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chroot</span> /</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="`chroot`">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span><code>chroot</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Una chroot (change root) és una operació que canvia el directori arrel aparent d’un procés i els seus fills a un directori especificat. Això crea un entorn aïllat on el procés veu el directori especificat com la seva arrel (<code>/</code>), permetent executar processos en un sistema de fitxers diferent sense afectar el sistema principal.</p>
-</div>
-</div>
-<ol start="6" type="1">
-<li><p><strong>Canviar la contrasenya de root</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">passwd</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Introdueix la nova contrasenya quan se’t demani.</li>
-</ul></li>
-<li><p><strong>Sincronitzar els canvis i reiniciar</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">reboot</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="Solcució si `reboot` no funciona">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Solcució si <code>reboot</code> no funciona
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Si el sistema no respon a la comanda <code>reboot</code>, pots forçar un reinici físic de la màquina virtual.</p>
-</div>
-</div>
-<ol type="1">
-<li><strong>Iniciar sessió amb l’usuari normal</strong>.</li>
-<li><strong>Canviar a l’usuari root</strong> amb la nova contrasenya. <code>su -</code></li>
-</ol>
+<section id="brief-summary" class="level3">
+<h3 class="anchored" data-anchor-id="brief-summary">Brief summary</h3>
+<p>A brief summary of how the app works is shown below (using user creation (<code>POST /users</code>) as an example): <img src="../../figs/projects/04-project/example-server.png" class="img-fluid"></p>
+<p>Keep in mind that if you’re running everything on <code>localhost</code> (which is likely the case for PRAC-4.1 and PRAC-4.2) the IP address used in the example figure will be <code>127.0.0.1</code>, or simply the domain name <code>localhost</code>. In this setup (PRAC-4.1 and PRAC-4.2), your machine acts as both the server and the client.</p>
 </section>
-<section id="protecció-del-grub" class="level2">
-<h2 class="anchored" data-anchor-id="protecció-del-grub">Protecció del GRUB</h2>
-<p>Per protegir el GRUB i evitar que un atacant amb accés físic pugui modificar les opcions d’arrencada, es pot configurar una contrasenya per al GRUB.</p>
-<ol type="1">
-<li><p><strong>Generar una contrasenya xifrada</strong></p>
-<ul>
-<li><p>Utilitza la comanda següent per generar una contrasenya xifrada:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">grub-mkpasswd-pbkdf2</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Introdueix la contrasenya desitjada i copia la sortida que comença amb <code>pbkdf2</code>.</p></li>
-</ul></li>
-<li><p><strong>Editar la configuració del GRUB</strong></p>
-<ul>
-<li><p>Obre el fitxer de configuració del GRUB:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vi</span> /etc/grub.d/40_custom</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Afegeix les línies següents al fitxer, substituint <code>your_encrypted_password</code> per la contrasenya xifrada que has generat:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> superusers=<span class="st">"root"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">password_pbkdf2</span> root your_encrypted_password</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ul></li>
-<li><p><strong>Actualitzar la configuració del GRUB</strong></p>
-<ul>
-<li><p>Després d’haver editat el fitxer, actualitza la configuració del GRUB:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">update-grub</span>    <span class="co"># Debian/Ubuntu</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">grub2-mkconfig</span> <span class="at">-o</span> /boot/grub2/grub.cfg  <span class="co"># Alma/Rocky (BIOS)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">grub2-mkconfig</span> <span class="at">-o</span> /boot/efi/EFI/almalinux/grub.cfg  <span class="co"># Alma/Rocky (UEFI)</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ul></li>
-<li><p><strong>Reiniciar el sistema</strong></p>
-<pre><code> ```bash
- reboot
- ```</code></pre></li>
-<li><p><strong>Verificar la protecció del GRUB</strong></p>
-<ul>
-<li>Durant l’arrencada, intenta editar una entrada del GRUB. Hauries de ser sol·licitat per una contrasenya.</li>
-</ul></li>
-</ol>
-<div class="callout callout-style-default callout-important callout-titled" title="👁️ Observació">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>👁️ Observació
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Malgrat l’ús d’una contrasenya per a protegir el GRUB, aquesta tècnica no és infal·lible. Un atacant amb accés físic pot montar un usb bootable i iniciar el sistema amb aquest dispositiu. Un cop iniciat el sistema, l’atacant podria montar el sistema de fitxers i modificar la contrasenya de l’usuari root. Ara bé, es podria configurar el BIOS o UEFI per a desactivar l’arrencada des de dispositius externs com els USBs. Això dificultaria l’accés no autoritzat al sistema a través d’aquesta tècnica.</p>
-</div>
-</div>
 </section>
-<section id="reflexions" class="level2">
-<h2 class="anchored" data-anchor-id="reflexions">Reflexions</h2>
+<section id="tasks" class="level2">
+<h2 class="anchored" data-anchor-id="tasks">5. Tasks</h2>
+<section id="prac-4.1-dockerizing-the-api" class="level3">
+<h3 class="anchored" data-anchor-id="prac-4.1-dockerizing-the-api">Prac-4.1: “Dockerizing” the API</h3>
+<p>Your main objective is to <strong>“dockerize” the API</strong>. That’s it, we keep it simple this week. So you should write a <code>Dockerfile</code> to run the <code>users API http server</code> inside a container. The rules are the following:</p>
 <ul>
-<li>Control físic del servidor: Limitar l’accés físic és essencial.</li>
-<li>Desactivar arrencada des de dispositius externs: Configurar BIOS/UEFI per bloquejar USB/CD.</li>
-<li>Amb <code>LUKS/dm-crypt</code>, encara que l’atacant accedeixi físicament al GRUB, no podrà llegir ni modificar les dades sense la clau.</li>
-<li>UEFI Secure Boot: Si està activat i el GRUB està signat, no es podrà iniciar amb <code>init=/bin/bash</code> sense desactivar temporalment Secure Boot.</li>
+<li>Keep in mind that the command you must run inside the Docker container is <em>uv run fastapi run</em>, and that <strong>dependencies must be synced</strong> before (this means the virtual environment should be created before doing the <code>uv run</code>).</li>
+<li>You must only use the sqlitedb database! This means that, in prac-4.1, you don’t have to <code>docker run</code> with custom env variables, just the default ones!.</li>
+<li>Remember to map the container’s port to a port on your host machine, otherwise, the server will remain isolated inside the container and you won’t be able to access it from your host.</li>
+<li>If you have any questions about what you’re allowed to do in the Dockerfile, please ask the teachers.</li>
 </ul>
+<p>Your goal should be to make the resulting image as <strong>small as possible</strong>, as that’s what good developers should do!</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Current record">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consell</span>Current record
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The current record for the smallest image achieved by a Lleida student is <strong>220 MB</strong>! Can you beat it?</p>
+</div>
+</div>
+</section>
+<section id="prac-4.2-moving-to-docker-compose" class="level3">
+<h3 class="anchored" data-anchor-id="prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose 🚧⛏️👷</h3>
+<p>No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷</p>
+</section>
+<section id="prac-4.3-using-aws-ecr-and-ecs" class="level3">
+<h3 class="anchored" data-anchor-id="prac-4.3-using-aws-ecr-and-ecs">Prac-4.3: Using AWS ECR and ECS</h3>
+<p>No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷</p>
+</section>
+<section id="prac-4.4-merging-it-with-aws-rds" class="level3">
+<h3 class="anchored" data-anchor-id="prac-4.4-merging-it-with-aws-rds">Prac-4.4: Merging it with AWS RDS!</h3>
+<p>No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷</p>
+</section>
+</section>
+<section id="sec-setup" class="level2">
+<h2 class="anchored" data-anchor-id="sec-setup">6. Setting up the server!</h2>
+<section id="cloning-the-repository-and-set-it-up" class="level3">
+<h3 class="anchored" data-anchor-id="cloning-the-repository-and-set-it-up">Cloning the repository and set it up:</h3>
+<p>Remember that, once you entered the Github Classroom on <a href="../../projects/04-project/04-project.html#delivery">section 2</a>, you will have to clone your repository with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>ssh_address_of_your_git_repository<span class="op">&gt;</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, setup a virtual environment for the python project, which can be done with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now, you’re ready to run the <code>users api server</code>, do it with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run fastapi run</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">7. Evaluation</h2>
+<p>Your final score will come from various parts:</p>
+<ul>
+<li>4.1: Docker → 15%.</li>
+<li>4.2: Docker-Compose → 15%.</li>
+<li>4.3: ECR &amp; ECS → 15%.</li>
+<li>4.4: RDS → 15%.</li>
+<li>Best practices are used → 40%.
+<ul>
+<li>How small is your Docker image?</li>
+<li>Is your compose deterministic?</li>
+<li>Does your compose expose more than needed?</li>
+<li>…</li>
+</ul></li>
+</ul>
+</section>
+<section id="rules" class="level2">
+<h2 class="anchored" data-anchor-id="rules">8. Rules</h2>
+<ol type="1">
+<li>It is <strong>forbidden to modify our python code (the given API)</strong>. It has everything you need and there’s no need to modify it. If you feel like modifying the code would make something better, <strong>contact the teachers before doing so</strong>.</li>
+<li>In the <code>Dockerfile</code> for the user API, the dependencies must be installed in the Docker, not in runtime</li>
+<li>If you are a group of 2, both of you must contribute to the repository with at least 1 commit.</li>
+</ol>
+</section>
+<section id="resources-1" class="level2">
+<h2 class="anchored" data-anchor-id="resources-1">9. Resources</h2>
+<ul>
+<li><a href="https://amsa.lol/resources/docker.html">Docker Commands Reference</a></li>
+<li><a href="https://restfulapi.net">What are Restful APIs?</a></li>
+<li><a href="https://docker-curriculum.com">Docker for beginners</a></li>
+<li><a href="https://docs.docker.com/compose/gettingstarted/">Docker compose quickstart</a></li>
+</ul>
+</section>
+<section id="doubts" class="level2">
+<h2 class="anchored" data-anchor-id="doubts">10. Doubts</h2>
+<p>Please don’t hesitate to ask the teachers <strong>any doubts</strong>, there are no dumb questions, we’re here to help.</p>
+<p>You can reach us by email (find them at the top of this page) or come to our office at EPS 3.07 (we’re here mostly during mornings).</p>
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notes a peu de pàgina</h2>
+
+<ol>
+<li id="fn1"><p>The <code>http://localhost:8000/docs</code> webpage, isn’t the only way to “test” the endpoints of the API. Our server exposes a connection http on the port <code>8000</code>, so any clients that support the <code>http</code> protocol could be used instead. If you’re curious, you can use another client like for example <a href="https://www.youtube.com/watch?v=PfujVETI-i4">postman (see video here)</a> or <a href="https://www.youtube.com/watch?v=Xy7fDxz39FM">if you want a cli tool that is installed on every linux distro, just use curl</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In reality, you could also access <a href="http://localhost:8000" class="uri">http://localhost:8000</a> instead of <a href="http://localhost:8000/docs" class="uri">http://localhost:8000/docs</a>, since it will automatically redirect you to <code>/docs</code>, you can see <a href="https://github.com/El-Despatx/cloud-template/blob/main/main.py#L25https://github.com/El-Despatx/cloud-template/blob/main/main.py#L25">the code of the server that does this</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A database is just a program that makes saving and retrieving data easy and fast. We could save our users inside a file named “users.txt”, ex:</p>
+<pre><code>1,pabloteach,Pablo Fraile,admin,4346%3450834
+2,ori,Oriol Agost,admin,435-08345237
+...</code></pre>
+<p>But, of course, this would be slow as f**k, that’s why we use databases.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>If you don’t know what environment variables are (you should know it from the Operating Systems course), you can have a <a href="https://hpc-wiki.info/hpc/Introduction_to_Linux_in_HPC/Environment_variables">great explanation on the hpc-wiki</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

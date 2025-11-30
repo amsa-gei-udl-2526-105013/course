@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jordi Mateo Fornés jordi.mateo@udl.cat">
 
-<title>Modificant la contrasenya de l’usuari root a través del GRUB – AMSA - Fall 2025</title>
+<title>Pràctica 03: Automatitzant LDAP a AWS amb CloudFormation i Ansible – AMSA - Fall 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -115,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/04-ex-week3.html">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projectes</a></li><li class="breadcrumb-item"><a href="../../projects/03-project/03-project.html">Projecte 3 · Infraestructura LDAP Completa a AWS</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Commuta la navegació de la barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -228,13 +194,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Activitats</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
@@ -260,13 +226,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
@@ -287,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
   </div>
 </li>
@@ -475,13 +441,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
  <span class="menu-text">Projectes</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
@@ -496,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../projects/03-project/03-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../projects/03-project/03-project.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Projecte 3 · Infraestructura LDAP Completa a AWS</span></a>
   </div>
 </li>
@@ -518,27 +484,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul>
-  <li><a href="#objectiu" id="toc-objectiu" class="nav-link active" data-scroll-target="#objectiu">Objectiu</a></li>
-  <li><a href="#escenari" id="toc-escenari" class="nav-link" data-scroll-target="#escenari">Escenari</a></li>
-  <li><a href="#requeriments-previs" id="toc-requeriments-previs" class="nav-link" data-scroll-target="#requeriments-previs">Requeriments previs</a></li>
-  <li><a href="#procediment" id="toc-procediment" class="nav-link" data-scroll-target="#procediment">Procediment</a></li>
-  <li><a href="#protecció-del-grub" id="toc-protecció-del-grub" class="nav-link" data-scroll-target="#protecció-del-grub">Protecció del GRUB</a></li>
-  <li><a href="#reflexions" id="toc-reflexions" class="nav-link" data-scroll-target="#reflexions">Reflexions</a></li>
+  <li><a href="#objectius" id="toc-objectius" class="nav-link active" data-scroll-target="#objectius">Objectius</a></li>
+  <li><a href="#requisits-previs" id="toc-requisits-previs" class="nav-link" data-scroll-target="#requisits-previs">Requisits previs</a></li>
+  <li><a href="#requisits-obligatoris" id="toc-requisits-obligatoris" class="nav-link" data-scroll-target="#requisits-obligatoris">Requisits obligatoris</a></li>
+  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
+  <ul class="collapse">
+  <li><a href="#opcions-dautomatització" id="toc-opcions-dautomatització" class="nav-link" data-scroll-target="#opcions-dautomatització">Opcions d’automatització</a></li>
+  <li><a href="#opció-a-cloudformation-ansible-bash" id="toc-opció-a-cloudformation-ansible-bash" class="nav-link" data-scroll-target="#opció-a-cloudformation-ansible-bash">Opció A: CloudFormation + Ansible + Bash</a></li>
+  <li><a href="#opció-b-cloudformation-ansible" id="toc-opció-b-cloudformation-ansible" class="nav-link" data-scroll-target="#opció-b-cloudformation-ansible">Opció B: CloudFormation + Ansible</a></li>
+  <li><a href="#opció-c-cloudformation" id="toc-opció-c-cloudformation" class="nav-link" data-scroll-target="#opció-c-cloudformation">Opció C: CloudFormation</a></li>
+  <li><a href="#altres-opcions" id="toc-altres-opcions" class="nav-link" data-scroll-target="#altres-opcions">Altres opcions</a></li>
+  </ul></li>
+  <li><a href="#tasques-finals" id="toc-tasques-finals" class="nav-link" data-scroll-target="#tasques-finals">Tasques finals</a></li>
+  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega">Entrega</a></li>
+  <li><a href="#opció-1.-cv" id="toc-opció-1.-cv" class="nav-link" data-scroll-target="#opció-1.-cv">Opció 1. CV</a></li>
+  <li><a href="#opció-2.-repositori-github" id="toc-opció-2.-repositori-github" class="nav-link" data-scroll-target="#opció-2.-repositori-github">Opció 2. Repositori GitHub</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Activitats</li><li class="breadcrumb-item"><a href="../../exercises/02-booting/01-ex-week2.html">Unitat 02 · Arrencada del sistema</a></li><li class="breadcrumb-item"><a href="../../exercises/02-booting/04-ex-week3.html">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projects/01-project/01-project.html">Projectes</a></li><li class="breadcrumb-item"><a href="../../projects/03-project/03-project.html">Projecte 3 · Infraestructura LDAP Completa a AWS</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Modificant la contrasenya de l’usuari root a través del GRUB</h1>
+<h1 class="title">Pràctica 03: Automatitzant LDAP a AWS amb CloudFormation i Ansible</h1>
+<p class="subtitle lead">Unitat 4 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordi Mateo Fornés <a href="mailto:jordi.mateo@udl.cat" class="email">jordi.mateo@udl.cat</a> </p>
+          </div>
+  </div>
     
   
     
@@ -549,176 +531,105 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objectiu" class="level2">
-<h2 class="anchored" data-anchor-id="objectiu">Objectiu</h2>
+<section id="objectius" class="level2">
+<h2 class="anchored" data-anchor-id="objectius">Objectius</h2>
 <ul>
-<li>Entendre com funciona la edició temporal del GRUB.</li>
-<li>Entendre com protegir el GRUB amb una contrasenya.</li>
-<li>Entendre com GRUB pot ser un vector d’accés físic al sistema.</li>
+<li>Desplegar un servidor LDAP segur a AWS utilitzant instàncies EC2.</li>
+<li>Automatitzar la instal·lació i configuració del servidor LDAP, client LDAP i LAM.</li>
+<li>Utilitzar Ansible o CloudFormation per a la gestió d’infraestructura com a codi.</li>
 </ul>
 </section>
-<section id="escenari" class="level2">
-<h2 class="anchored" data-anchor-id="escenari">Escenari</h2>
-<p>Un atacant amb <strong>accés físic</strong> al servidor podria modificar la contrasenya de l’usuari root iniciant el sistema des del GRUB. En aquesta pràctica assumirem aquest escenari de manera controlada.</p>
-</section>
-<section id="requeriments-previs" class="level2">
-<h2 class="anchored" data-anchor-id="requeriments-previs">Requeriments previs</h2>
+<section id="requisits-previs" class="level2">
+<h2 class="anchored" data-anchor-id="requisits-previs">Requisits previs</h2>
 <ul>
-<li>Una màquina virtual amb Debian 12 amb GRUB com a gestor d’arrencada.</li>
+<li>El tres nodes (servidor LDAP, client LDAP i LAM) han d’estar desplegats en instàncies EC2 a AWS.</li>
+<li>El servidor LDAP ha de tenir TLS configurat per a connexions segures.</li>
+<li>El client LDAP ha de poder autenticar usuaris contra el servidor LDAP.</li>
+<li>LAM ha de ser accessible via web i permetre la gestió dels usuaris i grups LDAP. No cal que LAM utilitzi certificats SSL per al servidor web, però si que cal que el servidor LDAP utilitzi TLS.</li>
 </ul>
 </section>
-<section id="procediment" class="level2">
-<h2 class="anchored" data-anchor-id="procediment">Procediment</h2>
-<ol type="1">
-<li><strong>Accés al GRUB</strong>
+<section id="requisits-obligatoris" class="level2">
+<h2 class="anchored" data-anchor-id="requisits-obligatoris">Requisits obligatoris</h2>
 <ul>
-<li>Reinicia el sistema i accedeix al menú del <strong>bootloader GRUB</strong>.</li>
-<li>Selecciona la entrada del sistema operatiu i prem <code>e</code> per editar-la.</li>
-</ul></li>
-<li><strong>Modificació de la línia del kernel</strong>
-<ul>
-<li>Localitza la línia que comença amb <code>linux</code> i acaba amb <code>ro</code>.</li>
-<li>Afageix <code>init=/bin/bash</code> al final.</li>
-<li>Aquesta opció indica al kernel iniciar directament un <strong>shell</strong> sense passar pel procés d’inicialització normal.</li>
-</ul></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="`init=/bin/bash`">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span><code>init=/bin/bash</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Aquesta opció fa que el sistema arranqui directament en un shell de bash com a root, evitant els processos d’inicialització habituals. Tots els serveis <em>systemd</em> i altres processos no s’inicien, i el sistema es troba en un estat mínim, amb només el shell disponible.</p>
-</div>
-</div>
-<ol start="3" type="1">
-<li><p><strong>Inici amb les opcions modificades</strong></p>
-<ul>
-<li>Prem <code>Ctrl + X</code> per iniciar el sistema amb aquesta configuració.</li>
-<li>Accediràs a un <strong>prompt de bash</strong> amb permisos de root.</li>
-</ul></li>
-<li><p><strong>Muntar el sistema de fitxers en mode escriptura</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="at">-o</span> remount,rw /</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="`mount -o remount,rw /`">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span><code>mount -o remount,rw /</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Com alternativa, es pot editar la línia del kernel per canviar <code>ro</code> (read-only) a <code>rw</code> (read-write). Això permetrà que el sistema de fitxers es monti en mode escriptura des del principi, evitant la necessitat de remuntar-lo més tard.</p>
-</div>
-</div>
-<ol start="5" type="1">
-<li><p><strong>Accedir a l’arrel amb chroot</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chroot</span> /</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="`chroot`">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span><code>chroot</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Una chroot (change root) és una operació que canvia el directori arrel aparent d’un procés i els seus fills a un directori especificat. Això crea un entorn aïllat on el procés veu el directori especificat com la seva arrel (<code>/</code>), permetent executar processos en un sistema de fitxers diferent sense afectar el sistema principal.</p>
-</div>
-</div>
-<ol start="6" type="1">
-<li><p><strong>Canviar la contrasenya de root</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">passwd</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Introdueix la nova contrasenya quan se’t demani.</li>
-</ul></li>
-<li><p><strong>Sincronitzar els canvis i reiniciar</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">reboot</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled" title="Solcució si `reboot` no funciona">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Solcució si <code>reboot</code> no funciona
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Si el sistema no respon a la comanda <code>reboot</code>, pots forçar un reinici físic de la màquina virtual.</p>
-</div>
-</div>
-<ol type="1">
-<li><strong>Iniciar sessió amb l’usuari normal</strong>.</li>
-<li><strong>Canviar a l’usuari root</strong> amb la nova contrasenya. <code>su -</code></li>
-</ol>
-</section>
-<section id="protecció-del-grub" class="level2">
-<h2 class="anchored" data-anchor-id="protecció-del-grub">Protecció del GRUB</h2>
-<p>Per protegir el GRUB i evitar que un atacant amb accés físic pugui modificar les opcions d’arrencada, es pot configurar una contrasenya per al GRUB.</p>
-<ol type="1">
-<li><p><strong>Generar una contrasenya xifrada</strong></p>
-<ul>
-<li><p>Utilitza la comanda següent per generar una contrasenya xifrada:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">grub-mkpasswd-pbkdf2</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Introdueix la contrasenya desitjada i copia la sortida que comença amb <code>pbkdf2</code>.</p></li>
-</ul></li>
-<li><p><strong>Editar la configuració del GRUB</strong></p>
-<ul>
-<li><p>Obre el fitxer de configuració del GRUB:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Com a root</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vi</span> /etc/grub.d/40_custom</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Afegeix les línies següents al fitxer, substituint <code>your_encrypted_password</code> per la contrasenya xifrada que has generat:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> superusers=<span class="st">"root"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">password_pbkdf2</span> root your_encrypted_password</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ul></li>
-<li><p><strong>Actualitzar la configuració del GRUB</strong></p>
-<ul>
-<li><p>Després d’haver editat el fitxer, actualitza la configuració del GRUB:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">update-grub</span>    <span class="co"># Debian/Ubuntu</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">grub2-mkconfig</span> <span class="at">-o</span> /boot/grub2/grub.cfg  <span class="co"># Alma/Rocky (BIOS)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">grub2-mkconfig</span> <span class="at">-o</span> /boot/efi/EFI/almalinux/grub.cfg  <span class="co"># Alma/Rocky (UEFI)</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ul></li>
-<li><p><strong>Reiniciar el sistema</strong></p>
-<pre><code> ```bash
- reboot
- ```</code></pre></li>
-<li><p><strong>Verificar la protecció del GRUB</strong></p>
-<ul>
-<li>Durant l’arrencada, intenta editar una entrada del GRUB. Hauries de ser sol·licitat per una contrasenya.</li>
-</ul></li>
-</ol>
-<div class="callout callout-style-default callout-important callout-titled" title="👁️ Observació">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>👁️ Observació
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Malgrat l’ús d’una contrasenya per a protegir el GRUB, aquesta tècnica no és infal·lible. Un atacant amb accés físic pot montar un usb bootable i iniciar el sistema amb aquest dispositiu. Un cop iniciat el sistema, l’atacant podria montar el sistema de fitxers i modificar la contrasenya de l’usuari root. Ara bé, es podria configurar el BIOS o UEFI per a desactivar l’arrencada des de dispositius externs com els USBs. Això dificultaria l’accés no autoritzat al sistema a través d’aquesta tècnica.</p>
-</div>
-</div>
-</section>
-<section id="reflexions" class="level2">
-<h2 class="anchored" data-anchor-id="reflexions">Reflexions</h2>
-<ul>
-<li>Control físic del servidor: Limitar l’accés físic és essencial.</li>
-<li>Desactivar arrencada des de dispositius externs: Configurar BIOS/UEFI per bloquejar USB/CD.</li>
-<li>Amb <code>LUKS/dm-crypt</code>, encara que l’atacant accedeixi físicament al GRUB, no podrà llegir ni modificar les dades sense la clau.</li>
-<li>UEFI Secure Boot: Si està activat i el GRUB està signat, no es podrà iniciar amb <code>init=/bin/bash</code> sense desactivar temporalment Secure Boot.</li>
+<li>Les màquines han de ser instàncies EC2 a AWS amb Amazon Linux 2023 i t3.micro o t2.micro.</li>
 </ul>
+</section>
+<section id="tasques" class="level2">
+<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
+<p>Aquest projecte consisteix en desplegar una infraestructura LDAP completa a AWS utilitzant instàncies EC2.</p>
+<ul>
+<li>Creu un servidor LDAP amb una base de dades pròpia que contingui usuaris i grups.
+<ul>
+<li>La base de dades LDAP ha de ser <code>dc=amsa,dc=udl,dc=cat</code>.</li>
+<li>Creeu tres rols principals: alumne, professor i admin.</li>
+<li>Aquests rols s’han de representar en LDAP com a grups i usuaris.</li>
+<li>Creeu un mínim de 6 alumnes, 2 professors i 1 admin.</li>
+</ul></li>
+<li>Automatitzeu la instal·lació i configuració del servidor LDAP, client LDAP i LAM mitjançant scripts Bash.</li>
+</ul>
+<section id="opcions-dautomatització" class="level3">
+<h3 class="anchored" data-anchor-id="opcions-dautomatització">Opcions d’automatització</h3>
+</section>
+<section id="opció-a-cloudformation-ansible-bash" class="level3">
+<h3 class="anchored" data-anchor-id="opció-a-cloudformation-ansible-bash">Opció A: CloudFormation + Ansible + Bash</h3>
+<ul>
+<li>Creeu 3 scripts de Bash separats per a la instal·lació i configuració del servidor LDAP, client LDAP i LAM.</li>
+<li>Creeu una plantilla de CloudFormation per desplegar les instàncies EC2 necessàries.</li>
+<li>Copieu els DNS manualment a l’inventari d’Ansible.</li>
+<li>Utiltizeu Ansible per executar els scripts Bash a les instàncies desplegades i per moure els certificats TLS.</li>
+</ul>
+</section>
+<section id="opció-b-cloudformation-ansible" class="level3">
+<h3 class="anchored" data-anchor-id="opció-b-cloudformation-ansible">Opció B: CloudFormation + Ansible</h3>
+<ul>
+<li>Automatizeu tot el procés utilitzant Ansible per a la instal·lació i configuració del servidor LDAP, client LDAP i LAM. Sense scripts Bash. Amb la lògica de ansible.</li>
+<li>Creeu una plantilla de CloudFormation per desplegar les instàncies EC2 necessàries.</li>
+<li>Creeu un script que primer desplegui la infraestructura amb CloudFormation i després executi els playbooks d’Ansible, utilitzeu el AWS CLI per obtenir els DNS de les instàncies i generar l’inventari d’Ansible automàticament.</li>
+</ul>
+</section>
+<section id="opció-c-cloudformation" class="level3">
+<h3 class="anchored" data-anchor-id="opció-c-cloudformation">Opció C: CloudFormation</h3>
+<ul>
+<li>Automatitzeu tot el procés utilitzant només CloudFormation i scripts d’inicialització (UserData) per a la instal·lació i configuració del servidor LDAP, client LDAP i LAM.</li>
+<li>Creeu una plantilla de CloudFormation per desplegar les instàncies EC2 necessàries</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Consell">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consell</span>Consell
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aquesta és una opció avançada i pot resultar <strong>no operativa</strong> per limitacions amb AWS Educate. Es pot evitar l’ús de IAM Roles, però complicarà la pràctica.</p>
+</div>
+</div>
+</section>
+<section id="altres-opcions" class="level3">
+<h3 class="anchored" data-anchor-id="altres-opcions">Altres opcions</h3>
+<p>Hi ha altres opcions possibles. C</p>
+</section>
+</section>
+<section id="tasques-finals" class="level2">
+<h2 class="anchored" data-anchor-id="tasques-finals">Tasques finals</h2>
+<ul>
+<li>Modifiqueu el script per poder aixecar 1 o N clients LDAP.</li>
+<li>Permeteu que tots els parametres siguin configurables des de la línia de comandes o fitxer de configuració.</li>
+<li>Els usuaris dels clients LDAP han de poder accedir únicament per SSH amb clau pública.</li>
+</ul>
+</section>
+<section id="entrega" class="level2">
+<h2 class="anchored" data-anchor-id="entrega">Entrega</h2>
+</section>
+<section id="opció-1.-cv" class="level2">
+<h2 class="anchored" data-anchor-id="opció-1.-cv">Opció 1. CV</h2>
+<p>Cal lliurar al campus virtual un fitxer <code>practica03-amsa-&lt;nom1_cognom1,nom2_cognom2,...&gt;.zip</code> amb tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura.</p>
+</section>
+<section id="opció-2.-repositori-github" class="level2">
+<h2 class="anchored" data-anchor-id="opció-2.-repositori-github">Opció 2. Repositori GitHub</h2>
+<p>Cal pujar tot el contingut a un repositori privat/públic de GitHub i compartir l’accés amb l’adreça de correu del professor. El repositori ha de contenir tots els scripts, plantilles i fitxers necessaris per desplegar la infraestructura i configurar el servidor LDAP, el client LDAP i LAM. També cal incloure un fitxer README.md amb instruccions clares sobre com executar els scripts i desplegar la infraestructura.</p>
 
 
 </section>

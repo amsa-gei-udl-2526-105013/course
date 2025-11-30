@@ -1046,7 +1046,7 @@ Jordi Mateo Fornés
 <span id="cb15-4"><a></a><span class="kw">CMD</span> <span class="fu">cat</span> my-message.txt <span class="kw">|</span> <span class="ex">figlet</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <div class="fragment">
-<p>Les capes es construeixen en ordre. Si el fitxer <code>message.txt</code> canvia, només la capa que el copia (COPY) es tornarà a construir en el Dockerfile <strong>A</strong>. En el Dockerfile <strong>B</strong>, si <code>message.txt</code> canvia, tota la capa RUN (instal·lació de figlet) també es tornarà a construir, fent el procés més lent.</p>
+<p>Les capes es construeixen en ordre. Si el fitxer <code>message.txt</code> canvia, només la capa que el copia (COPY) es tornarà a construir en el Dockerfile <strong>B</strong>. En el Dockerfile <strong>A</strong>, si <code>message.txt</code> canvia, tota la capa RUN (instal·lació de figlet) també es tornarà a construir, fent el procés més lent.</p>
 </div>
 </section>
 <section id="treballant-amb-python" class="slide level2 smaller">
@@ -1385,6 +1385,141 @@ Jordi Mateo Fornés
 </div>
 <ul>
 <li class="fragment">La sintaxi és <code>-p &lt;port_host&gt;:&lt;port_contenidor&gt;</code>, on ara podem accedir al servidor web a <code>http://localhost:8085</code>.</li>
+</ul>
+</section>
+<section id="multistage-builds-i" class="slide level2 smaller">
+<h2>Multistage Builds (I)</h2>
+<p>En els exemples anteriors, hem vist que el Dockerfile per a l’aplicació Python és així:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb37-1"><a></a><span class="kw">FROM</span> python</span>
+<span id="cb37-2"><a></a><span class="kw">COPY</span> requirements.txt requirements.txt</span>
+<span id="cb37-3"><a></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb37-4"><a></a><span class="kw">COPY</span> . .</span>
+<span id="cb37-5"><a></a><span class="kw">CMD</span> <span class="ex">python</span> main.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment center-container">
+<p>estem fent servir tota la imatge de Python per construir i executar…</p>
+</div>
+<ul>
+<li class="fragment">Paquets de compilació innecessaris</li>
+<li class="fragment">Fitxers temporals deixats per pip</li>
+<li class="fragment">Llibreries que només fan falta durant la instal·lació</li>
+</ul>
+<div class="fragment center-container">
+<p>… una imatge final molt més gran del necessari!!!</p>
+</div>
+</section>
+<section id="multistage-builds-ii" class="slide level2 smaller">
+<h2>Multistage Builds (II)</h2>
+<p>La idea de les multistage builds és utilitzar diverses etapes de construcció dins del mateix Dockerfile. Separam la fase de construcció de la fase d’execució.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb38-1"><a></a><span class="kw">FROM</span> python <span class="kw">AS</span> builder</span>
+<span id="cb38-2"><a></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb38-3"><a></a></span>
+<span id="cb38-4"><a></a><span class="kw">COPY</span> requirements.txt .</span>
+<span id="cb38-5"><a></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">--prefix</span><span class="op">=</span>/install <span class="dt">\</span></span>
+<span id="cb38-6"><a></a>  <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment">instal·la dependències a /install</li>
+<li class="fragment">python complet, amb pip</li>
+<li class="fragment">pot incloure eines de compilació si calguessin</li>
+</ul>
+<div class="center-container fragment">
+<p>👉 Però res d’això formarà part de la imatge final.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb39-1"><a></a><span class="kw">FROM</span> python:slim</span>
+<span id="cb39-2"><a></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb39-3"><a></a></span>
+<span id="cb39-4"><a></a><span class="kw">COPY</span> <span class="op">--from=builder</span> /install /usr/local</span>
+<span id="cb39-5"><a></a><span class="kw">COPY</span> . .</span>
+<span id="cb39-6"><a></a></span>
+<span id="cb39-7"><a></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"main.py"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment">utilitza una imatge slim (molt més petita)</li>
+<li class="fragment">només copia les dependències instal·lades i el codi font</li>
+<li class="fragment">no inclou pip, ni temporals, ni eines de build</li>
+</ul>
+<div class="center-container fragment">
+<p>👉 Imatge més petita, lleugera i òpitma</p>
+</div>
+</div></div>
+</section>
+<section id="multistage-builds-iii" class="slide level2 smaller">
+<h2>Multistage Builds (III)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="sense-multistage-builds">Sense multistage builds</h3>
+<ul>
+<li class="fragment">Python complet</li>
+<li class="fragment">Pip + eines de build</li>
+<li class="fragment">Fitxers temporals</li>
+<li class="fragment">.pyc, caches…</li>
+</ul>
+<div class="center-container fragment">
+<p><span class="math display">\[\geq ~400MB\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<h3 id="amb-multistage-builds">Amb multistage builds</h3>
+<ul>
+<li class="fragment">Python slim</li>
+<li class="fragment">Només dependències finals</li>
+<li class="fragment">Cap fitxer temporal</li>
+</ul>
+<div class="center-container fragment">
+<p><span class="math display">\[\leq ~150MB\]</span></p>
+</div>
+</div></div>
+<div class="center-container fragment">
+<p>Obtenim el mateix servei, però amb imatges molt més petites i òptimes!</p>
+</div>
+</section>
+<section id="multistage-builds-iv" class="slide level2 smaller">
+<h2>Multistage Builds (IV)</h2>
+<ul>
+<li class="fragment">Menys espai al disc → ideal per CI/CD i servidors amb recursos limitats</li>
+<li class="fragment">Menys temps de build i push/pull</li>
+<li class="fragment">Menys superfície d’atac → menys eines instal·lades</li>
+<li class="fragment">Més eficiència a AWS Lambda, EC2, Kubernetes</li>
+<li class="fragment">Imatges més professionals i <strong>production-ready</strong></li>
+</ul>
+</section>
+<section id="exercici-multistage-build" class="slide level2 smaller">
+<h2>Exercici: Multistage Build</h2>
+<ol type="1">
+<li class="fragment">Utilitzeu el Dockerfile original i construïu la imatge.</li>
+<li class="fragment">Utilitzeu el Dockerfile amb multistage build i construïu la imatge.</li>
+<li class="fragment">Compareu la mida de les dues imatges amb <code>docker images</code> i amb <code>docker image ls</code>.</li>
+<li class="fragment">Executeu <code>docker run -it &lt;amb/sense&gt;-multistage bash</code> per explorar el sistema de fitxers de cada imatge i veure les diferències.</li>
+</ol>
+<div class="center-container fragment">
+<p>Quins fitxers i eines addicionals hi ha a la imatge sense multistage build que no estan a la imatge amb multistage build? Quines són les diferències principals?</p>
+</div>
+</section>
+<section id="preguntes-de-revisió" class="slide level2 smaller">
+<h2>Preguntes de revisió</h2>
+<ul>
+<li class="fragment">Com podem assegurar-nos que fitxers i carpetes específiques no es copiïn al contenidor?</li>
+<li class="fragment">Quina és la diferència entre <code>COPY</code> i <code>ADD</code> en un Dockerfile?</li>
+<li class="fragment">Quin és el propòsit de la instrucció <code>CMD</code>, i per què no crea una capa?</li>
+<li class="fragment">Quina és la diferència entre <code>RUN</code> i <code>CMD</code> en un Dockerfile?</li>
+<li class="fragment">Quina és la diferència entre <code>ENTRYPOINT</code> i <code>CMD</code> en un Dockerfile?</li>
+<li class="fragment">Què significa l’opció <code>-p 8085:8080</code> en <code>docker run</code>?</li>
+<li class="fragment">Per què no es pot accedir al servidor web d’un contenidor a <code>localhost:8080</code> tret que es mapi un port?</li>
+</ul>
+</section>
+<section id="preguntes-dampliació" class="slide level2 smaller">
+<h2>Preguntes d’ampliació</h2>
+<ul>
+<li class="fragment">Quins perills pot comportar fer <code>docker run -v /:/host alpine</code>?</li>
+<li class="fragment">Per què es considera perillós executar <code>docker run --network host</code>?</li>
+<li class="fragment">Quins riscos de seguretat reals existeixen si un contenidor executa processos que fan ús de ptrace o inspecció de processos del sistema?</li>
+<li class="fragment">Com funcionaria el desplegament d’un contenidor creat en un host ARM en un host x86 sense suport multi-arch?</li>
+<li class="fragment">Explica en detall què passa internament quan un contenidor rep un SIGTERM i després un SIGKILL en una execució de Docker.</li>
+<li class="fragment">Investigueu les diferències entre <code>python:slim</code>, <code>python:alpine</code> i <code>python:full</code>. Quins avantatges i desavantatges té cadascuna per a diferents casos d’ús?</li>
 </ul>
 </section>
 <section id="exercicis" class="slide level2">
