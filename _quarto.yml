@@ -53,6 +53,8 @@ website:
             text: Unitat 04 · Autenticació i Autorització (Part 1)
           - href: ./slides/04-authentication-part2.qmd
             text: Unitat 04 · Autenticació i Autorització (Part 2)
+          - href: ./slides/05-virtualization-part1.qmd
+            text: Unitat 05 · Virtualització i Contenidors (Part 1)
       - section: Activitats
         contents:
           - section: Unitat 01 · Fonaments de l'Administració de Sistemes
@@ -91,6 +93,10 @@ website:
                 text: Activitat 11 · Gestió de comptes en un servidor Linux
               - href: ./exercises/04-accounts/01-pam.qmd
                 text: Activitat 12 · Autenticació de doble factor (2FA) amb PAM
+          - section: Unitat 05 · Virtualització i Contenidors
+            contents:
+              - href: ./exercises/05-virtualitzation/01-docker.qmd
+                text: Activitat 13 · Introducció a Docker
 
       - section: Laboratoris
         contents:

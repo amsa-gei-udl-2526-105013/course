@@ -30,7 +30,7 @@ There are lots of different behaviours for APIs (and we'll explain how ours work
 
 ## 2. Delivery
 
-*Accept the assignment in Github Classroom, [following the link](https://classroom.github.com/a/5dUv_d7Z)*
+*Accept the assignment in Github Classroom, [following the link](https://classroom.github.com/a/3DHX45S9)*
 
 To complete this activity, you must do the following for each sub-delivery (PRAC-4.1, PRAC-4.2, PRAC-4.3 and PRAC-4.4):
 
@@ -64,7 +64,7 @@ When you join the Github Classroom activity with the link provided on Step 2, a 
 
 ### Understanding the API
 
-How does our API work? First, [you have to setup your environment and start the server, see section 6](act-4.qmd#sec-setup).
+How does our API work? First, [you have to setup your environment and start the server, see section 6](04-project.qmd#sec-setup).
 
 By default, the server listens for HTTP connections on port `8000`. Be aware that, this means that if you're running it on your pc (without any container), you can access it via `http://localhost:8000` on your browser. If you're running it on a conainer, you'll need to map the port of the container to your host so you can access it on your browser (see [how to map it on our reference cheatsheet](https://amsa.lol/resources/docker.html#run-a-container-given-an-image-advanced)).
 
@@ -111,7 +111,7 @@ Once we have an instance of postgresql running, we can tell the users api to use
 ### Brief summary
 
 A brief summary of how the app works is shown below (using user creation (`POST /users`) as an example):
-![](images/example-server.png)
+![](../../figs/projects/04-project/example-server.png)
 
 Keep in mind that if you’re running everything on `localhost` (which is likely the case for PRAC-4.1 and PRAC-4.2) the IP address used in the example figure will be `127.0.0.1`, or simply the domain name `localhost`. In this setup (PRAC-4.1 and PRAC-4.2), your machine acts as both the server and the client.
 
@@ -143,7 +143,7 @@ No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷
 ## 6. Setting up the server! {#sec-setup}
 ### Cloning the repository and set it up:
 
-Remember that, once you entered the Github Classroom on [section 2](act-4.qmd#delivery), you will have to clone your repository with:
+Remember that, once you entered the Github Classroom on [section 2](04-project.qmd#delivery), you will have to clone your repository with:
 
 ```bash
 git clone <ssh_address_of_your_git_repository>

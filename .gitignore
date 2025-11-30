@@ -4,3 +4,4 @@ docs
 **/*.quarto_ipynb
 slides/0X-*.qmd
 exercises/05-virtualitzation/01-docker-sol.qmd
+slides/05-virtualization-part1-sol.qmd
