@@ -114,3 +114,25 @@ Tens una app de React en un directori `frontend/`.
 - Fes una imatge sense multi-stage build, instal·lant Node.js i servint l’app amb npm run build.
 - Fes una imatge amb multi-stage build, on en la primera etapa es construeix l’app i en la segona etapa es serveix amb un servidor web lleuger (com nginx).
 - Compara les mides de les dues imatges i explica els avantatges de l’enfoc multi-stage build.
+
+## Exercici 6: Servidor web
+
+Crea un directori amb un fitxer `index.html` que contingui "Hola, Docker!". Escriu un Dockerfile que utilitzi ula imatge `nginx:alpine` per servir aquest fitxer. Construeix la imatge i executa un contenidor que exposi el port 8080 del host al 80 del contenidor. Comprova que pots accedir al fitxer `index.html` des del navegador web.
+
+## Exercici 7: Legacy link
+
+Utilitza una imatge de redis per arrancar un contenidor (`redis:latest`).  Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname `amsa--redis`i incrementi un comptador cada vegada que s'accedeix a la ruta `/`. Executa el contenid amb `default bridge network`. Com es que Python falla al resoldre el hostname `amsa--redis`? Quina és la solució perque funcioni correctament?
+
+## Exercici 8: CMD vs ENTRYPOINT
+
+Assumeix el següent script de python `hello.py`:
+
+```python
+# hello.py
+import sys
+
+if __name__ == "__main__":
+    print("Arguments rebuts:", " ".join(sys.argv[1:]))
+```
+
+Crea dues imatges de docker ina amb `CMD` i l'altra amb `ENTRYPOINT` per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar `CMD` i quan `ENTRYPOINT`.
