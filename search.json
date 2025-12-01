@@ -436,7 +436,7 @@
     "href": "exercises/05-virtualitzation/01-docker.html#exercici-7-legacy-link",
     "title": "Exerccisis amb Docker",
     "section": "Exercici 7: Legacy link",
-    "text": "Exercici 7: Legacy link\nUtilitza una imatge de redis per arrancar un contenidor (redis:latest). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname amsa-redisi incrementi un comptador cada vegada que s’accedeix a la ruta /. Executa el contenid amb default bridge network. Com es que Python falla al resoldre el hostname amsa-redis? Quina és la solució perque funcioni correctament?",
+    "text": "Exercici 7: Legacy link\nUtilitza una imatge de redis per arrancar un contenidor (redis:latest). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname amsa-redisi incrementi un comptador cada vegada que s’accedeix a la ruta /. Executa el contenid amb default bridge network. Com es que Python falla al resoldre el hostname amsa-redis? Quina és la solució perque funcioni correctament?\nfrom flask import Flask\nimport redis\n\napp = Flask(__name__)\nr = redis.Redis(host=\"amsa-redis\", port=6379)\nr.ping()\n\n@app.route(\"/\")\ndef index():\n    count = r.incr(\"counter\")\n    return f\"Count = {count}\"",
     "crumbs": [
       "Activitats",
       "Unitat 05 · Virtualització i Contenidors",

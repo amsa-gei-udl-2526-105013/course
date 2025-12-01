@@ -666,15 +666,26 @@ La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makef
 <section id="exercici-7-legacy-link" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-7-legacy-link">Exercici 7: Legacy link</h2>
 <p>Utilitza una imatge de redis per arrancar un contenidor (<code>redis:latest</code>). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname <code>amsa-redis</code>i incrementi un comptador cada vegada que s’accedeix a la ruta <code>/</code>. Executa el contenid amb <code>default bridge network</code>. Com es que Python falla al resoldre el hostname <code>amsa-redis</code>? Quina és la solució perque funcioni correctament?</p>
+<pre><code>from flask import Flask
+import redis
+
+app = Flask(__name__)
+r = redis.Redis(host="amsa-redis", port=6379)
+r.ping()
+
+@app.route("/")
+def index():
+    count = r.incr("counter")
+    return f"Count = {count}"</code></pre>
 </section>
 <section id="exercici-8-cmd-vs-entrypoint" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-8-cmd-vs-entrypoint">Exercici 8: CMD vs ENTRYPOINT</h2>
 <p>Assumeix el següent script de python <code>hello.py</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hello.py</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Arguments rebuts:"</span>, <span class="st">" "</span>.join(sys.argv[<span class="dv">1</span>:]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hello.py</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Arguments rebuts:"</span>, <span class="st">" "</span>.join(sys.argv[<span class="dv">1</span>:]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Crea dues imatges de docker ina amb <code>CMD</code> i l’altra amb <code>ENTRYPOINT</code> per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar <code>CMD</code> i quan <code>ENTRYPOINT</code>.</p>
 
 
