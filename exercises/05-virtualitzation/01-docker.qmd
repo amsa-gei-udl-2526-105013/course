@@ -123,6 +123,20 @@ Crea un directori amb un fitxer `index.html` que contingui "Hola, Docker!". Escr
 
 Utilitza una imatge de redis per arrancar un contenidor (`redis:latest`).  Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname `amsa-redis`i incrementi un comptador cada vegada que s'accedeix a la ruta `/`. Executa el contenid amb `default bridge network`. Com es que Python falla al resoldre el hostname `amsa-redis`? Quina és la solució perque funcioni correctament?
 
+```
+from flask import Flask
+import redis
+
+app = Flask(__name__)
+r = redis.Redis(host="amsa-redis", port=6379)
+r.ping()
+
+@app.route("/")
+def index():
+    count = r.incr("counter")
+    return f"Count = {count}"
+```
+
 ## Exercici 8: CMD vs ENTRYPOINT
 
 Assumeix el següent script de python `hello.py`:
