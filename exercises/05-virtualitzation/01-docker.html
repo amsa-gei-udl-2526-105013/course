@@ -523,6 +523,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercici-3-optimització-de-dockerfile" id="toc-exercici-3-optimització-de-dockerfile" class="nav-link" data-scroll-target="#exercici-3-optimització-de-dockerfile">Exercici 3: Optimització de Dockerfile</a></li>
   <li><a href="#exercici-4-optimització-dimatges-docker" id="toc-exercici-4-optimització-dimatges-docker" class="nav-link" data-scroll-target="#exercici-4-optimització-dimatges-docker">Exercici 4: Optimització d’imatges Docker</a></li>
   <li><a href="#exercici-5-multi-stage-builds-amb-docker" id="toc-exercici-5-multi-stage-builds-amb-docker" class="nav-link" data-scroll-target="#exercici-5-multi-stage-builds-amb-docker">Exercici 5: Multi-stage builds amb Docker</a></li>
+  <li><a href="#exercici-6-servidor-web" id="toc-exercici-6-servidor-web" class="nav-link" data-scroll-target="#exercici-6-servidor-web">Exercici 6: Servidor web</a></li>
+  <li><a href="#exercici-7-legacy-link" id="toc-exercici-7-legacy-link" class="nav-link" data-scroll-target="#exercici-7-legacy-link">Exercici 7: Legacy link</a></li>
+  <li><a href="#exercici-8-cmd-vs-entrypoint" id="toc-exercici-8-cmd-vs-entrypoint" class="nav-link" data-scroll-target="#exercici-8-cmd-vs-entrypoint">Exercici 8: CMD vs ENTRYPOINT</a></li>
   </ul>
 </nav>
     </div>
@@ -655,6 +658,24 @@ La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makef
 <li>Fes una imatge amb multi-stage build, on en la primera etapa es construeix l’app i en la segona etapa es serveix amb un servidor web lleuger (com nginx).</li>
 <li>Compara les mides de les dues imatges i explica els avantatges de l’enfoc multi-stage build.</li>
 </ul>
+</section>
+<section id="exercici-6-servidor-web" class="level2">
+<h2 class="anchored" data-anchor-id="exercici-6-servidor-web">Exercici 6: Servidor web</h2>
+<p>Crea un directori amb un fitxer <code>index.html</code> que contingui “Hola, Docker!”. Escriu un Dockerfile que utilitzi ula imatge <code>nginx:alpine</code> per servir aquest fitxer. Construeix la imatge i executa un contenidor que exposi el port 8080 del host al 80 del contenidor. Comprova que pots accedir al fitxer <code>index.html</code> des del navegador web.</p>
+</section>
+<section id="exercici-7-legacy-link" class="level2">
+<h2 class="anchored" data-anchor-id="exercici-7-legacy-link">Exercici 7: Legacy link</h2>
+<p>Utilitza una imatge de redis per arrancar un contenidor (<code>redis:latest</code>). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname <code>amsa-redis</code>i incrementi un comptador cada vegada que s’accedeix a la ruta <code>/</code>. Executa el contenid amb <code>default bridge network</code>. Com es que Python falla al resoldre el hostname <code>amsa-redis</code>? Quina és la solució perque funcioni correctament?</p>
+</section>
+<section id="exercici-8-cmd-vs-entrypoint" class="level2">
+<h2 class="anchored" data-anchor-id="exercici-8-cmd-vs-entrypoint">Exercici 8: CMD vs ENTRYPOINT</h2>
+<p>Assumeix el següent script de python <code>hello.py</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hello.py</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Arguments rebuts:"</span>, <span class="st">" "</span>.join(sys.argv[<span class="dv">1</span>:]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Crea dues imatges de docker ina amb <code>CMD</code> i l’altra amb <code>ENTRYPOINT</code> per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar <code>CMD</code> i quan <code>ENTRYPOINT</code>.</p>
 
 
 </section>

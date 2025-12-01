@@ -420,6 +420,42 @@
     ]
   },
   {
+    "objectID": "exercises/05-virtualitzation/01-docker.html#exercici-6-servidor-web",
+    "href": "exercises/05-virtualitzation/01-docker.html#exercici-6-servidor-web",
+    "title": "Exerccisis amb Docker",
+    "section": "Exercici 6: Servidor web",
+    "text": "Exercici 6: Servidor web\nCrea un directori amb un fitxer index.html que contingui “Hola, Docker!”. Escriu un Dockerfile que utilitzi ula imatge nginx:alpine per servir aquest fitxer. Construeix la imatge i executa un contenidor que exposi el port 8080 del host al 80 del contenidor. Comprova que pots accedir al fitxer index.html des del navegador web.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 05 · Virtualització i Contenidors",
+      "Activitat 13 · Introducció a Docker"
+    ]
+  },
+  {
+    "objectID": "exercises/05-virtualitzation/01-docker.html#exercici-7-legacy-link",
+    "href": "exercises/05-virtualitzation/01-docker.html#exercici-7-legacy-link",
+    "title": "Exerccisis amb Docker",
+    "section": "Exercici 7: Legacy link",
+    "text": "Exercici 7: Legacy link\nUtilitza una imatge de redis per arrancar un contenidor (redis:latest). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname amsa-redisi incrementi un comptador cada vegada que s’accedeix a la ruta /. Executa el contenid amb default bridge network. Com es que Python falla al resoldre el hostname amsa-redis? Quina és la solució perque funcioni correctament?",
+    "crumbs": [
+      "Activitats",
+      "Unitat 05 · Virtualització i Contenidors",
+      "Activitat 13 · Introducció a Docker"
+    ]
+  },
+  {
+    "objectID": "exercises/05-virtualitzation/01-docker.html#exercici-8-cmd-vs-entrypoint",
+    "href": "exercises/05-virtualitzation/01-docker.html#exercici-8-cmd-vs-entrypoint",
+    "title": "Exerccisis amb Docker",
+    "section": "Exercici 8: CMD vs ENTRYPOINT",
+    "text": "Exercici 8: CMD vs ENTRYPOINT\nAssumeix el següent script de python hello.py:\n# hello.py\nimport sys\n\nif __name__ == \"__main__\":\n    print(\"Arguments rebuts:\", \" \".join(sys.argv[1:]))\nCrea dues imatges de docker ina amb CMD i l’altra amb ENTRYPOINT per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar CMD i quan ENTRYPOINT.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 05 · Virtualització i Contenidors",
+      "Activitat 13 · Introducció a Docker"
+    ]
+  },
+  {
     "objectID": "slides/03-filesystem-part3.html#contextutalització",
     "href": "slides/03-filesystem-part3.html#contextutalització",
     "title": "Sistema de fitxers (III)",
