@@ -35,3 +35,4 @@ A continuació es presenta un calendari complet dels temes, el contingut del cur
 | 12    | Teoria             |24/11/25    | **Unitat 05**: Virtualització i Contenidors (Part 1)      | [📖](../slides/05-virtualization-part1.qmd){aria-label="Virtualització i Contenidors (Part 1) "}  |    |  |  | [📝](../exercises/05-virtualitzation/01-docker.qmd)
 | 12 | Laboratori |26/11/25 | Projecte 3 · Infraestructura LDAP Completa a AWS |  | | | | |[👩🏻‍💻](../projects/03-project/03-project.html#prepare) |
 | 13    | Teoria             |01/12/25    | **Unitat 05**: Virtualització i Contenidors (Part 1)      | [📖](../slides/05-virtualization-part1.qmd){aria-label="Virtualització i Contenidors (Part 1) "}  |    |  |  | [📝](../exercises/05-virtualitzation/01-docker.qmd)
+| 13 | Laboratori |03/12/25 | **Unitat 05**: Virtualització i Contenidors (Part 1)  |  [📖](../slides/05-virtualization-part2.qmd) |    |  |     | [📝](../exercises/05-virtualitzation/01-docker.qmd)

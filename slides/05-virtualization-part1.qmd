@@ -1305,3 +1305,402 @@ Quins fitxers i eines addicionals hi ha a la imatge sense multistage build que n
 ## Exercicis
 
 - [Exercicis de Contenidors Docker](../exercises/05-virtualitzation/01-docker.qmd)
+
+## Container Registries {.smaller}
+
+Un container registry és un servei que emmagatzema i distribueix imatges de contenidors, de manera similar a com GitHub emmagatzema repositoris.
+
+- [DockerHub](https://hub.docker.com/): El registre públic més gran i conegut.
+- [GitHub Container Registry (GHCR)](https://github.com/features/packages): Integrat amb GitHub Packages.
+- [GitLab Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/): Integrat amb GitLab.
+- [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/): Servei gestionat per AWS.
+
+:::{.center-container .fragment}
+Quan executeu `docker pull/run ubuntu`, Docker busca la imatge al registre configurat (per defecte DockerHub) si no la troba localment.
+:::
+
+## Necessitat dels registries {.smaller}
+
+- Compartició d’imatges entre equips.
+- Desplegar aplicacions de manera consistent a diversos entorns.
+- Versionat d’imatges amb tags.
+- Integració CI/CD: build automàtic + push.
+- Reproduïbilitat dels desplegaments.
+- Repositoris públics i privats.
+
+## Docker Hub {.smaller}
+
+Per pujar una imatge a Docker Hub:
+
+1. Creeu un compte a [Docker Hub](https://hub.docker.com/).
+2. Inicieu sessió des del terminal: `docker login`.
+3. Etiqueteu la imatge amb el format de dockerhub:
+  
+    ```bash
+    docker build . -t <your-dockerhub-username>/<image-name>:<image-version>
+    ```
+
+4. Pugeu la imatge al registre:
+
+    ```bash
+    docker push <your-dockerhub-username>/<image-name>:<image-version>
+    ```
+
+## Què és un TAG {.smaller}
+
+- Un *tag* és una etiqueta que s’associa a una imatge de contenidor per identificar-la.
+
+:::{.fragment}
+```bash
+python:3.12
+python:3.11-slim
+ubuntu:22.04
+node:20-alpine
+myuser/myapp:v1.0.0
+```
+:::
+
+:::{.center-container .fragment}
+Si no especifiqueu un tag, Docker utilitza `latest` per defecte.
+:::
+
+## Fent `pull` d’una imatge amb tag {.smaller}
+
+Per descarregar una imatge amb un tag específic, utilitzeu la comanda `docker pull` o `docker run` seguida del nom de la imatge i el tag:
+
+```bash
+docker pull python:3.12
+docker pull ubuntu:22.04
+```
+
+::: {.center-container .fragment}
+**MAI utilitzeu `latest` en producció! Heu de confiar en els hashes de les imatges, latest és mutable, no garanteix que la imatge sigui sempre la mateixa.**
+:::
+
+## Versions immutables amb digests {.smaller}
+
+```bash
+docker images --digests python
+REPOSITORY   TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
+python       3.9       sha256:da5aee29682d12a6649f51c8d6f15b87deb3e6c524b923c41d0cb3304d07c913   da5aee29682d   4 weeks ago   1.58GB
+``` 
+- Cada imatge té un *digest* únic (SHA256 hash) que identifica la versió exacta de la imatge.
+- Podeu utilitzar aquest digest per assegurar-vos que sempre esteu utilitzant la mateixa versió de la imatge, independentment del tag.
+
+:::{.fragment}
+```bash
+docker run python@sha256:da5aee29682d12a6649f51c8d6f15b87deb3e6c524b923c41d0cb3304d07c913
+# docker run python:3.9
+```
+:::
+
+- Aquesta imatge sempre serà la mateixa, encara que el tag `3.9` canviï en el futur. 
+- Si algú modifica la imatge `python:3.9`, la teva app no es veurà afectada. 
+- Les traces d’auditoria i seguretat són més fàcils de mantenir.
+
+
+## Orquestració de contenidors {.smaller}
+
+Quan tenim aplicacions complexes amb múltiples serveis (base de dades, backend, frontend, cache...), gestionar-los amb Docker CLI pot ser complicat:
+
+- Arrancar/reiniciar/aturar els nostres serveis ens obliga a moure’ns entre diferents carpetes.
+- Els contenidors es tracten com a serveis independents quan normalment hi haurà certa lògica entre ells.
+
+:::{.fragment}
+**No seria genial si hi hagués alguna cosa per orquestrar aquests diferents serveis?** Alguna cosa que també ens donés la capacitat de gestionar certa lògica entre ells?
+:::
+
+:::{.center-container .fragment}
+**Un orquestrador de contenidors!**
+:::
+
+## Orquestradors de contenidors populars {.smaller}
+
+- **Docker Compose**: Eina senzilla per definir i executar aplicacions multi-contenidor amb Docker. Utilitza fitxers `docker-compose.yml` per definir serveis, xarxes i volums.
+- **Kubernetes**: Plataforma d’orquestració de contenidors molt potent i escalable. Gestiona el desplegament, l’escalat i l’administració de contenidors en un clúster.
+- **Amazon ECS**: Servei d’orquestració de contenidors gestionat per AWS.
+
+## Compose vs Kubernetes {.smaller}
+
+| Funció          | Docker Compose | Kubernetes          |
+| --------------- | -------------- | ------------------- |
+| Objectiu        | Dev/local      | Producció, clústers |
+| Escala          | Un  host       | Multi-node          |
+| Autorestart     | Limitat        | Integrat            |
+| Secrets         | Bàsics         | Avançats            |
+| Xarxes          | Simples        | Pod network, CNI    |
+| Actualitzacions | Manual         | Rolling updates     |
+
+
+
+## Docker Compose {.smaller}
+
+Un fitxer `yaml` per definir i executar aplicacions multi-contenidor amb Docker.
+
+- **Simplicitat**: Defineix i controla múltiples contenidors des d’un sol fitxer i els aixeca/atura amb una sola comanda.
+- **Serveis**: Declara cada component (*imatge o context de construcció, ports, variables d’entorn, volums*).
+- **Xarxes i Volums**: Configura centralment la xarxa i l’emmagatzematge persistent per als serveis.
+- **Orquestració**: expressa dependències (`depends_on`), *healthchecks* i *escalat* (p. ex., `docker compose up --scale`).
+- **Reproducibilitat**: configuració compartible i versionada adequada per al desenvolupament local, CI/CD i desplegaments.
+
+## Exemple bàsic de Docker Compose {.smaller}
+
+::: columns
+::: {.column width="50%"}
+```yaml
+services:
+  frontend:
+    build: folder_1
+    ports:
+      - "4000:3000"
+```
+:::
+::: {.column width="50%"}
+
+```bash
+folder_1
+|-- Dockerfile
+|-- package.json
+|-- index.js
+```
+--- 
+
+```Dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["npm", "start"]
+```
+:::
+:::
+
+- `services`: defineix els diferents serveis de l’aplicació.
+- `frontend`: declara un nou contenidor anomenat `frontend`.
+- `build`: especifica el directori on es troba el Dockerfile per construir la imatge del servei.
+
+## Interacció amb Docker Compose {.smaller}
+
+::: columns
+::: {.column width="50%"}
+```bash
+docker build -t frontend .
+docker run -p 3000:3000 frontend
+```
+
+- Has de construir manualment la imatge.
+- Has de recordar i escriure tots els paràmetres cada vegada.
+- Si tens diversos serveis, has d’anar servei per servei.
+- Cap gestió automàtica de dependències.
+
+:::
+::: {.column width="50%"}
+```bash
+docker compose build frontend
+docker compose up frontend
+```
+
+- Un fitxer declaratiu (`docker-compose.yml`) descriu l’aplicació.
+- Una sola comanda construeix + arrenca el servei.
+- Recorda ports, entorns, volums, xarxes…
+
+:::
+:::
+
+
+:::{.center-container .fragment}
+Amb `docker compose up`, es poden aixecar tots els serveis definits al fitxer `docker-compose.yml` amb una sola comanda.
+:::
+
+
+
+
+## Comandes útils de Docker Compose {.smaller}
+
+| Comanda                        | Descripció                                      |
+|-------------------------------|------------------------------------------------|
+| `docker compose up`           | Inicia tots els serveis (foreground).          |
+| `docker compose up -d`        | Inicia tots els serveis (detached).              |
+| `docker compose down`         | Atura tots els serveis.                         |
+| `docker compose ps`           | Llista tots els serveis en execució.            |
+| `docker compose logs`         | Mostra els logs de tots els serveis.           |
+| `docker compose exec <servei> bash` | Obre una terminal bash dins del servei especificat. |
+| `docker compose build`        | Construeix o reconstrueix els serveis.         |
+
+
+## Non-build {.smaller}
+
+Fins ara ara, hem vist com construir imatges a partir de Dockerfiles. Però, què passa si ja tenim una imatge pública o privada que volem utilitzar directament?
+
+En lloc d’utilitzar la instrucció `build`, podem utilitzar la instrucció `image` per especificar una imatge existent.
+
+::: columns
+::: {.column width="50%"}
+```yaml
+docker run -e MYSQL_ROOT_PASSWORD=rootpassword \
+           -e MYSQL_DATABASE=appdb \
+           -e MYSQL_USER=appuser \
+           -e MYSQL_PASSWORD=apppassword \
+           -p 3306:3306 \
+           mysql:8.0
+```
+:::
+::: {.column width="50%"}
+```yaml
+services:
+    db:
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_DATABASE: appdb
+            MYSQL_USER: appuser
+            MYSQL_PASSWORD: apppassword
+        ports:
+            - "3306:3306"
+```
+:::
+:::
+
+## Xarxes amb Docker Compose {.smaller}
+
+Docker Compose crea una xarxa per defecte per als serveis definits en un fitxer `docker-compose.yml`. Aquesta xarxa permet que els serveis es comuniquin entre si utilitzant els noms dels serveis com a noms d’host.
+
+::: columns
+::: {.column width="50%"}
+![](../figs/slides/04-virt/docker-network.png)
+:::
+::: {.column width="50%"}
+![](../figs/slides/04-virt/compose-network.png)
+:::
+:::
+
+
+
+## Analitzem: {.smaller}
+
+::: columns
+::: {.column width="50%"}
+### A
+```yaml
+services:
+  backend:
+    build: folder_2
+    ports:
+      - "4000:3000"
+  db:
+    image: mysql:8.0
+    ports:
+      - "5000:5000"
+```
+:::
+::: {.column width="50%"}
+### B
+```bash
+services:
+  backend:
+    build: folder_2
+    ports:
+      - "4000:3000"
+  db:
+    image: mysql:8.0
+```
+:::
+:::
+
+:::{.fragment}
+La opció incorrecta és la A.
+
+- Un error comú és exposar ports innecessàriament. `host:5000 → contenidor db:5000`.  Això només obre el port cap al host, no cap a altres contenidors.
+- El host sí que veu el port 5000 (via localhost:5000), però tampoc podrà connectar-se perquè dins del contenidor MySQL no escolta en 5000, sinó en 3306.
+- En canvi, en la opció B, el servei `backend` pot connectar-se a la base de dades utilitzant l’host `db` i el port `3306`. `backend → db:3306`
+:::
+
+
+## Dependències entre serveis {.smaller}
+
+A vegades, un servei depèn d’un altre per funcionar correctament. Per exemple, un servei backend pot necessitar que una base de dades estigui en funcionament abans de començar a acceptar connexions.
+
+```yaml
+services:
+    backend:
+        build: folder_2
+        ports:
+            - "4000:3000"
+        depends_on:
+            - db
+    db:
+        image: mysql:8.0
+```
+
+:::{.center-container .fragment}
+`depends_on` només assegura que el servei `db` s'iniciï abans que el servei `backend`. No garanteix que el servei `db` estigui llest per acceptar connexions. Per assegurar la segona part, pot ser necessari implementar comprovacions de salut o scripts d'espera (*wait-for-it*).
+:::
+
+## Exmemple de healthcheck {.smaller}
+
+```yaml
+services:
+  db:
+    image: mysql:8.0
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+```
+
+## Volumns i bind mounts {.smaller}
+
+Els volums i els bind mounts permeten compartir dades entre el sistema host i els contenidors, o entre diferents contenidors.
+
+```yaml
+services:
+    db:
+        image: mysql:8.0
+        volumes:
+            - ./db-data:/var/lib/mysql
+```
+
+- `volumes`: defineix els volums o bind mounts per al servei.
+- `./db-data:/var/lib/mysql`: especifica un bind mount que mapeja el directori `./db-data` del host al directori `/var/lib/mysql` del contenidor.
+
+## Docker Compose fitxer complet {.smaller}
+
+::: columns
+::: {.column width="40%"}
+```yaml
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    environment:
+      DB_HOST: db
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: appdb
+    volumes:
+      - dbdata:/var/lib/mysql
+```
+
+:::
+::: {.column width="60%"}
+
+- Es construeixen i s’executen dos serveis: `backend` i `db`, cada servei en un contenidor separat i aïllat.
+- Cada servei té la seva pròpia configuració, incloent ports, variables d’entorn i volums.
+- La informació sobre les variables d'entorn que es poden utilitzar per configurar el servei de MySQL es pot trobar a la [documentació oficial de MySQL Docker](https://hub.docker.com/_/mysql).
+- S’utilitza un volum anomenat `dbdata` per emmagatzemar les dades de la base de dades de manera persistent.
+
+:::
+:::
