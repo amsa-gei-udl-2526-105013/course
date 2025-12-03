@@ -121,9 +121,9 @@ Crea un directori amb un fitxer `index.html` que contingui "Hola, Docker!". Escr
 
 ## Exercici 7: Legacy link
 
-Utilitza una imatge de redis per arrancar un contenidor (`redis:latest`).  Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname `amsa-redis`i incrementi un comptador cada vegada que s'accedeix a la ruta `/`. Executa el contenid amb `default bridge network`. Com es que Python falla al resoldre el hostname `amsa-redis`? Quina és la solució perque funcioni correctament?
+Utilitza una imatge de redis per arrancar un contenidor (`redis:latest`).  Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname `amsa-redis`i incrementi un comptador cada vegada que s'accedeix a la ruta `/`. Executa el contenidor amb `default bridge network`. Com es que Python falla al resoldre el hostname `amsa-redis`? Quina és la solució perque funcioni correctament?
 
-```
+```python
 from flask import Flask
 import redis
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     print("Arguments rebuts:", " ".join(sys.argv[1:]))
 ```
 
-Crea dues imatges de docker ina amb `CMD` i l'altra amb `ENTRYPOINT` per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar `CMD` i quan `ENTRYPOINT`.
+Crea dues imatges de docker una amb `CMD` i l'altra amb `ENTRYPOINT` per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar `CMD` i quan `ENTRYPOINT`.
 
 ## Exercici 9: Multi-Stage amb Go
 Tens el següent codi en Go que crea un servidor web senzill:
