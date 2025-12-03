@@ -352,7 +352,7 @@
     "href": "exercises/05-virtualitzation/01-docker.html",
     "title": "Exerccisis amb Docker",
     "section": "",
-    "text": "Donada la següent aplicació en Python:\n```python\nimport falcon\n\nclass Item:\n    def __init__(self, id, name):\n        self.id = id\n        self.name = name\n\nitems = [\n    Item(1, \"Item 1\"),\n    Item(2, \"Item 2\"),\n    Item(3, \"Item 3\"),\n]\n\nclass ItemListResource:\n    def on_get(self, req, resp):\n        resp.media = [{\"id\": item.id, \"name\": item.name} for item in items]\n\nclass ItemResource:\n    def on_get(self, req, resp, item_id):\n        item = next((i for i in items if i.id == int(item_id)), None)\n        if item:\n            resp.media = {\"id\": item.id, \"name\": item.name}\n        else:\n            resp.status = falcon.HTTP_404\n            resp.media = {\"error\": \"Item not found\"}\n\n\napp = falcon.App()\n\napp.add_route('/items', ItemListResource())\napp.add_route('/items/{item_id}', ItemResource())\n```\n\nPer executar l'aplicació, es pot fer servir el següent script:\n\n```bash\ngunicorn -b 0.0.0.0:8000 app:app\n```\n\nOn `app` és el nom del fitxer on es troba l'aplicació.\n\nA més, sabem que l'aplicació necessita les següents llibreries: `falcon` i `gunicorn` en les versions 3.0.0 i 20.1.0 respectivament.\n\nLa teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.",
+    "text": "Donada la següent aplicació en Python:\nimport falcon\n\nclass Item:\n    def __init__(self, id, name):\n        self.id = id\n        self.name = name\n\n        items = [\n            Item(1, \"Item 1\"),\n            Item(2, \"Item 2\"),\n            Item(3, \"Item 3\"),\n        ]\n\nclass ItemListResource:\n    def on_get(self, req, resp):\n        resp.media = [{\"id\": item.id, \"name\": item.name} for item in items]\n\nclass ItemResource:\n    def on_get(self, req, resp, item_id):\n        item = next((i for i in items if i.id == int(item_id)), None)\n        if item:\n            resp.media = {\"id\": item.id, \"name\": item.name}\n        else:\n            resp.status = falcon.HTTP_404\n            resp.media = {\"error\": \"Item not found\"}\n\napp = falcon.App()\n\napp.add_route('/items', ItemListResource())\napp.add_route('/items/{item_id}', ItemResource())\nPer executar l’aplicació, es pot fer servir el següent script:\ngunicorn -b 0.0.0.0:8000 app:app\nOn app és el nom del fitxer on es troba l’aplicació.\nA més, sabem que l’aplicació necessita les següents llibreries: falcon i gunicorn en les versions 3.0.0 i 20.1.0 respectivament.\nLa teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.",
     "crumbs": [
       "Activitats",
       "Unitat 05 · Virtualització i Contenidors",
@@ -364,7 +364,7 @@
     "href": "exercises/05-virtualitzation/01-docker.html#exercici-1-docker-bàsic-amb-un-script-python",
     "title": "Exerccisis amb Docker",
     "section": "",
-    "text": "Donada la següent aplicació en Python:\n```python\nimport falcon\n\nclass Item:\n    def __init__(self, id, name):\n        self.id = id\n        self.name = name\n\nitems = [\n    Item(1, \"Item 1\"),\n    Item(2, \"Item 2\"),\n    Item(3, \"Item 3\"),\n]\n\nclass ItemListResource:\n    def on_get(self, req, resp):\n        resp.media = [{\"id\": item.id, \"name\": item.name} for item in items]\n\nclass ItemResource:\n    def on_get(self, req, resp, item_id):\n        item = next((i for i in items if i.id == int(item_id)), None)\n        if item:\n            resp.media = {\"id\": item.id, \"name\": item.name}\n        else:\n            resp.status = falcon.HTTP_404\n            resp.media = {\"error\": \"Item not found\"}\n\n\napp = falcon.App()\n\napp.add_route('/items', ItemListResource())\napp.add_route('/items/{item_id}', ItemResource())\n```\n\nPer executar l'aplicació, es pot fer servir el següent script:\n\n```bash\ngunicorn -b 0.0.0.0:8000 app:app\n```\n\nOn `app` és el nom del fitxer on es troba l'aplicació.\n\nA més, sabem que l'aplicació necessita les següents llibreries: `falcon` i `gunicorn` en les versions 3.0.0 i 20.1.0 respectivament.\n\nLa teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.",
+    "text": "Donada la següent aplicació en Python:\nimport falcon\n\nclass Item:\n    def __init__(self, id, name):\n        self.id = id\n        self.name = name\n\n        items = [\n            Item(1, \"Item 1\"),\n            Item(2, \"Item 2\"),\n            Item(3, \"Item 3\"),\n        ]\n\nclass ItemListResource:\n    def on_get(self, req, resp):\n        resp.media = [{\"id\": item.id, \"name\": item.name} for item in items]\n\nclass ItemResource:\n    def on_get(self, req, resp, item_id):\n        item = next((i for i in items if i.id == int(item_id)), None)\n        if item:\n            resp.media = {\"id\": item.id, \"name\": item.name}\n        else:\n            resp.status = falcon.HTTP_404\n            resp.media = {\"error\": \"Item not found\"}\n\napp = falcon.App()\n\napp.add_route('/items', ItemListResource())\napp.add_route('/items/{item_id}', ItemResource())\nPer executar l’aplicació, es pot fer servir el següent script:\ngunicorn -b 0.0.0.0:8000 app:app\nOn app és el nom del fitxer on es troba l’aplicació.\nA més, sabem que l’aplicació necessita les següents llibreries: falcon i gunicorn en les versions 3.0.0 i 20.1.0 respectivament.\nLa teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.",
     "crumbs": [
       "Activitats",
       "Unitat 05 · Virtualització i Contenidors",
@@ -436,7 +436,7 @@
     "href": "exercises/05-virtualitzation/01-docker.html#exercici-7-legacy-link",
     "title": "Exerccisis amb Docker",
     "section": "Exercici 7: Legacy link",
-    "text": "Exercici 7: Legacy link\nUtilitza una imatge de redis per arrancar un contenidor (redis:latest). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname amsa-redisi incrementi un comptador cada vegada que s’accedeix a la ruta /. Executa el contenid amb default bridge network. Com es que Python falla al resoldre el hostname amsa-redis? Quina és la solució perque funcioni correctament?\nfrom flask import Flask\nimport redis\n\napp = Flask(__name__)\nr = redis.Redis(host=\"amsa-redis\", port=6379)\nr.ping()\n\n@app.route(\"/\")\ndef index():\n    count = r.incr(\"counter\")\n    return f\"Count = {count}\"",
+    "text": "Exercici 7: Legacy link\nUtilitza una imatge de redis per arrancar un contenidor (redis:latest). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname amsa-redisi incrementi un comptador cada vegada que s’accedeix a la ruta /. Executa el contenidor amb default bridge network. Com es que Python falla al resoldre el hostname amsa-redis? Quina és la solució perque funcioni correctament?\nfrom flask import Flask\nimport redis\n\napp = Flask(__name__)\nr = redis.Redis(host=\"amsa-redis\", port=6379)\nr.ping()\n\n@app.route(\"/\")\ndef index():\n    count = r.incr(\"counter\")\n    return f\"Count = {count}\"",
     "crumbs": [
       "Activitats",
       "Unitat 05 · Virtualització i Contenidors",
@@ -448,7 +448,19 @@
     "href": "exercises/05-virtualitzation/01-docker.html#exercici-8-cmd-vs-entrypoint",
     "title": "Exerccisis amb Docker",
     "section": "Exercici 8: CMD vs ENTRYPOINT",
-    "text": "Exercici 8: CMD vs ENTRYPOINT\nAssumeix el següent script de python hello.py:\n# hello.py\nimport sys\n\nif __name__ == \"__main__\":\n    print(\"Arguments rebuts:\", \" \".join(sys.argv[1:]))\nCrea dues imatges de docker ina amb CMD i l’altra amb ENTRYPOINT per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar CMD i quan ENTRYPOINT.",
+    "text": "Exercici 8: CMD vs ENTRYPOINT\nAssumeix el següent script de python hello.py:\n# hello.py\nimport sys\n\nif __name__ == \"__main__\":\n    print(\"Arguments rebuts:\", \" \".join(sys.argv[1:]))\nCrea dues imatges de docker una amb CMD i l’altra amb ENTRYPOINT per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar CMD i quan ENTRYPOINT.",
+    "crumbs": [
+      "Activitats",
+      "Unitat 05 · Virtualització i Contenidors",
+      "Activitat 13 · Introducció a Docker"
+    ]
+  },
+  {
+    "objectID": "exercises/05-virtualitzation/01-docker.html#exercici-9-multi-stage-amb-go",
+    "href": "exercises/05-virtualitzation/01-docker.html#exercici-9-multi-stage-amb-go",
+    "title": "Exerccisis amb Docker",
+    "section": "Exercici 9: Multi-Stage amb Go",
+    "text": "Exercici 9: Multi-Stage amb Go\nTens el següent codi en Go que crea un servidor web senzill:\npackage main\n\nimport (\n    \"fmt\"\n    \"net/http\"\n    \"os\"\n)\n\nfunc main() {\n    // Define the handler function\n    http.HandleFunc(\"/\", func(w http.ResponseWriter, r *http.Request) {\n        fmt.Fprintf(w, \"Hello! This app is running inside a Docker container.\")\n    })\n\n    // Determine port for HTTP service.\n    port := os.Getenv(\"PORT\")\n    if port == \"\" {\n        port = \"8080\"\n    }\n\n    // Start the server\n    fmt.Printf(\"Server starting on port %s...\\n\", port)\n    if err := http.ListenAndServe(\":\"+port, nil); err != nil {\n        panic(err)\n    }\n}\nCrea dos Dockerfiles per aquesta aplicació: un que utilitzi una sola etapa i un altre que utilitzi multi-stage builds per optimitzar la mida de la imatge final. Compara les mides de les dues imatges i explica els avantatges del multi-stage build en aquest cas.\nPer a ajudar-te, aquí tens una estructura bàsica per als dos Dockerfiles:\n\nsingle-stage.Dockerfile\nmulti-stage.Dockerfile\n\nPer compilar pots utilitzar les següents comandes:\ndocker build -f single-stage.Dockerfile -t amsa-single-stage .\ndocker build -f multi-stage.Dockerfile -t amsa-multi-stage .\nPer compilar l’app amb go, pots utilitzar:\ngo build -o my-app main.go",
     "crumbs": [
       "Activitats",
       "Unitat 05 · Virtualització i Contenidors",
@@ -3223,14 +3235,14 @@
     "href": "course-information/schedule.html",
     "title": "AMSA 105013: System Administration",
     "section": "",
-    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖\n\n\n\n📝 📝\n\n\n\n2\nLaboratori\n15/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n\n\n🧪 🧪\n\n\n\n\n\n2\nTeoria\n17/09/25\nUnitat 02: Arrencada del sistema\n📖\n\n\n\n📝 📝 📝\n\n\n\n3\nLaboratori\n24/09/25\nUnitat 02: Arrencada del sistema (II)\n📖\n\n\n💬\n📝 📝\n\n\n\n4\nTeoria\n29/09/25\nUnitat 02: Arrencada del sistema (III)\n📖\n\n\n💬\n📝 📝\n👩🏻‍💻\n\n\n4\nLaboratori\n01/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n5\nTeoria\n06/10/25\nUnitat 03: Sistemes de fitxers (Part 1)\n📖\n\n\n\n📝\n\n\n\n5\nLaboratori\n08/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n6\nTeoria\n13/10/25\nUnitat 03: Sistemes de fitxers (Part 2)\n📖\n\n\n\n📝\n\n\n\n6\nLaboratori\n15/10/25\n(Vaga general)\n\n\n\n\n\n\n\n\n7\nTeoria\n20/10/25\nUnitat 03: Sistemes de fitxers (Part 3)\n📖\n\n\n\n📝\n\n\n\n7\nLaboratori\n22/10/25\nUnitat 03: Pràctica 02\n\n\n\n \n\n👩🏻‍💻\n\n\n8\nTeoria\n27/10/25\nRepàs Parcial\n\n\n\n\n\n\n\n\n8\nLaboratori\n29/10/25\nAWS: S3\n\n\n🧪\n\n\n\n\n\n9\nPARCIALS\n \n\n\n\n\n\n\n\n\n\n10\nTeoria\n10/11/25\nUnitat 04: Autenticació i Autorització (Part 1)\n📖\n\n\n\n📝\n\n\n\n10\nLaboratori\n12/11/25\nUnitat 04: Autenticació i Autorització (Part 2)\n📖\n\n\n\n📝\n\n\n\n11\nLaboratori\n17/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n11\nLaboratori\n19/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n12\nTeoria\n24/11/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝\n\n\n\n12\nLaboratori\n26/11/25\nProjecte 3 · Infraestructura LDAP Completa a AWS\n\n\n\n \n\n👩🏻‍💻\n\n\n13\nTeoria\n01/12/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝"
+    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖\n\n\n\n📝 📝\n\n\n\n2\nLaboratori\n15/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n\n\n🧪 🧪\n\n\n\n\n\n2\nTeoria\n17/09/25\nUnitat 02: Arrencada del sistema\n📖\n\n\n\n📝 📝 📝\n\n\n\n3\nLaboratori\n24/09/25\nUnitat 02: Arrencada del sistema (II)\n📖\n\n\n💬\n📝 📝\n\n\n\n4\nTeoria\n29/09/25\nUnitat 02: Arrencada del sistema (III)\n📖\n\n\n💬\n📝 📝\n👩🏻‍💻\n\n\n4\nLaboratori\n01/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n5\nTeoria\n06/10/25\nUnitat 03: Sistemes de fitxers (Part 1)\n📖\n\n\n\n📝\n\n\n\n5\nLaboratori\n08/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n6\nTeoria\n13/10/25\nUnitat 03: Sistemes de fitxers (Part 2)\n📖\n\n\n\n📝\n\n\n\n6\nLaboratori\n15/10/25\n(Vaga general)\n\n\n\n\n\n\n\n\n7\nTeoria\n20/10/25\nUnitat 03: Sistemes de fitxers (Part 3)\n📖\n\n\n\n📝\n\n\n\n7\nLaboratori\n22/10/25\nUnitat 03: Pràctica 02\n\n\n\n \n\n👩🏻‍💻\n\n\n8\nTeoria\n27/10/25\nRepàs Parcial\n\n\n\n\n\n\n\n\n8\nLaboratori\n29/10/25\nAWS: S3\n\n\n🧪\n\n\n\n\n\n9\nPARCIALS\n \n\n\n\n\n\n\n\n\n\n10\nTeoria\n10/11/25\nUnitat 04: Autenticació i Autorització (Part 1)\n📖\n\n\n\n📝\n\n\n\n10\nLaboratori\n12/11/25\nUnitat 04: Autenticació i Autorització (Part 2)\n📖\n\n\n\n📝\n\n\n\n11\nLaboratori\n17/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n11\nLaboratori\n19/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n12\nTeoria\n24/11/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝\n\n\n\n12\nLaboratori\n26/11/25\nProjecte 3 · Infraestructura LDAP Completa a AWS\n\n\n\n \n\n👩🏻‍💻\n\n\n13\nTeoria\n01/12/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝\n\n\n\n13\nLaboratori\n03/12/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝"
   },
   {
     "objectID": "course-information/schedule.html#planificació",
     "href": "course-information/schedule.html#planificació",
     "title": "AMSA 105013: System Administration",
     "section": "",
-    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖\n\n\n\n📝 📝\n\n\n\n2\nLaboratori\n15/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n\n\n🧪 🧪\n\n\n\n\n\n2\nTeoria\n17/09/25\nUnitat 02: Arrencada del sistema\n📖\n\n\n\n📝 📝 📝\n\n\n\n3\nLaboratori\n24/09/25\nUnitat 02: Arrencada del sistema (II)\n📖\n\n\n💬\n📝 📝\n\n\n\n4\nTeoria\n29/09/25\nUnitat 02: Arrencada del sistema (III)\n📖\n\n\n💬\n📝 📝\n👩🏻‍💻\n\n\n4\nLaboratori\n01/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n5\nTeoria\n06/10/25\nUnitat 03: Sistemes de fitxers (Part 1)\n📖\n\n\n\n📝\n\n\n\n5\nLaboratori\n08/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n6\nTeoria\n13/10/25\nUnitat 03: Sistemes de fitxers (Part 2)\n📖\n\n\n\n📝\n\n\n\n6\nLaboratori\n15/10/25\n(Vaga general)\n\n\n\n\n\n\n\n\n7\nTeoria\n20/10/25\nUnitat 03: Sistemes de fitxers (Part 3)\n📖\n\n\n\n📝\n\n\n\n7\nLaboratori\n22/10/25\nUnitat 03: Pràctica 02\n\n\n\n \n\n👩🏻‍💻\n\n\n8\nTeoria\n27/10/25\nRepàs Parcial\n\n\n\n\n\n\n\n\n8\nLaboratori\n29/10/25\nAWS: S3\n\n\n🧪\n\n\n\n\n\n9\nPARCIALS\n \n\n\n\n\n\n\n\n\n\n10\nTeoria\n10/11/25\nUnitat 04: Autenticació i Autorització (Part 1)\n📖\n\n\n\n📝\n\n\n\n10\nLaboratori\n12/11/25\nUnitat 04: Autenticació i Autorització (Part 2)\n📖\n\n\n\n📝\n\n\n\n11\nLaboratori\n17/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n11\nLaboratori\n19/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n12\nTeoria\n24/11/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝\n\n\n\n12\nLaboratori\n26/11/25\nProjecte 3 · Infraestructura LDAP Completa a AWS\n\n\n\n \n\n👩🏻‍💻\n\n\n13\nTeoria\n01/12/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝"
+    "text": "A continuació es presenta un calendari complet dels temes, el contingut del curs i les tasques per al semestre. Tingueu en compte que aquest calendari és un document viu i es pot actualitzar. Tots els canvis es publicaran aquí per assegurar-vos que teniu la informació més actual.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSetmana\nTipus\nData\nTema\nDiapositives\nApunts\nLaboratori\nAltres\nTasques\nLliuraments\n\n\n\n\n1\nTeoria\n10/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n📖\n\n\n\n📝 📝\n\n\n\n2\nLaboratori\n15/09/25\nUnitat 01: Fonaments de l’Administració de Sistemes\n\n\n🧪 🧪\n\n\n\n\n\n2\nTeoria\n17/09/25\nUnitat 02: Arrencada del sistema\n📖\n\n\n\n📝 📝 📝\n\n\n\n3\nLaboratori\n24/09/25\nUnitat 02: Arrencada del sistema (II)\n📖\n\n\n💬\n📝 📝\n\n\n\n4\nTeoria\n29/09/25\nUnitat 02: Arrencada del sistema (III)\n📖\n\n\n💬\n📝 📝\n👩🏻‍💻\n\n\n4\nLaboratori\n01/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n5\nTeoria\n06/10/25\nUnitat 03: Sistemes de fitxers (Part 1)\n📖\n\n\n\n📝\n\n\n\n5\nLaboratori\n08/10/25\nNetworking\n\n\n🧪\n\n\n\n\n\n6\nTeoria\n13/10/25\nUnitat 03: Sistemes de fitxers (Part 2)\n📖\n\n\n\n📝\n\n\n\n6\nLaboratori\n15/10/25\n(Vaga general)\n\n\n\n\n\n\n\n\n7\nTeoria\n20/10/25\nUnitat 03: Sistemes de fitxers (Part 3)\n📖\n\n\n\n📝\n\n\n\n7\nLaboratori\n22/10/25\nUnitat 03: Pràctica 02\n\n\n\n \n\n👩🏻‍💻\n\n\n8\nTeoria\n27/10/25\nRepàs Parcial\n\n\n\n\n\n\n\n\n8\nLaboratori\n29/10/25\nAWS: S3\n\n\n🧪\n\n\n\n\n\n9\nPARCIALS\n \n\n\n\n\n\n\n\n\n\n10\nTeoria\n10/11/25\nUnitat 04: Autenticació i Autorització (Part 1)\n📖\n\n\n\n📝\n\n\n\n10\nLaboratori\n12/11/25\nUnitat 04: Autenticació i Autorització (Part 2)\n📖\n\n\n\n📝\n\n\n\n11\nLaboratori\n17/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n11\nLaboratori\n19/11/25\nUnitat 04: Autenticació i Autorització\n\n\n🧪\n\n\n\n\n\n12\nTeoria\n24/11/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝\n\n\n\n12\nLaboratori\n26/11/25\nProjecte 3 · Infraestructura LDAP Completa a AWS\n\n\n\n \n\n👩🏻‍💻\n\n\n13\nTeoria\n01/12/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝\n\n\n\n13\nLaboratori\n03/12/25\nUnitat 05: Virtualització i Contenidors (Part 1)\n📖\n\n\n\n📝"
   },
   {
     "objectID": "slides/05-virtualization-part1.html#què-és-la-virtualització",
@@ -4107,6 +4119,226 @@
     "title": "Virtualització i Contenidors",
     "section": "Exercicis",
     "text": "Exercicis\n\nExercicis de Contenidors Docker",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#container-registries",
+    "href": "slides/05-virtualization-part1.html#container-registries",
+    "title": "Virtualització i Contenidors",
+    "section": "Container Registries",
+    "text": "Container Registries\nUn container registry és un servei que emmagatzema i distribueix imatges de contenidors, de manera similar a com GitHub emmagatzema repositoris.\n\nDockerHub: El registre públic més gran i conegut.\nGitHub Container Registry (GHCR): Integrat amb GitHub Packages.\nGitLab Container Registry: Integrat amb GitLab.\nAmazon Elastic Container Registry (ECR): Servei gestionat per AWS.\n\n\nQuan executeu docker pull/run ubuntu, Docker busca la imatge al registre configurat (per defecte DockerHub) si no la troba localment.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#necessitat-dels-registries",
+    "href": "slides/05-virtualization-part1.html#necessitat-dels-registries",
+    "title": "Virtualització i Contenidors",
+    "section": "Necessitat dels registries",
+    "text": "Necessitat dels registries\n\nCompartició d’imatges entre equips.\nDesplegar aplicacions de manera consistent a diversos entorns.\nVersionat d’imatges amb tags.\nIntegració CI/CD: build automàtic + push.\nReproduïbilitat dels desplegaments.\nRepositoris públics i privats.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#docker-hub",
+    "href": "slides/05-virtualization-part1.html#docker-hub",
+    "title": "Virtualització i Contenidors",
+    "section": "Docker Hub",
+    "text": "Docker Hub\nPer pujar una imatge a Docker Hub:\n\nCreeu un compte a Docker Hub.\nInicieu sessió des del terminal: docker login.\nEtiqueteu la imatge amb el format de dockerhub:\ndocker build . -t &lt;your-dockerhub-username&gt;/&lt;image-name&gt;:&lt;image-version&gt;\nPugeu la imatge al registre:\ndocker push &lt;your-dockerhub-username&gt;/&lt;image-name&gt;:&lt;image-version&gt;",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#què-és-un-tag",
+    "href": "slides/05-virtualization-part1.html#què-és-un-tag",
+    "title": "Virtualització i Contenidors",
+    "section": "Què és un TAG",
+    "text": "Què és un TAG\n\nUn tag és una etiqueta que s’associa a una imatge de contenidor per identificar-la.\n\n\npython:3.12\npython:3.11-slim\nubuntu:22.04\nnode:20-alpine\nmyuser/myapp:v1.0.0\n\n\nSi no especifiqueu un tag, Docker utilitza latest per defecte.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#fent-pull-duna-imatge-amb-tag",
+    "href": "slides/05-virtualization-part1.html#fent-pull-duna-imatge-amb-tag",
+    "title": "Virtualització i Contenidors",
+    "section": "Fent pull d’una imatge amb tag",
+    "text": "Fent pull d’una imatge amb tag\nPer descarregar una imatge amb un tag específic, utilitzeu la comanda docker pull o docker run seguida del nom de la imatge i el tag:\ndocker pull python:3.12\ndocker pull ubuntu:22.04\n\nMAI utilitzeu latest en producció! Heu de confiar en els hashes de les imatges, latest és mutable, no garanteix que la imatge sigui sempre la mateixa.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#versions-immutables-amb-digests",
+    "href": "slides/05-virtualization-part1.html#versions-immutables-amb-digests",
+    "title": "Virtualització i Contenidors",
+    "section": "Versions immutables amb digests",
+    "text": "Versions immutables amb digests\ndocker images --digests python\nREPOSITORY   TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE\npython       3.9       sha256:da5aee29682d12a6649f51c8d6f15b87deb3e6c524b923c41d0cb3304d07c913   da5aee29682d   4 weeks ago   1.58GB\n\nCada imatge té un digest únic (SHA256 hash) que identifica la versió exacta de la imatge.\nPodeu utilitzar aquest digest per assegurar-vos que sempre esteu utilitzant la mateixa versió de la imatge, independentment del tag.\n\n\ndocker run python@sha256:da5aee29682d12a6649f51c8d6f15b87deb3e6c524b923c41d0cb3304d07c913\n# docker run python:3.9\n\n\nAquesta imatge sempre serà la mateixa, encara que el tag 3.9 canviï en el futur.\nSi algú modifica la imatge python:3.9, la teva app no es veurà afectada.\nLes traces d’auditoria i seguretat són més fàcils de mantenir.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#orquestració-de-contenidors",
+    "href": "slides/05-virtualization-part1.html#orquestració-de-contenidors",
+    "title": "Virtualització i Contenidors",
+    "section": "Orquestració de contenidors",
+    "text": "Orquestració de contenidors\nQuan tenim aplicacions complexes amb múltiples serveis (base de dades, backend, frontend, cache…), gestionar-los amb Docker CLI pot ser complicat:\n\nArrancar/reiniciar/aturar els nostres serveis ens obliga a moure’ns entre diferents carpetes.\nEls contenidors es tracten com a serveis independents quan normalment hi haurà certa lògica entre ells.\n\n\nNo seria genial si hi hagués alguna cosa per orquestrar aquests diferents serveis? Alguna cosa que també ens donés la capacitat de gestionar certa lògica entre ells?\n\n\nUn orquestrador de contenidors!",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#orquestradors-de-contenidors-populars",
+    "href": "slides/05-virtualization-part1.html#orquestradors-de-contenidors-populars",
+    "title": "Virtualització i Contenidors",
+    "section": "Orquestradors de contenidors populars",
+    "text": "Orquestradors de contenidors populars\n\nDocker Compose: Eina senzilla per definir i executar aplicacions multi-contenidor amb Docker. Utilitza fitxers docker-compose.yml per definir serveis, xarxes i volums.\nKubernetes: Plataforma d’orquestració de contenidors molt potent i escalable. Gestiona el desplegament, l’escalat i l’administració de contenidors en un clúster.\nAmazon ECS: Servei d’orquestració de contenidors gestionat per AWS.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#compose-vs-kubernetes",
+    "href": "slides/05-virtualization-part1.html#compose-vs-kubernetes",
+    "title": "Virtualització i Contenidors",
+    "section": "Compose vs Kubernetes",
+    "text": "Compose vs Kubernetes\n\n\n\nFunció\nDocker Compose\nKubernetes\n\n\n\n\nObjectiu\nDev/local\nProducció, clústers\n\n\nEscala\nUn host\nMulti-node\n\n\nAutorestart\nLimitat\nIntegrat\n\n\nSecrets\nBàsics\nAvançats\n\n\nXarxes\nSimples\nPod network, CNI\n\n\nActualitzacions\nManual\nRolling updates",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#docker-compose",
+    "href": "slides/05-virtualization-part1.html#docker-compose",
+    "title": "Virtualització i Contenidors",
+    "section": "Docker Compose",
+    "text": "Docker Compose\nUn fitxer yaml per definir i executar aplicacions multi-contenidor amb Docker.\n\nSimplicitat: Defineix i controla múltiples contenidors des d’un sol fitxer i els aixeca/atura amb una sola comanda.\nServeis: Declara cada component (imatge o context de construcció, ports, variables d’entorn, volums).\nXarxes i Volums: Configura centralment la xarxa i l’emmagatzematge persistent per als serveis.\nOrquestració: expressa dependències (depends_on), healthchecks i escalat (p. ex., docker compose up --scale).\nReproducibilitat: configuració compartible i versionada adequada per al desenvolupament local, CI/CD i desplegaments.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#exemple-bàsic-de-docker-compose",
+    "href": "slides/05-virtualization-part1.html#exemple-bàsic-de-docker-compose",
+    "title": "Virtualització i Contenidors",
+    "section": "Exemple bàsic de Docker Compose",
+    "text": "Exemple bàsic de Docker Compose\n\n\nservices:\n  frontend:\n    build: folder_1\n    ports:\n      - \"4000:3000\"\n\nfolder_1\n|-- Dockerfile\n|-- package.json\n|-- index.js\n\nFROM node:20-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm install\nCOPY . .\nCMD [\"npm\", \"start\"]\n\n\nservices: defineix els diferents serveis de l’aplicació.\nfrontend: declara un nou contenidor anomenat frontend.\nbuild: especifica el directori on es troba el Dockerfile per construir la imatge del servei.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#interacció-amb-docker-compose",
+    "href": "slides/05-virtualization-part1.html#interacció-amb-docker-compose",
+    "title": "Virtualització i Contenidors",
+    "section": "Interacció amb Docker Compose",
+    "text": "Interacció amb Docker Compose\n\n\ndocker build -t frontend .\ndocker run -p 3000:3000 frontend\n\nHas de construir manualment la imatge.\nHas de recordar i escriure tots els paràmetres cada vegada.\nSi tens diversos serveis, has d’anar servei per servei.\nCap gestió automàtica de dependències.\n\n\ndocker compose build frontend\ndocker compose up frontend\n\nUn fitxer declaratiu (docker-compose.yml) descriu l’aplicació.\nUna sola comanda construeix + arrenca el servei.\nRecorda ports, entorns, volums, xarxes…\n\n\n\nAmb docker compose up, es poden aixecar tots els serveis definits al fitxer docker-compose.yml amb una sola comanda.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#comandes-útils-de-docker-compose",
+    "href": "slides/05-virtualization-part1.html#comandes-útils-de-docker-compose",
+    "title": "Virtualització i Contenidors",
+    "section": "Comandes útils de Docker Compose",
+    "text": "Comandes útils de Docker Compose\n\n\n\n\n\n\n\nComanda\nDescripció\n\n\n\n\ndocker compose up\nInicia tots els serveis (foreground).\n\n\ndocker compose up -d\nInicia tots els serveis (detached).\n\n\ndocker compose down\nAtura tots els serveis.\n\n\ndocker compose ps\nLlista tots els serveis en execució.\n\n\ndocker compose logs\nMostra els logs de tots els serveis.\n\n\ndocker compose exec &lt;servei&gt; bash\nObre una terminal bash dins del servei especificat.\n\n\ndocker compose build\nConstrueix o reconstrueix els serveis.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#non-build",
+    "href": "slides/05-virtualization-part1.html#non-build",
+    "title": "Virtualització i Contenidors",
+    "section": "Non-build",
+    "text": "Non-build\nFins ara ara, hem vist com construir imatges a partir de Dockerfiles. Però, què passa si ja tenim una imatge pública o privada que volem utilitzar directament?\nEn lloc d’utilitzar la instrucció build, podem utilitzar la instrucció image per especificar una imatge existent.\n\n\ndocker run -e MYSQL_ROOT_PASSWORD=rootpassword \\\n           -e MYSQL_DATABASE=appdb \\\n           -e MYSQL_USER=appuser \\\n           -e MYSQL_PASSWORD=apppassword \\\n           -p 3306:3306 \\\n           mysql:8.0\n\nservices:\n    db:\n        image: mysql:8.0\n        environment:\n            MYSQL_ROOT_PASSWORD: rootpassword\n            MYSQL_DATABASE: appdb\n            MYSQL_USER: appuser\n            MYSQL_PASSWORD: apppassword\n        ports:\n            - \"3306:3306\"",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#xarxes-amb-docker-compose",
+    "href": "slides/05-virtualization-part1.html#xarxes-amb-docker-compose",
+    "title": "Virtualització i Contenidors",
+    "section": "Xarxes amb Docker Compose",
+    "text": "Xarxes amb Docker Compose\nDocker Compose crea una xarxa per defecte per als serveis definits en un fitxer docker-compose.yml. Aquesta xarxa permet que els serveis es comuniquin entre si utilitzant els noms dels serveis com a noms d’host.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#analitzem",
+    "href": "slides/05-virtualization-part1.html#analitzem",
+    "title": "Virtualització i Contenidors",
+    "section": "Analitzem:",
+    "text": "Analitzem:\n\n\nA\nservices:\n  backend:\n    build: folder_2\n    ports:\n      - \"4000:3000\"\n  db:\n    image: mysql:8.0\n    ports:\n      - \"5000:5000\"\n\nB\nservices:\n  backend:\n    build: folder_2\n    ports:\n      - \"4000:3000\"\n  db:\n    image: mysql:8.0\n\n\nLa opció incorrecta és la A.\n\nUn error comú és exposar ports innecessàriament. host:5000 → contenidor db:5000. Això només obre el port cap al host, no cap a altres contenidors.\nEl host sí que veu el port 5000 (via localhost:5000), però tampoc podrà connectar-se perquè dins del contenidor MySQL no escolta en 5000, sinó en 3306.\nEn canvi, en la opció B, el servei backend pot connectar-se a la base de dades utilitzant l’host db i el port 3306. backend → db:3306",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#dependències-entre-serveis",
+    "href": "slides/05-virtualization-part1.html#dependències-entre-serveis",
+    "title": "Virtualització i Contenidors",
+    "section": "Dependències entre serveis",
+    "text": "Dependències entre serveis\nA vegades, un servei depèn d’un altre per funcionar correctament. Per exemple, un servei backend pot necessitar que una base de dades estigui en funcionament abans de començar a acceptar connexions.\nservices:\n    backend:\n        build: folder_2\n        ports:\n            - \"4000:3000\"\n        depends_on:\n            - db\n    db:\n        image: mysql:8.0\n\ndepends_on només assegura que el servei db s’iniciï abans que el servei backend. No garanteix que el servei db estigui llest per acceptar connexions. Per assegurar la segona part, pot ser necessari implementar comprovacions de salut o scripts d’espera (wait-for-it).",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#exmemple-de-healthcheck",
+    "href": "slides/05-virtualization-part1.html#exmemple-de-healthcheck",
+    "title": "Virtualització i Contenidors",
+    "section": "Exmemple de healthcheck",
+    "text": "Exmemple de healthcheck\nservices:\n  db:\n    image: mysql:8.0\n    healthcheck:\n      test: [\"CMD\", \"mysqladmin\", \"ping\", \"-h\", \"localhost\"]\n      interval: 5s\n      retries: 10\n\n  backend:\n    build: ./backend\n    depends_on:\n      db:\n        condition: service_healthy",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#volumns-i-bind-mounts",
+    "href": "slides/05-virtualization-part1.html#volumns-i-bind-mounts",
+    "title": "Virtualització i Contenidors",
+    "section": "Volumns i bind mounts",
+    "text": "Volumns i bind mounts\nEls volums i els bind mounts permeten compartir dades entre el sistema host i els contenidors, o entre diferents contenidors.\nservices:\n    db:\n        image: mysql:8.0\n        volumes:\n            - ./db-data:/var/lib/mysql\n\nvolumes: defineix els volums o bind mounts per al servei.\n./db-data:/var/lib/mysql: especifica un bind mount que mapeja el directori ./db-data del host al directori /var/lib/mysql del contenidor.",
+    "crumbs": [
+      "Diapositives",
+      "Unitat 05 · Virtualització i Contenidors (Part 1)"
+    ]
+  },
+  {
+    "objectID": "slides/05-virtualization-part1.html#docker-compose-fitxer-complet",
+    "href": "slides/05-virtualization-part1.html#docker-compose-fitxer-complet",
+    "title": "Virtualització i Contenidors",
+    "section": "Docker Compose fitxer complet",
+    "text": "Docker Compose fitxer complet\n\n\nservices:\n  backend:\n    build: ./backend\n    ports:\n      - \"4000:4000\"\n    environment:\n      DB_HOST: db\n    depends_on:\n      - db\n\n  db:\n    image: mysql:8.0\n    environment:\n      MYSQL_ROOT_PASSWORD: root\n      MYSQL_DATABASE: appdb\n    volumes:\n      - dbdata:/var/lib/mysql\n\n\nEs construeixen i s’executen dos serveis: backend i db, cada servei en un contenidor separat i aïllat.\nCada servei té la seva pròpia configuració, incloent ports, variables d’entorn i volums.\nLa informació sobre les variables d’entorn que es poden utilitzar per configurar el servei de MySQL es pot trobar a la documentació oficial de MySQL Docker.\nS’utilitza un volum anomenat dbdata per emmagatzemar les dades de la base de dades de manera persistent.",
     "crumbs": [
       "Diapositives",
       "Unitat 05 · Virtualització i Contenidors (Part 1)"

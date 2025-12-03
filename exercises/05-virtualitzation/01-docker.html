@@ -526,6 +526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercici-6-servidor-web" id="toc-exercici-6-servidor-web" class="nav-link" data-scroll-target="#exercici-6-servidor-web">Exercici 6: Servidor web</a></li>
   <li><a href="#exercici-7-legacy-link" id="toc-exercici-7-legacy-link" class="nav-link" data-scroll-target="#exercici-7-legacy-link">Exercici 7: Legacy link</a></li>
   <li><a href="#exercici-8-cmd-vs-entrypoint" id="toc-exercici-8-cmd-vs-entrypoint" class="nav-link" data-scroll-target="#exercici-8-cmd-vs-entrypoint">Exercici 8: CMD vs ENTRYPOINT</a></li>
+  <li><a href="#exercici-9-multi-stage-amb-go" id="toc-exercici-9-multi-stage-amb-go" class="nav-link" data-scroll-target="#exercici-9-multi-stage-amb-go">Exercici 9: Multi-Stage amb Go</a></li>
   </ul>
 </nav>
     </div>
@@ -554,57 +555,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercici-1-docker-bàsic-amb-un-script-python" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-1-docker-bàsic-amb-un-script-python">Exercici 1: Docker bàsic amb un script Python</h2>
 <p>Donada la següent aplicació en Python:</p>
-<pre><code>```python
-import falcon
-
-class Item:
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
-
-items = [
-    Item(1, "Item 1"),
-    Item(2, "Item 2"),
-    Item(3, "Item 3"),
-]
-
-class ItemListResource:
-    def on_get(self, req, resp):
-        resp.media = [{"id": item.id, "name": item.name} for item in items]
-
-class ItemResource:
-    def on_get(self, req, resp, item_id):
-        item = next((i for i in items if i.id == int(item_id)), None)
-        if item:
-            resp.media = {"id": item.id, "name": item.name}
-        else:
-            resp.status = falcon.HTTP_404
-            resp.media = {"error": "Item not found"}
-
-
-app = falcon.App()
-
-app.add_route('/items', ItemListResource())
-app.add_route('/items/{item_id}', ItemResource())
-```
-
-Per executar l'aplicació, es pot fer servir el següent script:
-
-```bash
-gunicorn -b 0.0.0.0:8000 app:app
-```
-
-On `app` és el nom del fitxer on es troba l'aplicació.
-
-A més, sabem que l'aplicació necessita les següents llibreries: `falcon` i `gunicorn` en les versions 3.0.0 i 20.1.0 respectivament.
-
-La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> falcon</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Item:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, <span class="bu">id</span>, name):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> <span class="bu">id</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        items <span class="op">=</span> [</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            Item(<span class="dv">1</span>, <span class="st">"Item 1"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            Item(<span class="dv">2</span>, <span class="st">"Item 2"</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            Item(<span class="dv">3</span>, <span class="st">"Item 3"</span>),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ItemListResource:</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_get(<span class="va">self</span>, req, resp):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        resp.media <span class="op">=</span> [{<span class="st">"id"</span>: item.<span class="bu">id</span>, <span class="st">"name"</span>: item.name} <span class="cf">for</span> item <span class="kw">in</span> items]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ItemResource:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_get(<span class="va">self</span>, req, resp, item_id):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        item <span class="op">=</span> <span class="bu">next</span>((i <span class="cf">for</span> i <span class="kw">in</span> items <span class="cf">if</span> i.<span class="bu">id</span> <span class="op">==</span> <span class="bu">int</span>(item_id)), <span class="va">None</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> item:</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            resp.media <span class="op">=</span> {<span class="st">"id"</span>: item.<span class="bu">id</span>, <span class="st">"name"</span>: item.name}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            resp.status <span class="op">=</span> falcon.HTTP_404</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            resp.media <span class="op">=</span> {<span class="st">"error"</span>: <span class="st">"Item not found"</span>}</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> falcon.App()</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>app.add_route(<span class="st">'/items'</span>, ItemListResource())</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>app.add_route(<span class="st">'/items/</span><span class="sc">{item_id}</span><span class="st">'</span>, ItemResource())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Per executar l’aplicació, es pot fer servir el següent script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gunicorn</span> <span class="at">-b</span> 0.0.0.0:8000 app:app</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On <code>app</code> és el nom del fitxer on es troba l’aplicació.</p>
+<p>A més, sabem que l’aplicació necessita les següents llibreries: <code>falcon</code> i <code>gunicorn</code> en les versions 3.0.0 i 20.1.0 respectivament.</p>
+<p>La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makefile que permeti construir la imatge i executar-la.</p>
 </section>
 <section id="exercici-2-compartint-fitxers-entre-host-i-contenidor" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-2-compartint-fitxers-entre-host-i-contenidor">Exercici 2: Compartint fitxers entre host i contenidor</h2>
 <p>Tens el següent script Python:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.txt"</span>) <span class="im">as</span> f:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(f.read())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.txt"</span>) <span class="im">as</span> f:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(f.read())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><p>Crea una imatge Docker mínima que executi aquest script.</p></li>
 <li><p>No copiïs data.txt dins de la imatge.</p></li>
@@ -620,12 +611,12 @@ La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makef
 <section id="exercici-3-optimització-de-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-3-optimització-de-dockerfile">Exercici 3: Optimització de Dockerfile</h2>
 <p>A partir d’una imatge de Dockerfile, heu d’analitzar capes i mida d’una imatge:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.11-slim</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> install <span class="at">-y</span> curl</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install flask</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> app.py .</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"app.py"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.11-slim</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> install <span class="at">-y</span> curl</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install flask</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> app.py .</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"app.py"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Construeix la imatge Docker i identifica les capes creades per cada instrucció del Dockerfile.</li>
 <li>Proposa una versió millorada del Dockerfile que redueixi la mida de la imatge final combinant capes i eliminant redundàncies.</li>
@@ -635,15 +626,15 @@ La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makef
 <section id="exercici-4-optimització-dimatges-docker" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-4-optimització-dimatges-docker">Exercici 4: Optimització d’imatges Docker</h2>
 <p>Donada la següent api amb python i flask:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">"/"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hello():</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello world!"</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    app.run(host<span class="op">=</span><span class="st">"0.0.0.0"</span>, port<span class="op">=</span><span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">"/"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hello():</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello world!"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    app.run(host<span class="op">=</span><span class="st">"0.0.0.0"</span>, port<span class="op">=</span><span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Crea un Dockerfile per a aquesta aplicació utilitzant una imatge base oficial de Python (per exemple, <code>python:3.11-slim</code>).</li>
 <li>Crea un Dockerfile ara amb la imatge base <code>alpine</code> (per exemple, <code>python:3.11-alpine</code>).</li>
@@ -665,28 +656,69 @@ La teva tasca és crear un Dockerfile per a aquesta aplicació i un fitxer Makef
 </section>
 <section id="exercici-7-legacy-link" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-7-legacy-link">Exercici 7: Legacy link</h2>
-<p>Utilitza una imatge de redis per arrancar un contenidor (<code>redis:latest</code>). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname <code>amsa-redis</code>i incrementi un comptador cada vegada que s’accedeix a la ruta <code>/</code>. Executa el contenid amb <code>default bridge network</code>. Com es que Python falla al resoldre el hostname <code>amsa-redis</code>? Quina és la solució perque funcioni correctament?</p>
-<pre><code>from flask import Flask
-import redis
-
-app = Flask(__name__)
-r = redis.Redis(host="amsa-redis", port=6379)
-r.ping()
-
-@app.route("/")
-def index():
-    count = r.incr("counter")
-    return f"Count = {count}"</code></pre>
+<p>Utilitza una imatge de redis per arrancar un contenidor (<code>redis:latest</code>). Crea una app amb python que connecti amb el sevidor Redis utiltizant el hostname <code>amsa-redis</code>i incrementi un comptador cada vegada que s’accedeix a la ruta <code>/</code>. Executa el contenidor amb <code>default bridge network</code>. Com es que Python falla al resoldre el hostname <code>amsa-redis</code>? Quina és la solució perque funcioni correctament?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> redis</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> redis.Redis(host<span class="op">=</span><span class="st">"amsa-redis"</span>, port<span class="op">=</span><span class="dv">6379</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>r.ping()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">"/"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> r.incr(<span class="st">"counter"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Count = </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exercici-8-cmd-vs-entrypoint" class="level2">
 <h2 class="anchored" data-anchor-id="exercici-8-cmd-vs-entrypoint">Exercici 8: CMD vs ENTRYPOINT</h2>
 <p>Assumeix el següent script de python <code>hello.py</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hello.py</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Arguments rebuts:"</span>, <span class="st">" "</span>.join(sys.argv[<span class="dv">1</span>:]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Crea dues imatges de docker ina amb <code>CMD</code> i l’altra amb <code>ENTRYPOINT</code> per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar <code>CMD</code> i quan <code>ENTRYPOINT</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hello.py</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Arguments rebuts:"</span>, <span class="st">" "</span>.join(sys.argv[<span class="dv">1</span>:]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Crea dues imatges de docker una amb <code>CMD</code> i l’altra amb <code>ENTRYPOINT</code> per executar aquest script. Prova a passar arguments addicionals quan executes els contenidors i observa la diferència en el comportament entre les dues imatges. Explica quan és més adequat utilitzar <code>CMD</code> i quan <code>ENTRYPOINT</code>.</p>
+</section>
+<section id="exercici-9-multi-stage-amb-go" class="level2">
+<h2 class="anchored" data-anchor-id="exercici-9-multi-stage-amb-go">Exercici 9: Multi-Stage amb Go</h2>
+<p>Tens el següent codi en Go que crea un servidor web senzill:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> main</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fmt"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"net/http"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"os"</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Define the handler function</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    http<span class="op">.</span>HandleFunc<span class="op">(</span><span class="st">"/"</span><span class="op">,</span> <span class="kw">func</span><span class="op">(</span>w http<span class="op">.</span>ResponseWriter<span class="op">,</span> r <span class="op">*</span>http<span class="op">.</span>Request<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        fmt<span class="op">.</span>Fprintf<span class="op">(</span>w<span class="op">,</span> <span class="st">"Hello! This app is running inside a Docker container."</span><span class="op">)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">})</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Determine port for HTTP service.</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    port <span class="op">:=</span> os<span class="op">.</span>Getenv<span class="op">(</span><span class="st">"PORT"</span><span class="op">)</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> port <span class="op">==</span> <span class="st">""</span> <span class="op">{</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        port <span class="op">=</span> <span class="st">"8080"</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Start the server</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Printf<span class="op">(</span><span class="st">"Server starting on port %s...</span><span class="ch">\n</span><span class="st">"</span><span class="op">,</span> port<span class="op">)</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> err <span class="op">:=</span> http<span class="op">.</span>ListenAndServe<span class="op">(</span><span class="st">":"</span><span class="op">+</span>port<span class="op">,</span> <span class="ot">nil</span><span class="op">);</span> err <span class="op">!=</span> <span class="ot">nil</span> <span class="op">{</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">panic</span><span class="op">(</span>err<span class="op">)</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Crea dos Dockerfiles per aquesta aplicació: un que utilitzi una sola etapa i un altre que utilitzi multi-stage builds per optimitzar la mida de la imatge final. Compara les mides de les dues imatges i explica els avantatges del multi-stage build en aquest cas.</p>
+<p>Per a ajudar-te, aquí tens una estructura bàsica per als dos Dockerfiles:</p>
+<ul>
+<li>single-stage.Dockerfile</li>
+<li>multi-stage.Dockerfile</li>
+</ul>
+<p>Per compilar pots utilitzar les següents comandes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> single-stage.Dockerfile <span class="at">-t</span> amsa-single-stage .</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> multi-stage.Dockerfile <span class="at">-t</span> amsa-multi-stage .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Per compilar l’app amb go, pots utilitzar:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">go</span> build <span class="at">-o</span> my-app main.go</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

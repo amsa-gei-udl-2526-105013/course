@@ -1527,6 +1527,404 @@ Jordi Mateo Fornés
 <ul>
 <li class="fragment"><a href="../exercises/05-virtualitzation/01-docker.html">Exercicis de Contenidors Docker</a></li>
 </ul>
+</section>
+<section id="container-registries" class="slide level2 smaller">
+<h2>Container Registries</h2>
+<p>Un container registry és un servei que emmagatzema i distribueix imatges de contenidors, de manera similar a com GitHub emmagatzema repositoris.</p>
+<ul>
+<li class="fragment"><a href="https://hub.docker.com/">DockerHub</a>: El registre públic més gran i conegut.</li>
+<li class="fragment"><a href="https://github.com/features/packages">GitHub Container Registry (GHCR)</a>: Integrat amb GitHub Packages.</li>
+<li class="fragment"><a href="https://docs.gitlab.com/ee/user/packages/container_registry/">GitLab Container Registry</a>: Integrat amb GitLab.</li>
+<li class="fragment"><a href="https://aws.amazon.com/ecr/">Amazon Elastic Container Registry (ECR)</a>: Servei gestionat per AWS.</li>
+</ul>
+<div class="center-container fragment">
+<p>Quan executeu <code>docker pull/run ubuntu</code>, Docker busca la imatge al registre configurat (per defecte DockerHub) si no la troba localment.</p>
+</div>
+</section>
+<section id="necessitat-dels-registries" class="slide level2 smaller">
+<h2>Necessitat dels registries</h2>
+<ul>
+<li class="fragment">Compartició d’imatges entre equips.</li>
+<li class="fragment">Desplegar aplicacions de manera consistent a diversos entorns.</li>
+<li class="fragment">Versionat d’imatges amb tags.</li>
+<li class="fragment">Integració CI/CD: build automàtic + push.</li>
+<li class="fragment">Reproduïbilitat dels desplegaments.</li>
+<li class="fragment">Repositoris públics i privats.</li>
+</ul>
+</section>
+<section id="docker-hub" class="slide level2 smaller">
+<h2>Docker Hub</h2>
+<p>Per pujar una imatge a Docker Hub:</p>
+<ol type="1">
+<li class="fragment"><p>Creeu un compte a <a href="https://hub.docker.com/">Docker Hub</a>.</p></li>
+<li class="fragment"><p>Inicieu sessió des del terminal: <code>docker login</code>.</p></li>
+<li class="fragment"><p>Etiqueteu la imatge amb el format de dockerhub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a></a><span class="ex">docker</span> build . <span class="at">-t</span> <span class="op">&lt;</span>your-dockerhub-username<span class="op">&gt;</span>/<span class="op">&lt;</span>image-name<span class="op">&gt;</span>:<span class="op">&lt;</span>image-version<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li class="fragment"><p>Pugeu la imatge al registre:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a></a><span class="ex">docker</span> push <span class="op">&lt;</span>your-dockerhub-username<span class="op">&gt;</span>/<span class="op">&lt;</span>image-name<span class="op">&gt;</span>:<span class="op">&lt;</span>image-version<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="què-és-un-tag" class="slide level2 smaller">
+<h2>Què és un TAG</h2>
+<ul>
+<li class="fragment">Un <em>tag</em> és una etiqueta que s’associa a una imatge de contenidor per identificar-la.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a></a><span class="ex">python:3.12</span></span>
+<span id="cb42-2"><a></a><span class="ex">python:3.11-slim</span></span>
+<span id="cb42-3"><a></a><span class="ex">ubuntu:22.04</span></span>
+<span id="cb42-4"><a></a><span class="ex">node:20-alpine</span></span>
+<span id="cb42-5"><a></a><span class="ex">myuser/myapp:v1.0.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="center-container fragment">
+<p>Si no especifiqueu un tag, Docker utilitza <code>latest</code> per defecte.</p>
+</div>
+</section>
+<section id="fent-pull-duna-imatge-amb-tag" class="slide level2 smaller">
+<h2>Fent <code>pull</code> d’una imatge amb tag</h2>
+<p>Per descarregar una imatge amb un tag específic, utilitzeu la comanda <code>docker pull</code> o <code>docker run</code> seguida del nom de la imatge i el tag:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a></a><span class="ex">docker</span> pull python:3.12</span>
+<span id="cb43-2"><a></a><span class="ex">docker</span> pull ubuntu:22.04</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="center-container fragment">
+<p><strong>MAI utilitzeu <code>latest</code> en producció! Heu de confiar en els hashes de les imatges, latest és mutable, no garanteix que la imatge sigui sempre la mateixa.</strong></p>
+</div>
+</section>
+<section id="versions-immutables-amb-digests" class="slide level2 smaller">
+<h2>Versions immutables amb digests</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a></a><span class="ex">docker</span> images <span class="at">--digests</span> python</span>
+<span id="cb44-2"><a></a><span class="ex">REPOSITORY</span>   TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE</span>
+<span id="cb44-3"><a></a><span class="ex">python</span>       3.9       sha256:da5aee29682d12a6649f51c8d6f15b87deb3e6c524b923c41d0cb3304d07c913   da5aee29682d   4 weeks ago   1.58GB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Cada imatge té un <em>digest</em> únic (SHA256 hash) que identifica la versió exacta de la imatge.</li>
+<li class="fragment">Podeu utilitzar aquest digest per assegurar-vos que sempre esteu utilitzant la mateixa versió de la imatge, independentment del tag.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a></a><span class="ex">docker</span> run python@sha256:da5aee29682d12a6649f51c8d6f15b87deb3e6c524b923c41d0cb3304d07c913</span>
+<span id="cb45-2"><a></a><span class="co"># docker run python:3.9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment">Aquesta imatge sempre serà la mateixa, encara que el tag <code>3.9</code> canviï en el futur.</li>
+<li class="fragment">Si algú modifica la imatge <code>python:3.9</code>, la teva app no es veurà afectada.</li>
+<li class="fragment">Les traces d’auditoria i seguretat són més fàcils de mantenir.</li>
+</ul>
+</section>
+<section id="orquestració-de-contenidors" class="slide level2 smaller">
+<h2>Orquestració de contenidors</h2>
+<p>Quan tenim aplicacions complexes amb múltiples serveis (base de dades, backend, frontend, cache…), gestionar-los amb Docker CLI pot ser complicat:</p>
+<ul>
+<li class="fragment">Arrancar/reiniciar/aturar els nostres serveis ens obliga a moure’ns entre diferents carpetes.</li>
+<li class="fragment">Els contenidors es tracten com a serveis independents quan normalment hi haurà certa lògica entre ells.</li>
+</ul>
+<div class="fragment">
+<p><strong>No seria genial si hi hagués alguna cosa per orquestrar aquests diferents serveis?</strong> Alguna cosa que també ens donés la capacitat de gestionar certa lògica entre ells?</p>
+</div>
+<div class="center-container fragment">
+<p><strong>Un orquestrador de contenidors!</strong></p>
+</div>
+</section>
+<section id="orquestradors-de-contenidors-populars" class="slide level2 smaller">
+<h2>Orquestradors de contenidors populars</h2>
+<ul>
+<li class="fragment"><strong>Docker Compose</strong>: Eina senzilla per definir i executar aplicacions multi-contenidor amb Docker. Utilitza fitxers <code>docker-compose.yml</code> per definir serveis, xarxes i volums.</li>
+<li class="fragment"><strong>Kubernetes</strong>: Plataforma d’orquestració de contenidors molt potent i escalable. Gestiona el desplegament, l’escalat i l’administració de contenidors en un clúster.</li>
+<li class="fragment"><strong>Amazon ECS</strong>: Servei d’orquestració de contenidors gestionat per AWS.</li>
+</ul>
+</section>
+<section id="compose-vs-kubernetes" class="slide level2 smaller">
+<h2>Compose vs Kubernetes</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Funció</th>
+<th>Docker Compose</th>
+<th>Kubernetes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Objectiu</td>
+<td>Dev/local</td>
+<td>Producció, clústers</td>
+</tr>
+<tr class="even">
+<td>Escala</td>
+<td>Un host</td>
+<td>Multi-node</td>
+</tr>
+<tr class="odd">
+<td>Autorestart</td>
+<td>Limitat</td>
+<td>Integrat</td>
+</tr>
+<tr class="even">
+<td>Secrets</td>
+<td>Bàsics</td>
+<td>Avançats</td>
+</tr>
+<tr class="odd">
+<td>Xarxes</td>
+<td>Simples</td>
+<td>Pod network, CNI</td>
+</tr>
+<tr class="even">
+<td>Actualitzacions</td>
+<td>Manual</td>
+<td>Rolling updates</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="docker-compose" class="slide level2 smaller">
+<h2>Docker Compose</h2>
+<p>Un fitxer <code>yaml</code> per definir i executar aplicacions multi-contenidor amb Docker.</p>
+<ul>
+<li class="fragment"><strong>Simplicitat</strong>: Defineix i controla múltiples contenidors des d’un sol fitxer i els aixeca/atura amb una sola comanda.</li>
+<li class="fragment"><strong>Serveis</strong>: Declara cada component (<em>imatge o context de construcció, ports, variables d’entorn, volums</em>).</li>
+<li class="fragment"><strong>Xarxes i Volums</strong>: Configura centralment la xarxa i l’emmagatzematge persistent per als serveis.</li>
+<li class="fragment"><strong>Orquestració</strong>: expressa dependències (<code>depends_on</code>), <em>healthchecks</em> i <em>escalat</em> (p.&nbsp;ex., <code>docker compose up --scale</code>).</li>
+<li class="fragment"><strong>Reproducibilitat</strong>: configuració compartible i versionada adequada per al desenvolupament local, CI/CD i desplegaments.</li>
+</ul>
+</section>
+<section id="exemple-bàsic-de-docker-compose" class="slide level2 smaller">
+<h2>Exemple bàsic de Docker Compose</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb46-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb46-2"><a></a><span class="at">  </span><span class="fu">frontend</span><span class="kw">:</span></span>
+<span id="cb46-3"><a></a><span class="at">    </span><span class="fu">build</span><span class="kw">:</span><span class="at"> folder_1</span></span>
+<span id="cb46-4"><a></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb46-5"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"4000:3000"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a></a><span class="ex">folder_1</span></span>
+<span id="cb47-2"><a></a><span class="kw">|</span><span class="ex">--</span> Dockerfile</span>
+<span id="cb47-3"><a></a><span class="kw">|</span><span class="ex">--</span> package.json</span>
+<span id="cb47-4"><a></a><span class="kw">|</span><span class="ex">--</span> index.js</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb48-1"><a></a><span class="kw">FROM</span> node:20-alpine</span>
+<span id="cb48-2"><a></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb48-3"><a></a><span class="kw">COPY</span> package*.json ./</span>
+<span id="cb48-4"><a></a><span class="kw">RUN</span> <span class="ex">npm</span> install</span>
+<span id="cb48-5"><a></a><span class="kw">COPY</span> . .</span>
+<span id="cb48-6"><a></a><span class="kw">CMD</span> [<span class="st">"npm"</span>, <span class="st">"start"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<ul>
+<li class="fragment"><code>services</code>: defineix els diferents serveis de l’aplicació.</li>
+<li class="fragment"><code>frontend</code>: declara un nou contenidor anomenat <code>frontend</code>.</li>
+<li class="fragment"><code>build</code>: especifica el directori on es troba el Dockerfile per construir la imatge del servei.</li>
+</ul>
+</section>
+<section id="interacció-amb-docker-compose" class="slide level2 smaller">
+<h2>Interacció amb Docker Compose</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a></a><span class="ex">docker</span> build <span class="at">-t</span> frontend .</span>
+<span id="cb49-2"><a></a><span class="ex">docker</span> run <span class="at">-p</span> 3000:3000 frontend</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Has de construir manualment la imatge.</li>
+<li class="fragment">Has de recordar i escriure tots els paràmetres cada vegada.</li>
+<li class="fragment">Si tens diversos serveis, has d’anar servei per servei.</li>
+<li class="fragment">Cap gestió automàtica de dependències.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a></a><span class="ex">docker</span> compose build frontend</span>
+<span id="cb50-2"><a></a><span class="ex">docker</span> compose up frontend</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Un fitxer declaratiu (<code>docker-compose.yml</code>) descriu l’aplicació.</li>
+<li class="fragment">Una sola comanda construeix + arrenca el servei.</li>
+<li class="fragment">Recorda ports, entorns, volums, xarxes…</li>
+</ul>
+</div></div>
+<div class="center-container fragment">
+<p>Amb <code>docker compose up</code>, es poden aixecar tots els serveis definits al fitxer <code>docker-compose.yml</code> amb una sola comanda.</p>
+</div>
+</section>
+<section id="comandes-útils-de-docker-compose" class="slide level2 smaller">
+<h2>Comandes útils de Docker Compose</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comanda</th>
+<th>Descripció</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>docker compose up</code></td>
+<td>Inicia tots els serveis (foreground).</td>
+</tr>
+<tr class="even">
+<td><code>docker compose up -d</code></td>
+<td>Inicia tots els serveis (detached).</td>
+</tr>
+<tr class="odd">
+<td><code>docker compose down</code></td>
+<td>Atura tots els serveis.</td>
+</tr>
+<tr class="even">
+<td><code>docker compose ps</code></td>
+<td>Llista tots els serveis en execució.</td>
+</tr>
+<tr class="odd">
+<td><code>docker compose logs</code></td>
+<td>Mostra els logs de tots els serveis.</td>
+</tr>
+<tr class="even">
+<td><code>docker compose exec &lt;servei&gt; bash</code></td>
+<td>Obre una terminal bash dins del servei especificat.</td>
+</tr>
+<tr class="odd">
+<td><code>docker compose build</code></td>
+<td>Construeix o reconstrueix els serveis.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="non-build" class="slide level2 smaller">
+<h2>Non-build</h2>
+<p>Fins ara ara, hem vist com construir imatges a partir de Dockerfiles. Però, què passa si ja tenim una imatge pública o privada que volem utilitzar directament?</p>
+<p>En lloc d’utilitzar la instrucció <code>build</code>, podem utilitzar la instrucció <code>image</code> per especificar una imatge existent.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb51-1"><a></a><span class="at">docker run -e MYSQL_ROOT_PASSWORD=rootpassword \</span></span>
+<span id="cb51-2"><a></a><span class="at">           -e MYSQL_DATABASE=appdb \</span></span>
+<span id="cb51-3"><a></a><span class="at">           -e MYSQL_USER=appuser \</span></span>
+<span id="cb51-4"><a></a><span class="at">           -e MYSQL_PASSWORD=apppassword \</span></span>
+<span id="cb51-5"><a></a><span class="at">           -p 3306:3306 \</span></span>
+<span id="cb51-6"><a></a><span class="at">           mysql:8.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb52-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb52-2"><a></a><span class="at">    </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb52-3"><a></a><span class="at">        </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mysql:8.0</span></span>
+<span id="cb52-4"><a></a><span class="at">        </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb52-5"><a></a><span class="at">            </span><span class="fu">MYSQL_ROOT_PASSWORD</span><span class="kw">:</span><span class="at"> rootpassword</span></span>
+<span id="cb52-6"><a></a><span class="at">            </span><span class="fu">MYSQL_DATABASE</span><span class="kw">:</span><span class="at"> appdb</span></span>
+<span id="cb52-7"><a></a><span class="at">            </span><span class="fu">MYSQL_USER</span><span class="kw">:</span><span class="at"> appuser</span></span>
+<span id="cb52-8"><a></a><span class="at">            </span><span class="fu">MYSQL_PASSWORD</span><span class="kw">:</span><span class="at"> apppassword</span></span>
+<span id="cb52-9"><a></a><span class="at">        </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb52-10"><a></a><span class="at">            </span><span class="kw">-</span><span class="at"> </span><span class="st">"3306:3306"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="xarxes-amb-docker-compose" class="slide level2 smaller">
+<h2>Xarxes amb Docker Compose</h2>
+<p>Docker Compose crea una xarxa per defecte per als serveis definits en un fitxer <code>docker-compose.yml</code>. Aquesta xarxa permet que els serveis es comuniquin entre si utilitzant els noms dels serveis com a noms d’host.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../figs/slides/04-virt/docker-network.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../figs/slides/04-virt/compose-network.png"></p>
+</div></div>
+</section>
+<section id="analitzem" class="slide level2 smaller">
+<h2>Analitzem:</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="a-1">A</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb53-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb53-2"><a></a><span class="at">  </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb53-3"><a></a><span class="at">    </span><span class="fu">build</span><span class="kw">:</span><span class="at"> folder_2</span></span>
+<span id="cb53-4"><a></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb53-5"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"4000:3000"</span></span>
+<span id="cb53-6"><a></a><span class="at">  </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb53-7"><a></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mysql:8.0</span></span>
+<span id="cb53-8"><a></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb53-9"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"5000:5000"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<h3 id="b-1">B</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a></a><span class="ex">services:</span></span>
+<span id="cb54-2"><a></a>  <span class="ex">backend:</span></span>
+<span id="cb54-3"><a></a>    <span class="ex">build:</span> folder_2</span>
+<span id="cb54-4"><a></a>    <span class="ex">ports:</span></span>
+<span id="cb54-5"><a></a>      <span class="ex">-</span> <span class="st">"4000:3000"</span></span>
+<span id="cb54-6"><a></a>  <span class="ex">db:</span></span>
+<span id="cb54-7"><a></a>    <span class="ex">image:</span> mysql:8.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<div class="fragment">
+<p>La opció incorrecta és la A.</p>
+<ul>
+<li class="fragment">Un error comú és exposar ports innecessàriament. <code>host:5000 → contenidor db:5000</code>. Això només obre el port cap al host, no cap a altres contenidors.</li>
+<li class="fragment">El host sí que veu el port 5000 (via localhost:5000), però tampoc podrà connectar-se perquè dins del contenidor MySQL no escolta en 5000, sinó en 3306.</li>
+<li class="fragment">En canvi, en la opció B, el servei <code>backend</code> pot connectar-se a la base de dades utilitzant l’host <code>db</code> i el port <code>3306</code>. <code>backend → db:3306</code></li>
+</ul>
+</div>
+</section>
+<section id="dependències-entre-serveis" class="slide level2 smaller">
+<h2>Dependències entre serveis</h2>
+<p>A vegades, un servei depèn d’un altre per funcionar correctament. Per exemple, un servei backend pot necessitar que una base de dades estigui en funcionament abans de començar a acceptar connexions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb55-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb55-2"><a></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb55-3"><a></a><span class="at">        </span><span class="fu">build</span><span class="kw">:</span><span class="at"> folder_2</span></span>
+<span id="cb55-4"><a></a><span class="at">        </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb55-5"><a></a><span class="at">            </span><span class="kw">-</span><span class="at"> </span><span class="st">"4000:3000"</span></span>
+<span id="cb55-6"><a></a><span class="at">        </span><span class="fu">depends_on</span><span class="kw">:</span></span>
+<span id="cb55-7"><a></a><span class="at">            </span><span class="kw">-</span><span class="at"> db</span></span>
+<span id="cb55-8"><a></a><span class="at">    </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb55-9"><a></a><span class="at">        </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mysql:8.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="center-container fragment">
+<p><code>depends_on</code> només assegura que el servei <code>db</code> s’iniciï abans que el servei <code>backend</code>. No garanteix que el servei <code>db</code> estigui llest per acceptar connexions. Per assegurar la segona part, pot ser necessari implementar comprovacions de salut o scripts d’espera (<em>wait-for-it</em>).</p>
+</div>
+</section>
+<section id="exmemple-de-healthcheck" class="slide level2 smaller">
+<h2>Exmemple de healthcheck</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb56-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb56-2"><a></a><span class="at">  </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb56-3"><a></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mysql:8.0</span></span>
+<span id="cb56-4"><a></a><span class="at">    </span><span class="fu">healthcheck</span><span class="kw">:</span></span>
+<span id="cb56-5"><a></a><span class="at">      </span><span class="fu">test</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"CMD"</span><span class="kw">,</span><span class="at"> </span><span class="st">"mysqladmin"</span><span class="kw">,</span><span class="at"> </span><span class="st">"ping"</span><span class="kw">,</span><span class="at"> </span><span class="st">"-h"</span><span class="kw">,</span><span class="at"> </span><span class="st">"localhost"</span><span class="kw">]</span></span>
+<span id="cb56-6"><a></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> 5s</span></span>
+<span id="cb56-7"><a></a><span class="at">      </span><span class="fu">retries</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span></span>
+<span id="cb56-8"><a></a></span>
+<span id="cb56-9"><a></a><span class="at">  </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb56-10"><a></a><span class="at">    </span><span class="fu">build</span><span class="kw">:</span><span class="at"> ./backend</span></span>
+<span id="cb56-11"><a></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
+<span id="cb56-12"><a></a><span class="at">      </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb56-13"><a></a><span class="at">        </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> service_healthy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="volumns-i-bind-mounts" class="slide level2 smaller">
+<h2>Volumns i bind mounts</h2>
+<p>Els volums i els bind mounts permeten compartir dades entre el sistema host i els contenidors, o entre diferents contenidors.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb57-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb57-2"><a></a><span class="at">    </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb57-3"><a></a><span class="at">        </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mysql:8.0</span></span>
+<span id="cb57-4"><a></a><span class="at">        </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb57-5"><a></a><span class="at">            </span><span class="kw">-</span><span class="at"> ./db-data:/var/lib/mysql</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment"><code>volumes</code>: defineix els volums o bind mounts per al servei.</li>
+<li class="fragment"><code>./db-data:/var/lib/mysql</code>: especifica un bind mount que mapeja el directori <code>./db-data</code> del host al directori <code>/var/lib/mysql</code> del contenidor.</li>
+</ul>
+</section>
+<section id="docker-compose-fitxer-complet" class="slide level2 smaller">
+<h2>Docker Compose fitxer complet</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb58-1"><a></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb58-2"><a></a><span class="at">  </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb58-3"><a></a><span class="at">    </span><span class="fu">build</span><span class="kw">:</span><span class="at"> ./backend</span></span>
+<span id="cb58-4"><a></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb58-5"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"4000:4000"</span></span>
+<span id="cb58-6"><a></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb58-7"><a></a><span class="at">      </span><span class="fu">DB_HOST</span><span class="kw">:</span><span class="at"> db</span></span>
+<span id="cb58-8"><a></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
+<span id="cb58-9"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> db</span></span>
+<span id="cb58-10"><a></a></span>
+<span id="cb58-11"><a></a><span class="at">  </span><span class="fu">db</span><span class="kw">:</span></span>
+<span id="cb58-12"><a></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mysql:8.0</span></span>
+<span id="cb58-13"><a></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb58-14"><a></a><span class="at">      </span><span class="fu">MYSQL_ROOT_PASSWORD</span><span class="kw">:</span><span class="at"> root</span></span>
+<span id="cb58-15"><a></a><span class="at">      </span><span class="fu">MYSQL_DATABASE</span><span class="kw">:</span><span class="at"> appdb</span></span>
+<span id="cb58-16"><a></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb58-17"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> dbdata:/var/lib/mysql</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:60%;">
+<ul>
+<li class="fragment">Es construeixen i s’executen dos serveis: <code>backend</code> i <code>db</code>, cada servei en un contenidor separat i aïllat.</li>
+<li class="fragment">Cada servei té la seva pròpia configuració, incloent ports, variables d’entorn i volums.</li>
+<li class="fragment">La informació sobre les variables d’entorn que es poden utilitzar per configurar el servei de MySQL es pot trobar a la <a href="https://hub.docker.com/_/mysql">documentació oficial de MySQL Docker</a>.</li>
+<li class="fragment">S’utilitza un volum anomenat <code>dbdata</code> per emmagatzemar les dades de la base de dades de manera persistent.</li>
+</ul>
+</div></div>
 
 
 </section>
