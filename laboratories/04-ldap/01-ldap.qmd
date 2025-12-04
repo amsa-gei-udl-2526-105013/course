@@ -842,7 +842,7 @@ El Common Name (CN) del certificat ha de coincidir amb el hostname del servidor 
 
 ```bash
 PATH_PKI="/etc/pki/tls"
-HOSTNAME="ec2-xx-xxx-xxx-xxx.compute-1.amazonaws.com"  # Canvia-ho pel teu hostname públic o privat
+HOSTNAME="ec2-xx-xxx-xxx-xxx.compute-1.amazonaws.com"  # Canvia-ho pel teu hostname públic (DNS Públic)
 commonname=$HOSTNAME
 country=ES
 state=Spain
