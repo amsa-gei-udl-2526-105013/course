@@ -881,8 +881,8 @@ sudo cp "$PATH_PKI/ldapcert.pem" "$PATH_PKI/cacerts.pem"
 :::{.callout-tip}
 ## (✔️) Checkpoint
 
-- Verifica que els fitxers s'han creat correctament: `openssl x509 -in /etc/pki/tls/ldapcert.pem -noout -text`
-
+- Verifica que els fitxers s'han creat correctament: `openssl x509 -in /etc/pki/tls/ldapcert.pem -noout -text`. Heu de veure el Common Name (CN) correcte -> el DNS públic del vostre servidor. 
+  
 :::
 
 ### Afegir la configuració TLS al servidor LDAP
@@ -929,6 +929,7 @@ sudo systemctl restart slapd
 
 ## (✔️) Checkpoint
 
+- Assegura que s'han introduit amb `sudo slapcat -b cn=config | grep tls`, hauries de veure tres línies de sortida.
 - Comprova que el servei s’ha reiniciat correctament: `systemctl status slapd`
 - Comprova que està escoltant als ports LDAP i LDAPS amb: `ss -tuln | grep slapd`
 - Pots utilitzar `openssl s_client -connect localhost:636 -showcerts` per verificar que el certificat TLS s'ha carregat correctament.
