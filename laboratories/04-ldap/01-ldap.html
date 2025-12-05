@@ -1564,7 +1564,7 @@ userPassword: {SSHA512}CBVaUdQC9mVvAi+0O92J3hA+aPdiWUqf4lVr6bGRAUsFJX5aFOEb+1pSs
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Verifica que els fitxers s’han creat correctament: <code>openssl x509 -in /etc/pki/tls/ldapcert.pem -noout -text</code></li>
+<li>Verifica que els fitxers s’han creat correctament: <code>openssl x509 -in /etc/pki/tls/ldapcert.pem -noout -text</code>. Heu de veure el Common Name (CN) correcte -&gt; el DNS públic del vostre servidor.</li>
 </ul>
 </div>
 </div>
@@ -1618,6 +1618,7 @@ replace: olcTLSCertificateFile</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
+<li>Assegura que s’han introduit amb <code>sudo slapcat -b cn=config | grep tls</code>, hauries de veure tres línies de sortida.</li>
 <li>Comprova que el servei s’ha reiniciat correctament: <code>systemctl status slapd</code></li>
 <li>Comprova que està escoltant als ports LDAP i LDAPS amb: <code>ss -tuln | grep slapd</code></li>
 <li>Pots utilitzar <code>openssl s_client -connect localhost:636 -showcerts</code> per verificar que el certificat TLS s’ha carregat correctament.</li>
