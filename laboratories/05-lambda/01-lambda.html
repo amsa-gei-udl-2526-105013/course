@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jordi Mateo Fornés">
+
+<title>Laboratori: AWS Lambda, CloudWatch i Arquitectures Serverless d’Events – AMSA - Fall 2025</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c30451789a0a2bcd5e941535c675cd30.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Laboratoris</li><li class="breadcrumb-item"><a href="../../laboratories/05-lambda/01-lambda.html">Unitat 05 · Virtualització i Contenidors</a></li><li class="breadcrumb-item"><a href="../../laboratories/05-lambda/01-lambda.html">Laboratori 06 · Computació Serverless amb AWS Lambda</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../figs/logo.png" alt="AMSA Logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="../../index.html" title="Home" class="quarto-navigation-tool px-1" aria-label="Home"><i class="bi bi-house"></i></a>
+    <a href="https://github.com/amsa-gei-udl-2526-105013/course/" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+    <a href="https://cv.udl.cat/" title="Sakai" class="quarto-navigation-tool px-1" aria-label="Sakai"><i class="bi bi-person-fill"></i></a>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Informació del curs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../.././course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Planificació</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Diapositives</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/01-foundations-of-systems-administration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/02-booting-part3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema (Part 3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/03-filesystem-part3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers (Part 3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/04-authentication-part1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització (Part 1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/04-authentication-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització (Part 2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/05-virtualization-part1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 05 · Virtualització i Contenidors (Part 1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/05-virtualization-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 05 · Virtualització i Contenidors (Part 2)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Activitats</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/01-foundations-of-systems-administration/01-ex-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 1 · Configuració d’entorn de virtualització</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/01-foundations-of-systems-administration/02-ex-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 2 · Emulació en mode d’usuari amb QEMU</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 02 · Arrencada del sistema</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/01-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 1 · Booting amb MBR i BIOS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/02-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 2 · Booting amb UEFI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/03-ex-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 3 · Dual Boot amb UEFI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/04-ex-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 4 · Modificant la contrasenya de l’usuari root a través del GRUB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/05-ex-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 5 · Arrencada automàtica d’una partició LUKS amb clau en un disc secundari</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/06-ex-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 6 · Anàlisi del procés d’arrencada amb systemd</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/02-booting/07-ex-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 7 · Servei de Còpia de Seguretat Automàtica amb systemd</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 03 · Sistemes de fitxers</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/03-fs/08-ex-week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 8 · Administració bàsica de Sistemes de Fitxers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/03-fs/09-ex-week6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 9 · Configuració de RAIDs amb mdadm</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/03-fs/10-ex-week7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 10 · Administració de volums lògics amb LVM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/04-accounts/01-lord-of-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 11 · Gestió de comptes en un servidor Linux</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/04-accounts/01-pam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 12 · Autenticació de doble factor (2FA) amb PAM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 05 · Virtualització i Contenidors</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../exercises/05-virtualitzation/01-docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activitat 13 · Introducció a Docker</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Laboratoris</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 01 · Fonaments de l’Administració de Sistemes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori · Fonaments de l’Administració de Sistemes amb AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-foundations/01-aws-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 01 · Introducció a AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/01-foundations/02-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 02 · Desplegament d’una aplicació web amb AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">Networking</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/02-network/01-aws-wordpress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 03 · Desplegament d’una aplicació web amb alta disponibilitat amb AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">Storage and Services</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/03-jupyter/01-aws-jupyter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 04 · Servidor de Python al Cloud amb Emmagatzematge S3 Compartit</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 04 · Autenticació i Autorització</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/04-ldap/01-ldap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 05 · Servei d’Autenticació Centralitzada amb LDAP a AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+ <span class="menu-text">Unitat 05 · Virtualització i Contenidors</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/05-lambda/01-lambda.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Laboratori 06 · Computació Serverless amb AWS Lambda</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+ <span class="menu-text">Projectes</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 1 · Snapshots i Backups amb systemd i initramfs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/02-project/02-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 2 · Diagnòstic i Resolució d’Incidències</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/03-project/03-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 3 · Infraestructura LDAP Completa a AWS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/04-project/04-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projecte 4 · Dockerització i Orquestració d’una API a AWS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introducció" id="toc-introducció" class="nav-link active" data-scroll-target="#introducció">Introducció</a>
+  <ul class="collapse">
+  <li><a href="#objectius-del-laboratori" id="toc-objectius-del-laboratori" class="nav-link" data-scroll-target="#objectius-del-laboratori">Objectius del laboratori</a></li>
+  <li><a href="#tasques" id="toc-tasques" class="nav-link" data-scroll-target="#tasques">Tasques</a>
+  <ul class="collapse">
+  <li><a href="#tasca-1-creació-duna-funció-lambda-bàsica-zip-a-s3" id="toc-tasca-1-creació-duna-funció-lambda-bàsica-zip-a-s3" class="nav-link" data-scroll-target="#tasca-1-creació-duna-funció-lambda-bàsica-zip-a-s3">Tasca 1: Creació d’una funció Lambda bàsica (ZIP a S3)</a></li>
+  <li><a href="#exercici-dampliació" id="toc-exercici-dampliació" class="nav-link" data-scroll-target="#exercici-dampliació">Exercici d’ampliació</a></li>
+  </ul></li>
+  <li><a href="#tasca-2-observabilitat-amb-cloudwatch-de-lambda" id="toc-tasca-2-observabilitat-amb-cloudwatch-de-lambda" class="nav-link" data-scroll-target="#tasca-2-observabilitat-amb-cloudwatch-de-lambda">Tasca 2: Observabilitat amb CloudWatch de Lambda</a>
+  <ul class="collapse">
+  <li><a href="#accedir-als-logs-de-la-lambda-cloudwatch-logs" id="toc-accedir-als-logs-de-la-lambda-cloudwatch-logs" class="nav-link" data-scroll-target="#accedir-als-logs-de-la-lambda-cloudwatch-logs">Accedir als logs de la Lambda (CloudWatch Logs)</a></li>
+  <li><a href="#interpretar-les-mètriques-de-lambda-cloudwatch-metrics" id="toc-interpretar-les-mètriques-de-lambda-cloudwatch-metrics" class="nav-link" data-scroll-target="#interpretar-les-mètriques-de-lambda-cloudwatch-metrics">Interpretar les mètriques de Lambda (CloudWatch Metrics)</a></li>
+  <li><a href="#exercici-dampliació-1" id="toc-exercici-dampliació-1" class="nav-link" data-scroll-target="#exercici-dampliació-1">Exercici d’ampliació</a></li>
+  <li><a href="#tasca-3-desplegament-de-lambda-amb-contenidor-docker-a-ecr" id="toc-tasca-3-desplegament-de-lambda-amb-contenidor-docker-a-ecr" class="nav-link" data-scroll-target="#tasca-3-desplegament-de-lambda-amb-contenidor-docker-a-ecr">Tasca 3: Desplegament de Lambda amb Contenidor Docker a ECR</a></li>
+  </ul></li>
+  <li><a href="#activitat-final" id="toc-activitat-final" class="nav-link" data-scroll-target="#activitat-final">Activitat final</a></li>
+  <li><a href="#presentació-del-laboratori" id="toc-presentació-del-laboratori" class="nav-link" data-scroll-target="#presentació-del-laboratori">Presentació del laboratori</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Laboratoris</li><li class="breadcrumb-item"><a href="../../laboratories/05-lambda/01-lambda.html">Unitat 05 · Virtualització i Contenidors</a></li><li class="breadcrumb-item"><a href="../../laboratories/05-lambda/01-lambda.html">Laboratori 06 · Computació Serverless amb AWS Lambda</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Laboratori: AWS Lambda, CloudWatch i Arquitectures Serverless d’Events</h1>
+<p class="subtitle lead">Administració de Sistemes i Aplicacions</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jordi Mateo Fornés </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducció" class="level1">
+<h1>Introducció</h1>
+<section id="objectius-del-laboratori" class="level2">
+<h2 class="anchored" data-anchor-id="objectius-del-laboratori">Objectius del laboratori</h2>
+<ul>
+<li>Conceptes de computació <em>serverless</em> i execució basada en esdeveniments</li>
+<li>Creació i desplegament de funcions Lambda en dos formats:
+<ul>
+<li>ZIP a S3</li>
+<li>Contenidor Docker a ECR</li>
+</ul></li>
+<li>Integració de Lambda amb API Gateway i EventBridge</li>
+<li>Monitoratge avançat amb CloudWatch Logs, Metrics i Alarms</li>
+</ul>
+</section>
+<section id="tasques" class="level2">
+<h2 class="anchored" data-anchor-id="tasques">Tasques</h2>
+<section id="tasca-1-creació-duna-funció-lambda-bàsica-zip-a-s3" class="level3">
+<h3 class="anchored" data-anchor-id="tasca-1-creació-duna-funció-lambda-bàsica-zip-a-s3">Tasca 1: Creació d’una funció Lambda bàsica (ZIP a S3)</h3>
+<p>En aquesta tasca, crearem un funció Lambda bàsica que s’activa mitjançant una crida HTTP a través d’API Gateway.</p>
+<section id="preparar-el-codi-de-la-funció-lambda" class="level4">
+<h4 class="anchored" data-anchor-id="preparar-el-codi-de-la-funció-lambda">📘 Preparar el codi de la funció Lambda</h4>
+<p>AWS Lambda necessita un punt d’entrada anomenat <strong>handler</strong>, en aquest cas: <code>nombre_fitxer.nom_funcio</code>. Per exemple, si el fitxer es diu <code>lambda_function.py</code> i la funció és <code>lambda_handler</code>, el handler serà <code>lambda_function.lambda_handler</code>.</p>
+<ul>
+<li>Crear un fitxer anomenat <code>lambda_function.py</code> amb el següent contingut:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lambda_handler(event, context):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"message"</span>: <span class="st">"Hola des de Lambda!"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"received_event"</span>: event</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"statusCode"</span>: <span class="dv">200</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"headers"</span>: {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"body"</span>: json.dumps(response)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On:</p>
+<ul>
+<li><strong>event</strong>: Conté les dades de l’esdeveniment que va activar la funció Lambda (per exemple, una crida HTTP).</li>
+<li><strong>context</strong>: Proporciona informació sobre l’execució de la funció (com el temps restant, l’ID de la funció, etc.).</li>
+<li>La funció retorna un <em>JSON</em> que veurem quan la invoquem.</li>
+</ul>
+</section>
+<section id="empaquetar-la-funció-com-un-zip" class="level4">
+<h4 class="anchored" data-anchor-id="empaquetar-la-funció-com-un-zip">📦 Empaquetar la funció com un ZIP</h4>
+<p>Per pujar la funció a AWS Lambda, hem d’empaquetar el fitxer <code>lambda_function.py</code> en un arxiu ZIP.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zip</span> function.zip lambda_function.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pujar-el-codi-a-un-bucket-s3" class="level4">
+<h4 class="anchored" data-anchor-id="pujar-el-codi-a-un-bucket-s3">☁️ Pujar el codi a un bucket S3</h4>
+<p>Crearem un bucket S3 per allotjar el codi de la funció Lambda i pujarem l’arxiu ZIP. Per exemple, utilitzant l’AWS CLI:</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Assegura't!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Assegura’t!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No continuuis el procés sense haver iniciat sessió amb el teu compte d’owner generat al laboratori d’AWS Educate amb les credencials corresponents. <code>aws configure</code> amb regio <code>us-east-1</code>.</p>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> s3api create-bucket <span class="at">--bucket</span> your-bucket-name <span class="at">--region</span> us-east-1</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> s3 cp function.zip s3://your-bucket-name/</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># on bucket-name pot ser amsa-lambda01-jmf</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># aws s3api create-bucket --bucket amsa-lambda01-jmf --region us-east-1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># aws s3 cp function.zip s3://amsa-lambda01-jmf/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="crear-la-funció-lambda" class="level4">
+<h4 class="anchored" data-anchor-id="crear-la-funció-lambda">🚀 Crear la funció Lambda</h4>
+<p>Per crear la funció Lambda, podem utilitzar la consola d’AWS o l’AWS CLI. Aquí utilitzarem l’AWS CLI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> lambda create-function <span class="at">--function-name</span> MyLambdaFunction <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--runtime</span> python3.12 <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--role</span> arn:aws:iam::<span class="op">&lt;</span>ACCOUNT-ID<span class="op">&gt;</span>:role/<span class="op">&lt;</span>ExistingLambdaRole<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--handler</span> lambda_function.lambda_handler <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--code</span> S3Bucket=your-bucket-name,S3Key=function.zip</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># aws lambda create-function --function-name activitat01 \</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#    --runtime python3.12 \</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    --role arn:aws:iam::641672871019:role/LabRole \</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#    --handler lambda_function.lambda_handler \</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#    --code S3Bucket=amsa-lambda01-jmf,S3Key=function.zip</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Assegura't de substituir &lt;ACCOUNT-ID&gt; pel teu ID de compte AWS</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilitza LabRole com a nom del rol d'execució</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paràmetre</th>
+<th>Significat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>--function-name</code></td>
+<td>Nom visible a AWS</td>
+</tr>
+<tr class="even">
+<td><code>--runtime</code></td>
+<td>Versió de Python</td>
+</tr>
+<tr class="odd">
+<td><code>--role</code></td>
+<td>Rol IAM que permet executar la funció</td>
+</tr>
+<tr class="even">
+<td><code>--handler</code></td>
+<td>Punt d’entrada (<code>arxiu.funció</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>--code</code></td>
+<td>On està el ZIP</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="provar-la-funció" class="level4">
+<h4 class="anchored" data-anchor-id="provar-la-funció">🧪 5. Provar la funció</h4>
+<p>Per poder testejar la nostra funció labmda, craerem un fitxer <code>event.json</code> amb el següent contingut:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"nom"</span><span class="fu">:</span> <span class="st">"Nom"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>on <code>nom</code> és un paràmetre que enviarem a la funció Lambda i <code>Nom</code> és el seu valor.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">'{"nom":"Jordi"}'</span> <span class="op">&gt;</span> event.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Podem provar la funció Lambda directament des de la consola d’AWS Lambda o utilitzant l’AWS CLI. En aquest cas, utilitzarem l’AWS CLI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> lambda invoke <span class="at">--function-name</span> MyLambdaFunction <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>--payload file://event.json response.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Problemes de codificació?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Problemes de codificació?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si quan executeu la invocació obteniu un error relacionat amb la codificació, com ara: <code>Could not parse request body into json</code> o similars.</p>
+<p>Si teniu problemes amb la codificació, podeu provar amb:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> lambda invoke <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--function-name</span> MyLambdaFunction <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cli-binary-format</span> raw-in-base64-out <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--payload</span> <span class="st">'{"nom":"Nom"}'</span> <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  response.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>on <code>--cli-binary-format raw-in-base64-out</code> indica a l’AWS CLI que el payload s’envia en format brut i es codifica en base64 automàticament.</p>
+</div>
+</div>
+<p>Ara, si revisem el fitxer <code>response.json</code>, hauríem de veure la resposta de la funció Lambda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> response.json</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"message\": \"Hola des de Lambda!\", \"received_event\": {\"nom\": \"Jordi\"}}"}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>o si volem veure-ho de manera més llegible:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"statusCode"</span><span class="fu">:</span> <span class="dv">200</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"headers"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"Content-Type"</span><span class="fu">:</span> <span class="st">"application/json"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"body"</span><span class="fu">:</span> <span class="st">"{</span><span class="ch">\"</span><span class="st">message</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">Hola des de Lambda!</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">received_event</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">nom</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">Jordi</span><span class="ch">\"</span><span class="st">}}"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="invocar-la-funció-a-través-dun-endpoint-http" class="level4">
+<h4 class="anchored" data-anchor-id="invocar-la-funció-a-través-dun-endpoint-http">🌐 Invocar la funció a través d’un endpoint HTTP</h4>
+<section id="crear-una-api-rest-amb-api-gateway" class="level5">
+<h5 class="anchored" data-anchor-id="crear-una-api-rest-amb-api-gateway">Crear una API REST amb API Gateway</h5>
+<p>Per permetre que la funció Lambda sigui invocada mitjançant una crida HTTP, utilitzarem l’API Gateway per crear una API REST que redirigeixi les peticions a la funció Lambda. Ves a la secció <strong>API GATEWAY</strong>.</p>
+<p>Passos:</p>
+<ul>
+<li>Fes clic a <strong>Create API</strong></li>
+<li>Selecciona <strong>REST API</strong> → <strong>Build</strong></li>
+<li>Configura:
+<ul>
+<li>Seleccionar: <strong>New API</strong>.</li>
+<li><strong>API Name</strong>: Activitat01-API</li>
+<li><strong>Security Policy</strong>: SecurityPolicy_tls13_1_2 (per AWS Educate estàndard)</li>
+</ul></li>
+<li>Clic a <strong>Create API</strong></li>
+</ul>
+</section>
+<section id="configurar-la-ruta-i-el-mètode" class="level5">
+<h5 class="anchored" data-anchor-id="configurar-la-ruta-i-el-mètode">Configurar la ruta i el mètode</h5>
+<p>La ruta serà <code>/hola</code> i el mètode serà <code>GET</code>. Els passos són:</p>
+<ul>
+<li>Fes clic a <strong>Create Resource</strong></li>
+<li>Omple:
+<ul>
+<li><strong>Resource Name</strong>: hola</li>
+<li><strong>Resource Path</strong>: /</li>
+<li>Això crearà el recurs <code>/hola</code></li>
+</ul></li>
+<li>Clic a <strong>Create Resource</strong></li>
+<li>Selecciona el recurs <code>/hola</code> a l’arbre</li>
+<li>Clic a <strong>Create Method</strong></li>
+<li>Tria <strong>GET</strong></li>
+<li>Configura:
+<ul>
+<li><strong>Integration Type</strong>: Lambda Function</li>
+<li><strong>Use Lambda Proxy Integration</strong>: ✓</li>
+<li><strong>Lambda Function</strong>: MyLambdaFunction (<em>activitat01</em>)</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Lambda Proxy Integration">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lambda Proxy Integration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si activeu aquesta opció, la funció Lambda rebrà l’esdeveniment complet de la petició HTTP, incloent mètode, capçaleres, paràmetres de consulta, etc. Això implica que ha de retornar un format JSON estàndard (statusCode, headers, body). Si no, <em>API Gateway retornarà 502 Malformed Lambda proxy response</em>.</p>
+</div>
+</div>
+</section>
+<section id="desplegar-lapi" class="level5">
+<h5 class="anchored" data-anchor-id="desplegar-lapi">Desplegar l’API</h5>
+<p>Perquè l’API REST funcioni, cal desplegar-la en un stage:</p>
+<ul>
+<li>A la part superior, clica <strong>Actions</strong></li>
+<li>Selecciona <strong>Deploy API</strong></li>
+<li>Configura:
+<ul>
+<li><strong>Deployment stage</strong>: New Stage</li>
+<li><strong>Stage name</strong>: prod</li>
+</ul></li>
+<li>Clica <strong>Deploy</strong></li>
+<li>API Settings et mostrarà una URL pública (<strong>Default endpoint</strong>): <code>https://odv1r67fn2.execute-api.us-east-1.amazonaws.com</code></li>
+</ul>
+</section>
+<section id="provar-lapi" class="level5">
+<h5 class="anchored" data-anchor-id="provar-lapi">Provar l’API</h5>
+<p>Per testejar l’endpoint, podem utilitzar <code>curl</code> o un navegador web:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">"https://odv1r67fn2.execute-api.us-east-1.amazonaws.com/prod/hola?nom=Jordi"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Checkpoint (✔)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assegura’t que:</p>
+<ul>
+<li>La petició HTTP GET a l’endpoint de l’API Gateway retorna un codi d’estat 200 amb informació JSON com:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"message"</span><span class="fu">:</span> <span class="st">"Hola des de Lambda!"</span><span class="fu">,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"received_event"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"/hola"</span><span class="fu">,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"/hola/"</span><span class="fu">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"httpMethod"</span><span class="fu">:</span> <span class="st">"GET"</span><span class="fu">,</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="exercici-dampliació" class="level3">
+<h3 class="anchored" data-anchor-id="exercici-dampliació">Exercici d’ampliació</h3>
+<p>Modifica la funció Lambda per llegir el paràmetre <code>nom</code> de la consulta HTTP i incloure’l en la resposta. Per exemple, si la crida és:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> /hola<span class="pp">?</span>nom=Jordi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>la resposta hauria de ser:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"message"</span><span class="fu">:</span> <span class="st">"Hola, Jordi, des de Lambda!"</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"received_event"</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pots accedir als paràmetres de consulta a través de l’objecte <code>event</code> dins de la funció Lambda.</p>
+</section>
+</section>
+<section id="tasca-2-observabilitat-amb-cloudwatch-de-lambda" class="level2">
+<h2 class="anchored" data-anchor-id="tasca-2-observabilitat-amb-cloudwatch-de-lambda">Tasca 2: Observabilitat amb CloudWatch de Lambda</h2>
+<p>En aquesta tasca, configurarem el monitoratge de la funció Lambda utilitzant Amazon CloudWatch per supervisar els logs i les mètriques d’execució.</p>
+<section id="accedir-als-logs-de-la-lambda-cloudwatch-logs" class="level3">
+<h3 class="anchored" data-anchor-id="accedir-als-logs-de-la-lambda-cloudwatch-logs">Accedir als logs de la Lambda (CloudWatch Logs)</h3>
+<ul>
+<li>A la consola d’AWS, ves a <strong>CloudWatch</strong>.</li>
+<li>A la barra lateral, selecciona <strong>Logs</strong> → <strong>Log management</strong>.</li>
+<li>Cerca el grup de logs associat a la teva funció Lambda, que tindrà un nom similar a <code>/aws/lambda/MyLambdaFunction</code>.</li>
+<li>Observars una llista de streams de logs:</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Log Stream</th>
+<th>Last Event Time</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>2025/12/09/[$LATEST]562a9136345a450b95c7ed75a3165829 2025-12-09 14:20:45 (UTC)</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Logs de Lambda">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Logs de Lambda
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cada vegada que la funció Lambda s’executa, es crea un nou stream de logs amb els detalls de l’execució, incloent qualsevol missatge imprès amb <code>print()</code> dins de la funció.</p>
+</div>
+</div>
+</section>
+<section id="interpretar-les-mètriques-de-lambda-cloudwatch-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="interpretar-les-mètriques-de-lambda-cloudwatch-metrics">Interpretar les mètriques de Lambda (CloudWatch Metrics)</h3>
+<ul>
+<li>Obra un log stream per veure els detalls de l’execució.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 86%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Timestamp</th>
+<th>Message</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2025-12-09T14:20:45.476Z</td>
+<td>INIT_START Runtime Version: python:3.12.v99 Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:42569371fb03ced3fe5b4d63763662bf9b13a5d4299cb453cc55a71374cbf30c</td>
+</tr>
+<tr class="even">
+<td>2025-12-09T14:20:45.570Z</td>
+<td>START RequestId: 510c7270-9e27-4265-aecf-c8f139b89a3f Version: $LATEST</td>
+</tr>
+<tr class="odd">
+<td>2025-12-09T14:20:45.587Z</td>
+<td>END RequestId: 510c7270-9e27-4266-aecf-c8f139b89a3f</td>
+</tr>
+<tr class="even">
+<td>2025-12-09T14:20:45.587Z</td>
+<td>REPORT RequestId: 510c7270-9e27-4266-aecf-c8f-c8f139b89a3f Duration: 16.71 ms Billed Duration: 107 ms Memory Size: 128 MB Max Memory Used: 36 MB Init Duration: 89.89 ms</td>
+</tr>
+</tbody>
+</table>
+<p>En aquest log, podem veure informació important sobre l’execució de la funció Lambda:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Camp</th>
+<th>Significat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>RequestId</strong></td>
+<td>ID únic de la invocació</td>
+</tr>
+<tr class="even">
+<td><strong>Duration</strong></td>
+<td>Temps real d’execució</td>
+</tr>
+<tr class="odd">
+<td><strong>Billed Duration</strong></td>
+<td>Temps que AWS factura (arrodonit a ms)</td>
+</tr>
+<tr class="even">
+<td><strong>Init Duration</strong></td>
+<td>Temps del <em>cold start</em> (només en la primera execució del container)</td>
+</tr>
+<tr class="odd">
+<td><strong>Max Memory Used</strong></td>
+<td>Memòria utilitzada pel codi</td>
+</tr>
+</tbody>
+</table>
+<p>En el cas de l’exemple anterior, la funció Lambda va trigar 16.71 ms a executar-se, però es va facturar per 107 ms. La memòria màxima utilitzada va ser de 36 MB. La diferencia entre el temps d’execució i el temps facturat és Init Duration: 89.89 ms, que correspon al temps de <em>cold start</em>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Cold Start">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cold Start
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>És el temps addicional necessari perquè AWS inicialitzi un nou entorn d’execució per a Lambda. Aquest temps només apareix quan:</p>
+<ul>
+<li>La Lambda no ha estat invocada recentment</li>
+<li>AWS ha d’assignar un contenidor nou</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="exercici-dampliació-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercici-dampliació-1">Exercici d’ampliació</h3>
+<ul>
+<li>Configura una alarma de CloudWatch que s’activi quan la funció Lambda estigui fallant més del 5% de les invocacions en un període de 5 minuts.</li>
+</ul>
+</section>
+<section id="tasca-3-desplegament-de-lambda-amb-contenidor-docker-a-ecr" class="level3">
+<h3 class="anchored" data-anchor-id="tasca-3-desplegament-de-lambda-amb-contenidor-docker-a-ecr">Tasca 3: Desplegament de Lambda amb Contenidor Docker a ECR</h3>
+<p>En aquesta tasca, crearem una imatge Docker per a la funció Lambda i la pujarem a Amazon Elastic Container Registry (ECR).</p>
+<section id="crear-el-dockerfile" class="level4">
+<h4 class="anchored" data-anchor-id="crear-el-dockerfile">Crear el Dockerfile</h4>
+<p>Crea un fitxer anomenat <code>Dockerfile</code> amb el següent contingut:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> public.ecr.aws/lambda/python:3.12</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> lambda_function.py ${LAMBDA_TASK_ROOT}</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"lambda_function.lambda_handler"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="construir-la-imatge-docker" class="level4">
+<h4 class="anchored" data-anchor-id="construir-la-imatge-docker">Construir la imatge Docker</h4>
+<p>Construeix la imatge Docker localment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">--platform</span> linux/amd64 <span class="at">-t</span> my-lambda-container .</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># docker build --platform linux/amd64 -t activitat03 .</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="Arquitectura">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Arquitectura
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Assegura’t d’utilitzar <code>--platform linux/amd64</code> perquè Lambda no suporta ARM en totes les regions via ECR.</p>
+</div>
+</div>
+</section>
+<section id="test-local" class="level4">
+<h4 class="anchored" data-anchor-id="test-local">Test local</h4>
+<p>Prova la imatge Docker localment utilitzant l’AWS Lambda Runtime Interface Emulator (RIE):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 9000:8080 my-lambda-container</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># docker run -p 9000:8080 activitat03</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Després, en una altra terminal, invoca la funció Lambda localment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-XPOST</span> <span class="st">"http://localhost:9000/2015-03-31/functions/function/invocations"</span> <span class="dt">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-d</span> <span class="st">'{"nom": "Jordi"}'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Hauries de veure la resposta JSON de la funció Lambda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"statusCode"</span><span class="fu">:</span> <span class="dv">200</span><span class="fu">,</span> <span class="dt">"headers"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"Content-Type"</span><span class="fu">:</span> <span class="st">"application/json"</span><span class="fu">},</span> <span class="dt">"body"</span><span class="fu">:</span> <span class="st">"{</span><span class="ch">\"</span><span class="st">message</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">Hola des de Lambda!</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">received_event</span><span class="ch">\"</span><span class="st">: {</span><span class="ch">\"</span><span class="st">nom</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">Jordi</span><span class="ch">\"</span><span class="st">}}"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pujar-la-imatge-a-ecr" class="level4">
+<h4 class="anchored" data-anchor-id="pujar-la-imatge-a-ecr">Pujar la imatge a ECR</h4>
+<p>Crea un repositori ECR per a la imatge Docker:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> ecr create-repository <span class="at">--repository-name</span> my-lambda-repo</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># aws ecr create-repository --repository-name activitat03-repo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Navega al repositori creat i segueix les instruccions per pujar la imatge Docker a ECR. Fes clic a <strong>View push commands</strong> i segueix els passos indicats.</p>
+</section>
+<section id="crear-la-funció-lambda-des-de-la-imatge-docker" class="level4">
+<h4 class="anchored" data-anchor-id="crear-la-funció-lambda-des-de-la-imatge-docker">Crear la funció Lambda des de la imatge Docker</h4>
+<p>Crea la funció Lambda utilitzant la imatge Docker des de ECR:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> lambda create-function <span class="at">--function-name</span> MyDockerLambdaFunction <span class="dt">\</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--package-type</span> Image <span class="dt">\</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--code</span> ImageUri=<span class="op">&lt;</span>ECR-IMAGE-URI<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--role</span> arn:aws:iam::<span class="op">&lt;</span>ACCOUNT-ID<span class="op">&gt;</span>:role/<span class="op">&lt;</span>ExistingLambdaRole<span class="op">&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># aws lambda create-function \</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  --function-name activitat03-container \</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  --package-type Image \</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  --code ImageUri=641672871019.dkr.ecr.us-east-1.amazonaws.com/activitat03-repo:latest \</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  --role arn:aws:iam::641672871019:role/LabRole</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On <code>&lt;ECR-IMAGE-URI&gt;</code> és l’URI complet de la imatge Docker a ECR.</p>
+</section>
+<section id="provar-la-funció-lambda-des-de-la-imatge-docker" class="level4">
+<h4 class="anchored" data-anchor-id="provar-la-funció-lambda-des-de-la-imatge-docker">Provar la funció Lambda des de la imatge Docker</h4>
+<p>Prova la funció Lambda utilitzant l’AWS CLI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> lambda invoke <span class="at">--function-name</span> MyDockerLambdaFunction <span class="dt">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>--payload file://event.json response.json</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># aws lambda invoke --function-name activitat03-container \</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --payload file://event.json response.json</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Checkpoint (✔)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Revisa el fitxer <code>response.json</code> per veure la resposta de la funció Lambda. Hauries de veure una resposta similar a la que vam obtenir anteriorment.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="activitat-final" class="level2">
+<h2 class="anchored" data-anchor-id="activitat-final">Activitat final</h2>
+<p>En aquesta activitat, dissenyareu i implementareu un sistema complet basat en AWS Lambda que:</p>
+<p><img src="../../figs/laboratories/06-lambda/cell-counting-aws-lambda.png" class="img-fluid"></p>
+<p>Automatitzarem el processament d’imatges per comptar cèl·lules utilitzant una funció Lambda que s’activa quan es puja una nova imatge a un bucket S3:</p>
+<p><img src="../../figs/laboratories/06-lambda/cell-counting-problem.png" class="img-fluid"></p>
+<p>Tasques:</p>
+<ul>
+<li>Crea una funció Lambda que processi imatges per comptar cèl·lules utilitzant OpenCV utilitzant el codi proporcionat a continuació.</li>
+<li>Crea dos buckets S3 per a les imatges d’entrada i sortida.</li>
+<li>Crea un trigger perquè la funció Lambda s’activi quan es puja una nova imatge al bucket d’entrada (<strong>PUT</strong>).</li>
+<li>Verifica que la imatge processada es desa al bucket de sortida i que les cèl·lules s’han comptat correctament.</li>
+<li>Podeu utiltizar les imatges reals:
+<ul>
+<li><a href="./src/cells/IMG00197.JPG">Cèl·lules 1</a></li>
+<li><a href="./src/cells/IMG00207.JPG">Cèl·lules 2</a></li>
+<li><a href="./src/cells/IMG00226.JPG">Cèl·lules 3</a></li>
+<li><a href="./src/cells/IMG00230.JPG">Cèl·lules 4</a></li>
+<li><a href="./src/cells/IMG00232.JPG">Cèl·lules 5</a></li>
+<li><a href="./src/cells/IMG00250.JPG">Cèl·lules 6</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="presentació-del-laboratori" class="level2">
+<h2 class="anchored" data-anchor-id="presentació-del-laboratori">Presentació del laboratori</h2>
+<p>Documenta els passos seguits, els reptes trobats i les solucions implementades. Inclou captures de pantalla dels buckets S3 amb les imatges processades i els resultats obtinguts. Cal entregar un informe escrit en format PDF amb la resolució de les 3 tasques proposades. Per fer-ho, utilitzeu l’activitat de <a href="https://classroom.github.com/a/Rn_XI173">github classroom associada al laboratori</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/amsa-gei-udl-2526-105013\.github\.io\/course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

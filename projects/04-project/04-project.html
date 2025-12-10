@@ -225,6 +225,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Unitat 05 · Virtualització i Contenidors (Part 1)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../slides/05-virtualization-part2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unitat 05 · Virtualització i Contenidors (Part 2)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -472,17 +478,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">Unitat 05 · Virtualització i Contenidors</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Commuta la secció">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../laboratories/05-lambda/01-lambda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Laboratori 06 · Computació Serverless amb AWS Lambda</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
  <span class="menu-text">Projectes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Commuta la secció">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../projects/01-project/01-project.html" class="sidebar-item-text sidebar-link">
@@ -532,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks">5. Tasks</a>
   <ul class="collapse">
   <li><a href="#prac-4.1-dockerizing-the-api" id="toc-prac-4.1-dockerizing-the-api" class="nav-link" data-scroll-target="#prac-4.1-dockerizing-the-api">Prac-4.1: “Dockerizing” the API</a></li>
-  <li><a href="#prac-4.2-moving-to-docker-compose" id="toc-prac-4.2-moving-to-docker-compose" class="nav-link" data-scroll-target="#prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose 🚧⛏️👷</a></li>
+  <li><a href="#prac-4.2-moving-to-docker-compose" id="toc-prac-4.2-moving-to-docker-compose" class="nav-link" data-scroll-target="#prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose</a></li>
   <li><a href="#prac-4.3-using-aws-ecr-and-ecs" id="toc-prac-4.3-using-aws-ecr-and-ecs" class="nav-link" data-scroll-target="#prac-4.3-using-aws-ecr-and-ecs">Prac-4.3: Using AWS ECR and ECS</a></li>
   <li><a href="#prac-4.4-merging-it-with-aws-rds" id="toc-prac-4.4-merging-it-with-aws-rds" class="nav-link" data-scroll-target="#prac-4.4-merging-it-with-aws-rds">Prac-4.4: Merging it with AWS RDS!</a></li>
   </ul></li>
@@ -725,8 +748,43 @@ Consell
 </div>
 </section>
 <section id="prac-4.2-moving-to-docker-compose" class="level3">
-<h3 class="anchored" data-anchor-id="prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose 🚧⛏️👷</h3>
-<p>No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷</p>
+<h3 class="anchored" data-anchor-id="prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose</h3>
+<p>Your objective is to <strong>switch the API’s db to a postgresql, and communicate it through Docker compose</strong></p>
+<ol type="1">
+<li>Move the <em>dockerized</em> image onto a compose service. This should be a straight-forward step.</li>
+<li>Deploy a postgresql database on the compose. Don’t stress on joining them yet!</li>
+<li>Now it’s time to communicate them.</li>
+<li>Lastly, make sure that the database persists the information even if the container is removed.</li>
+</ol>
+<p>The resulting file should be a <code>docker-compose.yml</code> with both services and their respective configuration.</p>
+<p>The topology should be something like this: <img src="../../figs/projects/04-project/internal-example.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Consell
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can see the logs of the container for asserting that it is using the PostgreSQL database (you can see <a href="https://github.com/El-Despatx/cloud-template/blob/main/db/db.py#L24">the code that does this here</a> ).</p>
+<p>Also, you can connect to the database and query the tables! See <a href="https://quickref.me/postgres.html">this cheatsheet for connecting and querying postgresql</a></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Feel free to use PostgreSQL 18 or 18.1 (there’s no meaningful difference for our use case).</p>
+</div>
+</div>
 </section>
 <section id="prac-4.3-using-aws-ecr-and-ecs" class="level3">
 <h3 class="anchored" data-anchor-id="prac-4.3-using-aws-ecr-and-ecs">Prac-4.3: Using AWS ECR and ECS</h3>
