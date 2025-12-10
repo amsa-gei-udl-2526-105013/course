@@ -451,7 +451,7 @@ Tasques:
 
 ## Presentació del laboratori
 
-Documenta els passos seguits, els reptes trobats i les solucions implementades. Inclou captures de pantalla dels buckets S3 amb les imatges processades i els resultats obtinguts. Cal entregar un informe escrit en format PDF amb la resolució de les 3 tasques proposades.
+Documenta els passos seguits, els reptes trobats i les solucions implementades. Inclou captures de pantalla dels buckets S3 amb les imatges processades i els resultats obtinguts. Cal entregar un informe escrit en format PDF amb la resolució de les 3 tasques proposades. Per fer-ho, utilitzeu l'activitat de [github classroom associada al laboratori](https://classroom.github.com/a/Rn_XI173)
 
 
 
