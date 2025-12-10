@@ -2,14 +2,6 @@
 title: "Laboratori: AWS Lambda, CloudWatch i Arquitectures Serverless d’Events"
 subtitle: "Administració de Sistemes i Aplicacions"
 author: "Jordi Mateo Fornés"
-format: 
-  html:
-    theme: cosmo
-    toc: true
-    toc-depth: 3
-    df-print: paged
-  pdf:
-    geometry: margin=2.5cm
 ---
 
 # Introducció
