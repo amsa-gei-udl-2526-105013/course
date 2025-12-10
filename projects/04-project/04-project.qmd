@@ -131,8 +131,29 @@ Your goal should be to make the resulting image as **small as possible**, as tha
 The current record for the smallest image achieved by a Lleida student is **220 MB**! Can you beat it?
 :::
 
-### Prac-4.2: Moving to Docker Compose  🚧⛏️👷
-No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷
+### Prac-4.2: Moving to Docker Compose 
+Your objective is to **switch the API's db to a postgresql, and communicate it through Docker compose** 
+
+  1. Move the _dockerized_ image onto a compose service. This should be a straight-forward step.
+  2. Deploy a postgresql database on the compose. Don't stress on joining them yet!
+  3. Now it's time to communicate them.
+  4. Lastly, make sure that the database persists the information even if the container is removed.
+
+The resulting file should be a `docker-compose.yml` with both services and their respective configuration.
+
+The topology should be something like this:
+![](../../figs/projects/04-project/internal-example.png)
+
+
+::: callout-tip
+You can see the logs of the container for asserting that it is using the PostgreSQL database (you can see [the code that does this here](https://github.com/El-Despatx/cloud-template/blob/main/db/db.py#L24) ).
+
+Also, you can connect to the database and query the tables! See [this cheatsheet for connecting and querying postgresql](https://quickref.me/postgres.html)
+:::
+
+::: callout-important
+Feel free to use PostgreSQL 18 or 18.1 (there’s no meaningful difference for our use case).
+:::
 
 ### Prac-4.3: Using AWS ECR and ECS
 No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷

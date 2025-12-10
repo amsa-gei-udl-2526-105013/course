@@ -1,0 +1,467 @@
+---
+title: "Laboratori: AWS Lambda, CloudWatch i Arquitectures Serverless d’Events"
+subtitle: "Administració de Sistemes i Aplicacions"
+author: "Jordi Mateo Fornés"
+format: 
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    df-print: paged
+  pdf:
+    geometry: margin=2.5cm
+---
+
+# Introducció
+
+
+## Objectius del laboratori
+
+- Conceptes de computació *serverless* i execució basada en esdeveniments
+- Creació i desplegament de funcions Lambda en dos formats:
+  - ZIP a S3
+  - Contenidor Docker a ECR
+- Integració de Lambda amb API Gateway i EventBridge
+- Monitoratge avançat amb CloudWatch Logs, Metrics i Alarms
+
+
+## Tasques
+
+### Tasca 1: Creació d'una funció Lambda bàsica (ZIP a S3)
+
+En aquesta tasca, crearem un funció Lambda bàsica que s'activa mitjançant una crida HTTP a través d'API Gateway.
+
+
+#### 📘 Preparar el codi de la funció Lambda
+
+AWS Lambda necessita un punt d’entrada anomenat **handler**, en aquest cas: ```nombre_fitxer.nom_funcio```. Per exemple, si el fitxer es diu `lambda_function.py` i la funció és `lambda_handler`, el handler serà `lambda_function.lambda_handler`.
+
+- Crear un fitxer anomenat `lambda_function.py` amb el següent contingut:
+
+```python
+import json
+
+def lambda_handler(event, context):
+    response = {
+        "message": "Hola des de Lambda!",
+        "received_event": event
+    }
+
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps(response)
+    }
+```
+
+On:
+
+- **event**: Conté les dades de l’esdeveniment que va activar la funció Lambda (per exemple, una crida HTTP).
+- **context**: Proporciona informació sobre l’execució de la funció (com el temps restant, l’ID de la funció, etc.).
+- La funció retorna un *JSON* que veurem quan la invoquem.
+
+#### 📦 Empaquetar la funció com un ZIP
+
+Per pujar la funció a AWS Lambda, hem d’empaquetar el fitxer `lambda_function.py` en un arxiu ZIP.
+
+```bash
+zip function.zip lambda_function.py
+```
+
+#### ☁️ Pujar el codi a un bucket S3
+
+Crearem un bucket S3 per allotjar el codi de la funció Lambda i pujarem l’arxiu ZIP. Per exemple, utilitzant l’AWS CLI:
+
+:::{.callout-warning title="Assegura't!"}
+No continuuis el procés sense haver iniciat sessió amb el teu compte d'owner generat al laboratori d'AWS Educate amb les credencials corresponents. ```aws configure``` amb regio `us-east-1`.
+:::
+
+```bash
+aws s3api create-bucket --bucket your-bucket-name --region us-east-1
+aws s3 cp function.zip s3://your-bucket-name/
+# on bucket-name pot ser amsa-lambda01-jmf
+# aws s3api create-bucket --bucket amsa-lambda01-jmf --region us-east-1
+# aws s3 cp function.zip s3://amsa-lambda01-jmf/
+```
+
+#### 🚀 Crear la funció Lambda
+
+Per crear la funció Lambda, podem utilitzar la consola d’AWS o l’AWS CLI. Aquí utilitzarem l’AWS CLI:
+
+```bash
+aws lambda create-function --function-name MyLambdaFunction \
+  --runtime python3.12 \
+  --role arn:aws:iam::<ACCOUNT-ID>:role/<ExistingLambdaRole> \
+  --handler lambda_function.lambda_handler \
+  --code S3Bucket=your-bucket-name,S3Key=function.zip
+
+# aws lambda create-function --function-name activitat01 \
+#    --runtime python3.12 \
+#    --role arn:aws:iam::641672871019:role/LabRole \
+#    --handler lambda_function.lambda_handler \
+#    --code S3Bucket=amsa-lambda01-jmf,S3Key=function.zip
+
+# Assegura't de substituir <ACCOUNT-ID> pel teu ID de compte AWS
+# Utilitza LabRole com a nom del rol d'execució
+```
+
+| Paràmetre         | Significat                            |
+| ----------------- | ------------------------------------- |
+| `--function-name` | Nom visible a AWS                     |
+| `--runtime`       | Versió de Python                      |
+| `--role`          | Rol IAM que permet executar la funció |
+| `--handler`       | Punt d’entrada (`arxiu.funció`)       |
+| `--code`          | On està el ZIP                        |
+
+
+#### 🧪 5. Provar la funció
+
+Per poder testejar la nostra funció labmda, craerem un fitxer `event.json` amb el següent contingut:
+
+```json
+{
+  "nom": "Nom"
+}
+```
+
+on `nom` és un paràmetre que enviarem a la funció Lambda i `Nom` és el seu valor.
+
+```bash
+echo -e '{"nom":"Jordi"}' > event.json
+```
+
+Podem provar la funció Lambda directament des de la consola d’AWS Lambda o utilitzant l’AWS CLI.  En aquest cas, utilitzarem l’AWS CLI:
+
+```bash
+aws lambda invoke --function-name MyLambdaFunction \
+--payload file://event.json response.json
+```
+
+:::{.callout-warning title="Problemes de codificació?"}
+
+Si quan executeu la invocació obteniu un error relacionat amb la codificació, com ara: `Could not parse request body into json` o similars.
+
+
+Si teniu problemes amb la codificació, podeu provar amb:
+
+```bash
+aws lambda invoke \
+  --function-name MyLambdaFunction \
+  --cli-binary-format raw-in-base64-out \
+  --payload '{"nom":"Nom"}' \
+  response.json
+```
+
+on `--cli-binary-format raw-in-base64-out` indica a l’AWS CLI que el payload s’envia en format brut i es codifica en base64 automàticament.
+
+:::
+
+Ara, si revisem el fitxer `response.json`, hauríem de veure la resposta de la funció Lambda:
+
+```bash
+cat response.json
+#{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"message\": \"Hola des de Lambda!\", \"received_event\": {\"nom\": \"Jordi\"}}"}
+```
+
+o si volem veure-ho de manera més llegible:
+
+```json
+{
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"message\": \"Hola des de Lambda!\", \"received_event\": {\"nom\": \"Jordi\"}}"
+}
+```
+
+#### 🌐 Invocar la funció a través d’un endpoint HTTP
+
+##### Crear una API REST amb API Gateway
+
+Per permetre que la funció Lambda sigui invocada mitjançant una crida HTTP, utilitzarem l’API Gateway per crear una API REST que redirigeixi les peticions a la funció Lambda. Ves a la secció **API GATEWAY**.
+
+Passos:
+
+- Fes clic a **Create API**
+- Selecciona **REST API** → **Build**
+- Configura:
+  - Seleccionar: **New API**.
+  - **API Name**: Activitat01-API
+  - **Security Policy**: SecurityPolicy_tls13_1_2 (per AWS Educate estàndard)
+- Clic a **Create API**
+
+##### Configurar la ruta i el mètode
+
+La ruta serà `/hola` i el mètode serà `GET`. Els passos són:
+
+- Fes clic a **Create Resource**
+- Omple:
+  - **Resource Name**: hola
+  - **Resource Path**: /
+  - Això crearà el recurs `/hola`
+- Clic a **Create Resource**
+- Selecciona el recurs `/hola` a l’arbre
+- Clic a **Create Method**
+- Tria **GET**
+- Configura:
+  - **Integration Type**: Lambda Function
+  - **Use Lambda Proxy Integration**: ✓ 
+  - **Lambda Function**: MyLambdaFunction (*activitat01*)
+
+:::{.callout-note title="Lambda Proxy Integration"}
+Si activeu aquesta opció, la funció Lambda rebrà l’esdeveniment complet de la petició HTTP, incloent mètode, capçaleres, paràmetres de consulta, etc. Això implica que ha de retornar un format JSON estàndard (statusCode, headers, body). Si no, *API Gateway retornarà 502 Malformed Lambda proxy response*.
+:::
+
+
+##### Desplegar l’API
+
+Perquè l’API REST funcioni, cal desplegar-la en un stage: 
+
+- A la part superior, clica **Actions**
+- Selecciona **Deploy API**
+- Configura:
+  - **Deployment stage**: New Stage
+  - **Stage name**: prod
+- Clica **Deploy**
+- API Settings et mostrarà una URL pública (**Default endpoint**): `https://odv1r67fn2.execute-api.us-east-1.amazonaws.com`
+
+
+##### Provar l’API
+
+Per testejar l’endpoint, podem utilitzar `curl` o un navegador web:
+
+```bash
+curl "https://odv1r67fn2.execute-api.us-east-1.amazonaws.com/prod/hola?nom=Jordi"
+``` 
+
+::: {.callout-tip}
+## Checkpoint (✔)
+Assegura’t que:
+
+- La petició HTTP GET a l’endpoint de l’API Gateway retorna un codi d’estat 200 amb informació JSON com:
+```json
+{
+  "message": "Hola des de Lambda!",
+  "received_event": {
+    "resource": "/hola",
+    "path": "/hola/",
+    "httpMethod": "GET",
+    ... 
+}
+```
+
+:::
+
+### Exercici d'ampliació
+
+Modifica la funció Lambda per llegir el paràmetre `nom` de la consulta HTTP i incloure'l en la resposta. Per exemple, si la crida és:
+
+```bash
+GET /hola?nom=Jordi
+```
+la resposta hauria de ser:
+
+```json
+{
+  "message": "Hola, Jordi, des de Lambda!",
+  "received_event": { ... }
+}
+```
+
+Pots accedir als paràmetres de consulta a través de l'objecte `event` dins de la funció Lambda.
+
+## Tasca 2: Observabilitat amb CloudWatch de Lambda
+
+En aquesta tasca, configurarem el monitoratge de la funció Lambda utilitzant Amazon CloudWatch per supervisar els logs i les mètriques d'execució.
+
+### Accedir als logs de la Lambda (CloudWatch Logs)
+
+- A la consola d'AWS, ves a **CloudWatch**.
+- A la barra lateral, selecciona **Logs** → **Log management**.
+- Cerca el grup de logs associat a la teva funció Lambda, que tindrà un nom similar a `/aws/lambda/MyLambdaFunction`.
+- Observars una llista de streams de logs:
+
+| Log Stream | Last Event Time        |
+|------------|------------------------|
+2025/12/09/[$LATEST]562a9136345a450b95c7ed75a3165829
+2025-12-09 14:20:45 (UTC)
+
+:::{.callout-tip title="Logs de Lambda"}
+Cada vegada que la funció Lambda s'executa, es crea un nou stream de logs amb els detalls de l'execució, incloent qualsevol missatge imprès amb `print()` dins de la funció.
+:::
+
+### Interpretar les mètriques de Lambda (CloudWatch Metrics)
+
+- Obra un log stream per veure els detalls de l'execució.
+
+|Timestamp            | Message                                                                                                                            |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------|
+|2025-12-09T14:20:45.476Z| INIT_START Runtime Version: python:3.12.v99 Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:42569371fb03ced3fe5b4d63763662bf9b13a5d4299cb453cc55a71374cbf30c |
+|2025-12-09T14:20:45.570Z| START RequestId: 510c7270-9e27-4265-aecf-c8f139b89a3f Version: $LATEST                                                        |
+|2025-12-09T14:20:45.587Z| END RequestId: 510c7270-9e27-4266-aecf-c8f139b89a3f                                                                  |
+|2025-12-09T14:20:45.587Z| REPORT RequestId: 510c7270-9e27-4266-aecf-c8f-c8f139b89a3f Duration: 16.71 ms Billed Duration: 107 ms Memory Size: 128 MB Max Memory Used: 36 MB Init Duration: 89.89 ms |
+
+En aquest log, podem veure informació important sobre l'execució de la funció Lambda:
+
+| Camp                | Significat                                                          |
+| ------------------- | ------------------------------------------------------------------- |
+| **RequestId**       | ID únic de la invocació                                             |
+| **Duration**        | Temps real d’execució                                               |
+| **Billed Duration** | Temps que AWS factura (arrodonit a ms)                              |
+| **Init Duration**   | Temps del *cold start* (només en la primera execució del container) |
+| **Max Memory Used** | Memòria utilitzada pel codi                                         |
+
+En el cas de l'exemple anterior, la funció Lambda va trigar 16.71 ms a executar-se, però es va facturar per 107 ms. La memòria màxima utilitzada va ser de 36 MB. La diferencia entre el temps d'execució i el temps facturat és Init Duration: 89.89 ms, que correspon al temps de *cold start*.
+
+:::{.callout-note title="Cold Start"}
+És el temps addicional necessari perquè AWS inicialitzi un nou entorn d’execució per a Lambda.
+Aquest temps només apareix quan:
+
+- La Lambda no ha estat invocada recentment
+- AWS ha d’assignar un contenidor nou
+:::
+
+### Exercici d'ampliació
+
+- Configura una alarma de CloudWatch que s'activi quan la funció Lambda estigui fallant més del 5% de les invocacions en un període de 5 minuts.
+
+### Tasca 3: Desplegament de Lambda amb Contenidor Docker a ECR
+
+En aquesta tasca, crearem una imatge Docker per a la funció Lambda i la pujarem a Amazon Elastic Container Registry (ECR).
+
+#### Crear el Dockerfile
+
+Crea un fitxer anomenat `Dockerfile` amb el següent contingut:
+
+```Dockerfile
+FROM public.ecr.aws/lambda/python:3.12
+
+COPY lambda_function.py ${LAMBDA_TASK_ROOT}
+
+CMD ["lambda_function.lambda_handler"]
+```
+
+#### Construir la imatge Docker
+
+Construeix la imatge Docker localment:
+
+```bash
+docker build --platform linux/amd64 -t my-lambda-container .
+# docker build --platform linux/amd64 -t activitat03 .
+```
+
+:::{.callout-note title="Arquitectura"}
+Assegura't d'utilitzar `--platform linux/amd64` perquè Lambda no suporta ARM en totes les regions via ECR.
+:::
+
+#### Test local
+
+Prova la imatge Docker localment utilitzant l’AWS Lambda Runtime Interface Emulator (RIE):
+
+```bash
+docker run -p 9000:8080 my-lambda-container
+# docker run -p 9000:8080 activitat03
+```
+
+Després, en una altra terminal, invoca la funció Lambda localment:
+
+```bash
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" \
+    -d '{"nom": "Jordi"}'
+```
+
+Hauries de veure la resposta JSON de la funció Lambda:
+
+```json
+{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"message\": \"Hola des de Lambda!\", \"received_event\": {\"nom\": \"Jordi\"}}"}
+```
+
+#### Pujar la imatge a ECR
+
+Crea un repositori ECR per a la imatge Docker:
+
+```bash
+aws ecr create-repository --repository-name my-lambda-repo
+# aws ecr create-repository --repository-name activitat03-repo
+```
+
+Navega al repositori creat i segueix les instruccions per pujar la imatge Docker a ECR. Fes clic a **View push commands** i segueix els passos indicats.
+
+#### Crear la funció Lambda des de la imatge Docker
+
+Crea la funció Lambda utilitzant la imatge Docker des de ECR:
+
+```bash
+aws lambda create-function --function-name MyDockerLambdaFunction \
+  --package-type Image \
+  --code ImageUri=<ECR-IMAGE-URI> \
+  --role arn:aws:iam::<ACCOUNT-ID>:role/<ExistingLambdaRole>
+
+# aws lambda create-function \
+#  --function-name activitat03-container \
+#  --package-type Image \
+#  --code ImageUri=641672871019.dkr.ecr.us-east-1.amazonaws.com/activitat03-repo:latest \
+#  --role arn:aws:iam::641672871019:role/LabRole
+```
+
+On `<ECR-IMAGE-URI>` és l'URI complet de la imatge Docker a ECR.
+
+#### Provar la funció Lambda des de la imatge Docker
+
+Prova la funció Lambda utilitzant l’AWS CLI:
+
+```bash
+aws lambda invoke --function-name MyDockerLambdaFunction \
+--payload file://event.json response.json
+# aws lambda invoke --function-name activitat03-container \
+# --payload file://event.json response.json
+```
+
+::: {.callout-tip}
+## Checkpoint (✔)
+Revisa el fitxer `response.json` per veure la resposta de la funció Lambda. Hauries de veure una resposta similar a la que vam obtenir anteriorment.
+:::
+
+## Activitat final
+
+En aquesta activitat, dissenyareu i implementareu un sistema complet basat en AWS Lambda que:
+
+![](../../figs/laboratories/06-lambda/cell-counting-aws-lambda.png)
+
+Automatitzarem el processament d’imatges per comptar cèl·lules utilitzant una funció Lambda que s’activa quan es puja una nova imatge a un bucket S3:
+
+![](../../figs/laboratories/06-lambda/cell-counting-problem.png)
+
+Tasques:
+
+- Crea una funció Lambda que processi imatges per comptar cèl·lules utilitzant OpenCV utilitzant el codi proporcionat a continuació.
+- Crea dos buckets S3 per a les imatges d'entrada i sortida.
+- Crea un trigger perquè la funció Lambda s'activi quan es puja una nova imatge al bucket d'entrada (**PUT**).
+- Verifica que la imatge processada es desa al bucket de sortida i que les cèl·lules s'han comptat correctament.
+- Podeu utiltizar les imatges reals: 
+  - [Cèl·lules 1](./src/cells/IMG00197.JPG)
+  - [Cèl·lules 2](./src/cells/IMG00207.JPG)
+  - [Cèl·lules 3](./src/cells/IMG00226.JPG)
+  - [Cèl·lules 4](./src/cells/IMG00230.JPG)
+  - [Cèl·lules 5](./src/cells/IMG00232.JPG)
+  - [Cèl·lules 6](./src/cells/IMG00250.JPG)
+
+## Presentació del laboratori
+
+Documenta els passos seguits, els reptes trobats i les solucions implementades. Inclou captures de pantalla dels buckets S3 amb les imatges processades i els resultats obtinguts. Cal entregar un informe escrit en format PDF amb la resolució de les 3 tasques proposades.
+
+
+
+
+
+
+
+
+
+
+
+
+

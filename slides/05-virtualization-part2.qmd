@@ -1,0 +1,83 @@
+---
+title: "Virtualització i Contenidors (Part 2)"
+subtitle: "Unitat 5 · Administració i Manteniment de Sistemes i Aplicacions (AMSA)"
+author: "Jordi Mateo Fornés"
+format: 
+  revealjs:
+    theme: simple
+    transition: fade
+    slide-number: true
+    incremental: true
+    css: styles.css
+    footer: "Unitat 5 · Administració i Manteniment de Sistemes i Aplicacions (AMSA) [🏠](/index.html)</a>"
+---
+
+## Què és *serverless*? {.smaller}
+
+La computació *serverless* és un model on el desenvolupador pot executar codi sense gestionar servidors, ni màquines virtuals, ni autoscalers. El proveïdor cloud (AWS, en el nostre cas) s’encarrega automàticament de:
+
+1. Aprovisionar i escalar la infraestructura,
+2. Executar el codi quan cal,
+3. Facturar només pel temps real de computació,
+4. Gestionar manteniment, parches i disponibilitat.
+  
+:::{.center-container .fragment} 
+En lloc de pensar en servidors, pensem en funcions i esdeveniments: una petició HTTP, una pujada a S3, un missatge a una cua, un cron, etc. AWS Lambda és el servei principal que implementa aquest model.
+:::
+
+## Per què el model serverless? {.smaller}
+
+- Abans del **serverless**, els desenvolupadors havien de crear i administrar màquines virtuals (EC2), configurar sistemes operatius, mantenir paquets, gestionar escalaments…
+
+- Els contenidors (Docker) van simplificar molt aquest procés, però encara requerien:
+
+  - clusters (ECS, Kubernetes),
+  - nodes EC2,  
+  - configuracions **autoscaling**,
+  - gestió de capacitat i disponibilitat.
+
+:::{.center-container .fragment}
+El serverless elimina aquest nivell de gestió i permet centrar-se exclusivament en el codi i la lògica de negoci.
+:::
+
+## Contenidors i serverless: com es relacionen? {.smaller}
+
+Tot i que sembli que **serverless** i **contenidors** són models alternatius, en realitat Lambda executa internament cada funció dins d’un contenidor Linux.
+
+La diferència és que:
+
+- en contenidors tradicionals, tu gestiones la infraestructura;
+- en serverless, AWS gestiona tot el cicle de vida del contenidor.
+
+:::{.center-container .fragment}
+Això fa que Lambda sigui un model **sobre** contenidors, però sense exposar-ne la complexitat.
+:::
+
+## Comparativa {.smaller}
+
+| Aspecte             | Contenidors (Docker/K8s) | Serverless (Lambda)   |
+| ------------------- | ------------------------ | --------------------- |
+| Control del sistema | Alt                      | Limitat               |
+| Escalat             | Manual o configurat      | Automàtic             |
+| Facturació          | Per hores/CPU reservada  | Per mil·lisegons      |
+| Estat               | Llargues sessions        | Execucions curtes     |
+| Casos d’ús          | Microserveis persistents | Funcions event-driven |
+
+## Casos d’ús típics de Lambda {.smaller}
+
+- Processament d’esdeveniments (pujades a S3, missatges a SQS, etc.)
+- Backend per a aplicacions web i mòbils
+- Tasques programades (cron jobs)
+- Processament de dades en temps real
+- Automatització d’infraestructura (DevOps)
+
+## Limitacions de Lambda {.smaller}
+
+- Temps d’execució limitat (fins a 15 minuts)
+- Limitacions de memòria i CPU
+- No és adequat per a aplicacions amb estat o sessions llargues
+- Pot ser més difícil de depurar i monitoritzar
+
+## Exercici pràctic
+
+- [Laboratori 06 · Computació Serverless amb AWS Lambda](../laboratories/05-lambda/01-lambda.qmd)
