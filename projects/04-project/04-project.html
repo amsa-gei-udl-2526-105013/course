@@ -556,8 +556,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#prac-4.1-dockerizing-the-api" id="toc-prac-4.1-dockerizing-the-api" class="nav-link" data-scroll-target="#prac-4.1-dockerizing-the-api">Prac-4.1: “Dockerizing” the API</a></li>
   <li><a href="#prac-4.2-moving-to-docker-compose" id="toc-prac-4.2-moving-to-docker-compose" class="nav-link" data-scroll-target="#prac-4.2-moving-to-docker-compose">Prac-4.2: Moving to Docker Compose</a></li>
-  <li><a href="#prac-4.3-using-aws-ecr-and-ecs" id="toc-prac-4.3-using-aws-ecr-and-ecs" class="nav-link" data-scroll-target="#prac-4.3-using-aws-ecr-and-ecs">Prac-4.3: Using AWS ECR and ECS</a></li>
-  <li><a href="#prac-4.4-merging-it-with-aws-rds" id="toc-prac-4.4-merging-it-with-aws-rds" class="nav-link" data-scroll-target="#prac-4.4-merging-it-with-aws-rds">Prac-4.4: Merging it with AWS RDS!</a></li>
+  <li><a href="#prac-4.3-using-aws-ecr" id="toc-prac-4.3-using-aws-ecr" class="nav-link" data-scroll-target="#prac-4.3-using-aws-ecr">Prac-4.3: Using AWS ECR</a></li>
   </ul></li>
   <li><a href="#sec-setup" id="toc-sec-setup" class="nav-link" data-scroll-target="#sec-setup">6. Setting up the server!</a>
   <ul class="collapse">
@@ -786,13 +785,92 @@ Important
 </div>
 </div>
 </section>
-<section id="prac-4.3-using-aws-ecr-and-ecs" class="level3">
-<h3 class="anchored" data-anchor-id="prac-4.3-using-aws-ecr-and-ecs">Prac-4.3: Using AWS ECR and ECS</h3>
-<p>No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷</p>
+<section id="prac-4.3-using-aws-ecr" class="level3">
+<h3 class="anchored" data-anchor-id="prac-4.3-using-aws-ecr">Prac-4.3: Using AWS ECR</h3>
+<section id="deliverable" class="level4">
+<h4 class="anchored" data-anchor-id="deliverable">Deliverable</h4>
+<p>For the deliverable, you have to create a <code>/documentation/prac_4_3</code> folder on your github project <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>This folder, will contain:</p>
+<ul>
+<li>the screenshots of the steps you’re doing to create the aws services (no need to make screenshots about login to aws, etc, etc), just the ones that shows how you’re creating the services and one that asserts that your service is running (an http request and response to the public api…)</li>
+<li>A markdown file named <code>README.md</code> that explains in less than one paragraph each step, referencing the screenshoot you’re talking about.</li>
+</ul>
+<p>An example of the file would be:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Deploying the ECS service</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 1: One step</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Explain something here, we reference it on the following image:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="al">![](my_image.png)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 2: Two step</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>We do X because Y, the following image shows how to configure it:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="al">![](my_other_image.png)</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="prac-4.4-merging-it-with-aws-rds" class="level3">
-<h3 class="anchored" data-anchor-id="prac-4.4-merging-it-with-aws-rds">Prac-4.4: Merging it with AWS RDS!</h3>
-<p>No worries! We’ll upload it as soon as the date arrives. 🚧⛏️👷</p>
+<section id="description" class="level4">
+<h4 class="anchored" data-anchor-id="description">Description</h4>
+<p>Your goal is to <strong>migrate the dockerized API</strong> developed in <strong>PRAC-4.1</strong> and the <strong>container orchestration</strong> implemented in <strong>PRAC-4.2</strong> to the <strong>AWS cloud</strong>.</p>
+<p><img src="../../figs/projects/04-project/act-4-3-blackbox.png" class="img-fluid"></p>
+<p>The API’s database layer must be migrated to <strong>Amazon RDS</strong>, using <strong>PostgreSQL (engine version 18.1-R1)</strong>.<br>
+For container deployment, you will use <strong>Amazon Elastic Container Registry (ECR)</strong> to store your images and <strong>Amazon Elastic Container Service (ECS)</strong> for execution.</p>
+<p><strong>You are strictly forbidden to deploy using a raw EC2 instance running Docker.</strong><br>
+The deployment <strong>must</strong> follow the network architecture shown in the diagram and <strong>cannot be modified under any circumstances</strong>.</p>
+</section>
+<section id="architecture-requirements-tips" class="level4">
+<h4 class="anchored" data-anchor-id="architecture-requirements-tips">Architecture Requirements &amp; Tips</h4>
+<section id="ecs-configuration" class="level6">
+<h6 class="anchored" data-anchor-id="ecs-configuration">ECS Configuration</h6>
+<ul>
+<li><strong>Launch Type:</strong> <code>FARGATE</code> (mandatory)</li>
+<li><strong>Operating System / Architecture:</strong>
+<ul>
+<li><code>Linux/X86_64</code> if the container image was built on an x86_64 machine<br>
+</li>
+<li><code>Linux/ARM64</code> if built on Apple Silicon (M1/M2/M3/M4) or Windows Snapdragon<br>
+</li>
+</ul></li>
+<li><strong>Logging:</strong> Keep all default logging settings<br>
+</li>
+<li><strong>Cluster:</strong> Deploy the task in <strong><code>amsa2526-ECSCluster</code></strong><br>
+</li>
+<li><strong>Auto-Scaling:</strong>
+<ul>
+<li>Enable service auto-scaling<br>
+</li>
+<li>Allow scaling up to <strong>5 running tasks</strong> during high-demand periods<br>
+</li>
+</ul></li>
+<li><strong>Networking:</strong> Enable <strong>Public IP assignment</strong><br>
+</li>
+<li><strong>Registry:</strong> Push the final API image to <strong>Amazon ECR</strong></li>
+</ul>
+</section>
+<section id="database-migration-rds" class="level6">
+<h6 class="anchored" data-anchor-id="database-migration-rds"><strong>Database Migration (RDS)</strong></h6>
+<ul>
+<li>Use <strong>Amazon RDS – PostgreSQL (18.1-R1)</strong>.<br>
+</li>
+<li>Configure your API to connect to the RDS instance following the prescribed network architecture.</li>
+</ul>
+</section>
+<section id="mandatory-network-architecture" class="level6">
+<h6 class="anchored" data-anchor-id="mandatory-network-architecture"><strong>Mandatory Network Architecture</strong></h6>
+<p>The final deployment <strong>must match exactly</strong> the structure illustrated in the diagram below.<br>
+<strong>No modifications are allowed.</strong></p>
+<p><img src="../../figs/projects/04-project/act_4_full_schema.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="warning-attempting-this-in-a-real-production-environment-may-cause-serious-issues." class="level4">
+<h4 class="anchored" data-anchor-id="warning-attempting-this-in-a-real-production-environment-may-cause-serious-issues.">⚠️ Warning: Attempting this in a real production environment may cause serious issues.</h4>
+<p>Please note that this is a “playground” lab. In a real production environment, you would likely need to take the following points into account:</p>
+<ol type="1">
+<li><p>Hardcoding the password and potentially sensitive env variables on the ECS specification isn’t the best security practice. <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">You’ll probably want to use the AWS Secrets Manager or the AWS Systems Manager Parameter Store for storing secret materials</a>.</p></li>
+<li><p>RDS it’s not a cheap service! In fact, <a href="https://calculator.aws/#/createCalculator/RDSPostgreSQL">you can have fun calculating the price here</a> <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Probably if you are using this on production you’ll have to optimize your SQL-Queries (this means, don’t use an <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">ORM</a>, like for example: <a href="https://www.sqlalchemy.org/">SQLAlchemy</a> for python, <a href="https://www.prisma.io/">prisma</a> for next-js, etc.). You can also use other “cheaper” services like for example <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html">Aurora Serverless V2</a></p></li>
+</ol>
+</section>
 </section>
 </section>
 <section id="sec-setup" class="level2">
@@ -800,11 +878,11 @@ Important
 <section id="cloning-the-repository-and-set-it-up" class="level3">
 <h3 class="anchored" data-anchor-id="cloning-the-repository-and-set-it-up">Cloning the repository and set it up:</h3>
 <p>Remember that, once you entered the Github Classroom on <a href="../../projects/04-project/04-project.html#delivery">section 2</a>, you will have to clone your repository with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>ssh_address_of_your_git_repository<span class="op">&gt;</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>ssh_address_of_your_git_repository<span class="op">&gt;</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then, setup a virtual environment for the python project, which can be done with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now, you’re ready to run the <code>users api server</code>, do it with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run fastapi run</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run fastapi run</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="evaluation" class="level2">
@@ -813,8 +891,7 @@ Important
 <ul>
 <li>4.1: Docker → 15%.</li>
 <li>4.2: Docker-Compose → 15%.</li>
-<li>4.3: ECR &amp; ECS → 15%.</li>
-<li>4.4: RDS → 15%.</li>
+<li>4.3: ECR &amp; ECS → 30%.</li>
 <li>Best practices are used → 40%.
 <ul>
 <li>How small is your Docker image?</li>
@@ -861,6 +938,8 @@ Important
 ...</code></pre>
 <p>But, of course, this would be slow as f**k, that’s why we use databases.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>If you don’t know what environment variables are (you should know it from the Operating Systems course), you can have a <a href="https://hpc-wiki.info/hpc/Introduction_to_Linux_in_HPC/Environment_variables">great explanation on the hpc-wiki</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This means that you’ll probably want to add this folder to the .dockerignore….<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Our current configuration, which has sh*t specifications, costs us 183.60 USD per year, which are 15.3 USD per month! 💀<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
