@@ -441,6 +441,11 @@ Tasques:
   - [Cèl·lules 5](./src/cells/IMG00232.JPG)
   - [Cèl·lules 6](./src/cells/IMG00250.JPG)
 
+#### Codi de la funció Lambda
+
+Podeu utilitzar el següent codi per a la funció Lambda que processa les imatges [`lambda_function.py`](./src/lambda_function.py).
+
+
 ## Presentació del laboratori
 
 Documenta els passos seguits, els reptes trobats i les solucions implementades. Inclou captures de pantalla dels buckets S3 amb les imatges processades i els resultats obtinguts. Cal entregar un informe escrit en format PDF amb la resolució de les 3 tasques proposades. Per fer-ho, utilitzeu l'activitat de [github classroom associada al laboratori](https://classroom.github.com/a/Rn_XI173)
