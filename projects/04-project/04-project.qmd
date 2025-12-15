@@ -186,6 +186,8 @@ We do X because Y, the following image shows how to configure it:
 ![](my_other_image.png)
 ```
 
+Finally, remember to create a cloud stack that allows to automatically recreate your architecture. It is important to include the minimun required to run your archictecture, **all the innecesary** or **not justified resources will be penalized**.
+
 #### Description
 
 Your goal is to **migrate the dockerized API** developed in **PRAC-4.1** and the **container orchestration** implemented in **PRAC-4.2** to the **AWS cloud**.  
@@ -291,7 +293,6 @@ Your final score will come from various parts:
 
 Please don't hesitate to ask the teachers **any doubts**, there are no dumb questions, we're here to help.
 
-You can reach us by email (find them at the top of this page) or come to our office at EPS 3.07 (we're here mostly during mornings).
 
 [^1]: The `http://localhost:8000/docs` webpage, isn't the only way to "test" the endpoints of the API. Our server exposes a connection http on the port `8000`, so any clients that support the `http` protocol could be used instead. If you're curious, you can use another client like for example [postman (see video here)](https://www.youtube.com/watch?v=PfujVETI-i4) or [if you want a cli tool that is installed on every linux distro, just use curl](https://www.youtube.com/watch?v=Xy7fDxz39FM)
 

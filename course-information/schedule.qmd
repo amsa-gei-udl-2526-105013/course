@@ -38,3 +38,5 @@ A continuació es presenta un calendari complet dels temes, el contingut del cur
 | 13 | Laboratori |03/12/25 | **Unitat 05**: Virtualització i Contenidors (Part 1)  |  [📖](../slides/05-virtualization-part2.qmd) |    |  |     | [📝](../exercises/05-virtualitzation/01-docker.qmd)
 | 14    | Festiu             |08/12/25    | |  |    |  |  |  |
 | 14 | Laboratori |10/12/25 | **AWS: Serverless**  | [📖](../slides/05-virtualization-part2.qmd) |    | [🧪](/laboratories/05-lambda/01-lambda.qmd) |
+| 15 | Laboratori  | 15/12/25   | Projecte 4      | | | | | | |
+| 15 | Teoria | 17/12/25   |**Repàs Parcial**  |    | | | | | | |
