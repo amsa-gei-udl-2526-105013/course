@@ -186,7 +186,6 @@ We do X because Y, the following image shows how to configure it:
 ![](my_other_image.png)
 ```
 
-Finally, remember to create a cloud stack that allows to automatically recreate your architecture. It is important to include the minimun required to run your archictecture, **all the innecesary** or **not justified resources will be penalized**.
 
 #### Description
 
